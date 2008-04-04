@@ -1,0 +1,1 @@
+zip -r Output/docbook.zip jars xsl docbook.pdf generate generate.bat template
