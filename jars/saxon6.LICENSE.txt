@@ -1,0 +1,65 @@
+SAXON: Conditions of Use
+
+Saxon
+-----------
+
+The contents of the downloaded file (saxon.zip), with the exception of the AElfred parser (see below), are subject to the Mozilla Public License Version 1.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
+
+Software distributed under the License is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the specific language governing rights and limitations under the License.
+
+The Original Code of SAXON comprises all those components which are not explicitly attributed to other parties. It does not include the AElfred parser, which is redistributed under the licence described below.
+
+The Initial Developer of the Original Code was Michael Kay. Individual modules identified as being created by James Clark, David Megginson, or John Cowan include separate IPR notices. All Rights Reserved.
+
+Until January 2001 Michael Kay worked for International Computers Limited (ICL, now part of Fujitsu), and from February 2001 to January 2004 he worked for Software AG. These two companies both sponsored the development of Saxon and authorised its release under this license, but are not themselves parties to the license. Michael Kay now runs his own company, Saxonica, which has taken over all responsibility for Saxon development and support.
+
+For reasons of continuity, the icl.com domain name is retained in package names and namespace URIs with the tacit consent of ICL, but this should not be taken to imply any ongoing ICL involvement.
+
+If you produce a product that includes or requires SAXON, please refer to it as "The SAXON XSLT Processor from Michael Kay", and include the URL of the home page, which is at http://saxon.sourceforge.net/.
+
+There is no guarantee of technical support, though I am usually able to answer enquiries within a few days. Please subscribe to the mailing list available at http://lists.sourceforge.net/lists/listinfo/saxon-help and raise any enquiries there. Also check the Saxon project pages on sourceforge for details of known errors; all bugs are listed there as soon as I have sufficient evidence to describe the nature of the problem.
+
+AElfred
+------------
+Included in the Saxon distribution is a modified version of the AElfred XML parser originally developed by David Megginson at Microstar (no longer in existence). I have taken the relevant part of David Brownell's AElfred2 distribution, repackaged it, and fixed a few bugs. All changes are clearly documented in the source code.
+
+This is distributed under the terms of Microstar's terms and conditions, which are as follows:
+	
+
+AElfred, Version 1.2
+Microstar's Java-Based XML Parser
+Copyright (c) 1997, 1998 by Microstar Software Ltd.
+Home Page: http://www.microstar.com/XML/
+
+AElfred is free for both commercial and non-commercial use and redistribution, provided that Microstar's copyright and disclaimer are retained intact. You are free to modify AElfred for your own use and to redistribute AElfred with your modifications, provided that the modifications are clearly documented.
+
+DISCLAIMER
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of merchantability or fitness for a particular purpose. Please use it AT YOUR OWN RISK.
+	
+
+David Brownell added the following statement:
+
+/*
+ * Copyright (c) 1999-2000 by David Brownell.  All Rights Reserved.
+ *
+ * This program is open source software; you may use, copy, modify, and
+ * redistribute it under the terms of the LICENSE with which it was
+ * originally distributed.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * LICENSE for more details.
+ */
+
+The version included with Saxon is David Brownell's code of 26 Feb 2000, modified as follows:
+
+    * Changed the package name to com.icl.saxon.aelfred to prevent any accidental confusion with the original Microstar code or with David Brownell's version.
+    * Fixed several bugs: (1) a bug in namespace handling (where an attribute xxx:name precedes the xmlns:xxx declaration) (2) poor diagnostics when end of file occurs prematurely
+    * Subsetting the code to include only the XML non-validating parser and SAX driver, with appropriate changes to the setFeature() and getFeature() methods.
+    * Some further changes made by David Brownell up to June 2001 have been incorporated.
+
+Michael H. Kay
+Saxonica Limited
+22 June 2005
