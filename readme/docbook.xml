@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns="http://docbook.org/ns/docbook" 
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:svg="http://www.w3.org/2000/svg" 
+    xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+    xmlns:html="http://www.w3.org/1999/xhtml" 
+    xmlns:db="http://docbook.org/ns/docbook" version="5.0">>
+    <info>
+        <title>Short Attention Span Docbook Toolchain</title>
+        <author>
+            <orgname>New Auburn Personal Computer Services LLC</orgname>
+            <address>
+                <city>Eau Claire</city>
+                <street>611 Davis Avenue</street>
+                <postcode>54703</postcode>
+                <country>USA</country>
+            </address>
+            <email>info@napcs.com</email>
+        </author>
+    </info>
+    <sect1>
+        <title>Overview</title>
+        <para>This short guide will walk you through everything you need to use this toolchain to
+            author your own Docbook documents.</para>
+        <sect2><title>Package Contents</title>
+            <para>This package contains all of the tools you need to
+            start working with Docbook, including</para>
+            <itemizedlist>
+                <listitem><para>The Docbook stylesheets</para></listitem>
+                <listitem><para>An XML validation tool</para></listitem>
+                <listitem><para>The Saxon XSLT processor (version 6.5.3)</para></listitem>
+                <listitem><para>The Apache FOP FO processor for making PDFs</para></listitem>
+                <listitem><para>A copy of the Microsoft HHC program for building HTML Help files</para></listitem>
+                <listitem><para>A sample project with an easy-to-use Ruby script to transform your document into various formats</para></listitem>
+                
+             </itemizedlist>
+        </sect2>
+    </sect1>
+    <sect1>
+        <title>Windows setup</title>
+        <para>Windows users should use the installer which sets up the necessary files and also sets up the path.</para>
+        <sidebar>
+            <title>Manual installation </title>
+        
+        <para>The easiest way to use this package is to use the application installer, but if you need to do a manual install, you can download the docbook zip file from <uri>http://www.napcsweb.com/files/docbook/docbook.zip</uri> and extract it to <filename>c:\docbook</filename>. 
+            Next, you'll want to add this folder to your PATH. To do that, press <keycombo><keycap>Windows</keycap><keycap>Pause</keycap></keycombo> to bring up the <application>System Properties</application> window. Select the <guibutton>Advanced</guibutton> tab and then select the <guibutton>Environmenb Variables</guibutton> button. In the <guilabel>User variables</guilabel> section, locate the Path variable and edit its contents. Append <code><![CDATA[;c:\docbook]]></code> to the end of the value. If there currently is no Path variable, create a new one called <emphasis>PATH</emphasis> and use <code><![CDATA[c:\docbook]]></code> for the value.  Press <guibutton>OK</guibutton> to commit these changes. Press <guibutton>OK</guibutton> on the <application>System Properties</application> window to finish up.</para>
+        <para>Open a new command prompt and type <command>SET</command>. The PATH variable now reflects the changes you made.</para>
+        </sidebar>
+        
+        <sect2>
+            <title>Installing a Java Runtime Environment</title>
+            <para>Download the Java Runtime Environment from Sun <footnote><para>http://java.sun.com/javase/downloads/index.jsp</para></footnote> and get it installed on your system if you don't already have it. Once installed, open a new command prompt and type </para>
+            <para><command>java -version</command></para>
+            <para>You'll see something similar to this:</para>
+            <screen><![CDATA[Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_13-b05-237)
+Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
+        </sect2>  
+        <sect2>
+            <title>Installing Ruby</title>
+            <para>Download and install the One Click Ruby Installer<footnote><para><uri><![CDATA[http://rubyforge.org/frs/?group_id=167&release_id=17128]]></uri></para></footnote> and install it, accepting the defaults. To verify the installation, open a new command prompt and type</para>
+            <para><command>ruby -v</command></para>
+            <para>You'll see something like this:</para>
+            <screen><![CDATA[ruby 1.8.6 (2007-03-13 patchlevel 0) [i386-mswin32]
+                ]]>
+            </screen>
+            <para>At this point, everything is installed and you're ready to begin. Test it out by creating a new project:</para>
+            <para><command>generate book my_test_project with_sample</command></para>
+            <screen><![CDATA[Creating docbook project...
+ - my_test_project/xsl
+ - my_test_project/images
+ - my_test_project/book.xml
+ - my_test_project/chapter01.xml
+ - my_test_project/make
+ - my_test_project/template/xsl/pdf.xml
+ Done]]></screen>
+            <para>Now you have a simple sample project with a book file and a chapter. Convert this to a PDF to make sure everything works.</para>
+            <para><command>cd my_test_project</command></para>
+            <para><command>ruby make book.pdf</command></para>
+            <para>You'll get a brand-new PDF of the sample book.</para>
+        </sect2>
+     </sect1>
+    <sect1>
+        <title>Mac OS X Setup</title>
+        <para>Setup on Mac OS X 10.4 or 10.5 is quite easy.  You have Java and Ruby already installed on the machine
+            in most cases. All you need to do is download the files from <link xlink:href="http://www.napcsweb.com/files/docbook.zip">http://www.napcsweb.com/files/docbook.zip</link> 
+            and extract to a <filename>docbook</filename> in your home folder. Once extracted, you should have a list of files that resembles this in your <filename>~/docbook</filename> folder:</para>
+            <screen><![CDATA[
+            drwxr-xr-x  18 brianhogan  brianhogan   612B Apr  2 11:56 .
+            drwx------+ 63 brianhogan  brianhogan   2.1K Apr  2 10:12 ..
+            -rwxr-----   1 brianhogan  brianhogan    53K Apr  2 10:23 docbook.pdf
+            -rwxr-----@  1 brianhogan  brianhogan   5.1K Apr  2 13:58 generate
+            -rwxr-----   1 brianhogan  brianhogan   165B Apr  2 10:52 generate.bat
+            drwxr-xr-x  35 brianhogan  brianhogan   1.2K Mar 31 10:15 jars
+            drwxr-xr-x  11 brianhogan  brianhogan   374B Apr  3 21:05 template
+            drwxr-xr-x  41 brianhogan  brianhogan   1.4K Mar 25 22:19 xsl]]>
+            </screen>
+        <para>To create a new project, type</para>
+        <para><command>~/docbook/generate book my_test_project with_sample</command></para>
+        <para>This generates the project skeleton:</para>
+        <screen><![CDATA[Creating docbook project...
+ - my_test_project/xsl
+ - my_test_project/images
+ - my_test_project/book.xml
+ - my_test_project/chapter01.xml
+ - my_test_project/make
+ - my_test_project/xsl/pdf.xml
+ Done]]></screen>
+        <para>Now try generating a PDF.</para>
+        <para><command>cd my_test_project</command></para>
+        <para><command>ruby make book.pdf</command></para>
+        <para>You'll get a brand-new PDF of the sample book.</para>
+        <tip>
+            <para>Add the docbook folder to your path to make the new_book command available without having to specify the full path. Modify your <filename>.bash_profile</filename> to change the path.</para>
+        </tip>
+    </sect1>
+
+    <sect1>
+        <title>The Project Generator</title>
+        <para>You've already seen how to generate a new book, but the generator is a bit more flexible.</para>
+        
+        <sect2>
+            <title>Creating books</title>
+            <para><command><![CDATA[generate book my_book with_sample]]></command> generates a new book with some sample content so you can see how you might 
+            construct your book. It also generates a sample external chapter file as an example of how you would split your book into multiple files.</para>
+            <para><command><![CDATA[generate book my_book]]></command> generates a <filename>book.xml</filename> file, 
+                a <filename>chapter01.xml</filename> file, and a PDF XSLT customization layer file, as well as the directory structure.
+            This sets you up to start your book from scratch.</para>
+        </sect2>
+        <sect2>
+            <title>Chapters</title>
+            <para>You can generate chapters as well so you don't have to remember what exactly goes into the chapter template.</para>
+            <para><command><![CDATA[generate chapter chapter02]]></command> generates a <filename>chapter02.xml</filename> file in your current directory.</para>
+            <para><command><![CDATA[generate chapter chapter2/some_stuff]]></command> generates a <filename>some_stuff.xml</filename> file in a <filename>chapter2</filename> folder within your current directory.</para>
+        </sect2>
+        <sect2>
+            <title>Articles</title>
+            <para>An article is just like a book, except it doesn't have chapters. It's ideal for simple projects where you don't need the complex structure of a book. The document you're reading is marked up as a Docbook article.</para>
+            <para><command><![CDATA[generate article foo]]></command> creates a new article called <filename>article.xml</filename> in the 
+                <filename>foo</filename> subfolder of your current folder.</para>
+            <screen><![CDATA[ - foo/images
+ - foo/xsl
+ - foo/xsl/pdf.xml
+ - foo/make
+ - foo/article.xml]]>
+            </screen>
+        </sect2>
+    </sect1>
+    <sect1>
+        <title>Writing your First Book</title>
+        <para>Your sample project contains the following files:</para>
+        <screen><![CDATA[Creating docbook project...
+ - my_test_project/xsl
+ - my_test_project/images
+ - my_test_project/book.xml
+ - my_test_project/chapter01.xml
+ - my_test_project/make
+ - my_test_project/xsl/pdf.xml
+ Done]]></screen>
+        <para><filename>xsl/</filename> contains <token>XSLT Customization Layers</token> for the various types of outputs. By default, 
+            the <filename>make</filename> script only uses a customization layer for the PDF output. A customization layer is simply a way for you to define your
+        own style properties for your output. The customization layer imports the original Docbook XSLT file, and then you redefine your own 
+        transformations.</para>
+        <para><filename>images/</filename> will contain any images you plan to reference in your document. It's a good idea to organize this by chapter.</para>
+        <para><filename>book.xml</filename> is a sample starter template that shows you how to compose a simple book. You can build this into a PDF right away, and you can modify it and use it as the basis for your book, or just leave it around as an example.</para>
+        <para><filename>chapter01.xml</filename> is an example chapter for a book. It's included within 
+            <filename>book.xml</filename> so you can see how you might break apart a book into multiple files.</para>
+        <para><filename>make</filename> is the script used to transform your document into an actual publication. 
+            See <xref linkend="sec.content.generation"/> to see how that works.</para>
+        <para><filename>xsl/pdf.xml</filename> is the aforementioned customization layer for the PDF output. This is the only supported customization layer at this time. 
+            Look at the <filename>make</filename> to see how to add your own for other files. Additional defaults are coming in future releases.</para>
+    </sect1>
+    
+    <sect1 xml:id="sec.content.generation">
+        <title>Generating Output from Docbook</title>
+        <para>There are several output options available with Docbook. This package provides easy access to the most popular transformation methods</para>
+        <sect2>
+            <title>PDF and RTF documents</title>
+            <para>Generating a PDF or an RTF document is a two-step process. The XML document needs to be processed and transformed into an XML-FO document which is ready for print. Then it needs to  be converted into either RTF or PDF by another process. This package uses Apache FOP to handle this step. </para>
+        </sect2>
+        <sect2>
+            <title>The Make script</title>
+            <para>When you generate a new project with <command>new_book</command> you get a <filename>make</filename> script written in the Ruby programming language. Ruby's a powerful language that's easy to learn and modify. That's the main reason it's used in this project. The other reason is that the script works on all platforms, whereas traditional makefiles work on Linux-based operating systems only.</para>
+            <para> By default, this script can generate HTML, PDF, and RTF outputs. Windows users can also use it to generate Windows Help (CHM) documents if they have the <filename>hhc.exe</filename> file from the HTML Help Workshop installed on their system.</para>
+            <para>The make script is easy to use. You simply specify the name of the input file you want to use and the format you want to generate. To make things simple, the script uses a file naming convention that matches your original docbook xml file. </para>
+            <para>For example, if you have a file called <filename>book.xml</filename>, you'd be able to do the following transformations:</para>
+            <para><command>ruby make book.html</command> to generate an HTML file of your book.</para>
+            <para><command>ruby make book.rtf</command> to generate an RTF file of your book.</para>
+            <para><command>ruby make book.pdf</command> to generate a PDF file of your book.</para>
+        </sect2>
+        <sect2>
+            <title>Validation</title>
+            <para>By default, the <filename>make</filename> script calls out to the Docbook website to validate your file against the RelaxNG schema definition file. Sometimes you may want to work offline or you just know you're that awesome and don't need to validate. The <filename>make</filename> script takes a <command>novalidate</command> option that skips the validation step.</para>
+            <para><command>ruby make book.pdf novalidate</command></para>
+            <para>If you have problems with your document, you may get unexpected results, so use this with caution.</para>
+        </sect2>
+    </sect1>
+    <sect1>
+        <title>Licensing</title>
+        <para>The software contained herein is subject to various licensing agreements.</para>
+        <sect2>
+            <title>Saxon 6</title>
+            <screen><![CDATA[SAXON: Conditions of Use
+
+Saxon
+-----------
+
+The contents of the downloaded file (saxon.zip), with the exception of the AElfred parser (see below), are subject to the Mozilla Public License Version 1.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
+
+Software distributed under the License is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the specific language governing rights and limitations under the License.
+
+The Original Code of SAXON comprises all those components which are not explicitly attributed to other parties. It does not include the AElfred parser, which is redistributed under the licence described below.
+
+The Initial Developer of the Original Code was Michael Kay. Individual modules identified as being created by James Clark, David Megginson, or John Cowan include separate IPR notices. All Rights Reserved.
+
+Until January 2001 Michael Kay worked for International Computers Limited (ICL, now part of Fujitsu), and from February 2001 to January 2004 he worked for Software AG. These two companies both sponsored the development of Saxon and authorised its release under this license, but are not themselves parties to the license. Michael Kay now runs his own company, Saxonica, which has taken over all responsibility for Saxon development and support.
+
+For reasons of continuity, the icl.com domain name is retained in package names and namespace URIs with the tacit consent of ICL, but this should not be taken to imply any ongoing ICL involvement.
+
+If you produce a product that includes or requires SAXON, please refer to it as "The SAXON XSLT Processor from Michael Kay", and include the URL of the home page, which is at http://saxon.sourceforge.net/.
+
+There is no guarantee of technical support, though I am usually able to answer enquiries within a few days. Please subscribe to the mailing list available at http://lists.sourceforge.net/lists/listinfo/saxon-help and raise any enquiries there. Also check the Saxon project pages on sourceforge for details of known errors; all bugs are listed there as soon as I have sufficient evidence to describe the nature of the problem.
+
+AElfred
+------------
+Included in the Saxon distribution is a modified version of the AElfred XML parser originally developed by David Megginson at Microstar (no longer in existence). I have taken the relevant part of David Brownell's AElfred2 distribution, repackaged it, and fixed a few bugs. All changes are clearly documented in the source code.
+
+This is distributed under the terms of Microstar's terms and conditions, which are as follows:
+	
+
+AElfred, Version 1.2
+Microstar's Java-Based XML Parser
+Copyright (c) 1997, 1998 by Microstar Software Ltd.
+Home Page: http://www.microstar.com/XML/
+
+AElfred is free for both commercial and non-commercial use and redistribution, provided that Microstar's copyright and disclaimer are retained intact. You are free to modify AElfred for your own use and to redistribute AElfred with your modifications, provided that the modifications are clearly documented.
+
+DISCLAIMER
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of merchantability or fitness for a particular purpose. Please use it AT YOUR OWN RISK.
+	
+
+David Brownell added the following statement:
+
+/*
+ * Copyright (c) 1999-2000 by David Brownell.  All Rights Reserved.
+ *
+ * This program is open source software; you may use, copy, modify, and
+ * redistribute it under the terms of the LICENSE with which it was
+ * originally distributed.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * LICENSE for more details.
+ */
+
+The version included with Saxon is David Brownell's code of 26 Feb 2000, modified as follows:
+
+    * Changed the package name to com.icl.saxon.aelfred to prevent any accidental confusion with the original Microstar code or with David Brownell's version.
+    * Fixed several bugs: (1) a bug in namespace handling (where an attribute xxx:name precedes the xmlns:xxx declaration) (2) poor diagnostics when end of file occurs prematurely
+    * Subsetting the code to include only the XML non-validating parser and SAX driver, with appropriate changes to the setFeature() and getFeature() methods.
+    * Some further changes made by David Brownell up to June 2001 have been incorporated.
+
+Michael H. Kay
+Saxonica Limited
+22 June 2005]]></screen>
+        </sect2>
+        
+        <sect2>
+            <title>Apache FOP</title>
+            <screen><![CDATA[                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.]]>
+                
+                
+            </screen>
+        </sect2>
+        <sect2>
+            <title>Xerces</title>
+            <screen><![CDATA[Apache License
+Version 2.0, January 2004
+http://www.apache.org/licenses/
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+1. Definitions.
+
+"License" shall mean the terms and conditions for use, reproduction,
+and distribution as defined by Sections 1 through 9 of this document.
+
+"Licensor" shall mean the copyright owner or entity authorized by
+the copyright owner that is granting the License.
+
+"Legal Entity" shall mean the union of the acting entity and all
+other entities that control, are controlled by, or are under common
+control with that entity. For the purposes of this definition,
+"control" means (i) the power, direct or indirect, to cause the
+direction or management of such entity, whether by contract or
+otherwise, or (ii) ownership of fifty percent (50%) or more of the
+outstanding shares, or (iii) beneficial ownership of such entity.
+
+"You" (or "Your") shall mean an individual or Legal Entity
+exercising permissions granted by this License.
+
+"Source" form shall mean the preferred form for making modifications,
+including but not limited to software source code, documentation
+source, and configuration files.
+
+"Object" form shall mean any form resulting from mechanical
+transformation or translation of a Source form, including but
+not limited to compiled object code, generated documentation,
+and conversions to other media types.
+
+"Work" shall mean the work of authorship, whether in Source or
+Object form, made available under the License, as indicated by a
+copyright notice that is included in or attached to the work
+(an example is provided in the Appendix below).
+
+"Derivative Works" shall mean any work, whether in Source or Object
+form, that is based on (or derived from) the Work and for which the
+editorial revisions, annotations, elaborations, or other modifications
+represent, as a whole, an original work of authorship. For the purposes
+of this License, Derivative Works shall not include works that remain
+separable from, or merely link (or bind by name) to the interfaces of,
+the Work and Derivative Works thereof.
+
+"Contribution" shall mean any work of authorship, including
+the original version of the Work and any modifications or additions
+to that Work or Derivative Works thereof, that is intentionally
+submitted to Licensor for inclusion in the Work by the copyright owner
+or by an individual or Legal Entity authorized to submit on behalf of
+the copyright owner. For the purposes of this definition, "submitted"
+means any form of electronic, verbal, or written communication sent
+to the Licensor or its representatives, including but not limited to
+communication on electronic mailing lists, source code control systems,
+and issue tracking systems that are managed by, or on behalf of, the
+Licensor for the purpose of discussing and improving the Work, but
+excluding communication that is conspicuously marked or otherwise
+designated in writing by the copyright owner as "Not a Contribution."
+
+"Contributor" shall mean Licensor and any individual or Legal Entity
+on behalf of whom a Contribution has been received by Licensor and
+subsequently incorporated within the Work.
+
+2. Grant of Copyright License. Subject to the terms and conditions of
+this License, each Contributor hereby grants to You a perpetual,
+worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+copyright license to reproduce, prepare Derivative Works of,
+publicly display, publicly perform, sublicense, and distribute the
+Work and such Derivative Works in Source or Object form.
+
+3. Grant of Patent License. Subject to the terms and conditions of
+this License, each Contributor hereby grants to You a perpetual,
+worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+(except as stated in this section) patent license to make, have made,
+use, offer to sell, sell, import, and otherwise transfer the Work,
+where such license applies only to those patent claims licensable
+by such Contributor that are necessarily infringed by their
+Contribution(s) alone or by combination of their Contribution(s)
+with the Work to which such Contribution(s) was submitted. If You
+institute patent litigation against any entity (including a
+cross-claim or counterclaim in a lawsuit) alleging that the Work
+or a Contribution incorporated within the Work constitutes direct
+or contributory patent infringement, then any patent licenses
+granted to You under this License for that Work shall terminate
+as of the date such litigation is filed.
+
+4. Redistribution. You may reproduce and distribute copies of the
+Work or Derivative Works thereof in any medium, with or without
+modifications, and in Source or Object form, provided that You
+meet the following conditions:
+
+(a) You must give any other recipients of the Work or
+Derivative Works a copy of this License; and
+
+(b) You must cause any modified files to carry prominent notices
+stating that You changed the files; and
+
+(c) You must retain, in the Source form of any Derivative Works
+that You distribute, all copyright, patent, trademark, and
+attribution notices from the Source form of the Work,
+excluding those notices that do not pertain to any part of
+the Derivative Works; and
+
+(d) If the Work includes a "NOTICE" text file as part of its
+distribution, then any Derivative Works that You distribute must
+include a readable copy of the attribution notices contained
+within such NOTICE file, excluding those notices that do not
+pertain to any part of the Derivative Works, in at least one
+of the following places: within a NOTICE text file distributed
+as part of the Derivative Works; within the Source form or
+documentation, if provided along with the Derivative Works; or,
+within a display generated by the Derivative Works, if and
+wherever such third-party notices normally appear. The contents
+of the NOTICE file are for informational purposes only and
+do not modify the License. You may add Your own attribution
+notices within Derivative Works that You distribute, alongside
+or as an addendum to the NOTICE text from the Work, provided
+that such additional attribution notices cannot be construed
+as modifying the License.
+
+You may add Your own copyright statement to Your modifications and
+may provide additional or different license terms and conditions
+for use, reproduction, or distribution of Your modifications, or
+for any such Derivative Works as a whole, provided Your use,
+reproduction, and distribution of the Work otherwise complies with
+the conditions stated in this License.
+
+5. Submission of Contributions. Unless You explicitly state otherwise,
+any Contribution intentionally submitted for inclusion in the Work
+by You to the Licensor shall be under the terms and conditions of
+this License, without any additional terms or conditions.
+Notwithstanding the above, nothing herein shall supersede or modify
+the terms of any separate license agreement you may have executed
+with Licensor regarding such Contributions.
+
+6. Trademarks. This License does not grant permission to use the trade
+names, trademarks, service marks, or product names of the Licensor,
+except as required for reasonable and customary use in describing the
+origin of the Work and reproducing the content of the NOTICE file.
+
+7. Disclaimer of Warranty. Unless required by applicable law or
+agreed to in writing, Licensor provides the Work (and each
+Contributor provides its Contributions) on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied, including, without limitation, any warranties or conditions
+of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+PARTICULAR PURPOSE. You are solely responsible for determining the
+appropriateness of using or redistributing the Work and assume any
+risks associated with Your exercise of permissions under this License.
+
+8. Limitation of Liability. In no event and under no legal theory,
+whether in tort (including negligence), contract, or otherwise,
+unless required by applicable law (such as deliberate and grossly
+negligent acts) or agreed to in writing, shall any Contributor be
+liable to You for damages, including any direct, indirect, special,
+incidental, or consequential damages of any character arising as a
+result of this License or out of the use or inability to use the
+Work (including but not limited to damages for loss of goodwill,
+work stoppage, computer failure or malfunction, or any and all
+other commercial damages or losses), even if such Contributor
+has been advised of the possibility of such damages.
+
+9. Accepting Warranty or Additional Liability. While redistributing
+the Work or Derivative Works thereof, You may choose to offer,
+and charge a fee for, acceptance of support, warranty, indemnity,
+or other liability obligations and/or rights consistent with this
+License. However, in accepting such obligations, You may act only
+on Your own behalf and on Your sole responsibility, not on behalf
+of any other Contributor, and only if You agree to indemnify,
+defend, and hold each Contributor harmless for any liability
+incurred by, or claims asserted against, such Contributor by reason
+of your accepting any such warranty or additional liability.
+
+END OF TERMS AND CONDITIONS
+
+APPENDIX: How to apply the Apache License to your work.
+
+To apply the Apache License to your work, attach the following
+boilerplate notice, with the fields enclosed by brackets "[]"
+replaced with your own identifying information. (Don't include
+the brackets!)  The text should be enclosed in the appropriate
+comment syntax for the file format. We also recommend that a
+file or class name and description of purpose be included on the
+same "printed page" as the copyright notice for easier
+identification within third-party archives.
+
+Copyright [yyyy] [name of copyright owner]
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+                ]]>
+            </screen>
+        </sect2>
+        <sect2>
+            <title>Docbook Build Tools - make and new_book</title>
+            <screen><![CDATA[Copyright (c) 2008 Brian Hogan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.]]>
+            </screen>
+        </sect2>
+        
+    </sect1>   
+
+    
+</article>
