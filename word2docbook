@@ -1,0 +1,59 @@
+class Docbook
+  attr_accessor :input, :output, :root
+
+  def initialize(options = {})
+    @root =  File.dirname(__FILE__)
+    @input = options[:input]
+    @output = options[:output]
+    @windows = PLATFORM.downcase.include?("win32")
+  end
+
+  
+  def xml_config
+    xml_parser_config = "-Djavax.xml.parsers.DocumentBuilderFactory=org.apache.xerces.jaxp.DocumentBuilderFactoryImpl" 
+    xml_parser_config << " -Djavax.xml.parsers.SAXParserFactory=org.apache.xerces.jaxp.SAXParserFactoryImpl" 
+    xml_parser_config << " -Dorg.apache.xerces.xni.parser.XMLParserConfiguration=org.apache.xerces.parsers.XIncludeParserConfiguration"
+    xml_parser_config
+  end
+  
+  def xml_cp
+    saxon_cp = "#{self.root}/jars/xercesImpl-2.7.1.jar;"
+    saxon_cp <<"#{self.root}/xsl/extensions/saxon65.jar;"
+    saxon_cp <<"#{self.root}/jars/saxon.jar;"
+    saxon_cp
+  end
+  
+  
+  # Generates the xml xslt processor command.
+  # Pass in the input, output, and stylesheet
+  def xml_cmd(input, output, stylesheet)
+    
+    cmd = "java -Xss512K -Xmx256m -cp \"#{xml_cp}\" #{xml_config} com.icl.saxon.StyleSheet -o \"#{output}\" \"#{input}\" #{stylesheet}"
+    
+    cmd.gsub!(";",":") unless @windows
+    return cmd
+   
+  end
+  
+  def render
+    xsl_path = "#{self.root}/xsl/roundtrip"
+
+    cmd_1 = xml_cmd(self.input, "normalised.xml", xsl_path + "/wordml-normalise.xsl")
+    cmd_2 = xml_cmd("normalised.xml", "sections.xml", xsl_path + "/wordml-sections.xsl")
+    cmd_3 = xml_cmd("sections.xml", "blocks.xml", xsl_path + "/wordml-blocks.xsl")
+    cmd_4 = xml_cmd("blocks.xml", self.output, xsl_path + "/wordml-final.xsl")
+    
+    `#{cmd_1}`
+    `#{cmd_2}`
+    `#{cmd_3}`
+    `#{cmd_4}`
+  end
+
+end
+
+infile = ARGV[0]
+outfile = ARGV[1]
+
+d = Docbook.new(:input => infile, :output=>outfile)
+
+d.render
