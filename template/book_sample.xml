@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0">
+  <info>
+    <title>Your Book Title</title>
+    <subtitle>Your Book Subtitle</subtitle>
+    <copyright>
+      <year>2008</year>
+      <holder>Your Name</holder>
+      
+    </copyright>
+    <author>
+      <personname>
+        <firstname>Your</firstname>
+        <surname>Name</surname>
+      </personname>
+      <address>
+        <city>Your City</city>
+        <street>123 Fake Street</street>
+        <postcode>55555</postcode>
+        <country>U.S.A</country>
+      </address>
+    </author>
+  </info>
+  <dedication>
+    <para>
+      This goes out to you, the fans.
+    </para>
+  </dedication>
+  
+  <part>
+    <title>A logical section of a book</title>
+    
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter01.xml"/>
+    
+  </part>
+
+  <part>
+    <title>Inline chapters</title>
+  <chapter>
+    
+    <title>Test</title>
+    
+    <para>Here are some examples of basic markup in Docbook.</para>
+    
+    <sect1>
+      <title>A Section</title>
+      
+    <para>This is a paragraph in a section.</para>
+    
+    <para>See the source for how to mark up indexes and key words. For example, <indexterm>
+        <primary>Associations</primary>
+        <secondary>belongs_to</secondary>
+      </indexterm>
+    the <methodname>belongs_to</methodname> of the <classname>ActiveRecord::Base</classname> is used to associate records.</para>
+    
+    <sect2>
+      <title>Special sections</title>
+      <para>This is a level 2 section.</para>
+      
+      <para>Here is a program listing:</para>
+      
+        <programlisting language="java" linenumbering="numbered">
+        <![CDATA[
+          function foo(bar){
+            String b = new String;
+            return(b = bar);
+          }
+        ]]>
+        </programlisting>
+        
+        <para>You can also have sidebars, notes, and tips.</para>
+        <sidebar>
+          <title>Sidebar</title>
+          <para>This is a quick test of the sidebar feature</para>
+        </sidebar>
+        
+        <note>
+          <para>This is a note</para>
+        </note>
+        
+        <tip>
+          <para>This is a tip</para>
+        </tip>
+        
+        <warning>
+          <para>This is a warning</para>  
+        </warning>
+        
+        <para>Here's a command</para>
+        <para><command>ls -alh</command></para>
+        <para>And here's the output the user would see</para>
+        <screen>
+          <![CDATA[
+          total 32
+          drwxr-xr-x  7 brianhogan  brianhogan   238B Mar 26 21:44 .
+          drwxr-xr-x  3 brianhogan  brianhogan   102B Mar 26 21:44 ..
+          -rwxr-xr-x  1 brianhogan  brianhogan   3.0K Mar 26 21:44 book.xml
+          -rwxr-xr-x  1 brianhogan  brianhogan   586B Mar 26 21:44 chapter01.xml
+          drwxr-xr-x  2 brianhogan  brianhogan    68B Mar 26 21:44 images
+          -rw-r--r--  1 brianhogan  brianhogan   6.8K Mar 26 21:44 make
+          drwxr-xr-x  3 brianhogan  brianhogan   102B Mar 26 21:44 xsl
+          ]]>
+        </screen>
+      </sect2>
+      
+     </sect1>
+    <sect1>
+      <title>Lists</title>
+        <para>An unordered list</para>
+        <itemizedlist>
+          <listitem><para>First item</para></listitem>
+          <listitem><para>Second item</para></listitem>
+        </itemizedlist>
+        
+        <para>An ordered list</para>
+        <orderedlist>
+          <listitem><para>First item</para></listitem>
+          <listitem><para>Second item</para></listitem>
+        </orderedlist>
+    
+    
+    <sect2>
+      <title> A Figure</title>
+      <para>This is a figure.</para>
+      
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/sample.png" width="4in"></imagedata>
+        </imageobject>
+        <caption><para>A sample image</para></caption>
+      </mediaobject>
+      
+    </sect2>
+    
+    
+    
+    
+    
+    
+    </sect1>
+    
+    
+  </chapter>
+  </part>
+  <index/>
+</book>
