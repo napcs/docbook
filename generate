@@ -1,0 +1,184 @@
+#!/usr/local/bin/ruby
+
+
+
+
+# add lchop to string class via a monkey patch
+class String
+  
+  # Remove the first character from the string.
+  def lchop
+    s = self.gsub(/^./, "")
+  end
+  
+  # parses the filename from the string by assuming that the last node of the path is the filename.
+  def filename
+     self.split("/").last
+  end
+  
+  # parses the dirname from the string by chopping off the last node of the path.
+  def dirname
+    s = self.split("/")
+    s.delete(self.filename)
+    s.join("/")
+  end
+  
+  
+end
+
+# generate a file by reading in the template and spitting out the results, substituting the rootpath in the document
+def generate(file, substring, destination)
+  match = "<#ROOT_PATH#>"
+  s = get_file_as_string(file)
+  s.gsub!(match, substring)
+  put_file_from_string(destination, s)
+end
+
+
+# load a file into a string
+def get_file_as_string(filename)
+  data = ''
+
+  File.open(filename, "r") { |f|
+      data = f.read
+  }
+  
+  return data
+end
+
+# write the file from a string
+def put_file_from_string(f, s)
+  File.open(f , 'w') do |file|
+      file.puts(s)
+  end
+end
+
+def show_instructions
+  text = %Q{Docbook Generator (C) 2008 Brian Hogan
+    =================================================
+    Creates a docbook project, chapter, or article skeleton.
+   
+    generate book | chapter | article <path> (no extension)
+   
+    Example:  generate book my_book
+            - my_book/images
+            - my_book/xsl
+            - my_book/xsl/pdf.xsl
+            - my_book/book.xml
+            - my_book/chapter01.xml
+            - my_book/make
+            
+         or:  generate chapter chapter02
+            - ./chapter02.xml
+         
+         or: generate chapter chapter02/fun_stuff
+            - chapter02/fun_stuff.xml
+         
+         or:  generate article learning_rails
+           - learning_rails/images
+           - learning_rails/xsl
+           - learning_rails/xsl/pdf.xml
+           - learning_rails/make
+           - learning_rails/article.xml             
+    You can get a sample book as well with contents
+    Example: generate book my_book sample
+
+    }
+    puts text
+end
+
+
+  def article(root_path, dest_path, sample)
+
+    
+  
+    puts "Creating article..."
+
+    FileUtils.mkdir_p("#{dest_path}/images") rescue nil
+      puts " - #{dest_path}/images"
+    FileUtils.mkdir("#{dest_path}/xsl") rescue nil
+      puts " - #{dest_path}/xsl"
+
+    if sample
+        FileUtils.cp("#{root_path}/template/article.xml", "#{dest_path}/article.xml")
+    else
+        FileUtils.cp("#{root_path}/template/article.xml", "#{dest_path}/article.xml")
+    end
+    
+    xsl_path = PLATFORM.downcase.include?("win32") ? root_path : root_path.lchop
+      
+    generate "#{root_path}/template/xsl/pdf.xsl", xsl_path, "#{dest_path}/xsl/pdf.xsl"
+    puts " - #{dest_path}/xsl/pdf.xml"
+    
+    generate "#{root_path}/template/make", root_path, "#{dest_path}/make"
+    puts " - #{dest_path}/make"
+    
+    puts " - #{dest_path}/article.xml"
+  end
+
+  
+  def chapter(root_path, dest_path, sample)
+  
+    directory = dest_path.dirname
+    
+    FileUtils.mkdir_p(directory) unless directory.empty?
+    
+    puts "Creating chapter..."
+
+    if sample
+        FileUtils.cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}.xml")
+    else
+        FileUtils.cp("#{root_path}/template/chapter01.xml", "#{dest_path}.xml")
+
+    end
+    puts " - #{dest_path}.xml"
+  end
+  
+  def book(root_path, dest_path, sample)
+      puts "Creating docbook project..."
+      FileUtils.mkdir(dest_path) rescue nil
+      FileUtils.mkdir("#{dest_path}/images") rescue nil
+      FileUtils.mkdir("#{dest_path}/xsl") rescue nil
+      puts " - #{dest_path}/xsl"
+      puts " - #{dest_path}/images"
+      if sample
+         FileUtils.cp("#{root_path}/template/images/sample.png", "#{dest_path}/images") rescue nil
+         puts " - #{dest_path}/images/sample.png"
+         FileUtils.cp("#{root_path}/template/book_sample.xml", "#{dest_path}/book.xml") rescue nil
+         FileUtils.cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}/chapter01.xml") rescue nil
+      else
+         FileUtils.cp("#{root_path}/template/book.xml", "#{dest_path}/book.xml") rescue nil
+         FileUtils.cp("#{root_path}/template/chapter01.xml", "#{dest_path}/chapter01.xml") rescue nil
+
+      end
+      
+      puts " - #{dest_path}/book.xml"
+      puts " - #{dest_path}/chapter01.xml"
+      
+      generate "#{root_path}/template/make", root_path, "#{dest_path}/make"
+      puts " - #{dest_path}/make"
+      
+      # xsl_path is a file URL. File urls have three / (file:///) followed by the path  Windows paths don't start with a slash
+      # but unix paths do. If it's windows, leave the path alone. If it's not windows, chop off the first character of the path
+      xsl_path = PLATFORM.downcase.include?("win32") ? root_path : root_path.lchop
+      
+      generate "#{root_path}/template/xsl/pdf.xsl", xsl_path, "#{dest_path}/xsl/pdf.xsl"
+      puts " - #{dest_path}/xsl/pdf.xml"
+      puts "Done"
+  end
+
+  
+  
+if ARGV[0].nil?
+  show_instructions
+else
+  require 'fileutils'
+  root_path =  File.dirname(__FILE__)
+  
+  type = ARGV[0]
+  output_path = ARGV[1]
+  sample = ARGV[2] == "with_sample"
+
+
+  send(type, root_path, output_path, sample)
+end
