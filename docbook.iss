@@ -24,13 +24,13 @@ ChangesEnvironment=yes
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "C:\docbook\jars\*"; DestDir: "{app}\jars"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\docbook\template\*"; DestDir: "{app}\template"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\docbook\xsl\*"; DestDir: "{app}\xsl"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\docbook\generate"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\docbook\generate.bat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\docbook\docbook.pdf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\docbook\hhc.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "jars\*"; DestDir: "{app}\jars"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "template\*"; DestDir: "{app}\template"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "xsl\*"; DestDir: "{app}\xsl"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "generate"; DestDir: "{app}"; Flags: ignoreversion
+Source: "generate.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "readme/docbook.pdf"; DestDir: "{app}"; Flags: ignoreversion
+Source: "hhc.exe"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
