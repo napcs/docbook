@@ -8,7 +8,7 @@
 AppId={{0A22D345-DFA9-45B8-AC92-57F2E933BA7D})
 AppName=Short Attention Span Docbook
 AppVerName=Short Attention Span Docbook 1.0
-AppPublisher=NAPCS LLC
+AppPublisher=New Auburn Personal Computer Services LLC
 AppPublisherURL=http://www.napcs.com
 AppSupportURL=http://www.napcs.com
 AppUpdatesURL=http://www.napcs.com
@@ -35,7 +35,7 @@ Source: "hhc.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{cm:UninstallProgram,Short Attention Span Docbook}"; Filename: "{uninstallexe}"
-Name: "{group}\ Readme"; Filename: "{app}\docbook.pdf"
+Name: "{group}\Readme"; Filename: "{app}\docbook.pdf"
 
 [Tasks]
 Name: modifypath; Description: Add application directory to your system path;
