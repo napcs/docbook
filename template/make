@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+
+
 # ruby make filename.extension
 #  e.g.  ruby make book.pdf                  # Create a PDF
 #         ruby make book.xhtml               # Create an XHTML file

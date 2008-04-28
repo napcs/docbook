@@ -1,6 +1,6 @@
 @echo off
 goto endofruby
-#!/bin/ruby
+#!/usr/bin/env ruby
 root_path =  File.expand_path(File.dirname(__FILE__))
 load "#{root_path}/generate"
 __END__
