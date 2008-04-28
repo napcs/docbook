@@ -102,9 +102,9 @@
       <xsl:when test="$position = 'left'">
           <xsl:text>Copyright </xsl:text>
           <!-- use xpath to grab the year - remember to prefix each node with d: -->
-          <xsl:value-of select="ancestor-or-self::d:book/d:info/d:copyright/d:year"/>
+          <xsl:value-of select="ancestor-or-self::d:article/d:info/d:copyright/d:year"/>
           <xsl:text> </xsl:text>
-          <xsl:value-of select="ancestor-or-self::d:book/d:info/d:copyright/d:holder"/>
+          <xsl:value-of select="ancestor-or-self::d:article/d:info/d:copyright/d:holder"/>
       </xsl:when>
       
       <xsl:when test="$position = 'right'">
