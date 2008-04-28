@@ -19,8 +19,8 @@ class String
   # parses the dirname from the string by chopping off the last node of the path.
   def dirname
     s = self.split("/")
-    s.delete(self.filename)
-    s.join("/")
+    a = s[0..(s.length - 2)].join("/")
+    a
   end
   
   
@@ -118,19 +118,23 @@ end
 
   
   def chapter(root_path, dest_path, sample)
-  
+    puts dest_path  
     directory = dest_path.dirname
+    puts directory
     
-    FileUtils.mkdir_p(directory) unless directory.empty?
+    FileUtils.mkdir_p(directory + "/images") unless directory.empty?
     
     puts "Creating chapter..."
 
     if sample
         FileUtils.cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}.xml")
+        FileUtils.cp("#{root_path}/template/images/sample.png", "#{directory}/images") rescue nil
+        puts " - #{directory}/images/sample.png"
     else
         FileUtils.cp("#{root_path}/template/chapter01.xml", "#{dest_path}.xml")
 
     end
+    
     puts " - #{dest_path}.xml"
   end
   
@@ -177,7 +181,7 @@ else
   
   type = ARGV[0]
   output_path = ARGV[1]
-  sample = ARGV[2] == "with_sample"
+  sample = ARGV[2] == "sample"
 
 
   send(type, root_path, output_path, sample)

@@ -9,4 +9,13 @@
       
       <title>Included chapter</title>
       <para>This is an included chapter that's actually in a separate file. This is a great way to modularize your book.</para>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/sample.png" width="4in"></imagedata>
+        </imageobject>
+        <caption><para>A sample image</para></caption>
+      </mediaobject>
+      
+      
 </chapter>

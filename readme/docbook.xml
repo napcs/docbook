@@ -169,6 +169,9 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
             See <xref linkend="sec.content.generation"/> to see how that works.</para>
         <para><filename>xsl/pdf.xml</filename> is the aforementioned customization layer for the PDF output. This is the only supported customization layer at this time. 
             Look at the <filename>make</filename> to see how to add your own for other files. Additional defaults are coming in future releases.</para>
+        <para>Open up the <filename>book.xml</filename> file and modify its
+        contents to write your book. Then render a new output, 
+        as discussed in <xref linkend="sec.content.generation" />.</para>
     </sect1>
     
     <sect1 xml:id="sec.content.generation">
