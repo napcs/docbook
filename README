@@ -1,0 +1,10 @@
+= Short Attention Span Docbook
+
+This package makes it easy for you to set up all of the tools you need to start authoring books and articles
+with the open-source Docbook toolchain. 
+
+Contained in this package are the Docbook XSLT stylesheets, a validation package, XML-FO to PDF translation, and
+a project generator with build scripts.
+
+This package is designed for developers who want to integrate this into their existing programs. End users should
+download the re-distributable packages available at http://www.napcs.com/products/docbook.

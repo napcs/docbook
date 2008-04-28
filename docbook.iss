@@ -29,7 +29,7 @@ Source: "template\*"; DestDir: "{app}\template"; Flags: ignoreversion recursesub
 Source: "xsl\*"; DestDir: "{app}\xsl"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "generate"; DestDir: "{app}"; Flags: ignoreversion
 Source: "generate.bat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "readme/docbook.pdf"; DestDir: "{app}"; Flags: ignoreversion
+Source: "readme_files/docbook.pdf"; DestDir: "{app}"; Flags: ignoreversion
 Source: "hhc.exe"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
