@@ -78,7 +78,8 @@ def show_instructions
            - learning_rails/xsl
            - learning_rails/xsl/pdf.xml
            - learning_rails/make
-           - learning_rails/article.xml             
+           - learning_rails/article.xml
+                        
     You can get a sample book as well with contents
     Example: generate book my_book with_sample
 
