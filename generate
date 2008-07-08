@@ -80,7 +80,7 @@ def show_instructions
            - learning_rails/make
            - learning_rails/article.xml             
     You can get a sample book as well with contents
-    Example: generate book my_book sample
+    Example: generate book my_book with_sample
 
     }
     puts text
@@ -180,7 +180,7 @@ else
   
   type = ARGV[0]
   output_path = ARGV[1]
-  sample = ARGV[2] == "sample"
+  sample = ARGV[2].include? "sample"
 
 
   send(type, root_path, output_path, sample)
