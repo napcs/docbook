@@ -43,7 +43,7 @@
     </sect1>
     <sect1>
         <title>Windows setup</title>
-        <para>Windows users should use the installer which sets up the necessary files and also sets up the path.</para>
+        <para>Windows users should use the installer <footnote><para>Docbook setup for Windows: <uri>http://www.napcsweb.com/files/docbook/docbook-setup.exe</uri></para></footnote>which sets up the necessary files and also sets up the path.</para>
         <sidebar>
             <title>Manual installation </title>
         
@@ -54,7 +54,7 @@
         
         <sect2>
             <title>Installing a Java Runtime Environment</title>
-            <para>Download the Java Runtime Environment from Sun <footnote><para>http://java.sun.com/javase/downloads/index.jsp</para></footnote> and get it installed on your system if you don't already have it. Once installed, open a new command prompt and type </para>
+            <para>Download the Java Runtime Environment from Sun <footnote><para>Java Runtime: <uri>http://java.sun.com/javase/downloads/index.jsp</uri></para></footnote> and get it installed on your system if you don't already have it. Once installed, open a new command prompt and type </para>
             <para><command>java -version</command></para>
             <para>You'll see something similar to this:</para>
             <screen><![CDATA[Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_13-b05-237)
@@ -62,7 +62,7 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
         </sect2>  
         <sect2>
             <title>Installing Ruby</title>
-            <para>Download and install the One Click Ruby Installer<footnote><para><uri><![CDATA[http://rubyforge.org/frs/?group_id=167&release_id=17128]]></uri></para></footnote> and install it, accepting the defaults. To verify the installation, open a new command prompt and type</para>
+            <para>Download and install the One Click Ruby Installer<footnote><para>Ruby: <uri><![CDATA[http://rubyforge.org/frs/?group_id=167&release_id=17128]]></uri></para></footnote> and install it, accepting the defaults. To verify the installation, open a new command prompt and type</para>
             <para><command>ruby -v</command></para>
             <para>You'll see something like this:</para>
             <screen><![CDATA[ruby 1.8.6 (2007-03-13 patchlevel 0) [i386-mswin32]
