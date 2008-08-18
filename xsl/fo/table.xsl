@@ -14,7 +14,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 <xsl:include href="../common/table.xsl"/>
 
 <!-- ********************************************************************
-     $Id: table.xsl 7252 2007-08-18 16:27:46Z mzjn $
+     $Id: table.xsl 7681 2008-02-17 19:08:14Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -28,7 +28,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   <info>
     <title>Formatting Object Table Reference</title>
     <releaseinfo role="meta">
-      $Id: table.xsl 7252 2007-08-18 16:27:46Z mzjn $
+      $Id: table.xsl 7681 2008-02-17 19:08:14Z mzjn $
     </releaseinfo>
   </info>
   <partintro xml:id="partintro">
@@ -136,10 +136,19 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     </xsl:choose>
   </xsl:variable>
 
+  <xsl:variable name="keep.together">
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+  </xsl:variable>
+
   <xsl:choose>
     <xsl:when test="self::d:table">
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="table.properties">
+	<xsl:if test="$keep.together != ''">
+	  <xsl:attribute name="keep-together.within-column">
+	    <xsl:value-of select="$keep.together"/>
+	  </xsl:attribute>
+	</xsl:if>
         <xsl:if test="$placement = 'before'">
           <xsl:call-template name="formal.object.heading">
             <xsl:with-param name="placement" select="$placement"/>
@@ -1070,7 +1079,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       </xsl:if>
 
       <xsl:if test="$colsep.inherit &gt; 0 and 
-                      $col &lt; ancestor::d:tgroup/@cols">
+                      $col &lt; (ancestor::d:tgroup/@cols|ancestor::d:entrytbl/@cols)[last()]">
         <xsl:call-template name="border">
           <xsl:with-param name="side" select="'right'"/>
         </xsl:call-template>

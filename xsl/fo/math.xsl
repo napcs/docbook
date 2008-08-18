@@ -7,7 +7,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: math.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: math.xsl 7503 2007-10-08 01:57:30Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -43,12 +43,24 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 <!-- "Support" for MathML -->
 
 <xsl:template match="mml:math" xmlns:mml="http://www.w3.org/1998/Math/MathML">
-  <fo:instream-foreign-object>
-    <xsl:copy>
-      <xsl:copy-of select="@*"/>
-      <xsl:apply-templates/>
-    </xsl:copy>
-  </fo:instream-foreign-object>
+  <xsl:choose>
+    <!-- * If user is using passivetex, we don't wrap the output in -->
+    <!-- * fo:instream-foreign-object (which passivetex doesn't support). -->
+    <xsl:when test="not($passivetex.extensions = 0)">
+      <xsl:copy>
+        <xsl:copy-of select="@*"/>
+        <xsl:apply-templates/>
+      </xsl:copy>
+    </xsl:when>
+    <xsl:otherwise>
+      <fo:instream-foreign-object>
+        <xsl:copy>
+          <xsl:copy-of select="@*"/>
+          <xsl:apply-templates/>
+        </xsl:copy>
+      </fo:instream-foreign-object>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="mml:*" xmlns:mml="http://www.w3.org/1998/Math/MathML">

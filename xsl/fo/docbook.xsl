@@ -14,7 +14,7 @@ xmlns:exsl="http://exslt.org/common"
 <xsl:output method="xml" indent="no"/>
 
 <!-- ********************************************************************
-     $Id: docbook.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: docbook.xsl 7584 2007-12-03 17:43:24Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -96,14 +96,18 @@ xmlns:exsl="http://exslt.org/common"
 
 <xsl:template match="*">
   <xsl:message>
-    <xsl:value-of select="name(.)"/>
-    <xsl:text> encountered</xsl:text>
+    <xsl:text>Element </xsl:text>
+    <xsl:value-of select="local-name(.)"/>
+    <xsl:text> in namespace '</xsl:text>
+    <xsl:value-of select="namespace-uri(.)"/>
+    <xsl:text>' encountered</xsl:text>
     <xsl:if test="parent::*">
       <xsl:text> in </xsl:text>
       <xsl:value-of select="name(parent::*)"/>
     </xsl:if>
     <xsl:text>, but no template matches.</xsl:text>
   </xsl:message>
+  
   <fo:block color="red">
     <xsl:text>&lt;</xsl:text>
     <xsl:value-of select="name(.)"/>

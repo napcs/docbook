@@ -7,7 +7,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: pi.xsl 7250 2007-08-18 10:19:00Z xmldoc $
+     $Id: pi.xsl 7684 2008-02-18 01:50:02Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -18,7 +18,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
 <doc:reference xmlns=""><info><title>HTML Processing Instruction Reference</title>
     <releaseinfo role="meta">
-      $Id: pi.xsl 7250 2007-08-18 10:19:00Z xmldoc $
+      $Id: pi.xsl 7684 2008-02-18 01:50:02Z xmldoc $
     </releaseinfo>
   </info>
   <partintro xml:id="partintro">
@@ -297,9 +297,9 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   <refpurpose>Specifies presentation style for a funcsynopsis</refpurpose>
   <refdescription>
     <para>Use the <tag class="xmlpi">dbhtml funcsynopsis-style</tag> PI as a child of
-      a <tag>funcprototype</tag> or anywhere within a funcprototype
-      control the presentation style for the <tag>funcsynopsis</tag>
-      in output.</para>
+      a <tag>funcsynopsis</tag> or anywhere within a funcsynopsis
+      to control the presentation style for output of all
+      <tag>funcprototype</tag> instances within that funcsynopsis.</para>
   </refdescription>
   <refsynopsisdiv>
     <synopsis><tag class="xmlpi">dbhtml funcsynopsis-style="kr"|"ansi"</tag></synopsis>
@@ -308,12 +308,12 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     <variablelist>
       <varlistentry><term>funcsynopsis-style="kr"</term>
         <listitem>
-          <para>Displays the <tag>funcprototype</tag> in K&amp;R style</para>
+          <para>Displays <tag>funcprototype</tag> output in K&amp;R style</para>
         </listitem>
       </varlistentry>
       <varlistentry><term>funcsynopsis-style="ansi"</term>
         <listitem>
-          <para>Displays the <tag>funcprototype</tag> in ANSI style</para>
+          <para>Displays <tag>funcprototype</tag> output in ANSI style</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -668,6 +668,30 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   </xsl:call-template>
 </xsl:template>
 
+  <doc:pi name="dbhtml_stop-chunking" xmlns="">
+	<refpurpose>Do not chunk any descendents of this element.</refpurpose>
+	<refdescription>
+    <para>When generating chunked html output, adding this as the child of an element that contains elements that would normally be generated on separate pages if generating chunked output causes chunking to stop at this point. No descendants of the current element will be split into new html pages:
+<programlisting><![CDATA[<section>
+<title>Configuring pencil</title>
+<?dbhtml stop-chunking?>
+
+...
+
+</section>]]></programlisting>
+</para>
+  </refdescription>
+  <refsynopsisdiv>
+    <synopsis><tag class="xmlpi">dbhtml stop-chunking</tag></synopsis>
+  </refsynopsisdiv>	
+  <refsee role="tcg">
+    <para><link role="tcg"
+        xlink:href="Chunking.html"
+        >Chunking into multiple HTML files</link></para>
+  </refsee>
+  </doc:pi>
+  <!-- The code that handles the stop-chunking pi is in chunk-common.xsl -->
+
 <doc:pi name="dbhtml_table-summary" xmlns="">
   <refpurpose>Specifies summary for table, variablelist, segmentedlist, or qandaset output</refpurpose>
   <refdescription>
@@ -1006,7 +1030,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     <para><link role="tcg"
         xlink:href="InsertExtHtml.html"
         >Inserting external HTML code</link>,
-      <link
+      <link role="tcg"
         xlink:href="ExternalCode.html"
         >External code files</link></para>
   </refsee>
@@ -1049,6 +1073,37 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
+
+<!-- There are two templates matching this PI in htmlhelp-common.xsl -->
+<doc:pi name="dbhh" xmlns="">
+  <refpurpose>Sets topic name and topic id for context-sensitive HTML Help</refpurpose>
+  <refdescription>
+    <para>Use the <tag class="xmlpi">dbhh</tag> PI as a child of components
+      that should be used as targets for context-sensitive help requests.</para>
+  </refdescription>
+  <refsynopsisdiv>
+    <synopsis><tag class="xmlpi">dbhh topicname="<replaceable>name</replaceable>" topicid="<replaceable>id</replaceable>"</tag></synopsis>
+  </refsynopsisdiv>
+  <refparameter>
+    <variablelist>
+      <varlistentry><term>topicname="<replaceable>name</replaceable>"</term>
+        <listitem>
+          <para>Specifies a unique string constant that identifies a help topic</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry><term>topicid="<replaceable>id</replaceable>"</term>
+        <listitem>
+          <para>Specifies a unique integer value for the <literal>topicname</literal> string</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refparameter>
+  <refsee role="tcg">
+    <para><link role="tcg"
+        xlink:href="HtmlHelp.html#HHContextHelp"
+        >Context-sensitive help</link></para>
+  </refsee>
+</doc:pi>
 
 <!-- ==================================================================== -->
 
@@ -1205,37 +1260,5 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
-
-<!-- There are two templates matching this PI in htmlhelp-common.xsl -->
-<doc:pi name="dbhh" xmlns="">
-  <refpurpose>Sets topic name and topic id for context-sensitive HTML Help</refpurpose>
-  <refdescription>
-    <para>Use the <tag class="xmlpi">dbhh</tag> PI as a child of components
-      that should be used as targets for context-sensitive help requests.</para>
-  </refdescription>
-  <refsynopsisdiv>
-    <synopsis><tag class="xmlpi">dbhh topicname="<replaceable>name</replaceable>" topicid="<replaceable>id</replaceable>"</tag></synopsis>
-  </refsynopsisdiv>
-  <refparameter>
-    <variablelist>
-      <varlistentry><term>topicname="<replaceable>name</replaceable>"</term>
-        <listitem>
-          <para>Specifies a unique string constant that identifies a help topic</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry><term>topicid="<replaceable>id</replaceable>"</term>
-        <listitem>
-          <para>Specifies a unique integer value for the <literal>topicname</literal> string</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </refparameter>
-  <refsee role="tcg">
-    <para><link role="tcg"
-        xlink:href="HtmlHelp.html#HHContextHelp"
-        >Context-sensitive help</link></para>
-  </refsee>
-</doc:pi>
-
 
 </xsl:stylesheet>

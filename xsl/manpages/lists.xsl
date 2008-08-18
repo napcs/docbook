@@ -5,7 +5,7 @@
 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: lists.xsl 6843 2007-06-20 12:21:13Z xmldoc $
+     $Id: lists.xsl 7843 2008-03-05 10:15:15Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -33,15 +33,15 @@ version='1.0'>
 <!-- ================================================================== -->
 
 <xsl:template match="d:para[ancestor::d:listitem or ancestor::d:step or ancestor::d:glossdef]|
-	             d:simpara[ancestor::d:listitem or ancestor::d:step or ancestor::d:glossdef]|
-		     d:remark[ancestor::d:listitem or ancestor::d:step or ancestor::d:glossdef]">
+  d:simpara[ancestor::d:listitem or ancestor::d:step or ancestor::d:glossdef]|
+  d:remark[ancestor::d:listitem or ancestor::d:step or ancestor::d:glossdef]">
   <xsl:call-template name="mixed-block"/>
   <xsl:text>&#10;</xsl:text>
   <xsl:if test="following-sibling::*[1][
-                self::d:para or
-                self::d:simpara or
-                self::d:remark
-                ]">
+    self::d:para or
+    self::d:simpara or
+    self::d:remark
+    ]">
     <!-- * Make sure multiple paragraphs within a list item don't -->
     <!-- * merge together.                                        -->
     <xsl:text>.sp&#10;</xsl:text>
@@ -101,12 +101,12 @@ version='1.0'>
 <xsl:template match="d:glossentry/d:glossterm"/>
 
 <xsl:template match="d:variablelist[ancestor::d:listitem or ancestor::d:step or ancestor::d:glossdef]|
-                     d:glosslist[ancestor::d:listitem or ancestor::d:step or ancestor::d:glossdef]">
+  d:glosslist[ancestor::d:listitem or ancestor::d:step or ancestor::d:glossdef]">
   <xsl:apply-templates/>
   <xsl:if test="following-sibling::node() or
-                parent::d:para[following-sibling::node()] or
-                parent::d:simpara[following-sibling::node()] or
-                parent::d:remark[following-sibling::node()]">
+    parent::d:para[following-sibling::node()] or
+    parent::d:simpara[following-sibling::node()] or
+    parent::d:remark[following-sibling::node()]">
     <xsl:text>.sp</xsl:text> 
     <xsl:text>&#10;</xsl:text>
   </xsl:if>
@@ -130,19 +130,46 @@ version='1.0'>
     <xsl:value-of select="$list-indent"/>
   </xsl:if>
   <xsl:text>&#10;</xsl:text>
+  <!-- * if "n" then we are using "nroff", which means the output is for -->
+  <!-- * TTY; so we do some fixed-width-font hackery with \h to make a -->
+  <!-- * hanging indent (instead of using .IP, which has some -->
+  <!-- * undesirable side effects under certain circumstances) -->
+  <xsl:call-template name="roff-if-else-start"/>
   <xsl:text>\h'-</xsl:text>
-    <xsl:if test="not($list-indent = '')">
-    <xsl:text>0</xsl:text>
-    <xsl:value-of select="$list-indent"/>
-  </xsl:if>
+  <xsl:choose>
+    <xsl:when test="not($list-indent = '')">
+      <xsl:text>0</xsl:text>
+      <xsl:value-of select="$list-indent"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:text>\n(INu</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
   <xsl:text>'</xsl:text>
   <xsl:text>&#x2022;</xsl:text>
   <xsl:text>\h'+</xsl:text>
-    <xsl:if test="not($list-indent = '')">
-    <xsl:text>0</xsl:text>
-    <xsl:value-of select="$list-indent - 1"/>
-  <xsl:text>'</xsl:text>
-  </xsl:if>
+  <xsl:choose>
+    <xsl:when test="not($list-indent = '')">
+      <xsl:text>0</xsl:text>
+      <xsl:value-of select="$list-indent - 1"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:text>\n(INu-1</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
+  <xsl:text>'\c&#10;</xsl:text>
+  <!-- * else, we are not using for "nroff", but instead "troff" - which -->
+  <!-- * means not for TTY, but for PS or whatever; so we’re not using a -->
+  <!-- * fixed-width font, so use a real .IP instead -->
+  <xsl:call-template name="roff-else"/>
+  <!-- * .IP generates a blank like of space, so let’s go backwards one -->
+  <!-- * line up to compensate for that -->
+  <xsl:text>.sp -1&#10;</xsl:text>
+  <xsl:text>.IP \(bu 2.3&#10;</xsl:text>
+  <!-- * The value 2.3 is the amount of indentation; we use 2.3 instead -->
+  <!-- * of 2 because when the font family is New Century Schoolbook it -->
+  <!-- * seems to require the extra space. -->
+  <xsl:call-template name="roff-if-end"/>
   <xsl:apply-templates/>
   <xsl:text>.RE&#10;</xsl:text>
 </xsl:template>
@@ -157,22 +184,54 @@ version='1.0'>
     <xsl:value-of select="$list-indent"/>
   </xsl:if>
   <xsl:text>&#10;</xsl:text>
+  <!-- * if "n" then we are using "nroff", which means the output is for -->
+  <!-- * TTY; so we do some fixed-width-font hackery with \h to make a -->
+  <!-- * hanging indents (instead of using .IP, which has some -->
+  <!-- * undesirable side effects under certain circumstances) -->
+  <xsl:call-template name="roff-if-else-start"/>
   <xsl:text>\h'-</xsl:text>
-    <xsl:if test="not($list-indent = '')">
-    <xsl:text>0</xsl:text>
-    <xsl:value-of select="$list-indent"/>
-  </xsl:if>
+  <xsl:choose>
+    <xsl:when test="not($list-indent = '')">
+      <xsl:text>0</xsl:text>
+      <xsl:value-of select="$list-indent"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:text>\n(INu+3n</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
   <xsl:text>'</xsl:text>
   <xsl:if test="count(preceding-sibling::d:listitem) &lt; 9">
     <xsl:text> </xsl:text>
   </xsl:if>
   <xsl:number format="1."/>
   <xsl:text>\h'+</xsl:text>
-    <xsl:if test="not($list-indent = '')">
-    <xsl:text>0</xsl:text>
-    <xsl:value-of select="$list-indent - 2"/>
-  <xsl:text>'</xsl:text>
+  <xsl:choose>
+    <xsl:when test="not($list-indent = '')">
+      <xsl:text>0</xsl:text>
+      <xsl:value-of select="$list-indent - 3"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:text>1n</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
+  <xsl:text>'\c&#10;</xsl:text>
+  <!-- * else, we are not using for "nroff", but instead "troff" - which -->
+  <!-- * means not for TTY, but for PS or whatever; so we’re not using a -->
+  <!-- * fixed-width font, so use a real .IP instead -->
+  <xsl:call-template name="roff-else"/>
+  <!-- * .IP generates a blank line of space, so let’s go backwards one -->
+  <!-- * line up to compensate for that -->
+  <xsl:text>.sp -1&#10;</xsl:text>
+  <xsl:text>.IP "</xsl:text>
+  <xsl:if test="count(preceding-sibling::d:listitem) &lt; 9">
+    <xsl:text>  </xsl:text>
   </xsl:if>
+  <xsl:number format="1."/>
+  <xsl:text>" 4.2&#10;</xsl:text>
+  <!-- * The value 4.2 is the amount of indentation; we use 4.2 instead -->
+  <!-- * of 4 because when the font family is Bookman it seems to require -->
+  <!-- * the extra space. -->
+  <xsl:call-template name="roff-if-end"/>
   <xsl:apply-templates/>
   <xsl:text>.RE&#10;</xsl:text>
   <xsl:text>&#10;</xsl:text>
@@ -191,7 +250,7 @@ version='1.0'>
   <!-- * lists before the actual list items, so we need to get that -->
   <!-- * content (if any) before getting the list items -->
   <xsl:apply-templates
-      select="*[not(self::d:listitem) and not(self::d:title)]"/>
+    select="*[not(self::d:listitem) and not(self::d:title)]"/>
   <xsl:apply-templates select="d:listitem"/>
   <!-- * If this list is a child of para and has content following -->
   <!-- * it, within the same para, then add a blank line and move -->
@@ -203,8 +262,8 @@ version='1.0'>
 </xsl:template>
 
 <xsl:template match="d:itemizedlist[ancestor::d:listitem or ancestor::d:step  or ancestor::d:glossdef]|
-	             d:orderedlist[ancestor::d:listitem or ancestor::d:step or ancestor::d:glossdef]|
-                     d:procedure[ancestor::d:listitem or ancestor::d:step or ancestor::d:glossdef]">
+  d:orderedlist[ancestor::d:listitem or ancestor::d:step or ancestor::d:glossdef]|
+  d:procedure[ancestor::d:listitem or ancestor::d:step or ancestor::d:glossdef]">
   <xsl:if test="d:title">
     <xsl:text>.PP&#10;</xsl:text>
     <xsl:call-template name="bold">
@@ -215,10 +274,10 @@ version='1.0'>
   </xsl:if>
   <xsl:apply-templates/>
   <xsl:if test="following-sibling::node() or
-                parent::d:para[following-sibling::node()] or
-                parent::d:simpara[following-sibling::node()] or
-                parent::d:remark[following-sibling::node()]">
-    <xsl:text>.IP ""</xsl:text> 
+    parent::d:para[following-sibling::node()] or
+    parent::d:simpara[following-sibling::node()] or
+    parent::d:remark[following-sibling::node()]">
+    <xsl:text>.RS</xsl:text> 
     <xsl:if test="not($list-indent = '')">
       <xsl:text> </xsl:text>
       <xsl:value-of select="$list-indent"/>
@@ -231,17 +290,16 @@ version='1.0'>
   
 <!-- * for simplelist type="inline", render it as a comma-separated list -->
 <xsl:template match="d:simplelist[@type='inline']">
-
   <!-- * if dbchoice PI exists, use that to determine the choice separator -->
   <!-- * (that is, equivalent of "and" or "or" in current locale), or literal -->
   <!-- * value of "choice" otherwise -->
   <xsl:variable name="localized-choice-separator">
     <xsl:choose>
       <xsl:when test="processing-instruction('dbchoice')">
-	<xsl:call-template name="select.choice.separator"/>
+        <xsl:call-template name="select.choice.separator"/>
       </xsl:when>
       <xsl:otherwise>
-	<!-- * empty -->
+        <!-- * empty -->
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -251,13 +309,13 @@ version='1.0'>
     <xsl:choose>
       <xsl:when test="position() = last()"/> <!-- do nothing -->
       <xsl:otherwise>
-	<xsl:text>, </xsl:text>
-	<xsl:if test="position() = last() - 1">
-	  <xsl:if test="$localized-choice-separator != ''">
-	    <xsl:value-of select="$localized-choice-separator"/>
-	    <xsl:text> </xsl:text>
-	  </xsl:if>
-	</xsl:if>
+        <xsl:text>, </xsl:text>
+        <xsl:if test="position() = last() - 1">
+          <xsl:if test="$localized-choice-separator != ''">
+            <xsl:value-of select="$localized-choice-separator"/>
+            <xsl:text> </xsl:text>
+          </xsl:if>
+        </xsl:if>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:for-each>
@@ -268,7 +326,7 @@ version='1.0'>
 <!-- * list (ignoring the values of the type and columns attributes) -->
 <xsl:template match="d:simplelist">
   <xsl:for-each select="d:member">
-    <xsl:text>.IP ""</xsl:text> 
+    <xsl:text>.RS</xsl:text> 
     <xsl:if test="not($list-indent = '')">
       <xsl:text> </xsl:text>
       <xsl:value-of select="$list-indent"/>
@@ -276,6 +334,7 @@ version='1.0'>
     <xsl:text>&#10;</xsl:text>
     <xsl:apply-templates/>
     <xsl:text>&#10;</xsl:text>
+    <xsl:text>.RE&#10;</xsl:text>
   </xsl:for-each>
 </xsl:template>
 
@@ -296,8 +355,8 @@ version='1.0'>
   <xsl:text>.ll +(\n(LLu * 62u / 100u)&#10;</xsl:text>
   <!-- * .TS = "Table Start" -->
   <xsl:text>.TS&#10;</xsl:text>
-    <!-- * first output the table "format" spec, which tells tbl(1) how -->
-    <!-- * how to format each row and column. -->
+  <!-- * first output the table "format" spec, which tells tbl(1) how -->
+  <!-- * how to format each row and column. -->
   <xsl:for-each select=".//d:segtitle">
     <!-- * l = "left", which hard-codes left-alignment for tabular -->
     <!-- * output of all segmentedlist content -->
@@ -331,13 +390,13 @@ version='1.0'>
     <xsl:with-param name="context" select="."/>
   </xsl:call-template>
   <xsl:choose>
-      <xsl:when test="position() = last()"/> <!-- do nothing -->
-      <xsl:otherwise>
-        <!-- * tbl(1) treats tab characters as delimiters between -->
-        <!-- * cells; so we need to output a tab after each except -->
-        <!-- * segtitle except the last one -->
-        <xsl:text>&#09;</xsl:text>
-      </xsl:otherwise>
+    <xsl:when test="position() = last()"/> <!-- do nothing -->
+    <xsl:otherwise>
+      <!-- * tbl(1) treats tab characters as delimiters between -->
+      <!-- * cells; so we need to output a tab after each -->
+      <!-- * segtitle except the last one -->
+      <xsl:text>&#09;</xsl:text>
+    </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
 
@@ -347,7 +406,7 @@ version='1.0'>
 </xsl:template>
 
 <xsl:template match="d:segmentedlist/d:seglistitem/d:seg">
-  <!-- * the “T{" and “T}” stuff are delimiters to tell tbl(1) that -->
+  <!-- * the T{ and T} stuff are delimiters to tell tbl(1) that -->
   <!-- * the delimited contents are "text blocks" that groff(1) -->
   <!-- * needs to process -->
   <xsl:text>T{&#10;</xsl:text>
@@ -360,11 +419,187 @@ version='1.0'>
     <xsl:when test="position() = last()"/> <!-- do nothing -->
     <xsl:otherwise>
       <!-- * tbl(1) treats tab characters as delimiters between -->
-      <!-- * cells; so we need to output a tab after each except -->
+      <!-- * cells; so we need to output a tab after each -->
       <!-- * segtitle except the last one -->
       <xsl:text>&#09;</xsl:text>
     </xsl:otherwise>
   </xsl:choose>
+</xsl:template>
+
+<!-- ==================================================================== -->
+
+<xsl:template match="d:calloutlist">
+  <xsl:if test="d:title|d:info/d:title">
+    <xsl:call-template name="formal.object.heading"/>
+  </xsl:if>
+  <!-- * This template was originally copied over from the HTML -->
+  <!-- * calloutlist template, which precedes the following -->
+  <!-- * apply-templates with the comment "Preserve order of PIs and -->
+  <!-- * comments"; I'm not certain that it will actually have that -->
+  <!-- * effect for all cases, and it seems like there is probably a -->
+  <!-- * better way to do it, but anyway, I’m preserving it here for -->
+  <!-- * consistency. -->
+  <xsl:apply-templates 
+    select="*[not(self::d:callout or self::d:title or self::d:titleabbrev)]
+    |comment()[not(preceding-sibling::d:callout)]
+    |processing-instruction()[not(preceding-sibling::d:callout)]"/>
+  <!-- * put callout list into a table -->
+  <xsl:text>.TS&#10;</xsl:text>
+  <xsl:text>tab(:);&#10;</xsl:text>
+  <!-- * the following defines the row layout for the table: two columns, -->
+  <!-- * with the first cell in each row right-aligned, and the second -->
+  <!-- * cell left aligned with a width of 75% of the line length -->
+  <xsl:text>r lw(\n(.lu*75u/100u).&#10;</xsl:text>
+  <xsl:apply-templates select="d:callout
+    |comment()[preceding-sibling::d:callout]
+    |processing-instruction()[preceding-sibling::d:callout]"/>
+  <xsl:text>.TE&#10;</xsl:text>
+</xsl:template>
+
+<xsl:template match="d:calloutlist/d:title"/>
+
+<xsl:template match="d:callout">
+  <!-- * first cell of each row is the set of callout numbers for this -->
+  <!-- * particular callout -->
+  <xsl:call-template name="callout.arearefs">
+    <xsl:with-param name="arearefs" select="@arearefs"/>
+  </xsl:call-template>
+  <!-- * end of the first cell in the row; the \h hackery is to correct -->
+  <!-- * for the excessive horizontal whitespace that tbl(1) adds between -->
+  <!-- * cells in the same row -->
+  <xsl:text>\h'-2n':</xsl:text>
+  <!-- * start the next cell in the row, which has the prose contents -->
+  <!-- * (description/explanation) for the callout -->
+  <xsl:text>T{&#10;</xsl:text>
+  <xsl:apply-templates/>
+  <xsl:text>T}&#10;</xsl:text>
+  <!-- * end of the last cell and end of the row -->
+</xsl:template>
+
+<xsl:template name="callout.arearefs">
+  <xsl:param name="arearefs"></xsl:param>
+  <!-- * callout can have multiple values in its arearefs attribute, so -->
+  <!-- * we use the position param to track the postion of each value -->
+  <xsl:param name="position">1</xsl:param>
+  <xsl:if test="$arearefs!=''">
+    <xsl:choose>
+      <xsl:when test="substring-before($arearefs,' ')=''">
+        <xsl:call-template name="callout.arearef">
+          <xsl:with-param name="arearef" select="$arearefs"/>
+          <xsl:with-param name="position" select="$position"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="callout.arearef">
+          <xsl:with-param name="arearef"
+            select="substring-before($arearefs,' ')"/>
+          <xsl:with-param name="position" select="$position"/>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:call-template name="callout.arearefs">
+      <xsl:with-param name="arearefs"
+        select="substring-after($arearefs,' ')"/>
+      <xsl:with-param name="position" select="$position + 1"/>
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="callout.arearef">
+  <xsl:param name="arearef"></xsl:param>
+  <!-- * callout can have multiple values in its arearefs attribute, so -->
+  <!-- * we use the position param to track the postion of each value -->
+  <xsl:param name="position"></xsl:param>
+  <xsl:variable name="targets" select="key('id',$arearef)"/>
+  <xsl:variable name="target" select="$targets[1]"/>
+
+  <xsl:call-template name="check.id.unique">
+    <xsl:with-param name="linkend" select="$arearef"/>
+  </xsl:call-template>
+
+  <xsl:choose>
+    <xsl:when test="count($target)=0">
+      <xsl:text>???</xsl:text>
+    </xsl:when>
+    <xsl:when test="local-name($target)='co'">
+      <!-- * if this is not the first value in the set of values in the -->
+      <!-- * arearef attribute for this callout, then we prepend a groff -->
+      <!-- * non-breaking space to it, to prevent groff from injecting -->
+      <!-- * linebreaks into the output. For callout instances with -->
+      <!-- * multiple values in their arearefs attributes, that results -->
+      <!-- * in all of callout numbers beings listed on the same line. -->
+      <xsl:if test="not($position = 1)">
+        <xsl:text>\ </xsl:text>
+      </xsl:if>
+      <xsl:apply-templates select="$target"
+        mode="calloutlist-callout-number"/>
+    </xsl:when>
+    <!-- * the manpages stylesheet does not really support areaset and -->
+    <!-- * area (because we can't/don't actually render the callout bugs -->
+    <!-- * at the specified coordinates); however, the following (for -->
+    <!-- * what it's worth) might cause the callout numbers in the -->
+    <!-- * calloutlist to be render at least (then again, maybe it won't; -->
+    <!-- * it's not actually been tested... -->
+    <xsl:when test="local-name($target)='areaset'">
+      <xsl:call-template name="callout-bug">
+        <xsl:with-param name="conum">
+          <xsl:apply-templates select="$target" mode="conumber"/>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:when>
+    <xsl:when test="local-name($target)='area'">
+      <xsl:choose>
+        <xsl:when test="$target/parent::d:areaset">
+          <xsl:call-template name="callout-bug">
+            <xsl:with-param name="conum">
+              <xsl:apply-templates
+                select="$target/parent::d:areaset" mode="conumber"/>
+            </xsl:with-param>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:call-template name="callout-bug">
+            <xsl:with-param name="conum">
+              <xsl:apply-templates select="$target"
+                mode="conumber"/>
+            </xsl:with-param>
+          </xsl:call-template>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:text>???</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<!-- * we bold the actual callout bugs and put -->
+<!-- * parenthesis around them -->
+<xsl:template name="callout-bug">
+  <xsl:param name="conum" select='1'/>
+  <xsl:text>\fB(</xsl:text>
+  <xsl:value-of select="$conum"/>
+  <xsl:text>)\fR</xsl:text>
+</xsl:template>
+
+<!-- * we bold the callout numbers and follow each -->
+<!-- * with a period -->
+<xsl:template name="calloutlist-callout-number">
+  <xsl:param name="conum" select='1'/>
+  <xsl:text>\fB</xsl:text>
+  <xsl:value-of select="$conum"/>
+  <xsl:text>.\fR</xsl:text>
+</xsl:template>
+
+<xsl:template match="d:co" mode="calloutlist-callout-number">
+  <xsl:call-template name="calloutlist-callout-number">
+    <xsl:with-param name="conum">
+      <xsl:number count="d:co"
+        level="any"
+        from="d:programlisting|d:screen|d:literallayout|d:synopsis"
+        format="1"/>
+    </xsl:with-param>
+  </xsl:call-template>
 </xsl:template>
 
 </xsl:stylesheet>

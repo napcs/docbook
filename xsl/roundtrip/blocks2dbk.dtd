@@ -43,15 +43,16 @@
 			     @rnd:style = "pagenums" or
 			     @rnd:style = "issuenum" or
 			     @rnd:style = "volumenum" or
+			     @rnd:style = "edition" or
 			     @rnd:style = "biblioid" or
 			     @rnd:style = "bibliosource" or
 			     @rnd:style = "bibliomisc" or
-			     @rnd:style = "releaseinfo"
+			     @rnd:style = "releaseinfo" or
+			     @rnd:style = "keyword"
 			     &metadata-extra;'>
 
   <!ENTITY author-extra ""> <!-- for customisation -->
-  <!ENTITY author-content '@rnd:style = "author" or
-			   @rnd:style = "personblurb" or
+  <!ENTITY author-content '@rnd:style = "personblurb" or
 			   @rnd:style = "address" or
 			   @rnd:style = "affiliation" or
 			   @rnd:style = "contrib" or

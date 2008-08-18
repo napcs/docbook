@@ -2,12 +2,13 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:d="http://docbook.org/ns/docbook"
 xmlns:fo="http://www.w3.org/1999/XSL/Format"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:exsl="http://exslt.org/common"
                 exclude-result-prefixes="exsl d"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: footnote.xsl 7265 2007-08-21 15:25:34Z mzjn $
+     $Id: footnote.xsl 7435 2007-09-10 11:12:44Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -88,10 +89,33 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
     </xsl:when>
     <xsl:otherwise>
       <xsl:variable name="fnum">
+        <!-- * Determine the footnote number to display for this footnote, -->
+        <!-- * by counting all foonotes, ulinks, and any elements that have -->
+        <!-- * an xlink:href attribute that meets the following criteria: -->
+        <!-- * -->
+        <!-- * - the content of the element is not a URI that is the same -->
+        <!-- *   URI as the value of the href attribute -->
+        <!-- * - the href attribute is not an internal ID reference (does -->
+        <!-- *   not start with a hash sign) -->
+        <!-- * - the href is not part of an olink reference (the element -->
+        <!-- * - does not have an xlink:role attribute that indicates it is -->
+        <!-- *   an olink, and the hrf does not contain a hash sign) -->
+        <!-- * - the element either has no xlink:type attribute or has -->
+        <!-- *   an xlink:type attribute whose value is 'simple' -->
+        <!-- *  -->
+        <!-- * Note that hyperlinks are counted only if both the value of -->
+        <!-- * ulink.footnotes is non-zero and the value of ulink.show is -->
+        <!-- * non-zero -->
         <!-- FIXME: list in @from is probably not complete -->
         <xsl:number level="any" 
                     from="d:chapter|d:appendix|d:preface|d:article|d:refentry|d:bibliography" 
-                    count="d:footnote[not(@label)][not(ancestor::d:table) and not(ancestor::d:informaltable)]|d:ulink[$ulink.footnotes != 0][node()][@url != .][not(ancestor::d:footnote)][$ulink.show != 0]" 
+                    count="d:footnote[not(@label)][not(ancestor::d:table) and not(ancestor::d:informaltable)]
+                    |d:ulink[$ulink.footnotes != 0][node()][@url != .][not(ancestor::d:footnote)][$ulink.show != 0]
+                    |*[node()][@xlink:href][not(@xlink:href = .)][not(starts-with(@xlink:href,'#'))]
+                      [not(contains(@xlink:href,'#') and @xlink:role = $xolink.role)]
+                      [not(@xlink:type) or @xlink:type='simple']
+                      [not(ancestor::d:footnote)][$ulink.footnotes != 0][$ulink.show != 0]
+                    "
                     format="1"/>
       </xsl:variable>
       <xsl:choose>

@@ -4,7 +4,8 @@
 xmlns:ng="http://docbook.org/docbook-ng"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:exsl="http://exslt.org/common"
-                exclude-result-prefixes="db ng exsl d"
+                xmlns:exslt="http://exslt.org/common"
+                exclude-result-prefixes="db ng exsl exslt d"
                 version='1.0'>
 
 <xsl:output method="html"
@@ -12,7 +13,7 @@ xmlns:ng="http://docbook.org/docbook-ng"
             indent="no"/>
 
 <!-- ********************************************************************
-     $Id: docbook.xsl 7156 2007-07-26 21:42:04Z mzjn $
+     $Id: docbook.xsl 7939 2008-03-23 04:32:34Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.

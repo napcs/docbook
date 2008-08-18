@@ -6,7 +6,7 @@ xmlns:exsl="http://exslt.org/common"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: block.xsl 6843 2007-06-20 12:21:13Z xmldoc $
+     $Id: block.xsl 7960 2008-03-29 01:37:08Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -18,9 +18,22 @@ xmlns:exsl="http://exslt.org/common"
 <!-- ==================================================================== -->
 
 <xsl:template match="d:caution|d:important|d:note|d:tip|d:warning">
-  <xsl:call-template name="nested-section-title"/>
+  <xsl:call-template name="roff-if-start">
+    <xsl:with-param name="condition">n</xsl:with-param>
+  </xsl:call-template>
+  <xsl:text>.sp&#10;</xsl:text>
+  <xsl:call-template name="roff-if-end"/>
+  <xsl:text>.RS 4&#10;</xsl:text>
+  <xsl:text>.BM yellow&#10;</xsl:text>
+  <xsl:call-template name="pinch.together"/>
+  <xsl:text>.ps +1&#10;</xsl:text>
+  <xsl:call-template name="make.bold.title"/>
+  <xsl:text>.ps -1&#10;</xsl:text>
+  <xsl:text>.br&#10;</xsl:text>
   <xsl:apply-templates/>
-  <xsl:text>&#10;</xsl:text>
+  <xsl:text>.sp .5v&#10;</xsl:text>
+  <xsl:text>.EM yellow&#10;</xsl:text>
+  <xsl:text>.RE&#10;</xsl:text>
 </xsl:template> 
 
 <xsl:template match="d:formalpara">
@@ -56,7 +69,8 @@ xmlns:exsl="http://exslt.org/common"
     <xsl:when test="ancestor::d:footnote or
                     ancestor::d:annotation or
                     ancestor::d:authorblurb or
-                    ancestor::d:personblurb">
+                    ancestor::d:personblurb or
+                    ancestor::d:callout">
       <xsl:if test="preceding-sibling::*[not(name() ='')]">
         <xsl:text>.sp</xsl:text>
         <xsl:text>&#10;</xsl:text>
@@ -84,15 +98,17 @@ xmlns:exsl="http://exslt.org/common"
 </xsl:template>
 
 <xsl:template match="d:simpara">
+  <xsl:if test="not(ancestor::d:authorblurb)
+    and not(ancestor::d:personblurb)
+    and not(ancestor::d:callout)"
+    >
+    <xsl:text>.sp&#10;</xsl:text>
+  </xsl:if>
   <xsl:variable name="content">
     <xsl:apply-templates/>
   </xsl:variable>
   <xsl:value-of select="normalize-space($content)"/>
   <xsl:text>&#10;</xsl:text>
-  <xsl:if test="not(ancestor::d:authorblurb) and
-                not(ancestor::d:personblurb)">
-    <xsl:text>.sp&#10;</xsl:text>
-  </xsl:if>
 </xsl:template>
 
 <!-- ==================================================================== -->
@@ -102,13 +118,27 @@ xmlns:exsl="http://exslt.org/common"
                      d:address|d:synopsis|d:funcsynopsisinfo">
   <xsl:param name="indent">
     <!-- * Only indent this verbatim if $man.indent.verbatims is -->
-    <!-- * non-zero and it is not a child of a *synopsis element -->
-    <xsl:if test="not($man.indent.verbatims = 0) and
-                  not(substring(local-name(..),
-                  string-length(local-name(..))-7) = 'synopsis')">
+    <!-- * non-zero and it is not a child of a *synopsis element or a -->
+    <!-- * descendant of a refsynopsisdiv -->
+    <xsl:if test="not($man.indent.verbatims = 0)
+      and not(substring(local-name(..),
+      string-length(local-name(..))-7) = 'synopsis')
+      and not(ancestor::*[local-name() = 'refsynopsisdiv'])
+      ">
       <xsl:text>Yes</xsl:text>
     </xsl:if>
   </xsl:param>
+
+  <!-- * if this verbatim environment starts with a newline/linebreak -->
+  <!-- * (that is, if there is a linebreak after the opening tag), that -->
+  <!-- * break would otherwise show up in output; that does not seem to -->
+  <!-- * be what most users would expect, so we check to see if it does -->
+  <!-- * indeed start with a leading newline. if so, later in this -->
+  <!-- * template, we adjust for the leading new line by doing some -->
+  <!-- * monkeyshines with "sp -1" vertical spacing -->
+  <xsl:variable name="adjust-for-leading-newline">
+    <xsl:if test="substring(., 1, 1) = '&#10;'">Yes</xsl:if>
+  </xsl:variable>
 
   <xsl:choose>
     <!-- * Check to see if this verbatim item is within a parent element that -->
@@ -129,12 +159,15 @@ xmlns:exsl="http://exslt.org/common"
   </xsl:choose>
   <xsl:if test="$indent = 'Yes'">
     <!-- * start indented section -->
+    <xsl:call-template name="roff-if-start"/>
+    <!-- * only indent in TTY output, not in non-TTY/PS -->
     <xsl:text>.RS</xsl:text> 
     <xsl:if test="not($man.indent.width = '')">
       <xsl:text> </xsl:text>
       <xsl:value-of select="$man.indent.width"/>
     </xsl:if>
     <xsl:text>&#10;</xsl:text>
+    <xsl:call-template name="roff-if-end"/>
   </xsl:if>
   <xsl:choose>
     <xsl:when test="self::d:funcsynopsisinfo">
@@ -158,27 +191,91 @@ xmlns:exsl="http://exslt.org/common"
       <xsl:text>.ft </xsl:text>
       <xsl:value-of select="$man.font.funcsynopsisinfo"/>
       <xsl:text>&#10;</xsl:text>
+      <xsl:call-template name="verbatim-block-start"/>
       <xsl:text>.nf&#10;</xsl:text>
       <xsl:apply-templates/>
       <xsl:text>&#10;</xsl:text>
       <xsl:text>.fi&#10;</xsl:text>
+      <xsl:call-template name="verbatim-block-end"/>
       <xsl:text>.ft&#10;</xsl:text>
     </xsl:when>
     <xsl:otherwise>
       <!-- * Other verbatims do not need to get bolded -->
+      <xsl:call-template name="verbatim-block-start"/>
       <xsl:text>.nf&#10;</xsl:text>
-      <xsl:apply-templates/>
-      <xsl:text>&#10;</xsl:text>
+      <xsl:choose>
+        <xsl:when test="self::d:literallayout|self::d:programlisting|self::d:screen
+          and not(ancestor::*[local-name() = 'refsynopsisdiv'])
+          ">
+          <!-- * if this is a literallayout|programlisting|screen, then -->
+          <!-- * we put a background behind it in non-TTY output; except -->
+          <!-- * if it’s a descendant of a refsynopsisdiv (as can be -->
+          <!-- * found in the git docs) -->
+          <xsl:choose>
+            <!-- * if content has a leading newline, we need to back up -->
+            <!-- * one line vertically to get it boxed correctly -->
+            <xsl:when test="not($adjust-for-leading-newline = '')">
+              <xsl:call-template name="roff-if-start">
+                <xsl:with-param name="condition">t</xsl:with-param>
+              </xsl:call-template>
+              <xsl:text>.sp -1&#10;</xsl:text>
+              <xsl:call-template name="roff-if-end"/>
+              <xsl:text>.BB lightgray</xsl:text>
+              <xsl:text> </xsl:text>
+              <xsl:text>adjust-for-leading-newline&#10;</xsl:text>
+              <!-- * in non-TTY output, for the case where we have a -->
+              <!-- * leading newline, we need to also back up one line -->
+              <!-- * vertically inside the background box -->
+              <xsl:text>.sp -1&#10;</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:text>.BB lightgray&#10;</xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
+          <xsl:apply-templates/>
+          <xsl:text>&#10;</xsl:text>
+          <xsl:choose>
+            <xsl:when test="not($adjust-for-leading-newline = '')">
+              <xsl:text>.EB lightgray</xsl:text>
+              <xsl:text> </xsl:text>
+              <xsl:text>adjust-for-leading-newline&#10;</xsl:text>
+              <xsl:call-template name="roff-if-start">
+                <xsl:with-param name="condition">t</xsl:with-param>
+              </xsl:call-template>
+              <!-- * in non-TTY output, for the case where we have a -->
+              <!-- * leading newline, we need to add back at the end of -->
+              <!-- * the content some of the vertical space we chopped -->
+              <!-- * off at the beginning -->
+              <xsl:text>.sp 1&#10;</xsl:text>
+              <xsl:call-template name="roff-if-end"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:text>.EB lightgray&#10;</xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <!-- * otherwise this is not a literallayout|programlisting|screen, -->
+          <!-- * so we don’t put a background behind -->
+          <xsl:apply-templates/>
+          <xsl:text>&#10;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:text>.fi&#10;</xsl:text>
+      <xsl:call-template name="verbatim-block-end"/>
     </xsl:otherwise>
   </xsl:choose>
   <xsl:if test="$indent = 'Yes'">
     <!-- * end indented section -->
+    <xsl:call-template name="roff-if-start"/>
     <xsl:text>.RE&#10;</xsl:text> 
+    <xsl:call-template name="roff-if-end"/>
   </xsl:if>
-  <!-- * if first following sibling node of this verbatim -->
-  <!-- * environment is a text node, output a line of space before it -->
-  <xsl:if test="following-sibling::node()[1][name(.) = '']">
+  <!-- * if this verbatim environment has a following sibling node, -->
+  <!-- * output a line of space to separate the content -->
+  <xsl:if test="following-sibling::text()
+    |following-sibling::d:para
+    |following-sibling::d:simpara">
     <xsl:text>.sp&#10;</xsl:text>
   </xsl:if>
 </xsl:template>

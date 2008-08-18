@@ -10,7 +10,7 @@
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: titlepage.xsl 6870 2007-06-25 05:06:33Z xmldoc $
+     $Id: titlepage.xsl 6558 2007-01-25 20:30:53Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -30,7 +30,7 @@
 <doc:reference xmlns="">
 <referenceinfo>
 <releaseinfo role="meta">
-$Id: titlepage.xsl 6870 2007-06-25 05:06:33Z xmldoc $
+$Id: titlepage.xsl 6558 2007-01-25 20:30:53Z bobstayton $
 </releaseinfo>
 <author><surname>Walsh</surname>
 <firstname>Norman</firstname></author>

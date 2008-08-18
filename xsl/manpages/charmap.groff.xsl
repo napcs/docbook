@@ -6,7 +6,7 @@ xmlns:u="http://docbook.sf.net/xmlns/unichar/1.0"
                 exclude-result-prefixes="u d">
 
 <!-- ********************************************************************
-     $Id: charmap.groff.xsl 6528 2007-01-19 08:54:04Z xmldoc $
+     $Id: charmap.groff.xsl 7806 2008-03-04 03:27:47Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -100,7 +100,7 @@ xmlns:u="http://docbook.sf.net/xmlns/unichar/1.0"
    character="&#x00a0;"
    u:name="NO-BREAK SPACE"
    u:entity="nbsp"
-   string="\ "
+   string="\ \&amp;"
    u:block="C1 Controls And Latin-1 Supplement (Latin-1 Supplement)"
    u:class="symbols"
    />
@@ -935,6 +935,34 @@ xmlns:u="http://docbook.sf.net/xmlns/unichar/1.0"
    u:name="LATIN SMALL LIGATURE OE"
    u:entity="oelig"
    string="\(oe"
+   u:block="Latin Extended-A"
+   />
+  <xsl:output-character
+   character="&#x160;"
+   u:name="LATIN CAPITAL LETTER S WITH CARON"
+   u:entity="Scaron"
+   string="\(vS"
+   u:block="Latin Extended-A"
+   />
+  <xsl:output-character
+   character="&#x161;"
+   u:name="LATIN SMALL LETTER S WITH CARON"
+   u:entity="scaron"
+   string="\(vs"
+   u:block="Latin Extended-A"
+   />
+  <xsl:output-character
+   character="&#x17D;"
+   u:name="LATIN CAPITAL LETTER Z WITH CARON"
+   u:entity="Zcaron"
+   string="\(vZ"
+   u:block="Latin Extended-A"
+   />
+  <xsl:output-character
+   character="&#x17E;"
+   u:name="LATIN SMALL LETTER Z WITH CARON"
+   u:entity="zcaron"
+   string="\(vz"
    u:block="Latin Extended-A"
    />
   <xsl:output-character

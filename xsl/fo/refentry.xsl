@@ -7,7 +7,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: refentry.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: refentry.xsl 7564 2007-11-19 18:38:43Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -565,7 +565,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 <!--     </xsl:call-template> -->
 <!-- -->
   <xsl:param name="section" 
-             select="(ancestor::d:refsynopsysdiv 
+             select="(ancestor::d:refsynopsisdiv 
                      |ancestor::d:refsection
                      |ancestor::d:refsect1
                      |ancestor::d:refsect2

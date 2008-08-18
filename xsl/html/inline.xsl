@@ -1,6 +1,7 @@
 <?xml version='1.0'?>
 <!DOCTYPE xsl:stylesheet [
-  <!ENTITY comment.block.parents "parent::answer|parent::appendix|parent::article|parent::bibliodiv|parent::bibliography|parent::blockquote|parent::caution|parent::chapter|parent::glossary|parent::glossdiv|parent::important|parent::index|parent::indexdiv|parent::listitem|parent::note|parent::orderedlist|parent::partintro|parent::preface|parent::procedure|parent::qandadiv|parent::qandaset|parent::question|parent::refentry|parent::refnamediv|parent::refsect1|parent::refsect2|parent::refsect3|parent::refsection|parent::refsynopsisdiv|parent::sect1|parent::sect2|parent::sect3|parent::sect4|parent::sect5|parent::section|parent::setindex|parent::sidebar|parent::simplesect|parent::taskprerequisites|parent::taskrelated|parent::tasksummary|parent::warning">
+<!ENTITY % common.entities SYSTEM "../common/entities.ent">
+%common.entities;
 ]>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:d="http://docbook.org/ns/docbook"
@@ -10,7 +11,7 @@ xmlns:xlink='http://www.w3.org/1999/xlink'
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: inline.xsl 7232 2007-08-11 16:10:40Z mzjn $
+     $Id: inline.xsl 8014 2008-05-27 15:54:46Z abdelazer $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -23,9 +24,17 @@ xmlns:xlink='http://www.w3.org/1999/xlink'
   <xsl:param name="content">
     <xsl:apply-templates/>
   </xsl:param>
-  <xsl:param name="a.target"/>
   <xsl:param name="linkend" select="$node/@linkend"/>
   <xsl:param name="xhref" select="$node/@xlink:href"/>
+
+  <!-- Support for @xlink:show -->
+  <xsl:variable name="target.show">
+    <xsl:choose>
+      <xsl:when test="$node/@xlink:show = 'new'">_blank</xsl:when>
+      <xsl:when test="$node/@xlink:show = 'replace'">_top</xsl:when>
+      <xsl:otherwise></xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
 
   <xsl:variable name="link">
     <xsl:choose>
@@ -104,9 +113,9 @@ xmlns:xlink='http://www.w3.org/1999/xlink'
                     </xsl:otherwise>
                   </xsl:choose>
 
-                  <xsl:if test="$a.target">
+                  <xsl:if test="$target.show !=''">
                     <xsl:attribute name="target">
-                      <xsl:value-of select="$a.target"/>
+                      <xsl:value-of select="$target.show"/>
                     </xsl:attribute>
                   </xsl:if>
 
@@ -135,6 +144,19 @@ xmlns:xlink='http://www.w3.org/1999/xlink'
                   <xsl:value-of select="$node/@xlink:title"/>
                 </xsl:attribute>
               </xsl:if>
+
+	      <!-- For URIs, use @xlink:show if defined, otherwise use ulink.target -->
+	      <xsl:attribute name="target">
+		<xsl:choose>
+		  <xsl:when test="$target.show !=''">
+		    <xsl:value-of select="$target.show"/>
+		  </xsl:when>
+		  <xsl:otherwise>
+		  <xsl:value-of select="$ulink.target"/>
+		  </xsl:otherwise>
+		</xsl:choose>
+	      </xsl:attribute>
+	      
               <xsl:copy-of select="$content"/>
             </a>
           </xsl:otherwise>
@@ -717,7 +739,10 @@ xmlns:xlink='http://www.w3.org/1999/xlink'
 <xsl:template match="d:emphasis">
   <span>
     <xsl:choose>
-      <xsl:when test="@role and $emphasis.propagates.style != 0">
+      <!-- We don't want empty @class values, so do not propagate empty @roles -->
+      <xsl:when test="@role  and
+                      normalize-space(@role) != '' and
+                      $emphasis.propagates.style != 0">
         <xsl:apply-templates select="." mode="class.attribute">
           <xsl:with-param name="class" select="@role"/>
         </xsl:apply-templates>
@@ -778,7 +803,10 @@ xmlns:xlink='http://www.w3.org/1999/xlink'
     <xsl:if test="@lang or @xml:lang">
       <xsl:call-template name="language.attribute"/>
     </xsl:if>
-    <xsl:if test="@role and $phrase.propagates.style != 0">
+    <!-- We don't want empty @class values, so do not propagate empty @roles -->
+    <xsl:if test="@role and 
+                  normalize-space(@role) != '' and
+                  $phrase.propagates.style != 0">
       <xsl:apply-templates select="." mode="class.attribute">
         <xsl:with-param name="class" select="@role"/>
       </xsl:apply-templates>
@@ -1263,6 +1291,36 @@ xmlns:xlink='http://www.w3.org/1999/xlink'
 	    <xsl:call-template name="inline.charseq"/>
 	  </xsl:otherwise>
 	</xsl:choose>
+
+      </a>
+      <xsl:text>]</xsl:text>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:text>[</xsl:text>
+      <xsl:call-template name="inline.charseq"/>
+      <xsl:text>]</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="d:citebiblioid">
+  <xsl:variable name="targets" select="//*[d:biblioid = string(current())]"/>
+  <xsl:variable name="target" select="$targets[1]"/>
+
+  <xsl:choose>
+    <!-- try automatic linking based on match to parent of biblioid -->
+    <xsl:when test="$target and not(d:xref) and not(d:link)">
+
+      <xsl:text>[</xsl:text>
+      <a>
+        <xsl:apply-templates select="." mode="class.attribute"/>
+        <xsl:attribute name="href">
+          <xsl:call-template name="href.target">
+            <xsl:with-param name="object" select="$target"/>
+          </xsl:call-template>
+        </xsl:attribute>
+
+	<xsl:call-template name="inline.charseq"/>
 
       </a>
       <xsl:text>]</xsl:text>

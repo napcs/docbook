@@ -8,7 +8,7 @@ xmlns:exsl="http://exslt.org/common"
                 exclude-result-prefixes="exsl cf ng db d">
 
 <!-- ********************************************************************
-     $Id: chunk-common.xsl 7084 2007-07-19 07:17:45Z xmldoc $
+     $Id: chunk-common.xsl 7833 2008-03-04 19:09:35Z nwalsh $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -161,25 +161,30 @@ xmlns:exsl="http://exslt.org/common"
        http://nagoya.apache.org/bugzilla/show_bug.cgi?id=6063 -->
 
   <xsl:variable name="prev-v1"
-     select="(ancestor::d:sect1[$chunk.section.depth &gt; 0
+     select="(ancestor::d:sect1[$chunk.section.depth &gt; 0 
+	                           and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect1][1]
 
              |ancestor::d:sect2[$chunk.section.depth &gt; 1
+                               and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect2
                                and parent::d:sect1[preceding-sibling::d:sect1]][1]
 
              |ancestor::d:sect3[$chunk.section.depth &gt; 2
+                               and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect3
                                and parent::d:sect2[preceding-sibling::d:sect2]
                                and ancestor::d:sect1[preceding-sibling::d:sect1]][1]
 
              |ancestor::d:sect4[$chunk.section.depth &gt; 3
+                               and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect4
                                and parent::d:sect3[preceding-sibling::d:sect3]
                                and ancestor::d:sect2[preceding-sibling::d:sect2]
                                and ancestor::d:sect1[preceding-sibling::d:sect1]][1]
 
              |ancestor::d:sect5[$chunk.section.depth &gt; 4
+                               and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect5
                                and parent::d:sect4[preceding-sibling::d:sect4]
                                and ancestor::d:sect3[preceding-sibling::d:sect3]
@@ -187,28 +192,34 @@ xmlns:exsl="http://exslt.org/common"
                                and ancestor::d:sect1[preceding-sibling::d:sect1]][1]
 
              |ancestor::d:section[$chunk.section.depth &gt; count(ancestor::d:section)
+	                            and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                 and not(ancestor::d:section[not(preceding-sibling::d:section)])][1])[last()]"/>
 
   <xsl:variable name="prev-v2"
      select="(preceding::d:sect1[$chunk.section.depth &gt; 0
+                               and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect1][1]
 
              |preceding::d:sect2[$chunk.section.depth &gt; 1
+                               and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect2
                                and parent::d:sect1[preceding-sibling::d:sect1]][1]
 
              |preceding::d:sect3[$chunk.section.depth &gt; 2
+                               and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect3
                                and parent::d:sect2[preceding-sibling::d:sect2]
                                and ancestor::d:sect1[preceding-sibling::d:sect1]][1]
 
              |preceding::d:sect4[$chunk.section.depth &gt; 3
+                               and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect4
                                and parent::d:sect3[preceding-sibling::d:sect3]
                                and ancestor::d:sect2[preceding-sibling::d:sect2]
                                and ancestor::d:sect1[preceding-sibling::d:sect1]][1]
 
              |preceding::d:sect5[$chunk.section.depth &gt; 4
+                               and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect5
                                and parent::d:sect4[preceding-sibling::d:sect4]
                                and ancestor::d:sect3[preceding-sibling::d:sect3]
@@ -216,6 +227,7 @@ xmlns:exsl="http://exslt.org/common"
                                and ancestor::d:sect1[preceding-sibling::d:sect1]][1]
 
              |preceding::d:section[$chunk.section.depth &gt; count(ancestor::d:section)
+  	                             and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                  and preceding-sibling::d:section
                                  and not(ancestor::d:section[not(preceding-sibling::d:section)])][1])[last()]"/>
 
@@ -247,24 +259,29 @@ xmlns:exsl="http://exslt.org/common"
 
   <xsl:variable name="next-v1"
     select="(following::d:sect1[$chunk.section.depth &gt; 0
+	                           and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect1][1]
 
              |following::d:sect2[$chunk.section.depth &gt; 1
+	                           and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect2
                                and parent::d:sect1[preceding-sibling::d:sect1]][1]
 
              |following::d:sect3[$chunk.section.depth &gt; 2
+	                           and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect3
                                and parent::d:sect2[preceding-sibling::d:sect2]
                                and ancestor::d:sect1[preceding-sibling::d:sect1]][1]
 
              |following::d:sect4[$chunk.section.depth &gt; 3
+	                           and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect4
                                and parent::d:sect3[preceding-sibling::d:sect3]
                                and ancestor::d:sect2[preceding-sibling::d:sect2]
                                and ancestor::d:sect1[preceding-sibling::d:sect1]][1]
 
              |following::d:sect5[$chunk.section.depth &gt; 4
+	                           and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect5
                                and parent::d:sect4[preceding-sibling::d:sect4]
                                and ancestor::d:sect3[preceding-sibling::d:sect3]
@@ -272,29 +289,35 @@ xmlns:exsl="http://exslt.org/common"
                                and ancestor::d:sect1[preceding-sibling::d:sect1]][1]
 
              |following::d:section[$chunk.section.depth &gt; count(ancestor::d:section)
-                                 and preceding-sibling::d:section
+  	                             and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
+                                 and preceding-sibling::d:section 
                                  and not(ancestor::d:section[not(preceding-sibling::d:section)])][1])[1]"/>
 
   <xsl:variable name="next-v2"
     select="(descendant::d:sect1[$chunk.section.depth &gt; 0
+	                           and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect1][1]
 
              |descendant::d:sect2[$chunk.section.depth &gt; 1
+	                           and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect2
                                and parent::d:sect1[preceding-sibling::d:sect1]][1]
 
              |descendant::d:sect3[$chunk.section.depth &gt; 2
+	                           and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect3
                                and parent::d:sect2[preceding-sibling::d:sect2]
                                and ancestor::d:sect1[preceding-sibling::d:sect1]][1]
 
              |descendant::d:sect4[$chunk.section.depth &gt; 3
+	                           and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect4
                                and parent::d:sect3[preceding-sibling::d:sect3]
                                and ancestor::d:sect2[preceding-sibling::d:sect2]
                                and ancestor::d:sect1[preceding-sibling::d:sect1]][1]
 
              |descendant::d:sect5[$chunk.section.depth &gt; 4
+	                           and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                and preceding-sibling::d:sect5
                                and parent::d:sect4[preceding-sibling::d:sect4]
                                and ancestor::d:sect3[preceding-sibling::d:sect3]
@@ -302,6 +325,7 @@ xmlns:exsl="http://exslt.org/common"
                                and ancestor::d:sect1[preceding-sibling::d:sect1]][1]
 
              |descendant::d:section[$chunk.section.depth &gt; count(ancestor::d:section)
+   	                             and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])
                                  and preceding-sibling::d:section
                                  and not(ancestor::d:section[not(preceding-sibling::d:section)])])[1]"/>
 
@@ -350,20 +374,20 @@ xmlns:exsl="http://exslt.org/common"
   </xsl:param>
 
   <xsl:variable name="prev-v1"
-    select="(preceding::d:sect1[$chunk.section.depth &gt; 0][1]
-             |preceding::d:sect2[$chunk.section.depth &gt; 1][1]
-             |preceding::d:sect3[$chunk.section.depth &gt; 2][1]
-             |preceding::d:sect4[$chunk.section.depth &gt; 3][1]
-             |preceding::d:sect5[$chunk.section.depth &gt; 4][1]
-             |preceding::d:section[$chunk.section.depth &gt; count(ancestor::d:section)][1])[last()]"/>
+    select="(preceding::d:sect1[$chunk.section.depth &gt; 0 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |preceding::d:sect2[$chunk.section.depth &gt; 1 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |preceding::d:sect3[$chunk.section.depth &gt; 2 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |preceding::d:sect4[$chunk.section.depth &gt; 3 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |preceding::d:sect5[$chunk.section.depth &gt; 4 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |preceding::d:section[$chunk.section.depth &gt; count(ancestor::d:section) and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1])[last()]"/>
 
   <xsl:variable name="prev-v2"
-    select="(ancestor::d:sect1[$chunk.section.depth &gt; 0][1]
-             |ancestor::d:sect2[$chunk.section.depth &gt; 1][1]
-             |ancestor::d:sect3[$chunk.section.depth &gt; 2][1]
-             |ancestor::d:sect4[$chunk.section.depth &gt; 3][1]
-             |ancestor::d:sect5[$chunk.section.depth &gt; 4][1]
-             |ancestor::d:section[$chunk.section.depth &gt; count(ancestor::d:section)][1])[last()]"/>
+    select="(ancestor::d:sect1[$chunk.section.depth &gt; 0 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |ancestor::d:sect2[$chunk.section.depth &gt; 1 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |ancestor::d:sect3[$chunk.section.depth &gt; 2 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |ancestor::d:sect4[$chunk.section.depth &gt; 3 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |ancestor::d:sect5[$chunk.section.depth &gt; 4 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |ancestor::d:section[$chunk.section.depth &gt; count(ancestor::d:section) and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1])[last()]"/>
 
   <xsl:variable name="prev"
     select="(preceding::d:book[1]
@@ -392,21 +416,21 @@ xmlns:exsl="http://exslt.org/common"
              |$prev-v2)[last()]"/>
 
   <xsl:variable name="next-v1"
-    select="(following::d:sect1[$chunk.section.depth &gt; 0][1]
-             |following::d:sect2[$chunk.section.depth &gt; 1][1]
-             |following::d:sect3[$chunk.section.depth &gt; 2][1]
-             |following::d:sect4[$chunk.section.depth &gt; 3][1]
-             |following::d:sect5[$chunk.section.depth &gt; 4][1]
-             |following::d:section[$chunk.section.depth &gt; count(ancestor::d:section)][1])[1]"/>
+    select="(following::d:sect1[$chunk.section.depth &gt; 0 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |following::d:sect2[$chunk.section.depth &gt; 1 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |following::d:sect3[$chunk.section.depth &gt; 2 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |following::d:sect4[$chunk.section.depth &gt; 3 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |following::d:sect5[$chunk.section.depth &gt; 4 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |following::d:section[$chunk.section.depth &gt; count(ancestor::d:section) and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1])[1]"/>
 
   <xsl:variable name="next-v2"
-    select="(descendant::d:sect1[$chunk.section.depth &gt; 0][1]
-             |descendant::d:sect2[$chunk.section.depth &gt; 1][1]
-             |descendant::d:sect3[$chunk.section.depth &gt; 2][1]
-             |descendant::d:sect4[$chunk.section.depth &gt; 3][1]
-             |descendant::d:sect5[$chunk.section.depth &gt; 4][1]
+    select="(descendant::d:sect1[$chunk.section.depth &gt; 0 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |descendant::d:sect2[$chunk.section.depth &gt; 1 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |descendant::d:sect3[$chunk.section.depth &gt; 2 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |descendant::d:sect4[$chunk.section.depth &gt; 3 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
+             |descendant::d:sect5[$chunk.section.depth &gt; 4 and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1]
              |descendant::d:section[$chunk.section.depth 
-                                  &gt; count(ancestor::d:section)][1])[1]"/>
+                                  &gt; count(ancestor::d:section) and not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) ='stop-chunking'])][1])[1]"/>
 
   <xsl:variable name="next"
     select="(following::d:book[1]
@@ -925,6 +949,7 @@ xmlns:exsl="http://exslt.org/common"
 -->
 
   <xsl:choose>
+	  <xsl:when test="$node/parent::*/processing-instruction('dbhtml')[normalize-space(.) = 'stop-chunking']">0</xsl:when>
     <xsl:when test="not($node/parent::*)">1</xsl:when>
 
     <xsl:when test="local-name($node) = 'sect1'
@@ -1323,7 +1348,7 @@ xmlns:exsl="http://exslt.org/common"
     <xsl:call-template name="head.content"/>
 
     <xsl:if test="$home">
-      <link rel="start">
+      <link rel="home">
         <xsl:attribute name="href">
           <xsl:call-template name="href.target">
             <xsl:with-param name="object" select="$home"/>
@@ -1734,11 +1759,9 @@ xmlns:exsl="http://exslt.org/common"
   <!-- * the following ID is used as part of the legalnotice filename; -->
   <!-- * we need it in order to construct the filename for use in the -->
   <!-- * value of the href attribute on the link -->
-  <xsl:param name="id">
-    <xsl:call-template name="object.id">
-      <xsl:with-param name="object" select="(//d:legalnotice)[1]"/>
-    </xsl:call-template>
-  </xsl:param>
+
+  <xsl:param name="ln-node" select="(//d:legalnotice)[1]"/>
+  
   <xsl:param name="linktype">
     <xsl:choose>
       <xsl:when test="contains($html.head.legalnotice.link.types, ' ')">
@@ -1757,9 +1780,17 @@ xmlns:exsl="http://exslt.org/common"
               normalize-space(
               substring-after($html.head.legalnotice.link.types, ' ')),' ')"/>
   <xsl:if test="not($linktype = '')">
+
+    <!-- Compute name of legalnotice file (see titlepage.xsl) -->
+    <xsl:variable name="file">
+      <xsl:call-template name="ln.or.rh.filename">
+	<xsl:with-param name="node" select="$ln-node"/>
+      </xsl:call-template>
+    </xsl:variable>
+   
     <link rel="{$linktype}">
       <xsl:attribute name="href">
-        <xsl:value-of select="concat('ln-',$id,$html.ext)"/>
+        <xsl:value-of select="$file"/>
       </xsl:attribute>
       <xsl:attribute name="title">
         <xsl:apply-templates select="(//d:legalnotice)[1]"

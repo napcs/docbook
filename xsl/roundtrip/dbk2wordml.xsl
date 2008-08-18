@@ -17,7 +17,7 @@ xmlns:w='http://schemas.microsoft.com/office/word/2003/wordml'
   <xsl:output method="xml" indent='yes' standalone='yes' encoding='UTF-8'/>
 
   <!-- ********************************************************************
-       $Id: dbk2wordml.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+       $Id: dbk2wordml.xsl 7701 2008-02-22 06:07:31Z balls $
        ********************************************************************
 
        This file is part of the XSL DocBook Stylesheet distribution.
@@ -28,6 +28,10 @@ xmlns:w='http://schemas.microsoft.com/office/word/2003/wordml'
 
   <xsl:include href='../VERSION'/>
   <xsl:include href='param.xsl'/>
+
+  <xsl:strip-space elements='*'/>
+  <xsl:preserve-space elements='d:literallayout doc:literallayout
+                                d:programlisting doc:programlisting'/>
 
   <xsl:variable name='templatedoc' select='document($wordml.template)'/>
 
@@ -101,6 +105,8 @@ xmlns:w='http://schemas.microsoft.com/office/word/2003/wordml'
         <w:zoom w:percent="100"/>
         <w:doNotEmbedSystemFonts/>
         <w:attachedTemplate w:val=""/>
+        <w:documentProtection w:formatting='on' w:enforcement='on'
+          w:unprotectPassword='CAA7FF77'/>
         <w:defaultTabStop w:val="720"/>
         <w:autoHyphenation/>
         <w:hyphenationZone w:val="357"/>
@@ -215,15 +221,27 @@ xmlns:w='http://schemas.microsoft.com/office/word/2003/wordml'
   </xsl:template>
 
   <xsl:template name='doc:make-phrase'>
-    <xsl:param name='style' select='"d:unknown"'/>
+    <xsl:param name='style' select='""'/>
+    <xsl:param name='italic' select='0'/>
+    <xsl:param name='bold' select='0'/>
     <xsl:param name='content'>
-      <xsl:apply-templates mode='doc:body'/>
+      <xsl:apply-templates mode='doc:phrase'/>
     </xsl:param>
 
     <w:r>
-      <xsl:if test='$style != ""'>
+      <xsl:if test='$style != "" or
+                    $bold = 1 or
+                    $italic = 1'>
 	<w:rPr>
-	  <w:rStyle w:val='{$style}'/>
+          <xsl:if test='$style != ""'>
+            <w:rStyle w:val='{$style}'/>
+          </xsl:if>
+          <xsl:if test='$italic = 1'>
+            <w:i/>
+          </xsl:if>
+          <xsl:if test='$bold = 1'>
+            <w:b/>
+          </xsl:if>
 	</w:rPr>
       </xsl:if>
 
@@ -247,7 +265,8 @@ xmlns:w='http://schemas.microsoft.com/office/word/2003/wordml'
   <xsl:template name='doc:make-table'>
     <xsl:param name='columns'/>
     <xsl:param name='content'>
-      <xsl:apply-templates mode='doc:body'/>
+      <xsl:apply-templates select='*[not(self::d:caption|self::doc:caption|self::d:textobject|self::doc:textobject)]'
+        mode='doc:body'/>
     </xsl:param>
 
     <w:tbl>

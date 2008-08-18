@@ -7,7 +7,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: autotoc.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: autotoc.xsl 7634 2008-01-05 16:06:30Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -31,7 +31,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
     </xsl:call-template>
   </xsl:variable>
 
-  <xsl:variable name="nodes" select="d:book|d:setindex"/>
+  <xsl:variable name="nodes" select=".|d:book|d:set|d:setindex"/>
 
   <xsl:if test="$nodes">
     <fo:block id="toc...{$id}"
@@ -380,6 +380,42 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
         <xsl:call-template name="set.toc.indent"/>
       </xsl:attribute>
 
+      <xsl:apply-templates select="$nodes" mode="toc">
+        <xsl:with-param name="toc-context" select="$toc-context"/>
+      </xsl:apply-templates>
+    </fo:block>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="d:set" mode="toc">
+  <xsl:param name="toc-context" select="."/>
+
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id"/>
+  </xsl:variable>
+
+  <xsl:variable name="cid">
+    <xsl:call-template name="object.id">
+      <xsl:with-param name="object" select="$toc-context"/>
+    </xsl:call-template>
+  </xsl:variable>
+
+  <xsl:call-template name="toc.line">
+    <xsl:with-param name="toc-context" select="$toc-context"/>
+  </xsl:call-template>
+
+  <xsl:variable name="nodes" select="d:set|d:book|d:setindex"/>
+
+  <xsl:variable name="depth.from.context" select="count(ancestor::*)-count($toc-context/ancestor::*)"/>
+
+  <xsl:if test="$toc.section.depth > 0 
+                and $toc.max.depth > $depth.from.context
+                and $nodes">
+    <fo:block id="toc.{$cid}.{$id}">
+      <xsl:attribute name="margin-left">
+        <xsl:call-template name="set.toc.indent"/>
+      </xsl:attribute>
+      
       <xsl:apply-templates select="$nodes" mode="toc">
         <xsl:with-param name="toc-context" select="$toc-context"/>
       </xsl:apply-templates>

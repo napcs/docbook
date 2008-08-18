@@ -6,7 +6,7 @@ xmlns:exsl="http://exslt.org/common"
                 version='1.0'>
 
   <!-- ********************************************************************
-       $Id: manpages.table.xsl 6870 2007-06-25 05:06:33Z xmldoc $
+       $Id: manpages.table.xsl 6512 2007-01-18 06:27:36Z bobstayton $
        ********************************************************************
 
        This file is part of the XSL DocBook Stylesheet distribution.

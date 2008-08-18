@@ -13,7 +13,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 <xsl:output method="html"/>
 
 <!-- ********************************************************************
-     $Id: javahelp.xsl 7237 2007-08-14 00:30:12Z xmldoc $
+     $Id: javahelp.xsl 7427 2007-09-02 16:20:14Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -98,6 +98,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     <xsl:with-param name="content">
       <xsl:call-template name="helpset.content"/>
     </xsl:with-param>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -154,6 +155,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     <xsl:with-param name="content">
       <xsl:call-template name="helptoc.content"/>
     </xsl:with-param>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -371,6 +373,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     <xsl:with-param name="content">
       <xsl:call-template name="helpmap.content"/>
     </xsl:with-param>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -517,6 +520,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     <xsl:with-param name="content">
       <xsl:call-template name="helpidx.content"/>
     </xsl:with-param>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 

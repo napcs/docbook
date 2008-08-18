@@ -13,7 +13,7 @@
       </affiliation>
     </author>
 
-    <releaseinfo>$Id: supported.xml 5487 2005-12-13 23:05:24Z balls $</releaseinfo>
+    <releaseinfo>$Id: supported.xml 7847 2008-03-05 18:18:10Z mzjn $</releaseinfo>
 
     <revhistory>
       <revision>
@@ -39,7 +39,7 @@
   <table>
     <title>Support Elements</title>
 
-    <tgroup cols='3'>
+    <tgroup cols='5'>
       <colspec colnum='1' colname='c1' colwidth='1.00*'/>
       <colspec colnum='2' colname='c2' colwidth='1.00*'/>
       <colspec colnum='3' colname='c3' colwidth='1.00*'/>
@@ -1699,10 +1699,10 @@
 	    <para><literal>edition</literal></para>
 	  </entry>
 	  <entry>
-	    <para>dbk:no</para>
+	    <para>dbk:yes</para>
 	  </entry>
 	  <entry>
-	    <para>Character</para>
+	    <para>Paragraph</para>
 	  </entry>
 	  <entry>
 	    <para><!-- Comments --></para>

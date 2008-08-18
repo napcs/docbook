@@ -7,7 +7,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: division.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: division.xsl 7634 2008-01-05 16:06:30Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -65,9 +65,9 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </xsl:variable>
 
   <xsl:variable name="preamble"
-                select="*[not(self::d:book or self::d:setindex)]"/>
+                select="*[not(self::d:book or self::d:set or self::d:setindex)]"/>
 
-  <xsl:variable name="content" select="d:book|d:setindex"/>
+  <xsl:variable name="content" select="d:book|d:set|d:setindex"/>
 
   <xsl:variable name="titlepage-master-reference">
     <xsl:call-template name="select.pagemaster">

@@ -14,7 +14,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version="1.0">
 
 <!-- ********************************************************************
-     $Id: autoidx.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: autoidx.xsl 7436 2007-09-10 17:16:55Z mzjn $
      ********************************************************************
 
      This file is part of the DocBook XSL Stylesheet distribution.
@@ -701,7 +701,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   <xsl:choose>
     <xsl:when test="contains($zones, ' ')">
       <xsl:variable name="zone" select="substring-before($zones, ' ')"/>
-      <xsl:variable name="target" select="key('id', $zone)[&scope;]"/>
+      <xsl:variable name="target" select="key('id', $zone)"/>
 
       <xsl:variable name="id">
         <xsl:call-template name="object.id">
@@ -726,7 +726,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
     </xsl:when>
     <xsl:otherwise>
       <xsl:variable name="zone" select="$zones"/>
-      <xsl:variable name="target" select="key('id', $zone)[&scope;]"/>
+      <xsl:variable name="target" select="key('id', $zone)"/>
 
       <xsl:variable name="id">
         <xsl:call-template name="object.id">

@@ -14,7 +14,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   exclude-result-prefixes="doc exsl set h db ng d">
 
 <!-- ********************************************************************
-     $Id: htmlhelp-common.xsl 7244 2007-08-15 10:44:03Z mzjn $
+     $Id: htmlhelp-common.xsl 7427 2007-09-02 16:20:14Z mzjn $
      ******************************************************************** -->
 
 <!-- ==================================================================== -->
@@ -114,6 +114,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       <xsl:call-template name="hhp-main"/>
     </xsl:with-param>
     <xsl:with-param name="encoding" select="$htmlhelp.encoding"/>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -520,6 +521,7 @@ Enhanced decompilation=</xsl:text>
       <xsl:call-template name="hhc-main"/>
     </xsl:with-param>
     <xsl:with-param name="encoding" select="$htmlhelp.encoding"/>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -855,6 +857,7 @@ Enhanced decompilation=</xsl:text>
 </BODY></HTML>]]>
 </xsl:text></xsl:with-param>
     <xsl:with-param name="encoding" select="$htmlhelp.encoding"/>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -968,6 +971,7 @@ Enhanced decompilation=</xsl:text>
      </xsl:choose>
     </xsl:with-param>
     <xsl:with-param name="encoding" select="$htmlhelp.encoding"/>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -1017,6 +1021,7 @@ Enhanced decompilation=</xsl:text>
      </xsl:choose>
     </xsl:with-param>
     <xsl:with-param name="encoding" select="$htmlhelp.encoding"/>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 

@@ -15,7 +15,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: graphics.xsl 7251 2007-08-18 11:29:53Z mzjn $
+     $Id: graphics.xsl 7530 2007-10-13 14:32:59Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -477,6 +477,10 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </xsl:variable>
 
   <xsl:choose>
+    <xsl:when test="mml:*" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+      <xsl:apply-templates/>
+    </xsl:when>
+  
     <xsl:when test="@format='linespecific'">
       <xsl:choose>
         <xsl:when test="$use.extensions != '0'

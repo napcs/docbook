@@ -7,7 +7,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: fop.xsl 6402 2006-11-12 08:23:21Z bobstayton $
+     $Id: fop.xsl 7531 2007-10-17 18:06:49Z dcramer $
      ********************************************************************
      (c) Stephane Bline Peregrine Systems 2001
      Driver file to allow pdf bookmarking (based on fop implementation).
@@ -50,6 +50,7 @@ translates characters with code>255 back to ASCII.
   <!-- If the object is a set or book, generate a bookmark for the toc -->
 
   <xsl:choose>
+    <xsl:when test="self::d:index and $generate.index = 0"/>	
     <xsl:when test="parent::*">
       <fox:outline internal-destination="{$id}">
         <fox:label>

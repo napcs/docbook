@@ -8,7 +8,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: common.xsl 7056 2007-07-17 13:56:09Z xmldoc $
+     $Id: common.xsl 8002 2008-04-21 16:03:57Z kosek $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -21,7 +21,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   <info>
     <title>Common » Base Template Reference</title>
     <releaseinfo role="meta">
-      $Id: common.xsl 7056 2007-07-17 13:56:09Z xmldoc $
+      $Id: common.xsl 8002 2008-04-21 16:03:57Z kosek $
     </releaseinfo>
   </info>
   <!-- * yes, partintro is a valid child of a reference... -->
@@ -572,6 +572,14 @@ Defaults to the context node.</para>
       <xsl:text> </xsl:text>
     </xsl:if>
     <xsl:apply-templates select="$node//d:othername[1]"/>
+  </xsl:if>
+
+  <xsl:if test="$node//d:orgname">
+    <xsl:if test="$node//d:honorific or $node//d:firstname
+                  or ($node//d:othername and $author.othername.in.middle != 0)">
+      <xsl:text> </xsl:text>
+    </xsl:if>
+    <xsl:apply-templates select="$node//d:orgname[1]"/>
   </xsl:if>
 
   <xsl:if test="$node//d:surname">
@@ -1404,6 +1412,44 @@ pointed to by the link is one of the elements listed in
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
+</xsl:template>
+
+<xsl:template match="d:orderedlist/d:listitem" mode="item-number">
+  <xsl:variable name="numeration">
+    <xsl:call-template name="list.numeration">
+      <xsl:with-param name="node" select="parent::d:orderedlist"/>
+    </xsl:call-template>
+  </xsl:variable>
+
+  <xsl:variable name="type">
+    <xsl:choose>
+      <xsl:when test="$numeration='arabic'">1.</xsl:when>
+      <xsl:when test="$numeration='loweralpha'">a.</xsl:when>
+      <xsl:when test="$numeration='lowerroman'">i.</xsl:when>
+      <xsl:when test="$numeration='upperalpha'">A.</xsl:when>
+      <xsl:when test="$numeration='upperroman'">I.</xsl:when>
+      <!-- What!? This should never happen -->
+      <xsl:otherwise>
+        <xsl:message>
+          <xsl:text>Unexpected numeration: </xsl:text>
+          <xsl:value-of select="$numeration"/>
+        </xsl:message>
+        <xsl:value-of select="1."/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="item-number">
+    <xsl:call-template name="orderedlist-item-number"/>
+  </xsl:variable>
+
+  <xsl:if test="parent::d:orderedlist/@inheritnum='inherit'
+                and ancestor::d:listitem[parent::d:orderedlist]">
+    <xsl:apply-templates select="ancestor::d:listitem[parent::d:orderedlist][1]"
+                         mode="item-number"/>
+  </xsl:if>
+
+  <xsl:number value="$item-number" format="{$type}"/>
 </xsl:template>
 
 <!-- ====================================================================== -->

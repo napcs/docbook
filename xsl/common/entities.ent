@@ -1,9 +1,9 @@
 <!-- ********************************************************************
-     $Id: entities.ent 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: entities.ent 7602 2007-12-12 20:07:57Z mzjn $
      ********************************************************************
      
      This file contains common entity declarations used for
-     sorting by various templates.
+     sorting (and other things) by various templates.
 
      This file is part of the XSL DocBook Stylesheet distribution.
      See ../README or http://docbook.sf.net/release/xsl/current/ for
@@ -45,3 +45,16 @@
   </xsl:call-template>
 </xsl:variable>
 '>
+
+<!-- Entity used in html/inline.xsl and fo/inline.xsl -->
+<!ENTITY comment.block.parents "parent::d:answer|parent::d:appendix|parent::d:article|parent::d:bibliodiv|
+                                parent::d:bibliography|parent::d:blockquote|parent::d:caution|parent::d:chapter|
+                                parent::d:glossary|parent::d:glossdiv|parent::d:important|parent::d:index|
+                                parent::d:indexdiv|parent::d:listitem|parent::d:note|parent::d:orderedlist|
+                                parent::d:partintro|parent::d:preface|parent::d:procedure|parent::d:qandadiv|
+                                parent::d:qandaset|parent::d:question|parent::d:refentry|parent::d:refnamediv|
+                                parent::d:refsect1|parent::d:refsect2|parent::d:refsect3|parent::d:refsection|
+                                parent::d:refsynopsisdiv|parent::d:sect1|parent::d:sect2|parent::d:sect3|parent::d:sect4|
+                                parent::d:sect5|parent::d:section|parent::d:setindex|parent::d:sidebar|
+                                parent::d:simplesect|parent::d:taskprerequisites|parent::d:taskrelated|
+                                parent::d:tasksummary|parent::d:warning">

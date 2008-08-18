@@ -6,7 +6,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version="1.0">
 
 <!-- ********************************************************************
-     $Id: task.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: task.xsl 8011 2008-05-23 15:14:57Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -42,8 +42,18 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 select="*[not(self::d:title
                               or self::d:titleabbrev)]"/>
 
+  <xsl:variable name="keep.together">
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+  </xsl:variable>
+
   <fo:block id="{$id}"
             xsl:use-attribute-sets="formal.object.properties">
+
+    <xsl:if test="$keep.together != ''">
+      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+      select="$keep.together"/></xsl:attribute>
+    </xsl:if>
+
     <xsl:call-template name="anchor"/>
 
     <xsl:if test="d:title and $placement = 'before'">

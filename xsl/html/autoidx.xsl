@@ -11,7 +11,7 @@ xmlns:exslt="http://exslt.org/common"
                 version="1.0">
 
 <!-- ********************************************************************
-     $Id: autoidx.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: autoidx.xsl 7436 2007-09-10 17:16:55Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -508,7 +508,7 @@ xmlns:exslt="http://exslt.org/common"
   <xsl:choose>
     <xsl:when test="contains($zones, ' ')">
       <xsl:variable name="zone" select="substring-before($zones, ' ')"/>
-      <xsl:variable name="target" select="key('sections', $zone)[&scope;]"/>
+      <xsl:variable name="target" select="key('sections', $zone)"/>
 
       <a>
         <xsl:apply-templates select="." mode="class.attribute"/>
@@ -531,7 +531,7 @@ xmlns:exslt="http://exslt.org/common"
     </xsl:when>
     <xsl:otherwise>
       <xsl:variable name="zone" select="$zones"/>
-      <xsl:variable name="target" select="key('sections', $zone)[&scope;]"/>
+      <xsl:variable name="target" select="key('sections', $zone)"/>
 
       <a>
         <xsl:apply-templates select="." mode="class.attribute"/>

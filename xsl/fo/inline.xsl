@@ -1,16 +1,7 @@
 <?xml version='1.0'?>
 <!DOCTYPE xsl:stylesheet [
-  <!ENTITY comment.block.parents "parent::answer|parent::appendix|parent::article|parent::bibliodiv|
-                                  parent::bibliography|parent::blockquote|parent::caution|parent::chapter|
-                                  parent::glossary|parent::glossdiv|parent::important|parent::index|
-                                  parent::indexdiv|parent::listitem|parent::note|parent::orderedlist|
-                                  parent::partintro|parent::preface|parent::procedure|parent::qandadiv|
-                                  parent::qandaset|parent::question|parent::refentry|parent::refnamediv|
-                                  parent::refsect1|parent::refsect2|parent::refsect3|parent::refsection|
-                                  parent::refsynopsisdiv|parent::sect1|parent::sect2|parent::sect3|parent::sect4|
-                                  parent::sect5|parent::section|parent::setindex|parent::sidebar|
-                                  parent::simplesect|parent::taskprerequisites|parent::taskrelated|
-                                  parent::tasksummary|parent::warning">
+<!ENTITY % common.entities SYSTEM "../common/entities.ent">
+%common.entities;
 ]>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:d="http://docbook.org/ns/docbook"
@@ -20,7 +11,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: inline.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: inline.xsl 7622 2007-12-21 16:28:18Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -110,6 +101,12 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
           <fo:basic-link external-destination="url({$xhref})">
             <xsl:copy-of select="$content"/>
           </fo:basic-link>
+          <!-- * Call the template for determining whether the URL for this -->
+          <!-- * hyperlink is displayed, and how to display it (either inline or -->
+          <!-- * as a numbered footnote). -->
+          <xsl:call-template name="hyperlink.url.display">
+            <xsl:with-param name="url" select="$xhref"/>
+          </xsl:call-template>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
@@ -825,16 +822,17 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
       <xsl:variable name="term">
         <xsl:choose>
           <xsl:when test="@baseform">
-            <xsl:value-of select="@baseform"/>
+            <xsl:value-of select="normalize-space(@baseform)"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="."/>
+            <xsl:value-of select="normalize-space(.)"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
 
       <xsl:variable name="targets"
-                    select="//d:glossentry[d:glossterm=$term or d:glossterm/@baseform=$term]"/>
+                    select="//d:glossentry[normalize-space(d:glossterm)=$term
+			    or normalize-space(d:glossterm/@baseform)=$term]"/>
 
       <xsl:variable name="target" select="$targets[1]"/>
 
@@ -1120,6 +1118,36 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 	  </xsl:otherwise>
 	</xsl:choose>
      
+      </fo:basic-link>
+      <xsl:text>]</xsl:text>
+    </xsl:when>
+
+    <xsl:otherwise>
+      <xsl:text>[</xsl:text>
+      <xsl:call-template name="inline.charseq"/>
+      <xsl:text>]</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="d:citebiblioid">
+  <xsl:variable name="targets" select="//*[d:biblioid = string(current())]"/>
+  <xsl:variable name="target" select="$targets[1]"/>
+
+  <xsl:choose>
+    <!-- try automatic linking based on match to parent of biblioid -->
+    <xsl:when test="$target and not(d:xref) and not(d:link)">
+
+      <xsl:text>[</xsl:text>
+      <fo:basic-link>
+        <xsl:attribute name="internal-destination">
+          <xsl:call-template name="object.id">
+            <xsl:with-param name="object" select="$target"/>
+          </xsl:call-template>
+        </xsl:attribute>
+
+	<xsl:call-template name="inline.charseq"/>
+	    
       </fo:basic-link>
       <xsl:text>]</xsl:text>
     </xsl:when>

@@ -15,7 +15,7 @@
   <!-- * WARNING WARNING WARNING -->
   <!-- * WARNING WARNING WARNING -->
   <title>DocBook XSL Stylesheets: Reference Documentation</title>
-  <info><releaseinfo role="meta">$Id: reference.xml 7295 2007-08-28 09:15:14Z xmldoc $ </releaseinfo>
+  <info><releaseinfo role="meta">$Id: reference.xml 7685 2008-02-18 01:51:37Z xmldoc $ </releaseinfo>
     <xi:include href="./authors.xml"/>
     <xi:include href="./copyright.xml" xpointer="xpointer(//*[local-name() = 'copyright'])"/>
     <xi:include href="./license.xml"/>
@@ -170,6 +170,9 @@
     </part>
     <part xml:id="pi-fo">
       <xi:include href="../fo/pi.xml" xpointer="xpointer(/reference/node())" />
+    </part>
+    <part xml:id="pi-man">
+      <xi:include href="../manpages/pi.xml" xpointer="xpointer(/reference/node())" />
     </part>
     <part xml:id="pi-common">
       <xi:include href="../common/pi.xml" xpointer="xpointer(/reference/node())" />

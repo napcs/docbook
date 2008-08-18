@@ -1,23 +1,24 @@
-Changes since the 1.72.0 release
+Changes since the 1.73.2 release
 
-Note: This document lists changes only since the 1.72.0 release. If you
-instead want a record of the complete list of changes for the codebase over
-its entire history, you can obtain one by running the following commands:
+Note: This document lists changes only since the 1.73.2 release. If you instead
+want a record of the complete list of changes for the codebase over its entire
+history, you can obtain one by running the following commands:
 
   svn checkout https://docbook.svn.sourceforge.net/svnroot/docbook/trunk/xsl
   svn log --xml --verbose xsl > ChangeHistory.xml
 
-------------------------------------------------------------------------------
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Table of Contents
 
-Release Notes: 1.73.2
+Release Notes: 1.74.0
 
     Gentext
     Common
     FO
     HTML
     Manpages
+    Epub
     HTMLHelp
     Eclipse
     JavaHelp
@@ -25,3113 +26,1899 @@ Release Notes: 1.73.2
     Slides
     Website
     Params
-    Highlighting
     Profiling
     Lib
     Tools
     Template
     Extensions
-    XSL-Java
     XSL-Saxon
     XSL-Xalan
+    XSL-libxslt
 
-Release Notes: 1.73.2
+Release Notes: 1.74.0
 
-The following is a list of changes that have been made since the 1.72.0
+The following is a list of changes that have been made since the 1.73.2
 release.
 
 Gentext
 
-The following changes have been made to the gentext code since the 1.72.0
+The following changes have been made to the gentext code since the 1.73.2
 release.
 
-  * Mauritz Jeanson: locale/de.xml
+  ● Michael(tm) Smith: locale/id.xml
 
-    Applied patch #1766009.
+    Checked in changes to Indonesion locale submitted by Euis Luhuanam a long time ago.
 
-  * Michael(tm) Smith: locale/lv.xml
+  ● Michael(tm) Smith: locale/lt.xml
 
-    Added localization for ProductionSet.
+    Added changes to Lithuanian locate submitted a long time back by Nikolajus Krauklis.
 
-  * Michael(tm) Smith: locale/lv.xml; Makefile
+  ● Michael(tm) Smith: .gitignore; .cvsignore
 
-    Added Latvian localization file, from Girts Ziemelis.
+    renamed a bunch more .cvsignore files to .gitignore (to facilitate use of git-svn)
 
-  * Robert Stayton: xsl/xsl.xsl
+  ● Michael(tm) Smith: locale/hu.xml
 
-    Add comment explaining %t etc.
+    fixed error in lowercase.alpha definition in Hungarian locale
 
-  * Dongsheng Song: locale/zh_cn.xml
+  ● Michael(tm) Smith: locale/nb.xml
 
-    Brought up to date with en.xml in terms of items. A few strings marked for translation.
+    Corrected language code for nb locale, and restored missing
+    "startquote" key.
 
-  * Dongsheng Song: locale/eo.xml
+  ● Michael(tm) Smith: locale/ja.xml
 
-    Remove svn:executable property from xml files.
+    Committed changes to ja locale file, from Akagi Kobayashi. Adds
+    bracket quotes around many xref instances that did not have them
+    before.
 
-  * Jirka Kosek: locale/cs.xml
+  ● Michael(tm) Smith: Makefile
 
-    Added missing translations
+    "no" locale is now "nb"
 
-  * Robert Stayton: locale/eo.xml
+  ● Michael(tm) Smith: locale/nb.xml
 
-    New locale for Esperanto.
+    Update Norwegian Bokmål translation. Thanks to Hans F. Nordhaug.
 
-  * Robert Stayton: locale/mn.xml
+  ● Michael(tm) Smith: locale/no.xml; locale/nb.xml
 
-    Update from Ganbold Tsagaankhuu.
+    per message from Hans F. Nordhaug, correct identifier for
+    Norwegian Bokmål is "nb" (not "no") and has been for quite some
+    time now...
 
-  * Jirka Kosek: locale/en.xml; locale/cs.xml
+  ● Michael(tm) Smith: locale/ja.xml
 
-    Rules for normalizing glossary entries before they are sorted can be now different for each language.
+    Converted ja.xml source file to use real unicode characters so
+    that the actual glyphs so up when you edit it in a text editor
+    (instead of the character references).
 
-  * Robert Stayton: locale/Auditlocale.pl
+  ● Michael(tm) Smith: locale/ja.xml
 
-    Fix context comparison bug.
+    Checked in changes to ja.xml locale file. Thanks to Akagi Kobayashi.
 
-  * Norman Walsh: locale/sr.xml
+  ● Mauritz Jeanson: xsl/xsl.xsl
 
-    Fix broken locale: you can't have a comment in a start tag
+    Corrected repository URL.
 
-  * Michael(tm) Smith: locale/sr_Latn.xml; locale/sr.xml
+  ● Michael(tm) Smith: locale/it.xml
 
-    Committed changes from Milo Komarevi to Serbian files.
+    Changes from Federico Zenith
 
-  * Michael(tm) Smith: Makefile
+  ● Dongsheng Song: locale/zh_cn.xml
 
-    Renamed cvstools dir to buildtools, and replaced all
-    references to "cvstools" in makefiles and elsewhere
-    with "buildtools".
-
-  * Jirka Kosek: xsl/xsl.xsl
-
-    Changed variable expression assignment from RTF to node set, so boolean tests work correctly.
-
-  * Jirka Kosek: xsl/xsl.xsl
-
-    Empty translation in gentext is copied to target locale file (it is not replaced by English variant).
-
-  * Michael(tm) Smith: xsl/xsl.xsl
-
-    Refined gentext build so that transform of gentext sources to
-    output is same whether generated by xsltproc or saxon.
-
-  * Jirka Kosek: locale/en.xml; locale/cs.xml
-
-    Added support for formatting biblioentries according to ISO690 citation style.
-    New bibliography style can be turned on by setting parameter bibliography.style to "iso690"
-    The code was provided by Jana Dvorakova
-
-  * Robert Stayton: locale/ja.xml
-
-    Fix chapter in context xref-number-and-title
-
-  * Robert Stayton: locale/it.xml
-
-    Improved version from contributor.
-
-  * Mauritz Jeanson: locale/uk.xml
-
-    Applied patch 1592083.
+    Added missing translations.
 
 Common
 
-The following changes have been made to the common code since the 1.72.0
+The following changes have been made to the common code since the 1.73.2
 release.
 
-  * Michael(tm) Smith: stripns.xsl
+  ● Keith Fahlgren: Makefile
+
+    Get rid of the rest of the hardcoded buildtools references and actually use DOCBOOK_SVN
+
+  ● Jirka Kosek: common.xsl
+
+  ● Keith Fahlgren: l10n.xsl
+
+    == General epub test support
+
+    $ spec -O ~/.spec.opts spec/epub_spec.rb
+
+    DocBook::Epub
+    - should be able to be created
+    - should fail on a nonexistent file
+    - should be able to render to a file
+    - should create a file after rendering
+    - should have the correct mimetype after rendering
+    - should be valid .epub after rendering an article
+    - should be valid .epub after rendering an article without sections
+    - should be valid .epub after rendering a book
+    - should be valid .epub after rendering a book even if it has one graphic
+    - should be valid .epub after rendering a book even if it has many graphics
+    - should be valid .epub after rendering a book even if it has many duplicated graphics
+    - should report an empty file as invalid
+    - should confirm that a valid .epub file is valid
+    - should not include PDFs in rendered epub files as valid image inclusions
+    - should include a TOC link in rendered epub files for <book>s
+
+    Finished in 20.608395 seconds
+
+    15 examples, 0 failures
+
+
+    == Verbose epub test coverage against _all_ of the testdocs
+
+    Fails on only (errors truncated):
+    1)
+    'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/calloutlist.003.xml [30]' FAILED
+     expected .epub file to be valid, but validation produced these errors:
+     /tmp/epubspecsmoke/calloutlist.003.epub: could not parse OEBPS/index.html: duplicate id: dos
 
-    Reverted stripns.xsl to not rely on message-logging template.
-    Thanks to Ville-Pekka Vainio, whose testing with Moin/4suite
-    exposed a problem this caused.
+    2)
+    'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/cmdsynopsis.001.xml [35]' FAILED
+     expected .epub file to be valid, but validation produced these errors:
+     /tmp/epubspecsmoke/cmdsynopsis.001.epub/OEBPS/re01.html(5): element "p" from namespace "http://www.w3.org/1999/xhtml" not allowed in this context
 
-  * Michael(tm) Smith: charmap.xsl
+    3)
+    'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/cmdsynopsis.002.xml [36]' FAILED
+     expected .epub file to be valid, but validation produced these errors:
+     /tmp/epubspecsmoke/cmdsynopsis.002.epub/OEBPS/index.html(4): element "div" from namespace "http://www.w3.org/1999/xhtml" not allowed in this context
 
-    Set keywords on a number of files.
+    4)
+    'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/extensions.002.xml [50]' FAILED
+     expected .epub file to be valid, but validation produced these errors:
+     /tmp/epubspecsmoke/extensions.002.epub/OEBPS/index.html(3): attribute "type" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
+    /tmp/epubspecsmoke/extensions.002.epub/OEBPS/index.html(3): attribute "show" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
+    /tmp/epubspecsmoke/extensions.002.epub/OEBPS/index.html(3): attribute "actuate" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
 
-  * Michael(tm) Smith: l10n.xml
+    5)
+    'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/extensions.004.xml [52]' FAILED
+     expected .epub file to be valid, but validation produced these errors:
+     /tmp/epubspecsmoke/extensions.004.epub/OEBPS/index.html(5): attribute "type" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
+    /tmp/epubspecsmoke/extensions.004.epub/OEBPS/index.html(5): attribute "show" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
+    /tmp/epubspecsmoke/extensions.004.epub/OEBPS/index.html(5): attribute "actuate" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
 
-    Added Latvian locale
+    6)
+    'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/funcsynopsis.001.xml [65]' FAILED
+     expected .epub file to be valid, but validation produced these errors:
+     /tmp/epubspecsmoke/funcsynopsis.001.epub/OEBPS/index.html(5): element "code" from namespace "http://www.w3.org/1999/xhtml" not allowed in this context
 
-  * Michael(tm) Smith: charmap.xsl
+    7)
+    'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/imageobjectco.001.xml [70]' FAILED
+     expected .epub file to be valid, but validation produced these errors:
+     /tmp/epubspecsmoke/imageobjectco.001.epub/OEBPS/index.html(3): attribute "border" not allowed at this point; ignored
 
-    Fixed typo.
+    8)
+    'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/olink.001.xml [118]' FAILED
+     expected .epub file to be valid, but validation produced these errors:
+     /tmp/epubspecsmoke/olink.001.epub/OEBPS/index.html(3): 'OEBPS/file:///sourceforge/projects/docbook/testdocs/tests/olink.001.html': referenced resource missing in the package
 
-  * Michael(tm) Smith: pi.xsl
+    9)
+    'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/programlisting.002.xml [129]' FAILED
+     expected .epub file to be valid, but validation produced these errors:
+     /tmp/epubspecsmoke/programlisting.002.epub/OEBPS/index.html(3): attribute "type" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
+    /tmp/epubspecsmoke/programlisting.002.epub/OEBPS/index.html(3): attribute "show" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
+    /tmp/epubspecsmoke/programlisting.002.epub/OEBPS/index.html(3): attribute "actuate" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
 
-    Mark up PIs with tag@class=xmlpi so that they can get picked up an
-    formatted correctly by the doc build.
+    10)
+    RuntimeError in 'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/programlisting.006.xml [133]'
+    Could not render as .epub to /tmp/epubspecsmoke/programlisting.006.epub (xsltproc --xinclude --stringparam chunk.quietly 1 --stringparam callout.graphics.path images/callouts/ --stringparam callout.graphics.number.limit 15 --stringparam callout.graphics.extension .png --stringparam base.dir /tmp/epubspecsmoke/OEBPS/ --stringparam epub.metainf.dir /tmp/epubspecsmoke/META-INF/ --stringparam epub.oebps.dir /tmp/epubspecsmoke/OEBPS/ /Users/keith/work/docbook-dev/trunk/xsl/epub/docbook.xsl /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/programlisting.006.xml)
 
-  * Michael(tm) Smith: .cvsignore; Makefile
+    11)
+    RuntimeError in 'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/programlistingco.002.xml [135]'
+    Could not render as .epub to /tmp/epubspecsmoke/programlistingco.002.epub (xsltproc --xinclude --stringparam chunk.quietly 1 --stringparam callout.graphics.path images/callouts/ --stringparam callout.graphics.number.limit 15 --stringparam callout.graphics.extension .png --stringparam base.dir /tmp/epubspecsmoke/OEBPS/ --stringparam epub.metainf.dir /tmp/epubspecsmoke/META-INF/ --stringparam epub.oebps.dir /tmp/epubspecsmoke/OEBPS/ /Users/keith/work/docbook-dev/trunk/xsl/epub/docbook.xsl /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/programlistingco.002.xml)
 
-    Added Latvian localization file, from Girts Ziemelis.
+    12)
+    'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/refentry.007.xml [148]' FAILED
+     expected .epub file to be valid, but validation produced these errors:
+     /tmp/epubspecsmoke/refentry.007.epub/OEBPS/rn01re01.html(5): element "code" from namespace "http://www.w3.org/1999/xhtml" not allowed in this context
 
-  * Michael(tm) Smith: charmap.xsl
+    13)
+    'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/table.003.xml [191]' FAILED
+     expected .epub file to be valid, but validation produced these errors:
+     /tmp/epubspecsmoke/table.003.epub/OEBPS/index.html(4): 'ftn.id964170': fragment identifier is not defined in 'OEBPS/index.html'
 
-    Moved charmap templates out of lib.xweb and into
-    common/charmap.xsl, and added charmap doc to doc build.
+    14)
+    'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/textobject.001.xml [207]' FAILED
+     expected .epub file to be valid, but validation produced these errors:
+     /tmp/epubspecsmoke/textobject.001.epub/OEBPS/index.html(3): attribute "type" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
+    /tmp/epubspecsmoke/textobject.001.epub/OEBPS/index.html(3): attribute "show" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
+    /tmp/epubspecsmoke/textobject.001.epub/OEBPS/index.html(3): attribute "actuate" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
 
-  * Michael(tm) Smith: utility.xsl
+    15)
+    'DocBook::Epub should be able to render a valid .epub for the test document /Users/keith/work/docbook-dev/trunk/xsl/epub/bin/spec/testdocs/textobject.002.xml [208]' FAILED
+     expected .epub file to be valid, but validation produced these errors:
+     /tmp/epubspecsmoke/textobject.002.epub/OEBPS/index.html(3): attribute "type" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
+    /tmp/epubspecsmoke/textobject.002.epub/OEBPS/index.html(3): attribute "show" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
+    /tmp/epubspecsmoke/textobject.002.epub/OEBPS/index.html(3): attribute "actuate" from namespace "http://www.w3.org/1999/xlink" not allowed at this point; ignored
 
-    Fixed typo.
 
-  * Michael(tm) Smith: refentry.xsl; utility.xsl; table.xsl; common.xsl
+    Finished in 629.89194 seconds
 
-    Make all common stylesheets with embedded doc valid against our
-    litprog grammar.
+    224 examples, 15 failures
 
-  * Michael(tm) Smith: pi.xsl
+    224 examples, 15 failures yields 6% failure rate
 
-    Make pi.xsl files valid against our litprog grammar.
+  ● Michael(tm) Smith: l10n.xsl
 
-  * Michael(tm) Smith: pi.xsl
+    Added new template "l10.language.name" for retrieving the
+    English-language name of the lang setting of the current document.
+    Closes #1916837. Thanks to Simon Kennedy.
 
-    Make PI source files valid against our litprog schema.
+  ● Michael(tm) Smith: .gitignore; .cvsignore
 
-  * Michael(tm) Smith: labels.xsl
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
-    Changed handling of reference auto-labeling such that reference
-    (when it appears at the component level) is now affected by the
-    label.from.part param, just as preface, chapter, and appendix.
+  ● Michael(tm) Smith: refentry.xsl
 
-  * Michael(tm) Smith: refentry.xsl; utility.xsl; common.xsl
+    fixed syntax error
 
-    Updated embedded doc in XSL source files:
+  ● Michael(tm) Smith: refentry.xsl
 
-     - added dbhtml@dir PIs to control where output goes when
-       generation HTML version of docs
+    fixed a couple of typos
 
-     - put xml:id instances on root elements of embedded doc
+  ● Michael(tm) Smith: refentry.xsl
 
-     - changed all *info instances to just info (DocBook 5) and some
-       @id instance to @xml-id
+    refined handling of cases where refentry "source" or "manual"
+    metadata is missing or when we use fallback content instead. We
+    now report a Warning if we use fallback content.
 
-  * Michael(tm) Smith: .cvsignore
+  ● Michael(tm) Smith: refentry.xsl
 
-    Set updated ignore properties and adjusted for fact that shared
-    makefile now expects a "PARAMBASE" value to be specified (to
-    indicate base filename for the type of content being built: either
-    PARAMBASE=param or PARAMBASE=lib; this makes it possible to reduce
-    redundancy in the lib build, and just have it use the same
-    makefile "infrastructure" as the param builds for all the
-    param.xsl files. The reason for that is, lib use the same *.xweb
-    system for embedding documentation that the builds for the various
-    output formats use (as opposed to the jrefentry-based system that
-    used for building the template and PI docs in common etc.
+    revert part of previous commit that SF stupidity caused me to fuck up
 
-  * Michael(tm) Smith: common.xsl; pi.xsl
+  ● Michael(tm) Smith: refentry.xsl
 
-    Added doc for the dbchoice choice PI, and fixes some problems with
-    the db* start PI handling.
+    don't use refmiscinfo@class=date value as fallback for refentry
+    "source" or "manual" metadata fields
 
-  * Michael(tm) Smith: common.xsl; pi.xsl
+  ● Michael(tm) Smith: refentry.xsl
 
-    Added embedded documentation on the following PIs:
+    Made reporting of missing refentry metadata more quiet:
 
-      - dbhtml_start
-      - dbfo_start
-      - dbtex_delims
-      - dbtimestamp
+      - we no longer report anything if usable-but-not-preferred
+        metadata is found; we just quietly use whatever we manage to
+        find
 
-  * Michael(tm) Smith: utility.xsl
+      - we now only report missing "source" metadata if the refentry
+        is missing BOTH "source name" and "version" metadata; if it
+        has one but not the other, we use whichever one it has and
+        don't report anything as missing
 
-    Made minor editorial change to embedded doc for utility templates.
+    The above changes were made because testing with some "real world"
+    source reveals that some authors are intentionally choosing to use
+    "non preferred" markup for some metadata, and also choosing to
+    omit "source name" or "version" metadata in there DocBook XML. So
+    it does no good to give them pedantic reminders about what they
+    already know...
 
-  * Michael(tm) Smith: Makefile
+    Also, changed code to cause "fixme" text to be inserted in output
+    in particular cases:
 
-    Set XJPARSEFLAGS = -E 0 -w for xsl/common build too.
+      - if we can't manage to find any "source" metadata at all, we
+        now put fixme text into the output
 
-  * Michael(tm) Smith: Makefile
+      - if we can't manage to find any "manual" metadata a all, we
+        now put fixme text into the output
 
-    For docbook-xsl builds, feed xjparse the -EO and -w switches.
-     -E0
-       suppresses the "Parse succeeded... with no errors and no warnings"
-       messages that xjparse (actually, the XML Commons resolver)
-       otherwise emits.
-     -w
-       cause xjparse/resolver to only do a well-formedness check,
-       instead of trying to do validation; the reason for adding this
-       is that xjparse gets run against what are now doctype-less,
-       namespaced DocBook instances (after recent changes to the
-       build) and fails to validate those (because they don't have a
-       doctype)
-     What we really need to do long-term is replace xjparse with a
-     better, RELAXNG-aware validation mechanism, so that we can have
-     the build properly validate stuff that it should be checking.
-     That maybe amounts to making an "xslt" wrapper tool that either
-     calls jing or rnv (depending on what the builder wants to use).
+    The "source" and "manual" metadata is necessary information, so
+    buy putting the fixme stuff in the output, we alert users to the
+    need problem of it being missing.
 
-     But for now we'll need to tolerate that fact that xjparse isn't
-     doing anything more for us than just simply WF checking...
+  ● Michael(tm) Smith: refentry.xsl
 
-  * Michael(tm) Smith: common.xsl
+    When generating manpages output, we no longer report anything if
+    the refentry source is missing date or pubdate content. In
+    practice, many users intentionally omit the date from the source
+    because they explicitly want it to be generated.
 
-    Added support to the HTML stylesheets for proper processing of
-    orgname as a child of author.
+  ● Michael(tm) Smith: l10n.xml; .cvsignore; Makefile
 
-  * Michael(tm) Smith: targets.xsl; utility.xsl; titles.xsl; pi.xsl;
-    subtitles.xsl; table.xsl;
+    Added in support for building the Galician locale.
 
-    In files that still referred to nwalsh.com URL in the copyright
-    header, changed to docbook.sf.net URL.
+  ● Michael(tm) Smith: l10n.xml
 
-  * Michael(tm) Smith: Makefile
+    further change needed for switch from no locale to nb.
 
-    Added -E0 switch to default xjparse options, in order to suppress
-    "Parse succeeded...  with no errors and no warnings." messages.
-    Thanks Norm for letting me know which flag to set.
+  ● Michael(tm) Smith: .cvsignore
 
-  * Michael(tm) Smith: refentry.xsl; subtitles.xsl; labels.xsl; utility.xsl;
-    titles.xsl; table
+    ignore nb.xml
 
-    Added IDs in a bunch of places in embedded template docs that
-    could use them.
+  ● Michael(tm) Smith: common.xsl
 
-  * Michael(tm) Smith: stripns.xsl; utility.xsl; common.xsl
+    Added support for orgname in authorgroup. Thanks to Camille
+    Bégnis.
 
-    Moved logging template and related templates to separate
-    utility.xsl file so that can be imported without importing the
-    whole common.xsl file (which is necessary for the build and for
-    using the logging template in standalone namespace-stripping
-    because the common.xsl file assumes it will be imported along with
-    all the params, which it can't be when building lib.xsl).
+  ● Michael(tm) Smith: Makefile
 
-  * Michael(tm) Smith: stripns.xsl; common.xsl
+    "no" locale is now "nb"
 
-    Updated stylesheets to use common logging template to log messages
-    emitted during namespace-stripping.
-    Also, moved pad-string template from lib to common because
-    it's needed in order to use logging template in the profiling
-    stylesheets, and the lib build relies on the profiling apparatus
-    (so the profiling apparatus can't rely on lib being built first...)
+  ● Mauritz Jeanson: stripns.xsl
 
-  * Michael(tm) Smith: .cvsignore
+    Removed the template matching "ng:link|db:link" (in order to make @xlink:show
+    work with <link> elements). As far as I can tell, this template is no longer needed.
 
-    svn-ignore newly add eo.xml file
+  ● Mauritz Jeanson: entities.ent
 
-  * Michael(tm) Smith: entities.ent
+    Moved declaration of comment.block.parents entity to common/entities.ent.
 
-    Removed all "Do not edit this file" admonitions that get output in
-    generated stylesheets; such admonitions have in the past been
-    judged by the free-software police to be at-risk of
-    interpretation as license restrictions.
-    Also, made various updates to work around some funkiness is
-    xsltproc output.
+  ● Mauritz Jeanson: titles.xsl
 
-  * Michael(tm) Smith: refentry.xsl
+    Added an update the fix made in revision 7528 (handling of xref/link in no.anchor.mode mode).
+    Having xref in title is not a problem as long as the target is not an ancestor element.
+    Closes bug #1838136.
 
-    Refined logging output of refentry metadata-gathering template;
-    for some cases of "missing" elements (refmiscinfo stuff, etc.),
-    the log messages now include URL to corresponding page in the
-    Definitive Guide (TDG).
+    Note that an xref that is in a title and whose target is an ancestor element is still not
+    rendered in the TOC. This could be considered a bug, but on the other hand I cannot really
+    see the point in having such an xref in a document.
 
-  * Michael(tm) Smith: common.xsl
+  ● Mauritz Jeanson: titles.xsl
 
-    Improved general logging template to parameterize some parts that
-    were hardcoded previously.
+    Added a "not(ancestor::title)" test to work around "too many nested
+    apply-templates" problems when processing xrefs or links in no.anchor.mode mode.
+    Hopefully, this closes bug #1811721.
 
-  * Robert Stayton: l10n.xml; Makefile
+  ● Mauritz Jeanson: titles.xsl
 
-    Add eo.xml Esperanto.
+    Removed old template matching "link" in no.anchor.mode mode.
 
-  * Robert Stayton: entities.ent
+  ● Mauritz Jeanson: titles.xsl
 
-    Add xmlns:xsl declaration to elements in entities.
+    Process <link> in no.anchor.mode mode with the same template as <xref>.
+    Closes bug #1759205 (Empty link in no.anchor.mode mode).
 
-  * Jirka Kosek: entities.ent
+  ● Mauritz Jeanson: titles.xsl
 
-    Rules for normalizing glossary entries before they are sorted can be now different for each language.
-
-  * Robert Stayton: titles.xsl
-
-    fix caption plus title in cals table producing double caption.
-
-  * Michael(tm) Smith: Makefile
-
-    Renamed cvstools dir to buildtools, and replaced all
-    references to "cvstools" in makefiles and elsewhere
-    with "buildtools".
-
-  * Robert Stayton: table.xsl
-
-    Fix bug 1668629 valign on tbody not inherited.
-
-  * Robert Stayton: titles.xsl
-
-    Add refsection/info/title support.
-
-  * Michael(tm) Smith: titles.xsl
-
-    Added support for correct handling of xref to elements that
-    contain info/title descendants but no title children.
-
-    This should be further refined so that it handles any *info
-    elements. And there are probably some other places where similar
-    handling for *info/title should be added.
-
-  * Michael(tm) Smith: refentry.xsl
-
-    Updated copyright notices.
-
-  * Mauritz Jeanson: pi.xsl
-
-    Modified <xsl:when> in datetime.format template to work
-    around Xalan bug.
+    In no.anchor.mode mode, do not output anchors for elements that are descendants
+    of <title>. Previously, having inline elements with @id/@xml:id in <title>s
+    resulted in anchors both in the TOC and in the main flow. Closes bug #1797492.
 
 FO
 
-The following changes have been made to the fo code since the 1.72.0 release.
+The following changes have been made to the fo code since the 1.73.2 release.
 
-  * Michael(tm) Smith: highlight.xsl
+  ● Keith Fahlgren: Makefile
 
-    Set keywords on a number of files.
+    Get rid of the rest of the hardcoded buildtools references and actually use DOCBOOK_SVN
 
-  * Mauritz Jeanson: footnote.xsl
+  ● Mauritz Jeanson: pi.xsl
 
-    Fixed typo (introduced by me in r6773). Closes bug #1778340.
+    Updated documentation for keep-together.
 
-  * Mauritz Jeanson: table.xsl
+  ● Mauritz Jeanson: task.xsl
 
-    Modified the tgroup template so that, for tables with multiple tgroups,
-    a width attribute is output on all corresponding fo:tables. Previously,
-    there was a test prohibiting this (and a comment saying that outputting more
-    than one width attribute will cause an error). But this seems to be no longer
-    relevant; it is not a problem with FOP 0.93 or XEP 4.10. Closes bug #1760559.
+    Enabled use of the keep-together PI on task elements.
 
-  * Mauritz Jeanson: graphics.xsl
+  ● Jirka Kosek: lists.xsl
 
-    Replaced useless <a> elements with warning messages (textinsert extension).
+  ● Robert Stayton: index.xsl
 
-  * Mauritz Jeanson: admon.xsl
+    FOP1 requires fo:wrapper for inline index entries, not fo:inline.
 
-    Enabled generation of ids (on fo:wrapper) for indexterms in admonition titles, so that page
-    references in the index can be created. Closes bug #1775086.
+  ● Robert Stayton: index.xsl
 
-  * Mauritz Jeanson: pi.xsl
+    Fixed non-working inline.or.block template for indexterm wrappers.
+    Add fop1 to list of processors using inline.or.block.
 
-    Fixed typo.
+  ● Michael(tm) Smith: .gitignore; .cvsignore
 
-  * Mauritz Jeanson: pi.xsl
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
-    Added missing equals sign (dbfo-need).
+  ● Mauritz Jeanson: table.xsl
 
-  * Michael(tm) Smith: pi.xsl
+    Fixed bug #1891965 (colsep in entytbl not working).
 
-    Mark up PIs with tag@class=xmlpi so that they can get picked up an
-    formatted correctly by the doc build.
+  ● Mauritz Jeanson: titlepage.xsl
 
-  * Michael(tm) Smith: pi.xsl
+    Added support for title in revhistory. Closes bug #1842847.
 
-    Shortened some refpurpose text for embedded doc for PIs.
+  ● Mauritz Jeanson: pi.xsl
 
-  * Michael(tm) Smith: table.xsl
+    Small doc cleanup (dbfo float-type).
 
-    Make fo/table.xsl file valid against our litprog schema.
+  ● Mauritz Jeanson: titlepage.xsl
 
-  * Michael(tm) Smith: pi.xsl
+    Insert commas between multiple copyright holders.
 
-    Make pi.xsl files valid against our litprog grammar.
+  ● Mauritz Jeanson: autotoc.xsl; division.xsl
 
-  * Michael(tm) Smith: .cvsignore
+    Added modifications to support nested set elements. See bug #1853172.
 
-    Ignore another build-generated kludge. Yeah, I know it's
-    ridiculous. If you can come up with a prettier way of doing it,
-    all of my riches will be yours.
+  ● David Cramer: glossary.xsl
 
-  * Michael(tm) Smith: pi.xsl
+    Added normalize-space to xsl:sorts to avoid missorting of glossterms due to stray leading spaces.
 
-    Make PI source files valid against our litprog schema.
+  ● David Cramer: glossary.xsl
 
-  * Michael(tm) Smith: param.xweb
+    Fixed bug #1854199: glossary.xsl should use the sortas attribute on glossentry
 
-    Make *.xweb instances valid against the
-    https://docbook.svn.sourceforge.net/svnroot/docbook/trunk/docbook/relaxng/params/refentry.rnc
-    grammar.
+  ● Mauritz Jeanson: inline.xsl
 
-  * Robert Stayton: component.xsl
+    Added a template for citebiblioid. The hyperlink target is the parent of the referenced biblioid,
+    and the "hot text" is the biblioid itself enclosed in brackets.
 
-    Add parameters to the page.sequence utility template.
+  ● Mauritz Jeanson: inline.xsl
 
-  * Michael(tm) Smith: Makefile
+    Moved declaration of comment.block.parents entity to common/entities.ent.
 
-    Make sure that *template.xml files under version control don't get
-    removed when we clean.
+  ● Mauritz Jeanson: docbook.xsl
 
-  * Michael(tm) Smith: table.xsl
+    Updated message about unmatched element.
 
-    Updated embedded doc in XSL source files:
+  ● Mauritz Jeanson: param.xweb
 
-     - added dbhtml@dir PIs to control where output goes when
-       generation HTML version of docs
+    Added link to profiling chapter of TCG.
 
-     - put xml:id instances on root elements of embedded doc
+  ● Mauritz Jeanson: refentry.xsl
 
-     - changed all *info instances to just info (DocBook 5) and some
-       @id instance to @xml-id
+    Fixed typo (refsynopsysdiv -> refsynopsisdiv).
 
-  * Michael(tm) Smith: param.xweb
+  ● David Cramer: fop.xsl; fop1.xsl; ptc.xsl; xep.xsl
 
-    Changed url for page.png
+    Added test to check generate.index param when generating pdf bookmarks
 
-  * Mauritz Jeanson: xref.xsl
+  ● Mauritz Jeanson: graphics.xsl
 
-    Added template for xref to area/areaset.
-    Part of fix for bug #1675513 (xref to area broken).
+    Added support for MathML in imagedata.
 
-  * Michael(tm) Smith: .cvsignore
+  ● Michael(tm) Smith: math.xsl
 
-    Ignore intermediate params file.
+    Removed unnecessary extra test condition in test express that
+    checks for passivetex.
 
-  * Michael(tm) Smith: .cvsignore; Makefile
+  ● Michael(tm) Smith: math.xsl
 
-    Set updated ignore properties and adjusted for fact that shared
-    makefile now expects a "PARAMBASE" value to be specified (to
-    indicate base filename for the type of content being built: either
-    PARAMBASE=param or PARAMBASE=lib; this makes it possible to reduce
-    redundancy in the lib build, and just have it use the same
-    makefile "infrastructure" as the param builds for all the
-    param.xsl files. The reason for that is, lib use the same *.xweb
-    system for embedding documentation that the builds for the various
-    output formats use (as opposed to the jrefentry-based system that
-    used for building the template and PI docs in common etc.
+    Don't use fo:instream-foreign-object if we are processing with
+    passivetex. Closes #1806899. Thanks to Justus Piater.
 
-  * Michael(tm) Smith: lists.xsl
+  ● Mauritz Jeanson: component.xsl
 
-    Added doc for the dbchoice choice PI, and fixes some problems with
-    the db* start PI handling.
+    Added code to output a TOC for an appendix in an article when
+    generate.toc='article/appendix toc'. Closes bug #1669658.
 
-  * Michael(tm) Smith: pi.xsl
+  ● Dongsheng Song: biblio-iso690.xsl
 
-    Added embedded documentation on the following PIs:
+    Change encoding from "windows-1250" to "UTF-8".
 
-      - dbhtml_start
-      - dbfo_start
-      - dbtex_delims
-      - dbtimestamp
+  ● Mauritz Jeanson: pi.xsl
 
-  * Michael(tm) Smith: pi.xsl
+    Updated documentation for dbfo_label-width.
 
-    made some cleanup to the fo/pi.xsl params doc. Also fixed a couple
-    typos.
+  ● Mauritz Jeanson: lists.xsl
 
-  * Michael(tm) Smith: pi.xsl
+    Added support for the dbfo_label-width PI in calloutlists.
 
-    Added TCG links and param links to embedded doc of FO PIs. This
-    completes the work on adding this doc for the FO stylesheets.
+  ● Robert Stayton: biblio.xsl
 
-  * Michael(tm) Smith: pi.xsl
+    Support finding glossary database entries inside bibliodivs.
 
-    Made minor editorial to embedded documentation.
+  ● Robert Stayton: formal.xsl
 
-  * Michael(tm) Smith: verbatim.xsl
+    Complete support for <?dbfo pgwide="1"?> for informal
+    elements too.
 
-    Made the following changed in the mode="hyphenate.verbatim" template:
-      -    <xsl:apply-templates select="node()|@*" mode="hyphenate.verbatim"/>
-      +    <xsl:copy-of select="@*"/>
-      +    <xsl:apply-templates mode="hyphenate.verbatim"/>
-    ...because as was it caused xsltproc to raise a fatal "Attribute
-    nodes must be added before any child nodes to an element." (though
-    not saxon)
+  ● Mauritz Jeanson: table.xsl
 
-  * Michael(tm) Smith: lists.xsl; titlepage.xsl; formal.xsl; graphics.xsl;
-    qandaset.xsl; gloss
+    In the table.block template, added a check for the dbfo_keep-together PI, so that
+    a table may break (depending on the PI value) at a page break. This was needed
+    since the outer fo:block that surrounds fo:table has keep-together.within-column="always"
+    by default, which prevents the table from breaking. Closes bug #1740964 (Titled
+    table does not respect dbfo PI).
 
-    Consolidated processing of all FO PIs into wrapper templates in
-    one place (the fo/pi.xsl file) and added embedded documentation
-    for all of them.  This makes it possible to now include generated
-    documentation for the PIs in the output docs. Next stop: HTML PIs,
-    then on to the common ones...
+  ● Mauritz Jeanson: pi.xsl
 
-    This touched a lot of files and it is likely that I made some
-    mistakes in moving the PI processing over. Meaning that some PIs
-    might quit working or not work as expected after this change. So
-    it will need to tested. Which is why we do dot-zero releases...
+    Added a few missing @role="tcg".
 
-  * Michael(tm) Smith: param.xweb
+  ● Michael(tm) Smith: xref.xsl
 
-    Added an ID on mediaobject that illustrates FO page regions, so
-    that the ID can get picked up and used as the filename for the
-    "long description" chunk for that mediaobject in HTML output.
+    Corrected dumb error I made in r7435 change.
 
-  * Mauritz Jeanson: lists.xsl
+  ● Mauritz Jeanson: inline.xsl
 
-    Fixed bug #1711508.
+    Use normalize-space() in glossterm comparisons (as in html/inline.xsl).
 
-  * Michael(tm) Smith: division.xsl; toc.xsl; biblio-iso690.xsl; block.xsl;
-    graphics.xsl; html
+  ● Mauritz Jeanson: autoidx.xsl
 
-    In files that still referred to nwalsh.com URL in the copyright
-    header, changed to docbook.sf.net URL.
+    Removed the [&scope;] predicate from the target variable in the template with name="reference".
+    This filter was the cause of missing index backlinks when @zone and @type were used on indexterms,
+    with index.on.type=1. Closes bug #1680836.
 
-  * Norman Walsh: graphics.xsl
+  ● Michael(tm) Smith: inline.xsl; xref.xsl; footnote.xsl
 
-    URIs that start with '/' are absolute too
+    Added capability in FO output for displaying URLs for all
+    hyperlinks (elements marked up with xlink:href attributes) in the
+    same way as URLs for ulinks are already handled (which is to say,
+    either inline or as numbered footnotes).
 
-  * Robert Stayton: xep.xsl
+    Background on this change:
+    DocBook 5 allows "ubiquitous" linking, which means you can make
+    any element a hyperlink just by adding an xlink:href attribute to
+    it, with the value set to an external URL. That's in contrast to
+    DocBook 4, which only allows you to use specific elements (e.g.,
+    the link and ulink elements) to mark up hyperlinks.
 
-    Whitespace adjustment.
+    The existing FO stylesheets have a mechanism for handling display
+    of URLs for hyperlinks that are marked up with ulink, but they did
+    not handle display of URLs for elements that were marked up with
+    xlink:href attributes. This change adds handling for those other
+    elements, enabling the URLs they link to be displayed either
+    inline or as numbered footnotes (depending on what values the user
+    has the ulink.show and ulink.footnotes params set to).
 
-  * Michael(tm) Smith: docbook.xsl; table.xsl
+    Note that this change only adds URL display support for elements
+    that call the simple.xlink template -- which currently is most
+    (but not all) inline elements.
 
-    Moved logging template and related templates to separate
-    utility.xsl file so that can be imported without importing the
-    whole common.xsl file (which is necessary for the build and for
-    using the logging template in standalone namespace-stripping
-    because the common.xsl file assumes it will be imported along with
-    all the params, which it can't be when building lib.xsl).
+    This change also moves the URL display handling out of the ulink
+    template and into a new "hyperlink.url.display" named template;
+    the ulink template and the simple.xlink named template now both
+    call the hyperlink.url.display template.
 
-  * Michael(tm) Smith: docbook.xsl
+    Warning: In the stylesheet code that determines what footnote
+    number to assign to each footnote or external hyperlink, there is
+    an XPath expression for determining whether a particular
+    xlink:href instance is an external hyperlink; that expression is
+    necessarily a bit complicated and further testing may reveal that
+    it doesn't handle all cases as expected -- so some refinements to
+    it may need to be done later.
 
-    Updated stylesheets to use common logging template to log messages
-    emitted during namespace-stripping.
-    Also, moved pad-string template from lib to common because
-    it's needed in order to use logging template in the profiling
-    stylesheets, and the lib build relies on the profiling apparatus
-    (so the profiling apparatus can't rely on lib being built first...)
-
-  * Michael(tm) Smith: inline.xsl
-
-    Added template match for person element to fo stylesheet.
-
-  * Michael(tm) Smith: param.xweb
-
-    Removed all "Do not edit this file" admonitions that get output in
-    generated stylesheets; such admonitions have in the past been
-    judged by the free-software police to be at-risk of
-    interpretation as license restrictions.
-    Also, made various updates to work around some funkiness is
-    xsltproc output.
-
-  * Mauritz Jeanson: fo-patch-for-fop.xsl
-
-    fo-patch-for-fop.xsl deleted (obsolete).
-
-  * Robert Stayton: docbook.xsl
-
-    Changed the comments regarding namespace striping to
-    mention the docbook5 namedspaced stylesheets.
-
-  * Robert Stayton: lists.xsl
-
-    Removed old varlistentry accidentally left in.
-
-  * Robert Stayton: lists.xsl
-
-    Added support for spacing="compact" in variablelist, per bug report #1722540.
-
-  * Robert Stayton: table.xsl
-
-    table pgwide="1" should also use pgwide.properties attribute-set.
-
-  * Mauritz Jeanson: inline.xsl
-
-    Make citations numbered if bibliography.numbered != 0.
-
-  * Robert Stayton: table.xsl
-
-    Fixed bug in handling of columns width sum.
-
-  * Robert Stayton: callout.xsl
-
-    Fixed missing quote.
-
-  * Robert Stayton: callout.xsl
-
-    Changed param name to callout.icon.size
-
-  * Robert Stayton: param.xweb; param.ent
-
-    Add new profiling parameters for audience and wordsize.
-
-  * Robert Stayton: callout.xsl
-
-    line break fix
-
-  * Robert Stayton: callout.xsl
-
-    Add callout.icon.size parameter.
-
-  * Robert Stayton: param.xweb; param.ent
-
-    Added callout.icon.size parameter.
-
-  * Robert Stayton: inline.xsl; xref.xsl
-
-    Add support for xlink as olink.
-
-  * Mauritz Jeanson: footnote.xsl
-
-    Fixed bug #1669601.
-
-  * Robert Stayton: pagesetup.xsl
-
-    set.flow.properties now strips '-draft' from master name before tests.
-
-  * Robert Stayton: autotoc.xsl; param.xweb; param.ent
-
-    Add support for qanda.in.toc to fo TOC.
-
-  * Robert Stayton: component.xsl
-
-    Improved the page.sequence utility template for use with book.
-
-  * Robert Stayton: division.xsl
-
-    Use named templates for front and back cover templates.
-
-  * Robert Stayton: division.xsl
-
-    Refactored the big book template into smaller pieces.
-    Used the "page.sequence" utility template in
-    component.xsl to shorten the toc piece.
-    Added placeholder templates for front.cover and back.cover.
-
-  * Jirka Kosek: glossary.xsl
-
-    Rules for normalizing glossary entries before they are sorted can be now different for each language.
-
-  * Jirka Kosek: sections.xsl
-
-    use-attribute-sets is used without prefix on XSLT elements
-
-  * Robert Stayton: component.xsl
-
-    Adjust whitespace.
-
-  * Robert Stayton: param.xweb; param.ent; sections.xsl
-
-    Add section.container.element parameter to enable
-    pgwide spans inside sections.
-
-  * Robert Stayton: param.xweb; param.ent; component.xsl
-
-    Add component.titlepage.properties attribute-set to
-    support span="all" and other properties.
-
-  * Mauritz Jeanson: inline.xsl
-
-    Fixed #1680755 (keycombo joinchar default incorrect).
-
-  * Mauritz Jeanson: lists.xsl
-
-    Corrected typo in calloutlist template.
-
-  * Robert Stayton: lists.xsl
-
-    Fix number test in termlength when NaN.
-
-  * Robert Stayton: htmltbl.xsl; table.xsl
-
-    Apply table.row.properties template to html tr rows too.
-    Add keep-with-next to table.row.properties when row is in thead.
-
-  * Jirka Kosek: math.xsl
-
-    MathML must be surrounded by fo:instream-foreign-object
-
-  * Michael(tm) Smith: Makefile
-
-    Renamed cvstools dir to buildtools, and replaced all
-    references to "cvstools" in makefiles and elsewhere
-    with "buildtools".
-
-  * Robert Stayton: param.xweb; param.ent
-
-    Add default.table.frame parameter to fo too.
-
-  * Robert Stayton: table.xsl
-
-    Add support for default.table.frame parameter.
-    Fix bug 1575446 rowsep last check for @morerows.
-
-  * Robert Stayton: refentry.xsl
-
-    Add support for info/title in refsections.
-
-  * Robert Stayton: xref.xsl
-
-    Fixed bug 1652360 empty link with xlink:href.
-
-  * Michael(tm) Smith: Makefile
-
-    Port from docs-in-db5 branch of all DocBook5-formatted
-    params and all associated build changes needed for
-    building the param.xsl files and docs from them.
-
-  * David Cramer: qandaset.xsl
-
-    Make fo questions and answers behave the same way as html
-
-  * Jirka Kosek: lists.xsl
-
-    Added missing attribute set for procedure
-
-  * Jirka Kosek: param.xweb; biblio.xsl; docbook.xsl; param.ent;
-    biblio-iso690.xsl
-
-    Added support for formatting biblioentries according to ISO690 citation style.
-    New bibliography style can be turned on by setting parameter bibliography.style to "iso690"
-    The code was provided by Jana Dvorakova
-
-  * Robert Stayton: param.xweb; param.ent; pagesetup.xsl
-
-    Add header.table.properties and footer.table.properties attribute-sets.
-
-  * Robert Stayton: inline.xsl
-
-    Add fop1.extensions for menuchoice arrow handling exception.
-
-  * Robert Stayton: pagesetup.xsl
-
-    Fixed master-name used in axf crop mark template call.
-
-  * Robert Stayton: autotoc.xsl
-
-    Moved the end-indent properties from toc.line to the
-    toc.line.properties attribute-set.
-
-  * Michael(tm) Smith: param.xweb
-
-    Updated copyright notices.
+    Closes #1785519. Thanks to Ken Morse for reporting and
+    troubleshooting the problem.
 
 HTML
 
-The following changes have been made to the html code since the 1.72.0
-release.
+The following changes have been made to the html code since the 1.73.2 release.
 
-  * Michael(tm) Smith: highlight.xsl
+  ● Keith Fahlgren: inline.xsl; synop.xsl
 
-    Set keywords on a number of files.
+    Work to make HTML and XHTML targets more valid
 
-  * Mauritz Jeanson: titlepage.xsl
+  ● Keith Fahlgren: table.xsl
 
-    Added <xsl:call-template name="process.footnotes"/> to abstract template
-    so that footnotes in info/abstract are processed. Closes bug #1760907.
+    Add better handling for tables that have footnotes in the titles
 
-  * Michael(tm) Smith: pi.xsl; synop.xsl
+  ● Keith Fahlgren: biblio.xsl
 
-    Changed handling of HTML output for the cmdsynopsis and
-    funcsynopsis elements, such that a@id instances are generated for
-    them if they are descendants of any element containing a dbcmdlist
-    or dbfunclist PI. Also, update the embedded reference docs for the
-    dbcmdlist and dbfunclist PIs to make it clear that they can be
-    used within any element for which cmdsynopsis or funcsynopsis are
-    valid children.
+    Add anchors to bibliodivs
 
-  * Michael(tm) Smith: formal.xsl
+  ● Jirka Kosek: lists.xsl
 
-    Reverted the part of revision 6952 that caused a@id anchors to be
-    generated for output of informal objects. Thanks to Sam Steingold
-    for reporting.
+  ● Keith Fahlgren: formal.xsl; Makefile; htmltbl.xsl
 
-  * Robert Stayton: glossary.xsl
+    Initial checkin/merge of epub target from work provided by Paul Norton of Adobe
+    and Keith Fahlgren of O'Reilly.
 
-    Account for a glossary with no glossdiv or glossentry children.
+  ● Mauritz Jeanson: biblio.xsl
 
-  * Mauritz Jeanson: titlepage.xsl
+    Added code for creating URLs from biblioids with @class="doi" (representing Digital
+    Object Identifiers). See FR #1934434 and http://doi.org.
 
-    Modified legalnotice template so that the base.name parameter is calculated
-    in the same way as for revhistory chunks. Using <xsl:apply-templates
-    mode="chunk-filename" select="."/> did not work for single-page output since
-    the template with that mode is in chunk-code.xsl.
+    To do: 1) Add support for FO output. 2) Figure out how @class="doi" should be handled
+    for bibliorelation, bibliosource and citebiblioid.
 
-  * Mauritz Jeanson: graphics.xsl
+  ● Norman Walsh: formal.xsl
 
-    Updated support for SVG (must be a child of imagedata in DB 5).
-    Added support for MathML in imagedata.
+    Don't use xsl:copy because it forces the resulting element to be in the same namespace as the source element; in the XHTML stylesheets, that's wrong. But the HTML-to-XHTML converter does the right thing with literal result elements, so use one of them.
 
-  * Mauritz Jeanson: pi.xsl
+  ● Michael(tm) Smith: Makefile
 
-    Fixed typo.
+    Added checks and hacks to various makefiles to enable building
+    under Cygwin. This stuff is ugly and maybe not worth the mess and
+    trouble, but does seem to work as expected and not break anything
+    else.
 
-  * Mauritz Jeanson: inline.xsl
+  ● Michael(tm) Smith: docbook.xsl
 
-    Fixed typo in tests for @xlink:title.
+    added "exslt" namespace binding to html/docbook.xsl file (in
+    addition to existing "exsl" binding. reason is because lack of it
+    seems to cause processing problems when using the profiled
+    version of the stylsheet
 
-  * Mauritz Jeanson: pi.xsl
+  ● Michael(tm) Smith: .cvsignore; .gitignore
 
-    Added documentation for the dbhh PI (used for context-sensitive HTML Help).
-    (The two templates matching 'dbhh' are still in htmlhelp-common.xsl).
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
-  * Mauritz Jeanson: pi.xsl
+  ● Norman Walsh: chunk-common.xsl
 
-    Corrected synopsis of dbhtml-include PI.
+    Rename link
 
-  * Mauritz Jeanson: docbook.xsl; highlight.xsl
+  ● Mauritz Jeanson: table.xsl
 
-    Replaced <font> with <span> and/or inline styles. This fixes the problem with <span class="ERROR">
-    in XHTML (and <font> is deprecated anyway). Closes bug #1715774.
+    Added a fix to make rowsep apply to the last row of thead in entrytbl.
 
-  * Michael(tm) Smith: titlepage.xsl
+  ● Michael(tm) Smith: synop.xsl
 
-    Fixed test for abstract.notitle.enabled. The way I had it, it was
-    having an effect opposite to its documented effect; that is, it
-    was generating an abstract title only if abstract.notitle.enabled
-    was not zero; but it should actually generate the title only if
-    abstract.notitle.enabled *is* zero. Thanks to Marie Sauvage for
-    testing and reporting this very quickly after 1.73.0 was released.
+    Simplified and streamlined handling of output for ANSI-style
+    funcprototype output, to correct a problem that was causing type
+    data to be lost in the output parameter definitions. For example,
+    for an instance like this:
+      <paramdef>void *<parameter>dataptr</parameter>[]</paramdef>
+    ... the brackets (indicating an array type) were being dropped.
 
-  * Michael(tm) Smith: xref.xsl; pi.xsl
+  ● Michael(tm) Smith: synop.xsl
 
-    Mark up PIs with tag@class=xmlpi so that they can get picked up an
-    formatted correctly by the doc build.
+    Changed HTML handling of K&R-style paramdef output. The parameter
+    definitions are no longer output in a table (though the prototype
+    still is). The reason for the change is that the
+    kr-tabular-funcsynopsis-mode template was causing type data to be
+    lost in the output parameter definitions. For example, for an
+    instance like this:
+      <paramdef>void *<parameter>dataptr</parameter>[]</paramdef>
+    ... the brackets (indicating an array type) were being dropped.
+    The easiest way to deal with the problem is to not try to chop up
+    the parameter definitions and display them in table format, but to
+    instead just output them as-is. May not look quite as pretty, but
+    at least we can be sure no information is being lost...
 
-  * Mauritz Jeanson: param.xweb; param.ent
+  ● Michael(tm) Smith: pi.xsl
 
-    Moved declaration and documentation of javahelp.encoding from javahelp.xsl to the
-    regular "parameter machinery".
+    updated wording of doc for funcsynopsis-style PI
 
-  * Michael(tm) Smith: autotoc.xsl; chunk-common.xsl
+  ● Michael(tm) Smith: param.xweb; param.ent; synop.xsl
 
-    Fixed a bug that caused broken links in some TOCs.
-    This change affects the code for generating links in HTML output.
-    It adds a new optional "toc.context" parameter to the href.target
-    template, and based on the value of that parameter, handles
-    link-generation in TOCs differently under a certain condition.
+    Removed the funcsynopsis.tabular.threshold param. It's no longer
+    being used in the code and hasn't been since mid 2006.
 
-    The gory details:
+  ● Mauritz Jeanson: graphics.xsl
 
-      The code now checks to see if the output dir of any file being
-      linked to in a particular TOC is different from the output dir
-      the TOC is written to. If it is different, we do not call the
-      trim.common.uri.paths[1] template.
+    Added support for the img.src.path parameter for SVG graphics. Closes bug #1888169.
 
-      The reason is that, given the following case:
+  ● Mauritz Jeanson: chunk-common.xsl
 
-      1. we are chunking into separate dirs
+    Added missing space.
 
-      2. output for the TOC is written to current dir, but the file
-         being linked to is written to some subdir "foo".
+  ● Norman Walsh: component.xsl
 
-      For that case, links to that file in that TOC did not show
-      the correct path - they omitted the "foo".
+    Fix bug where component titles inside info elements were not handled properly
 
-      The cause of that problem was that the trim.common.uri.paths
-      template was being called under all conditions. But it's
-      apparent that we don't want to call trim.common.uri.paths in
-      the case where a linked file is being written to a different
-      directory than the TOC that contains the link, because doing
-      so will cause a necessary (not redundant) directory-name
-      part of the link to get inadvertently trimmed, resulting in
-      a broken link to that file.
+  ● Michael(tm) Smith: pi.xsl
 
-      Thus, the conditional check was added to catch this case and to
-      handle it differently
+    Moved dbhtml_stop-chunking embedded doc into alphabetical order,
+    fixed text of TCG section it see-also'ed.
 
-      [1] The purpose of the trim.common.uri.paths template is to
-      prevent cases where, if we didn't call it, we end up with
-      unnecessary, redundant directory names getting output; for
-      example, "foo/foo/refname.html".
+  ● David Cramer: pi.xsl
 
-  * Michael(tm) Smith: pi.xsl
+    Added support for <?dbhtml stop-chunking?> processing instruction
 
-    Shortened some refpurpose text for embedded doc for PIs.
+  ● David Cramer: chunk-common.xsl; pi.xsl
 
-  * Michael(tm) Smith: admon.xsl
+    Added support for <?dbhtml stop-chunking?> processing instruction
 
-    Changed handling of titles for note, warning, caution, important,
-    tip admonitions: We now output and HTML h3 head only if
-    admon.textlabel is non-zero or if the admonition actually contains
-    a title; otherwise, we don't output an h3 head at all.
-    (Previously, we were outputting an empty h3 if the admon.textlabel
-    was zero and if the admonition had no title.)
+  ● David Cramer: glossary.xsl
 
-  * Michael(tm) Smith: pi.xsl
+    Fixed bug #1854199: glossary.xsl should use the sortas attribute on glossentry. Also added normalize-space to avoid missorting due to stray leading spaces.
 
-    Make pi.xsl files valid against our litprog grammar.
+  ● Mauritz Jeanson: inline.xsl
 
-  * Michael(tm) Smith: .cvsignore
+    Added a template for citebiblioid. The hyperlink target is the parent of the referenced biblioid,
+    and the "hot text" is the biblioid itself enclosed in brackets.
 
-    Ignore another build-generated kludge. Yeah, I know it's
-    ridiculous. If you can come up with a prettier way of doing it,
-    all of my riches will be yours.
+  ● Mauritz Jeanson: inline.xsl
 
-  * Michael(tm) Smith: pi.xsl
+    Added support for @xlink:show in the simple.xlink template. The "new" and "replace"
+    values are supported (corresponding to values of "_blank" and "_top" for the
+    ulink.target parameter). I have assumed that @xlink:show should override ulink.target
+    for external URI links. This closes bugs #1762023 and #1727498.
 
-    Make PI source files valid against our litprog schema.
+  ● Mauritz Jeanson: inline.xsl
 
-  * Michael(tm) Smith: param.xweb
+    Moved declaration of comment.block.parents entity to common/entities.ent.
 
-    Make *.xweb instances valid against the
-    https://docbook.svn.sourceforge.net/svnroot/docbook/trunk/docbook/relaxng/params/refentry.rnc
-    grammar.
+  ● Mauritz Jeanson: param.xweb
 
-  * Michael(tm) Smith: Makefile
+    Added link to profiling chapter of TCG.
 
-    Make sure that *template.xml files under version control don't get
-    removed when we clean.
+  ● Dongsheng Song: biblio-iso690.xsl
 
-  * Mauritz Jeanson: table.xsl
+    Change encoding from "windows-1250" to "UTF-8".
 
-    Fixed bug #1737581 (table.borders.with.css should suppress border attribute).
+  ● Robert Stayton: biblio.xsl
 
-  * Mauritz Jeanson: xref.xsl
+    Add support in biblio collection to entries in bibliodivs.
 
-    Added template for xref to area/areaset.
-    Part of fix for bug #1675513 (xref to area broken).
+  ● Mauritz Jeanson: pi.xsl
 
-  * Mauritz Jeanson: titlepage.xsl; component.xsl; division.xsl; sections.xsl
+    Added missing @role="tcg".
 
-    Added fixes to avoid duplicate ids when generate.id.attributes = 1.
-    This (hopefully) closes bug #1671052.
+  ● Mauritz Jeanson: chunk-common.xsl; titlepage.xsl
 
-  * Michael(tm) Smith: .cvsignore
+    Refactored legalnotice/revhistory chunking, so that the use.id.as.filename
+    parameter as well as the dbhtml_filename PI are taken into account. A new named
+    template in titlepage.xsl is used to compute the filename.
 
-    Ignore intermediate params file.
+  ● Mauritz Jeanson: chunk-common.xsl; titlepage.xsl
 
-  * Michael(tm) Smith: .cvsignore; Makefile
+    An update to the fix for bug #1790495 (r7433):
+    The "ln-" prefix is output only when the legalnotice doesn't have an
+    @id/@xml:id, in which case the stylesheets generate an ID value,
+    resulting in a filename like "ln-7e0fwgj.html". This is useful because
+    without the prefix, you wouldn't know that the file contained a legalnotice.
+    The same logic is also applied to revhistory, using an "rh-" prefix.
 
-    Set updated ignore properties and adjusted for fact that shared
-    makefile now expects a "PARAMBASE" value to be specified (to
-    indicate base filename for the type of content being built: either
-    PARAMBASE=param or PARAMBASE=lib; this makes it possible to reduce
-    redundancy in the lib build, and just have it use the same
-    makefile "infrastructure" as the param builds for all the
-    param.xsl files. The reason for that is, lib use the same *.xweb
-    system for embedding documentation that the builds for the various
-    output formats use (as opposed to the jrefentry-based system that
-    used for building the template and PI docs in common etc.
+  ● Mauritz Jeanson: autoidx.xsl
 
-  * Michael(tm) Smith: lists.xsl
+    Removed the [&scope;] predicate from the target variable in the template with name="reference".
+    This filter was the cause of missing index backlinks when @zone and @type were used on indexterms,
+    with index.on.type=1. Closes bug #1680836.
 
-    Added doc for the dbchoice choice PI, and fixes some problems with
-    the db* start PI handling.
+  ● Mauritz Jeanson: titlepage.xsl
 
-  * Michael(tm) Smith: pi.xsl; math.xsl
-
-    Added embedded documentation on the following PIs:
-
-      - dbhtml_start
-      - dbfo_start
-      - dbtex_delims
-      - dbtimestamp
-
-  * Michael(tm) Smith: pi.xsl
-
-    made some cleanup to the fo/pi.xsl params doc. Also fixed a couple
-    typos.
-
-  * Michael(tm) Smith: pi.xsl
-
-    Completing adding all doc for HTML PIs. Added "see also" sections
-    with links to related global params, plus links to DocBook XSL: TCG
-    Also tried out adding some additional doc to param doc for the
-    textinsert.extension param that back-references the PI
-    documentation, plus added some TCG links there too.
-
-  * Michael(tm) Smith: pi.xsl
-
-    Added doc for the dbhtml img.src.path PI.
-
-  * Michael(tm) Smith: formal.xsl; pi.xsl
-
-    Made the dbfunclist PI work as intended. Also added doc for
-    dbfunclist and dbcmdlist PIs.
-
-  * Michael(tm) Smith: pi.xsl; synop.xsl
-
-    Made the dbcmdlist work the way it appears to have been intended
-    to work. Restored dbhtml-dir template back to pi.xsl.
-
-  * Michael(tm) Smith: lists.xsl; pi.xsl
-
-    fixed WF error and removed duplicate template
-
-  * Michael(tm) Smith: graphics.xsl
-
-    Fixed WF error.
-
-  * Michael(tm) Smith: chunk-common.xsl; pi.xsl
-
-    Add x-ref links from embedded PI doc to sections in Bob's book.
-    Also, moved dbhtml-dir template to chunk-common.xsl file, because
-    it doesn't really belong in the PI file.
-
-  * Michael(tm) Smith: table.xsl; pi.xsl
-
-    Consolidated all PIs for HTML table stuff into wrapper templates
-    in the "master" pi list (html/pi.xsl) and added embedded doc for
-    all of them. May have made some flubs in copying over, so this
-    change may break some table handling.
-
-  * Michael(tm) Smith: pi.xsl; verbatim.xsl
-
-    Added a verbatim PI that I missed in last commit.
-
-  * Michael(tm) Smith: pi.xsl; synop.xsl; verbatim.xsl
-
-    Consolidated all PIs for HTML synopsis and verbatim stuff into
-    wrapper templates in the "master" pi list (html/pi.xsl) and added
-    embedded doc for all of them. May have made some flubs in copying
-    over, so this change may break some synopsis and verbatim
-    handling. Note: Also added refsee@role=params instances so that we
-    can link to the corresponding global params (if any) for each PI.
-
-  * Michael(tm) Smith: qandaset.xsl; pi.xsl
-
-    Consolidated all PIs for qandaset into wrapper templates in one
-    place (html/pi.xsl) and added embedded doc for all of them.  May
-    have made some flubs in copying over, so this change may break
-    some qandaset handling.
-
-  * Michael(tm) Smith: lists.xsl; graphics.xsl; pi.xsl
-
-    Consolidated all PIs for graphics and lists into wrapper templates
-    in one place (html/pi.xsl) and added embedded doc for all of them.
-    May have made some flubs in copying over, so this change may break
-    some graphics and list handling.
-
-  * Michael(tm) Smith: chunktoc.xsl; chunk-code.xsl; pi.xsl
-
-    Initial reorganization of HTML PI processing mechanism.
-
-  * Michael(tm) Smith: titlepage.xsl; param.xweb; param.ent
-
-    Added new param abstract.notitle.enabled.
-    If non-zero, in output of the abstract element on titlepages,
-    display of the abstract title is suppressed.
-    Because sometimes you really don't want or need that title
-    there...
-
-  * Michael(tm) Smith: chunk-code.xsl; graphics.xsl
-
-    When we are chunking long descriptions for mediaobject instances
-    into separate HTML output files, and use.id.as.filename is
-    non-zero, if a mediaobject has an ID, use that ID as the basename
-    for the long-description file (otherwise, we generate an ID for it
-    and use that ID as the basename for the file).
-    The parallels the recent change made to cause IDs for legalnotice
-    instances to be used as basenames for legalnotice chunks.
-    Also, made some minor refinements to the recent changes for
-    legalnotice chunk handling.
-
-  * Michael(tm) Smith: titlepage.xsl
-
-    Added support to the HTML stylesheets for proper processing of
-    orgname as a child of author.
-
-  * Michael(tm) Smith: chunk-code.xsl
-
-    When $generate.legalnotice.link is non-zero and
-    $use.id.as.filename is also non-zero, if a legalnotice has an ID,
-    then instead of assigning the "ln-<generatedID>" basename to the
-    output file for that legalnotice, just use its real ID as the
-    basename for the file -- as we do when chunking other elements
-    that have IDs.
-
-  * Michael(tm) Smith: table.xsl; changebars.xsl; qandaset.xsl; index.xsl;
-    maketoc.xsl; glossa
-
-    In files that still referred to nwalsh.com URL in the copyright
-    header, changed to docbook.sf.net URL.
-
-  * Michael(tm) Smith: docbook.xsl
-
-    Moved logging template and related templates to separate
-    utility.xsl file so that can be imported without importing the
-    whole common.xsl file (which is necessary for the build and for
-    using the logging template in standalone namespace-stripping
-    because the common.xsl file assumes it will be imported along with
-    all the params, which it can't be when building lib.xsl).
-
-  * Michael(tm) Smith: chunk-code.xsl; docbook.xsl
-
-    Updated stylesheets to use common logging template to log messages
-    emitted during namespace-stripping.
-    Also, moved pad-string template from lib to common because
-    it's needed in order to use logging template in the profiling
-    stylesheets, and the lib build relies on the profiling apparatus
-    (so the profiling apparatus can't rely on lib being built first...)
-
-  * Michael(tm) Smith: db5strip.xsl
-
-    Removed the db5strip.xsl stylesheet because it has been obsoleted
-    by the stripns.xsl stylesheet.
-
-  * Michael(tm) Smith: inline.xsl; autoidx-kimber.xsl; biblio-iso690.xsl;
-    autoidx-kosek.xsl; p
-
-    Removed all "Do not edit this file" admonitions that get output in
-    generated stylesheets; such admonitions have in the past been
-    judged by the free-software police to be at-risk of
-    interpretation as license restrictions.
-    Also, made various updates to work around some funkiness is
-    xsltproc output.
-
-  * David Cramer: xref.xsl
-
-    Handle alt text on xrefs to steps when the step doesn't have a title.
-
-  * David Cramer: lists.xsl
-
-    Added <p> element around term in variablelist when formatted as table to avoid misalignment of term and listitem in xhtml (non-quirks mode) output
-
-  * David Cramer: qandaset.xsl
-
-    Added <p> element around question and answer labels to avoid misalignment of label and listitem in xhtml (non-quirks mode) output
-
-  * David Cramer: lists.xsl
-
-    Added <p> element around callouts to avoid misalignment of callout and listitem in xhtml (non-quirks mode) output
-
-  * Robert Stayton: footnote.xsl
-
-    Fixed bug #1717196 footnoteref not finding the right chunk for the target.
-
-  * Robert Stayton: chunk-code.xsl; docbook.xsl
-
-    Changed the comments regarding namespace striping to
-    mention the docbook5 namedspaced stylesheets.
-
-  * Mauritz Jeanson: inline.xsl
-
-    Make citations numbered if bibliography.numbered != 0.
-
-  * Robert Stayton: param.xweb; param.ent
-
-    Add support for new profiling attributes audience and wordsize.
-
-  * Robert Stayton: inline.xsl; xref.xsl
-
-    Add support for xlink olinks.
-
-  * Mauritz Jeanson: titlepage.xsl
-
-    Fixed bug #1644874.
-
-  * Jirka Kosek: xref.xsl
-
-    Do not output xlink namespace declaration into HTML output
-
-  * Jirka Kosek: profile-chunk.xsl
-
-    Sync profiling stylesheet with base stylesheet
-
-  * Jirka Kosek: glossary.xsl
-
-    Rules for normalizing glossary entries before they are sorted can be now different for each language.
-
-  * Robert Stayton: inline.xsl
-
-    Fix a couple of class attributes.
-
-  * Robert Stayton: titlepage.xsl
-
-    Remove redundant ./ from xpath statements.
-
-  * Mauritz Jeanson: inline.xsl
-
-    Fixed #1680755 (keycombo joinchar default incorrect).
-
-  * Mauritz Jeanson: lists.xsl
-
-    Corrected typo in calloutlist template.
-
-  * Robert Stayton: formal.xsl
-
-    Set formal object class value with class.value mode.
-
-  * Robert Stayton: graphics.xsl
-
-    Fix bug in contentdepth outputting empty height attribute.
-
-  * Michael(tm) Smith: Makefile
-
-    Renamed cvstools dir to buildtools, and replaced all
-    references to "cvstools" in makefiles and elsewhere
-    with "buildtools".
-
-  * Robert Stayton: chunk-common.xsl; chunk-code.xsl; manifest.xsl; chunk.xsl
-
-    Refactored the chunking modules to move all named templates to
-    chunk-common.xsl and all match templates to chunk-code.xsl, in
-    order to enable better chunk customization.
-    See the comments in chunk.xsl for more details.
-
-  * Robert Stayton: lists.xsl
-
-    Add anchor for xml:id for listitem in varlistentry.
-
-  * Robert Stayton: refentry.xsl
-
-    Add support for info/title in refsections for db5.
-
-  * Robert Stayton: xref.xsl
-
-    Fixed bug 1652360 empty link with xlink:href.
-
-  * Robert Stayton: changebars.xsl
-
-    Add underline style to "added".
-
-  * Michael(tm) Smith: Makefile
-
-    Port from docs-in-db5 branch of all DocBook5-formatted
-    params and all associated build changes needed for
-    building the param.xsl files and docs from them.
-
-  * Jirka Kosek: param.xweb; biblio.xsl; docbook.xsl; param.ent;
-    biblio-iso690.xsl
-
-    Added support for formatting biblioentries according to ISO690 citation style.
-    New bibliography style can be turned on by setting parameter bibliography.style to "iso690"
-    The code was provided by Jana Dvorakova
-
-  * Robert Stayton: callout.xsl; glossary.xsl; annotations.xsl; autoidx.xsl;
-    footnote.xsl
-
-    Add call to class.attribute on output <a>.
-
-  * Robert Stayton: inline.xsl; xref.xsl
-
-    Add call to class.attribute to <a> output elements so they can
-    have a class value too.
-
-  * Robert Stayton: html.xsl
-
-    Add mode=class.value to generate just the value, not the attribute.
-
-  * Michael(tm) Smith: param.xweb
-
-    Updated copyright notices.
-
-  * Mauritz Jeanson: glossary.xsl
-
-    Fixed bug #1644881:
-    * Added curly braces around all $language attribute values.
-    * Moved declaration of language variable to top level of stylesheet.
-    Tested with Xalan, Saxon, and xsltproc.
+    Added 'ln-' prefix to the name of the legalnotice chunk, in order to match the
+    <link href"..."> that is output by make.legalnotice.head.links (chunk-common.xsl).
+    Modified the href attribute on the legalnotice link.
+    Closes bug #1790495.
 
 Manpages
 
-The following changes have been made to the manpages code since the 1.72.0
+The following changes have been made to the manpages code since the 1.73.2
 release.
 
-  * Michael(tm) Smith: endnotes.xsl
+  ● Keith Fahlgren: Makefile
 
-    In manpages output, generate warnings about notesources with
-    non-para children only if the notesource is a footnote or
-    annotation. Thanks to Sam Steingold for reporting problems with
-    the existing handling.
+    Use DOCBOOK_SVN variable everywhere, please; build with PDF_MAKER
 
-  * Michael(tm) Smith: synop.xsl
+  ● Michael(tm) Smith: other.xsl
 
-    Made italic handling of
+    slightly adjusted spacing around admonition markers
 
-  * Michael(tm) Smith: table.xsl
+  ● Michael(tm) Smith: refentry.xsl; utility.xsl
 
-    Problem:
-      Rows in tables with more than 10 rows get sorted into incorrect
-      order.
-    Cause:
-      Code in manpages table handler does sorting, using xsl:sort, to
-      deal with instances of cells that span multiple rows. But that
-      sorting was being done alphabetically rather than numerically --
-      the reason being that the default sort method for xsl:sort is
-      "text" (alphabetical).
-    Fix:
-      Added @data-type=number to relevant xsl:sort instances in table
-      code.
+    make sure refsect3 titles are preceded by a line of space, and
+    make the indenting of their child content less severe
 
-    Closes #1763332. Thanks to kesuke.
+  ● Michael(tm) Smith: block.xsl
 
-  * Michael(tm) Smith: docbook.xsl
+    only indent verbatim environments in TTY output, not in non-TTY/PS
 
-    Added import of common/charmap.xsl to fix problem of calls to
-    missing named templates. Closes #1760697. Thanks to Daniel
-    Leidert.
+  ● Michael(tm) Smith: block.xsl
 
-  * Michael(tm) Smith: param.xweb; docbook.xsl; param.ent
+    made another adjustment to correct vertical alignment of admonition marker
 
-    Added the man.authors.section.enabled and
-    man.copyright.section.enabled parameters. Set those to zero when
-    you want to suppress display of the auto-generated AUTHORS and
-    COPYRIGHT sections. Closes request #1467806. Thanks to Daniel
-    Leidert.
+  ● Michael(tm) Smith: block.xsl; other.xsl
 
-  * Michael(tm) Smith: info.xsl
+    Adjusted/corrected alignment of adominition marker in PS/non-TTY output.
 
-    Fixed minor typo.
+  ● Michael(tm) Smith: endnotes.xsl
 
-  * Michael(tm) Smith: .cvsignore
+    For PS/non-TTY output, display footnote/endnote numbers in
+    superscript.
 
-    Ignore another build-generated kludge. Yeah, I know it's
-    ridiculous. If you can come up with a prettier way of doing it,
-    all of my riches will be yours.
+  ● Michael(tm) Smith: table.xsl; synop.xsl; utility.xsl
 
-  * Michael(tm) Smith: param.xweb
+    Changed handling of hanging indents for cmdsynopsis, funcsynopsis,
+    and synopfragment such that they now look correct in non-TTY/PS
+    output. We now use the groff \w escape to hang by the actual width
+    -- in the current font -- of the command, funcdef, or
+    synopfragment references number (as opposed to hanging by the
+    number of characters). This rendering in TTY output remains the
+    same, since the width in monospaced TTY output is the same as the
+    number of characters.
 
-    Make *.xweb instances valid against the
-    https://docbook.svn.sourceforge.net/svnroot/docbook/trunk/docbook/relaxng/params/refentry.rnc
-    grammar.
+    Also, created new synopsis-block-start and synopsis-block-end
+    templates to use for cmdsynopsis and funcsynopsis instead of the
+    corresponding verbatim-* templates.
 
-  * Michael(tm) Smith: .cvsignore
+    Along with those changes, also corrected a problem that caused the
+    content of synopfragment to be dropped, and made a
+    vertical-spacing change to adjust spacing around table titles and
+    among sibling synopfragment instances.
 
-    Ignore intermediate params file.
+  ● Michael(tm) Smith: other.xsl
 
-  * Michael(tm) Smith: Makefile; .cvsignore
+    use common l10.language.name template to retrieve English-language name
 
-    Set updated ignore properties and adjusted for fact that shared
-    makefile now expects a "PARAMBASE" value to be specified (to
-    indicate base filename for the type of content being built: either
-    PARAMBASE=param or PARAMBASE=lib; this makes it possible to reduce
-    redundancy in the lib build, and just have it use the same
-    makefile "infrastructure" as the param builds for all the
-    param.xsl files. The reason for that is, lib use the same *.xweb
-    system for embedding documentation that the builds for the various
-    output formats use (as opposed to the jrefentry-based system that
-    used for building the template and PI docs in common etc.
+  ● Michael(tm) Smith: synop.xsl; inline.xsl
 
-  * Michael(tm) Smith: docbook.xsl
+    added comment in code explaining why we don't put filename output
+    in italic (despite the fact that man guidelines say we should)
 
-    Took the test that the manpages stylesheet does to see if there
-    are any Refentry chilren in current doc, and made it
-    namespace-agnostic. Reason for that is because the test otherwise
-    won't work when it is copied over into the generated
-    profile-docbook.xsl stylesheet.
+  ● Michael(tm) Smith: inline.xsl
 
-  * Michael(tm) Smith: Makefile
+    put filename output in monospace instead of italic
 
-    Added a manpages/profile-docbook.xsl file to enable single-pass
-    profiling for manpages output. KNOWN ISSUE: Single-pass namespace
-    stripping does not yet work in combination with the
-    manpages/profile-docbook.xsl stylesheet.
+  ● Michael(tm) Smith: synop.xsl
 
-  * Michael(tm) Smith: param.xweb
+    put cmdsynopsis in monospace
 
-    In files that still referred to nwalsh.com URL in the copyright
-    header, changed to docbook.sf.net URL.
+  ● Michael(tm) Smith: inline.xsl
 
-  * Michael(tm) Smith: info.xsl
+    removed template match for literal. template matches for monospace
+    inlines are all imported from the HTML stylesheet
 
-    Output copyright and legalnotice in man-page output in whatever
-    place they are in in document order. Closes #1690539. Thanks to
-    Daniel Leidert for reporting.
+  ● Michael(tm) Smith: block.xsl
 
-  * Michael(tm) Smith: docbook.xsl
+    don't indent verbatim environments that are descendants of
+    refsynopsisdiv, not put backgrounds behind them
 
-    Restored support for single-pass namespace stripping to manpages
-    stylesheet.
+  ● Michael(tm) Smith: inline.xsl
 
-  * Michael(tm) Smith: docbook.xsl; other.xsl
+    set output of the literal element in monospace. this causes all
+    inline monospace instances in the git man pages to be set in
+    monospace (since DocBook XML source for git docs is generated with
+    asciidoc and asciidoc consistently outputs only <literal> for
+    inline monospace (not <command> or <code> or anything else).
+    Of course this only affects non-TTY output...
 
-    Added check to have the manpages stylesheet log/emit an error
-    message if it is given a namespaced DocBook document, with
-    instructions to instead either use the docbook5-xsl stylesheets to
-    directly process the document, or to use the stripns.xsl
-    stylesheet to pre-process it.
+  ● Michael(tm) Smith: utility.xsl
 
-  * Michael(tm) Smith: param.xweb
+    Added inline.monoseq named template.
 
-    Removed all "Do not edit this file" admonitions that get output in
-    generated stylesheets; such admonitions have in the past been
-    judged by the free-software police to be at-risk of
-    interpretation as license restrictions.
-    Also, made various updates to work around some funkiness is
-    xsltproc output.
+  ● Michael(tm) Smith: utility.xsl
 
-  * Michael(tm) Smith: table.xsl; endnotes.xsl; other.xsl
+    don't bother using a custom register to store the previous
+    font-family value when setting blocks of text in code font; just
+    use \F[] .fam with no arg to switch back
 
-    Updated manpages logging to work with new-and-improved logging
-    template.
+  ● Michael(tm) Smith: endnotes.xsl
 
-  * Michael(tm) Smith: synop.xsl; block.xsl; info.xsl; inline.xsl; lists.xsl;
-    endnotes.xsl; ut
+    put links in blue in PS output (note that this matches how groff
+    renders content marked up with the .URL macro)
 
-    Changed handling of bold and italic/underline output in manpages
-    output. Should be transparent to users, but...
+  ● Michael(tm) Smith: .gitignore; .cvsignore
 
-    This touches handling of all bold and italic/underline output. The
-    exact change is that the mode="bold" and mode="italic" utility
-    templates were changed to named templates. (I think maybe I've
-    changed it back and forth from mode to named before, so this is
-    maybe re-reverting it yet again).
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
-    Anyway, the reason for the change is that the templates are
-    sometimes call on dynamically node-sets, and using modes to format
-    those doesn't allow passing info about the current/real context
-    node from the source (not the node-set created by the stylesheet)
-    to that formatting stage.
+  ● Michael(tm) Smith: endnotes.xsl; param.xweb; param.ent
 
-    The named templates allow the context to be passed in as a
-    parameter, so that the bold/ital formatting template can use
-    context-aware condition checking.
+    removed man.links.are.underlined and added man.font.links. Also,
+    changed the default font formatting for links to bold.
 
-    This was basically necessary in order to suppress bold formatting
-    in titles, which otherwise gets screwed up because of the numbnut
-    way that roff handles nested bold/ital.
+  ● Michael(tm) Smith: info.xsl
 
-    Closes #1674534). Much thanks to Daniel Leidert, whose in his
-    docbook-xsl bug-finding kung-fu has achieved Grand Master status.
+    fixed typo
 
-  * Michael(tm) Smith: block.xsl
+  ● Michael(tm) Smith: endnotes.xsl; param.xweb; param.ent
 
-    Fixed handling of example instances by adding the example element
-    to the same template we use for processing figure. Closes
-    #1674538. Thanks to Daniel Leidert.
+    Added new param man.base.url.for.relative.links .. specifies a
+    base URL for relative links (for ulink, @xlink:href, imagedata,
+    audiodata, videodata) shown in the generated NOTES section of
+    man-page output. The value of man.base.url.for.relative.links is
+    prepended to any relative URI that is a value of ulink url,
+    xlink:href, or fileref attribute.
 
-  * Michael(tm) Smith: utility.xsl
+    If you use relative URIs in link sources in your DocBook refentry
+    source, and you leave man.base.url.for.relative.links unset, the
+    relative links will appear "as is" in the NOTES section of any
+    man-page output generated from your source. That's probably not
+    what you want, because such relative links are only usable in the
+    context of HTML output. So, to make the links meaningful and
+    usable in the context of man-page output, set a value for
+    man.base.url.for.relative.links that points
+    to the online version of HTML output generated from your DocBook
+    refentry source. For example:
 
-    Don't include lang in manpages filename/pathname if lang=en (that
-    is, only generate lang-qualified file-/pathnames for non-English).
+      <xsl:param name="man.base.url.for.relative.links"
+      >http://www.kernel.org/pub/software/scm/git/docs/</xsl:param>
 
-  * Michael(tm) Smith: endnotes.xsl
+  ● Michael(tm) Smith: info.xsl
 
-    In manpages output, emit warnings for notesources (footnote, etc.)
-    that have something other than para as a child.
+    If a source refentry contains a Documentation or DOCUMENTATION
+    section, don't report it as having missing AUTHOR information.
+    Also, if missing a contrib/personblurb for a person or org, report
+    pointers to http://docbook.sf.net/el/personblurb and to
+    http://docbook.sf.net/el/contrib
 
-    The numbered-with-hanging-indent formatting that's used for
-    rendering endnotes in the NOTES section of man pages places some
-    limits/assumptions on how the DocBook source is marked up; namely,
-    for notesources (footnote, annotation, etc.) that can contain
-    block-level children, if the they have a block-level child such as
-    a table or itemizedlist or orderedlist that is the first child of
-    a footnote, we have no way of rendering/indenting its content
-    properly in the endnotes list.
+  ● Michael(tm) Smith: info.xsl
 
-    Thus, the manpages stylesheet not emits a warning message for that
-    case, and suggests the "fix" (which is to wrap the table or
-    itemizedlist or whatever in a para that has some preferatory text.
+    If we encounter an author|editor|othercredit instance that lacks a
+    personblurb or contrib, report it to the user (because that means
+    we have no information about that author|editor|othercredit to
+    display in the generated AUTHOR|AUTHORS section...)
 
-  * Michael(tm) Smith: utility.xsl
+  ● Michael(tm) Smith: info.xsl; docbook.xsl; other.xsl
 
-    Added support to mixed-block template for handling tables in
-    mixed-blocks (e.g., as child of para) correctly.
+    if we can't find any usable author data, emit a warning and insert
+    a fixme in the output
 
-  * Michael(tm) Smith: endnotes.xsl
+  ● Michael(tm) Smith: info.xsl
 
-    Added comment to endnotes code.
+    fixed bug in indenting of output for contrib instances in AUTHORS
+    section. Thanks to Daniel Leidert and the fglrx docs for exposing
+    the bug.
 
-  * Michael(tm) Smith: endnotes.xsl
+  ● Michael(tm) Smith: block.xsl
 
-    Normalize text-only endnotes properly.
+    for a para or simpara that is the first child of a callout,
+    suppress the .sp or .PP that would normally be output (because in
+    those cases, the output goes into a table cell, and the .sp or .PP
+    markup causes a spurious linebreak before it when displayed
 
-  * Michael(tm) Smith: utility.xsl
+  ● Michael(tm) Smith: lists.xsl
 
-    Fixed problem with lang values not getting added to filenames as
-    expected for all cases. Closes #1674564. Thanks to Daniel Leidert
-    for reporting.
+    fixed typos in comments
 
-  * Michael(tm) Smith: param.xweb; param.ent; other.xsl; utility.xsl
+  ● Michael(tm) Smith: lists.xsl
 
-    Made some minor updates to param docs and comments in
-    manpages stylesheet. Also, removed some params for
-    manpages doc that are already doc'ed as HTML params.
+    Added support for rendering co callouts and calloutlist instances.
+    So you can now use simple callouts -- marking up programlisting
+    and such with co instances -- and have the callouts displayed in
+    man-page output. ("simple callouts" means using co@id and
+    callout@arearefs pointing to co@id instances; in man/roff output,
+    we can't/don't support markup that uses areaset and area)
 
-  * Michael(tm) Smith: Makefile
+  ● Michael(tm) Smith: block.xsl
 
-    Renamed cvstools dir to buildtools, and replaced all
-    references to "cvstools" in makefiles and elsewhere
-    with "buildtools".
+    only put a line of space after a verbatim if it's followed by a
+    text node or a paragraph
 
-  * Michael(tm) Smith: table.xsl; synop.xsl; block.xsl; info.xsl; lists.xsl;
-    refentry.xsl; end
+  ● Michael(tm) Smith: utility.xsl
 
-    Reverted necessary escaping of backslash, dot, and dash
-    out of the well-intentioned (but it now appears,
-    misguided) "marker" mechanism (introduced in the 1.72.0
-    release) -- which made use of alternative "marker"
-    characters as internal representations of those
-    characters, and then replaced them just prior to
-    serialization -- and back into what's basically the
-    system that was used prior to the 1.69.0 release; that
-    is, into a part of stylesheet code that gets executed
-    at the beginning of processing -- before any other roff
-    markup up is. This change obviates the need for the
-    marker system. It also requires a lot less RAM during
-    processing (for large files, the marker mechanism
-    ending up requiring gigabytes of memory).
+    put verbatim environments in slightly smaller font in non-TTY
+    output
 
-    Closes bug #1661177. Thanks to Scott Smedley for
-    providing a test case (the fvwm man page) that exposed
-    the problem with the marker mechanism.
+  ● Michael(tm) Smith: lists.xsl
 
-    Also moved the mechanism for converting non-breaking
-    spaces back into the same area of the stylesheet code.
+    minor whitespace-only reformatting of lists.xsl source
 
-  * Michael(tm) Smith: lists.xsl
+  ● Michael(tm) Smith: lists.xsl
 
-    Fixed problem with incorrect formatting of nested variablelist.
-    Closes bug #1650931. Thanks to Daniel "Eagle Eye" Leidert.
+    Made refinements/fixes to output of orderedlist and itemizedlist
+    -- in part, to get mysql man pages to display correctly. This
+    change causes a "\c" continuation marker to be added between
+    listitem markers and contents (to ensure that the content remains
+    on the same line as the marker when displayed)
 
-  * Michael(tm) Smith: Makefile
+  ● Michael(tm) Smith: block.xsl
 
-    Port from docs-in-db5 branch of all DocBook5-formatted
-    params and all associated build changes needed for
-    building the param.xsl files and docs from them.
+    put a line of vertical space after all verbatim output that has
+    sibling content following it (not just if that sibling content is
+    a text node)
 
-  * Michael(tm) Smith: lists.xsl
+  ● Michael(tm) Smith: block.xsl
 
-    Make sure that all listitems in itemizedlist and orderedlist are
-    preceded by a blank line. This fixes a regression that occurred
-    when instances of the TP macro that were use in a previous
-    versions of the list-handling code were switched to RS/RE (because
-    TP doesn't support nesting). TP automatically generates a blank
-    line, but RS doesn't. So I added a .sp before each .RS
+    refined spacing around titles for admonitions
 
-  * Michael(tm) Smith: endnotes.xsl; links.xsl; docbook.xsl
+  ● Michael(tm) Smith: block.xsl; other.xsl
 
-    Renamed links.xsl to endnotes.xsl.
+    Deal with case of verbatim environments that have a linebreak
+    after the opening tag. Assumption is that users generally don't
+    want that linebreak to appear in output, so we do some groff
+    hackery to mess with vertical spacing and close the space.
 
-  * Michael(tm) Smith: block.xsl; inline.xsl; param.xweb; docbook.xsl;
-    links.xsl; param.ent
+  ● Michael(tm) Smith: inline.xsl
 
-    Made a number of changes related to elements with
-    out-of-line content:
+    indexterm instances now produce groff comments like this:
 
-    - Added handling for mediaobject & inlinemedidaobject.
-      Each imagedata, audiodata, or videodata element
-      within a mediaobject or inline mediaobject is now
-      treated as a "notesource" and so handled in much the
-      same way as links and annotation/alt/footnotes.
+      .\" primary: secondary: tertiary
 
-      That means a numbered marker is generated inline to
-      mark the place in the main flow where the imagedata,
-      audiodata, or videodata element occurs, and a
-      corresponding numbered endnote for it is generated in
-      the endnotes list at the end of the man page; the
-      endnote contains the URL from the fileref attribute
-      of the imagedata, audiodata, or videodata element.
+    remark instances, if non-empty, now produce groff comments
 
-      For mediobject and inlinemediaobject instances that
-      have a textobject child, the textobject is displayed
-      within the main text flow.
+  ● Michael(tm) Smith: charmap.groff.xsl; other.xsl
 
-    - Renamed several man.link.* params to man.endnotes.*,
-      to reflect that fact that the endnotes list now
-      contains more than just links. Also did similar
-      renaming for a number of stylesheet-internal vars.
+    convert no-break space character to groff "\ \&" (instead of just
+    "\ "). the reason is that if a space occurs at the end of a line,
+    our processing causes it to be eaten. a real-world case of this is
+    the mysql(1) man page. appending the "\&" prevents that
 
-    - Added support for xlink:href (along with existing
-      support for the legacy ulink element).
+  ● Michael(tm) Smith: block.xsl
 
-    - Cleaned up and streamlined the endnotes-handling
-      code. It's still messy and klunky and the basic
-      mechanism it uses is very inefficent for documents
-      that contain a lot of notesources, but at least it's
-      a bit better than it was.
+    output "sp" before simpara output, not after it (outputting it
+    after results in undesirable whitespace in particular cases; for
+    example, in the hg/mercurial docs
 
-  * Michael(tm) Smith: param.xweb
+  ● Michael(tm) Smith: table.xsl; synop.xsl; utility.xsl
 
-    Updated copyright notices.
+    renamed from title-preamble to pinch.together and replaced "sp -1"
+    between synopsis fragments with call to pinch.together instead
+
+  ● Michael(tm) Smith: table.xsl
+
+    use title-preamble template for table titles (instead of "sp -1"
+    hack), and "sp 1" after all tables (instead of just "sp"
+
+  ● Michael(tm) Smith: utility.xsl
+
+    created title-preamble template for suppressing line spacing after
+    headings
+
+  ● Michael(tm) Smith: synop.xsl
+
+    fixed typo
+
+  ● Michael(tm) Smith: info.xsl
+
+    further refinement of indenting in AUTHORS section
+
+  ● Michael(tm) Smith: block.xsl; other.xsl
+
+    refined handling of admonitions
+
+  ● Michael(tm) Smith: lists.xsl
+
+    Use RS/RE in another place where we had IP ""
+
+  ● Michael(tm) Smith: info.xsl
+
+    Replace (ab)use of IP with "sp -1" in AUTHORS section with RS/RE
+    instead.
+
+  ● Michael(tm) Smith: table.xsl; synop.xsl; info.xsl
+
+    changed all instances of ".sp -1n" to ".sp -1"
+
+  ● Michael(tm) Smith: other.xsl
+
+    add extra line before SH heads only in non-TTY output
+
+  ● Michael(tm) Smith: block.xsl
+
+    Reworked output for admonitions (caution, important, note, tip,
+    warning). In TTY output, admonitions now get indented. In non-TTY
+    output, a colored marker (yellow) is displayed next to them.
+
+  ● Michael(tm) Smith: other.xsl
+
+    Added BM/EM macros for putting a colored marker in margin next to
+    a block of text.
+
+  ● Michael(tm) Smith: utility.xsl
+
+    created make.bold.title template by moving title-bolding part out
+    from nested-section-title template. This allows the bolding to
+    also be used by the template for formatting admonitions
+
+  ● Michael(tm) Smith: info.xsl
+
+    put .br before copyright contents to prevent them from getting run in
+
+  ● Michael(tm) Smith: refentry.xsl; other.xsl; utility.xsl
+
+    made point size of output for Refsect2 and Refsect3 heads bigger
+
+  ● Michael(tm) Smith: other.xsl
+
+    put slightly more space between SH head and underline in non-TTY
+    output
+
+  ● Michael(tm) Smith: param.xweb; param.ent; other.xsl
+
+    Added the man.charmap.subset.profile.english parameter and refined
+    the handling of charmap subsets to differentiate between English
+    and non-English source.
+
+    This way charmap subsets are now handled is this:
+
+    If the value of the man.charmap.use.subset parameter is non-zero,
+    and your DocBook source is not written in English (that is, if its
+    lang or xml:lang attribute has a value other than en), then the
+    character-map subset specified by the man.charmap.subset.profile
+    parameter is used instead of the full roff character map.
+
+    Otherwise, if the lang or xml:lang attribute on the root element
+    in your DocBook source or on the first refentry element in your
+    source has the value en or if it has no lang or xml:lang
+    attribute, then the character-map subset specified by the
+    man.charmap.subset.profile.english parameter is used instead of
+    man.charmap.subset.profile.
+
+    The difference between the two subsets is that
+    man.charmap.subset.profile provides mappings for characters in
+    Western European languages that are not part of the Roman
+    (English) alphabet (ASCII character set).
+
+  ● Michael(tm) Smith: other.xsl
+
+    Various updates, mainly related to uppercasing SH titles:
+
+      - added a "Language: " metadata line to the top comment area of
+        output man pages, to indicate the language the page is in
+
+      - added a "toupper" macro of doing locale-aware uppercasing of
+        SH titles and cross-references to SH titles; the mechanism
+        relies on the uppercase.alpha and lowercase.alpha DocBook
+        gentext keys to do locale-aware uppercasing based on the
+        language the page is written in
+
+      - added a "string.shuffle" template, which provides a library
+        function for "shuffling" two strings together into a single
+        string; it takes the first character for the first string, the
+        first character from second string, etc. The only current use
+        for it is to generate the argument for the groff tr request
+        that does string uppercasing.
+
+      - added make.tr.uppercase.arg and make.tr.normalcase.arg named
+        templates for use in generating groff code for uppercasing and
+        "normal"-casing SH titles
+
+      - made the BB/BE "background drawing" macros have effect only in
+        non-TTY output
+
+      - output a few comments in the top part of source
+
+  ● Michael(tm) Smith: utility.xsl
+
+    removed some leftover kruft
+
+  ● Michael(tm) Smith: refentry.xsl
+
+    To create the name(s) for each man page, we now replace any spaces
+    in the refname(s) with underscores. This ensures that tools like
+    lexgrog(1) will be able to parse the name (lexgrog won't parse
+    names that contain spaces).
+
+  ● Michael(tm) Smith: docbook.xsl
+
+    Put a comment into source of man page to indicate where the main
+    content starts. (We now have a few of macro definitions at the
+    start of the source, so putting this comment in helps those that
+    might be viewing the source.)
+
+  ● Michael(tm) Smith: refentry.xsl
+
+    refined mechanism for generating SH titles
+
+  ● Michael(tm) Smith: charmap.groff.xsl
+
+    Added zcaron, Zcaron, scaron, and Scaron to the groff character map.
+    This means that generated Finnish man pages will no longer contain
+    any raw accented characters -- they'll instead by marked up with
+    groff escapes.
+
+  ● Michael(tm) Smith: other.xsl; utility.xsl
+
+    corrected a regression I introduced about a year ago that caused
+    dots to be output just as "\." -- instead needs to be "\&." (which
+    is what it will be now, after this change)
+
+  ● Michael(tm) Smith: refentry.xsl
+
+    Changed backend handling for generating titles for SH sections and
+    for cross-references to those sections. This should have no effect
+    on TTY output (behavior should remain the same hopefully) but
+    results in titles in normal case (instead of uppercase) in PS
+    output.
+
+  ● Michael(tm) Smith: info.xsl
+
+    use make.subheading template to make subheadings for AUTHORS and
+    COPYRIGHT sections (instead of harcoding roff markup)
+
+  ● Michael(tm) Smith: block.xsl
+
+    put code font around programlisting etc.
+
+  ● Michael(tm) Smith: synop.xsl; docbook.xsl
+
+    embed custom macro definitions in man pages, plus wrap synopsis in
+    code font
+
+  ● Michael(tm) Smith: endnotes.xsl
+
+    use the make.subheading template to generated SH subheading for
+    endnotes section.
+
+  ● Michael(tm) Smith: lists.xsl
+
+    Added some templates for generating if-then-else conditional
+    markup in groff, so let's use those instead of hard-coding it in
+    multiple places...
+
+  ● Michael(tm) Smith: other.xsl; utility.xsl
+
+    Initial checkin of some changes related to making PS/PDF output
+    from "man -l -Tps" look better. The current changes:
+
+      - render synopsis and verbatim sections in a monospace/code font
+
+      - put a light-grey background behind all programlisting, screen,
+        and literallayout instances
+
+      - prevent SH heads in PS output from being rendered in uppercase
+        (as they are in console output)
+
+      - also display xrefs to SH heads in PS output in normal case
+        (instead of uppercase)
+
+      - draw a line under SH heads in PS output
+
+    The changes made to the code to support the above features were:
+
+      - added some embedded/custom macros: one for conditionally
+        upper-casing SH x-refs, one for redefining the SH macro
+        itself, with some conditional handling for PS output, and
+        finally a macro for putting a background/screen (filled box)
+        around a block of text (e.g., a program listing) in PS output
+
+      - added utility templates for wrapping blocks of text in code
+        font; also templates for inline code font
+
+  ● Robert Stayton: refentry.xsl
+
+    refpurpose nodes now get apply-templates instead of just normalize-space().
+
+  ● Michael(tm) Smith: lists.xsl
+
+    Fixed alignment of first lined of text for each listitem in
+    orderedlist output for TTY. Existing code seemed to have been
+    causing an extra undesirable space to appear.
+
+  ● Michael(tm) Smith: lists.xsl
+
+    Wrapped some roff conditionals around roff markup for orderedlist
+    and itemizedlist output, so that the lists look acceptable in PS
+    output as well as TTY.
+
+  ● Michael(tm) Smith: pi.xsl; synop.xsl; param.xweb; param.ent
+
+    Added the man.funcsynopsis.style parameter. Has the same effect in
+    manpages output as the funcsynopsis.style parameter has in HTML
+    output -- except that its default value is 'ansi' instead of 'kr'.
+
+  ● Michael(tm) Smith: synop.xsl
+
+    Reworked handling of K&R funcprototype output. It no longer relies
+    on the HTML kr-tabular templates, but instead just does direct
+    transformation to roff. For K&R output, it displays the paramdef
+    output in an indented list following the prototype.
+
+  ● Michael(tm) Smith: synop.xsl
+
+    Properly integrated handling for K&R output into manpages
+    stylesheet. The choice between K&R output and ANSI output is
+    currently controlled through use of the (HTML) funcsynopsis.style
+    parameter. Note that because the mechanism does currently rely on
+    funcsynopsis.style, the default in manpages output is now K&R
+    (because that's the default of that param). But I suppose I ought
+    to create a man.funcsynopsis.style and make the default for that
+    ANSI (to preserve the existing default behavior).
+
+  ● Michael(tm) Smith: docbook.xsl
+
+    added manpages/pi.xsl file
+
+  ● Michael(tm) Smith: .cvsignore; pi.xsl
+
+    Added "dbman funcsynopsis-style" PI and incorporated it into the
+    doc build.
+
+  ● Michael(tm) Smith: refentry.xsl
+
+    Fixed regression that caused an unescaped dash to be output
+    between refname and refpurpose content. Closes bug #1894244.
+    Thanks to Daniel Leidert.
+
+  ● Michael(tm) Smith: other.xsl
+
+    Fixed problem with dots being escaped in filenames of generated
+    man files. Closes #1827195. Thanks to Daniel Leidert.
+
+  ● Michael(tm) Smith: inline.xsl
+
+    Added support for processing structfield (was appearing in roff
+    output surrounded by HTML <em> tags; fixed so that it gets roff
+    ital markup). Closes bug #1858329.  Thanks to Sam Varshavchik.
+
+Epub
+
+The following changes have been made to the epub code since the 1.73.2 release.
+
+  ● Keith Fahlgren: bin/spec/README; bin/spec/epub_realbook_spec.rb
+
+    'Realbook' spec now passes
+
+  ● Keith Fahlgren: bin/dbtoepub; README; bin/spec/README; bin/lib/docbook.rb;
+    bin/spec/epub_r⋯
+
+    Very primitive Windows support for dbtoepub reference implementation; README for running tests and for the .epub target in general; shorter realbook test document (still fails for now)
+
+  ● Keith Fahlgren: bin/dbtoepub; bin/spec/epub_regressions_spec.rb; bin/lib/
+    docbook.rb; bin/s⋯
+
+    Changes to OPF spine to not duplicate idrefs for documents with parts not at the root; regression specs for same
+
+  ● Keith Fahlgren: docbook.xsl
+
+    Fixing linking to cover @id, distinct from other needs of cover-image-id (again, thanks to Martin Goerner)
+
+  ● Keith Fahlgren: docbook.xsl
+
+    Updating the title of the toc element in the guide to be more explicit (thanks to Martin Goerner)
+
+  ● Keith Fahlgren: bin/spec/examples/amasque_exploded/content.opf; bin/spec/
+    examples/amasque_⋯
+
+    Initial checkin/merge of epub target from work provided by Paul Norton of Adobe
+    and Keith Fahlgren of O'Reilly.
 
 HTMLHelp
 
-The following changes have been made to the htmlhelp code since the 1.72.0
+The following changes have been made to the htmlhelp code since the 1.73.2
 release.
 
-  * Mauritz Jeanson: htmlhelp-common.xsl
+  ● Keith Fahlgren: Makefile
 
-    Moved the raw.help.title and help.title variables to the hhp-main template to make sure
-    a value is assigned after the namespace-stripping has been done. This prevents "Request
-    for title of element with no title" errors.
+    Get rid of the rest of the hardcoded buildtools references and actually use DOCBOOK_SVN
 
-    Added "//db:indexterm[1]|//ng:indexterm[1]" to the select expression of the global
-    htmlhelp.generate.index parameter, so that an index can be built for both DB 4 and
-    DB 5/NG documents (it's a little ugly, but a value needs to be assigned somehow).
+  ● Michael(tm) Smith: .gitignore; .cvsignore
 
-  * Michael(tm) Smith: htmlhelp-common.xsl
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
-    Added single-pass namespace-stripping support to the htmlhelp,
-    eclipse, and javahelp stylesheets.
+  ● Mauritz Jeanson: htmlhelp-common.xsl
 
-  * Michael(tm) Smith: Makefile
-
-    Tweaked some makefiles to bring them into consistency with other
-    makefiles in the build.
-
-  * Michael(tm) Smith: Makefile
-
-    Renamed cvstools dir to buildtools, and replaced all
-    references to "cvstools" in makefiles and elsewhere
-    with "buildtools".
+    Added <xsl:with-param name="quiet" select="$chunk.quietly"/> to calls to
+    the write.chunk, write.chunk.with.doctype, and write.text.chunk templates.
+    This makes chunk.quietly=1 suppress chunk filename messages also for help
+    support files (which seems to be what one would expect). See bug #1648360.
 
 Eclipse
 
-The following changes have been made to the eclipse code since the 1.72.0
+The following changes have been made to the eclipse code since the 1.73.2
 release.
 
-  * Mauritz Jeanson: eclipse.xsl
+  ● Keith Fahlgren: Makefile
 
-    Added "db" and "ng" to exclude-result-prefixes.
+    Get rid of the rest of the hardcoded buildtools references and actually use DOCBOOK_SVN
 
-  * Michael(tm) Smith: eclipse.xsl
+  ● Michael(tm) Smith: .cvsignore; .gitignore
 
-    Added single-pass namespace-stripping support to the htmlhelp,
-    eclipse, and javahelp stylesheets.
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
-  * Michael(tm) Smith: eclipse.xsl
+  ● David Cramer: eclipse.xsl
 
-    In files that still referred to nwalsh.com URL in the copyright
-    header, changed to docbook.sf.net URL.
+    Use sortas attributes (if they exist) when sorting indexterms
 
-  * Michael(tm) Smith: Makefile
+  ● David Cramer: eclipse.xsl
 
-    Tweaked some makefiles to bring them into consistency with other
-    makefiles in the build.
+    Added support for indexterm/see in eclipse index.xml
 
-  * Michael(tm) Smith: .cvsignore
+  ● Mauritz Jeanson: eclipse.xsl
 
-    Ignore the eclipse generated profile stylesheet.
+    Added <xsl:with-param name="quiet" select="$chunk.quietly"/>
+    to helpidx template.
 
-  * Mauritz Jeanson: Makefile
+  ● David Cramer: eclipse.xsl
 
-    Fixed bug #1715093: Makefile for creating profiled version of eclipse.xsl added.
+    Generate index.xml file and add related goo to plugin.xml file. Does not yet support see and seealso.
 
-  * David Cramer: eclipse.xsl
+  ● Mauritz Jeanson: eclipse.xsl
 
-    Added normalize-space around  to avoid leading whitespace from appearing in the output if there's extra leading whitespace (e.g. <title> Foo</title>) in the source
+    Added <xsl:with-param name="quiet" select="$chunk.quietly"/> to calls to
+    the write.chunk, write.chunk.with.doctype, and write.text.chunk templates.
+    This makes chunk.quietly=1 suppress chunk filename messages also for help
+    support files (which seems to be what one would expect). See bug #1648360.
 
 JavaHelp
 
-The following changes have been made to the javahelp code since the 1.72.0
+The following changes have been made to the javahelp code since the 1.73.2
 release.
 
-  * Michael(tm) Smith: javahelp.xsl
+  ● Keith Fahlgren: Makefile
 
-    Added single-pass namespace-stripping support to the htmlhelp,
-    eclipse, and javahelp stylesheets.
+    Get rid of the rest of the hardcoded buildtools references and actually use DOCBOOK_SVN
 
-  * Mauritz Jeanson: javahelp.xsl
+  ● Michael(tm) Smith: .gitignore; .cvsignore
 
-    Moved declaration and documentation of javahelp.encoding from javahelp.xsl to the
-    regular "parameter machinery".
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
-  * Michael(tm) Smith: javahelp.xsl
+  ● Mauritz Jeanson: javahelp.xsl
 
-    In files that still referred to nwalsh.com URL in the copyright
-    header, changed to docbook.sf.net URL.
-
-  * Michael(tm) Smith: Makefile
-
-    Tweaked some makefiles to bring them into consistency with other
-    makefiles in the build.
-
-  * Mauritz Jeanson: javahelp.xsl
-
-    Implemented FR #1230233 (sorted index in javahelp).
-
-  * Mauritz Jeanson: javahelp.xsl
-
-    Added normalize-space() around titles and index entries to work around whitespace problems.
-    Added support for glossary and bibliography in toc and map files.
-
-  * Michael(tm) Smith: Makefile
-
-    Renamed cvstools dir to buildtools, and replaced all
-    references to "cvstools" in makefiles and elsewhere
-    with "buildtools".
+    Added <xsl:with-param name="quiet" select="$chunk.quietly"/> to calls to
+    the write.chunk, write.chunk.with.doctype, and write.text.chunk templates.
+    This makes chunk.quietly=1 suppress chunk filename messages also for help
+    support files (which seems to be what one would expect). See bug #1648360.
 
 Roundtrip
 
-The following changes have been made to the roundtrip code since the 1.72.0
+The following changes have been made to the roundtrip code since the 1.73.2
 release.
 
-  * Michael(tm) Smith: blocks2dbk.xsl; wordml2normalise.xsl;
-    normalise2sections.xsl; sections2
+  ● Keith Fahlgren: Makefile
 
-    Set keywords on a number of files.
+    Get rid of the rest of the hardcoded buildtools references and actually use DOCBOOK_SVN
 
-  * Michael(tm) Smith: pages2normalise.xsl
+  ● Steve Ball: blocks2dbk.xsl; wordml2normalise.xsl
 
-    Removed executable property from roundtrip/pages2normalise.xsl
-    file. Thanks to Daniel Leidert for reporting.
+    fix table/cell borders for wordml, fix formal figure, add emphasis-strong
 
-  * Steve Ball: blocks2dbk.xsl; blocks2dbk.dtd; pages2normalise.xsl
+  ● Michael(tm) Smith: .gitignore; .cvsignore
 
-    Modularised blocks2dbk to allow customisation,
-    Added support for tables to pages2normalise
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
-  * Michael(tm) Smith: .cvsignore
+  ● Mauritz Jeanson: supported.xml
 
-    Ignore another build-generated kludge. Yeah, I know it's
-    ridiculous. If you can come up with a prettier way of doing it,
-    all of my riches will be yours.
+    Changed @cols to 5.
 
-  * Michael(tm) Smith: param.xweb
+  ● Steve Ball: blocks2dbk.xsl; blocks2dbk.dtd; template.xml
 
-    Make *.xweb instances valid against the
-    https://docbook.svn.sourceforge.net/svnroot/docbook/trunk/docbook/relaxng/params/refentry.rnc
-    grammar.
+    added pubdate, fixed metadata handling in biblioentry
 
-  * Steve Ball: blocks2dbk.xsl; wordml2normalise.xsl; normalise2sections.xsl;
-    sections2blocks.
+  ● Steve Ball: supported.xml
 
-    new stylesheets for better word processor support and easier maintenance
+    Added support for edition.
 
-  * Michael(tm) Smith: .cvsignore
+  ● Steve Ball: docbook-pages.xsl; wordml-blocks.xsl; docbook.xsl; wordml.xsl;
+    pages-normalise⋯
 
-    Ignore intermediate params file.
+    Removed stylesheets for old, deprecated conversion method.
 
-  * Michael(tm) Smith: .cvsignore; Makefile
+  ● Steve Ball: specifications.xml; dbk2ooo.xsl; blocks2dbk.xsl; dbk2pages.xsl;
+    blocks2dbk.dtd⋯
 
-    Set updated ignore properties and adjusted for fact that shared
-    makefile now expects a "PARAMBASE" value to be specified (to
-    indicate base filename for the type of content being built: either
-    PARAMBASE=param or PARAMBASE=lib; this makes it possible to reduce
-    redundancy in the lib build, and just have it use the same
-    makefile "infrastructure" as the param builds for all the
-    param.xsl files. The reason for that is, lib use the same *.xweb
-    system for embedding documentation that the builds for the various
-    output formats use (as opposed to the jrefentry-based system that
-    used for building the template and PI docs in common etc.
+    Added support for Open Office, added edition element, improved list and table support in Word and Pages
 
-  * Michael(tm) Smith: param.xweb; dbk2wordml.xsl; pages-normalise.xsl;
-    dbk2pages.xsl; docbook
+  ● Steve Ball: normalise-common.xsl; blocks2dbk.xsl; dbk2pages.xsl;
+    template-pages.xml; templ⋯
 
-    In files that still referred to nwalsh.com URL in the copyright
-    header, changed to docbook.sf.net URL.
+    Fixed bug in WordML table handling, improved table handling for Pages 08, synchronised WordML and Pages templates.
 
-  * Michael(tm) Smith: param.xweb; wordml-blocks.xsl; wordml-sections.xsl
+  ● Steve Ball: normalise-common.xsl; blocks2dbk.xsl; wordml2normalise.xsl;
+    dbk2wp.xsl
 
-    Removed all "Do not edit this file" admonitions that get output in
-    generated stylesheets; such admonitions have in the past been
-    judged by the free-software police to be at-risk of
-    interpretation as license restrictions.
-    Also, made various updates to work around some funkiness is
-    xsltproc output.
+    fix caption, attributes
 
-  * Steve Ball: template-pages.xml; dbk2wp.xsl; sections-spec.xml
+  ● Steve Ball: specifications.xml; blocks2dbk.xsl; wordml2normalise.xsl;
+    blocks2dbk.dtd; temp⋯
 
-    fixed bugs
+    Fixes to table and list handling
 
-  * Michael(tm) Smith: Makefile
+  ● Steve Ball: blocks2dbk.xsl
 
-    Renamed cvstools dir to buildtools, and replaced all
-    references to "cvstools" in makefiles and elsewhere
-    with "buildtools".
+    added support for explicit emphasis character styles
 
-  * Michael(tm) Smith: Makefile
+  ● Steve Ball: wordml2normalise.xsl
 
-    Port from docs-in-db5 branch of all DocBook5-formatted
-    params and all associated build changes needed for
-    building the param.xsl files and docs from them.
+    added support for customisation in image handling
 
-  * Michael(tm) Smith: param.xweb
+  ● Steve Ball: blocks2dbk.xsl
 
-    Updated copyright notices.
+    Added inlinemediaobject support for metadata.
+
+  ● Steve Ball: normalise-common.xsl; blocks2dbk.xsl; template.xml;
+    dbk2wordml.xsl; dbk2wp.xsl
+
+    Added support file. Added style locking. Conversion bug fixes.
 
 Slides
 
-The following changes have been made to the slides code since the 1.72.0
+The following changes have been made to the slides code since the 1.73.2
 release.
 
-  * Jirka Kosek: html/slides-common.xsl
+  ● Keith Fahlgren: xhtml/Makefile; fo/Makefile; html/Makefile
 
-    Fixed wrong template name
+    More stupid makefile changes for slides
 
-  * Michael(tm) Smith: fo/param.xweb; html/param.xweb
+  ● Keith Fahlgren: Makefile
 
-    Made some changes to ID values in slides doc source, in order to
-    give us more rational filenames in HTML output of the docs.
+    Get rid of the rest of the hardcoded buildtools references and actually use DOCBOOK_SVN
 
-  * Michael(tm) Smith: fo; html; fo/.cvsignore; html/.cvsignore
+  ● Michael(tm) Smith: fo/Makefile; html/Makefile
 
-    Ignore another build-generated kludge. Yeah, I know it's
-    ridiculous. If you can come up with a prettier way of doing it,
-    all of my riches will be yours.
+    Added checks and hacks to various makefiles to enable building
+    under Cygwin. This stuff is ugly and maybe not worth the mess and
+    trouble, but does seem to work as expected and not break anything
+    else.
 
-  * Michael(tm) Smith: fo/param.xweb; html/param.xweb
+  ● Michael(tm) Smith: demo/default/.gitignore; demo/frames1/.gitignore; demo
+    /.gitignore; demo⋯
 
-    Make *.xweb instances valid against the
-    https://docbook.svn.sourceforge.net/svnroot/docbook/trunk/docbook/relaxng/params/refentry.rnc
-    grammar.
+    renamed a bunch more .cvsignore files to .gitignore (to facilitate use of git-svn)
 
-  * Michael(tm) Smith: fo/Makefile
+  ● Michael(tm) Smith: graphics/.gitignore; svg/.cvsignore; keynote/.gitignore;
+    htmlhelp/.cvsi⋯
 
-    Make sure that *template.xml files under version control don't get
-    removed when we clean.
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
-  * Michael(tm) Smith: fo; html; fo/.cvsignore; html/.cvsignore
+  ● Jirka Kosek: html/plain.xsl
 
-    Ignore intermediate params file.
-
-  * Michael(tm) Smith: fo; html; fo/.cvsignore; fo/Makefile; html/.cvsignore;
-    html/Makefile
-
-    Set updated ignore properties and adjusted for fact that shared
-    makefile now expects a "PARAMBASE" value to be specified (to
-    indicate base filename for the type of content being built: either
-    PARAMBASE=param or PARAMBASE=lib; this makes it possible to reduce
-    redundancy in the lib build, and just have it use the same
-    makefile "infrastructure" as the param builds for all the
-    param.xsl files. The reason for that is, lib use the same *.xweb
-    system for embedding documentation that the builds for the various
-    output formats use (as opposed to the jrefentry-based system that
-    used for building the template and PI docs in common etc.
-
-  * Michael(tm) Smith: fo/param.xweb; html/param.xweb
-
-    In files that still referred to nwalsh.com URL in the copyright
-    header, changed to docbook.sf.net URL.
-
-  * Michael(tm) Smith: html/param.xweb; fo/param.xweb
-
-    Removed all "Do not edit this file" admonitions that get output in
-    generated stylesheets; such admonitions have in the past been
-    judged by the free-software police to be at-risk of
-    interpretation as license restrictions.
-    Also, made various updates to work around some funkiness is
-    xsltproc output.
-
-  * Michael(tm) Smith: fo/plain.xsl; Makefile; html/slides-common.xsl
-
-    Made some further adjustments to cause slides/fo and
-    slides/html param builds to work correctly.
-
-  * Michael(tm) Smith: fo; html; Makefile; fo/.cvsignore; fo/Makefile;
-    html/.cvsignore; html/M
-
-    Made changes to cause build of separate
-    slides/fo/param.xsl and slides/html/param.xsl files,
-    and updated doc build to handle that split. Also
-    updated build of ChangeLog.xml, NEWS file and
-    RELEASE-NOTES.{html,txt,pdf} builds to include slides
-    and website changes.
-    Closes bug #1671745. Thanks to Justus Piater.
-
-  * Michael(tm) Smith: Makefile; doc/Makefile; Makefile; fo/Makefile;
-    demo/frames2/Makefile; d
-
-    Renamed cvstools dir to buildtools, and replaced all
-    references to "cvstools" in makefiles and elsewhere
-    with "buildtools".
-
-  * Michael(tm) Smith: param.xweb; Makefile; param.ent; fo/Makefile;
-    .cvsignore; fo/plain.xsl
-
-    Port from docs-in-db5 branch of all DocBook5-formatted
-    params and all associated build changes needed for
-    building the param.xsl files and docs from them.
-
-  * Michael(tm) Smith: graphics; browser; xsl; graphics; browser
-
-    Moved slides and website stylesheets into xsl tree. They have
-    shipped as part of xsl for the last three releases now, just been
-    getting pulled in as part of the build. Now that we're using svn,
-    it's trivial to actually move them in (and to move them back out
-    if we need to).
+    Added support for showing foil number
 
 Website
 
-The following changes have been made to the website code since the 1.72.0
+The following changes have been made to the website code since the 1.73.2
 release.
 
-  * Michael(tm) Smith: param.xweb
+  ● Keith Fahlgren: Makefile
 
-    Put website docs into categories.
+    Get rid of the rest of the hardcoded buildtools references and actually use DOCBOOK_SVN
 
-  * Michael(tm) Smith: .cvsignore
+  ● Michael(tm) Smith: extensions/saxon64/.classes/.gitignore; extensions/
+    xalan2/.classes/com/⋯
 
-    Ignore another build-generated kludge. Yeah, I know it's
-    ridiculous. If you can come up with a prettier way of doing it,
-    all of my riches will be yours.
+    renamed a bunch more .cvsignore files to .gitignore (to facilitate use of git-svn)
 
-  * Michael(tm) Smith: param.xweb
+  ● Michael(tm) Smith: .gitignore; .cvsignore
 
-    Make *.xweb instances valid against the
-    https://docbook.svn.sourceforge.net/svnroot/docbook/trunk/docbook/relaxng/params/refentry.rnc
-    grammar.
-
-  * Michael(tm) Smith: .cvsignore
-
-    Ignore intermediate params file.
-
-  * Michael(tm) Smith: Makefile; .cvsignore
-
-    Set updated ignore properties and adjusted for fact that shared
-    makefile now expects a "PARAMBASE" value to be specified (to
-    indicate base filename for the type of content being built: either
-    PARAMBASE=param or PARAMBASE=lib; this makes it possible to reduce
-    redundancy in the lib build, and just have it use the same
-    makefile "infrastructure" as the param builds for all the
-    param.xsl files. The reason for that is, lib use the same *.xweb
-    system for embedding documentation that the builds for the various
-    output formats use (as opposed to the jrefentry-based system that
-    used for building the template and PI docs in common etc.
-
-  * Michael(tm) Smith: xbel.xsl; website.xsl; website-common.xsl
-
-    In files that still referred to nwalsh.com URL in the copyright
-    header, changed to docbook.sf.net URL.
-
-  * Michael(tm) Smith: param.xweb
-
-    Removed all "Do not edit this file" admonitions that get output in
-    generated stylesheets; such admonitions have in the past been
-    judged by the free-software police to be at-risk of
-    interpretation as license restrictions.
-    Also, made various updates to work around some funkiness is
-    xsltproc output.
-
-  * Michael(tm) Smith: Makefile; schema/dtd/Makefile; schema/relaxng/Makefile;
-    Makefile
-
-    Renamed cvstools dir to buildtools, and replaced all
-    references to "cvstools" in makefiles and elsewhere
-    with "buildtools".
-
-  * Michael(tm) Smith: Makefile; .cvsignore; param.xweb; param.ent
-
-    Port from docs-in-db5 branch of all DocBook5-formatted
-    params and all associated build changes needed for
-    building the param.xsl files and docs from them.
-
-  * Michael(tm) Smith: xsl
-
-    Moved slides and website stylesheets into xsl tree. They have
-    shipped as part of xsl for the last three releases now, just been
-    getting pulled in as part of the build. Now that we're using svn,
-    it's trivial to actually move them in (and to move them back out
-    if we need to).
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
 Params
 
-The following changes have been made to the params code since the 1.72.0
+The following changes have been made to the params code since the 1.73.2
 release.
 
-  * Mauritz Jeanson: callout.unicode.number.limit.xml;
-    compact.list.item.spacing.xml; ulink.sh
+  ● Keith Fahlgren: epub.autolabel.xml
 
-    A few small parameter fixes.
+    New parameter for epub, epub.autolabel
 
-  * Mauritz Jeanson: saxon.character.representation.xml
+  ● Mauritz Jeanson: table.frame.border.color.xml; table.cell.padding.xml;
+    table.cell.border.t⋯
 
-    Emphasized that the parameter only works with Saxon 6.
-    Fixed reference to chunker.output.encoding.
+    Added missing refpurposes and descriptions.
 
-  * Mauritz Jeanson: highlight.source.xml
+  ● Keith Fahlgren: ade.extensions.xml
 
-    Changed uri to link.
+    Initial checkin/merge of epub target from work provided by Paul Norton of Adobe
+    and Keith Fahlgren of O'Reilly.
 
-  * Mauritz Jeanson: htmlhelp.show.advanced.search.xml
+  ● Mauritz Jeanson: fop.extensions.xml; fop1.extensions.xml
 
-    Reworded refpurpose.
+    Clarified that fop1.extensions is for FOP 0.90 and later. Version 1 is not here yet...
 
-  * Mauritz Jeanson: tex.math.delims.xml
+  ● Michael(tm) Smith: man.links.are.underlined.xml;
+    man.endnotes.list.enabled.xml; man.font.l⋯
 
-    Reworded refpurpose.
+    removed man.links.are.underlined and added man.font.links. Also,
+    changed the default font formatting for links to bold.
 
-  * Mauritz Jeanson: img.src.path.xml
+  ● Michael(tm) Smith: man.base.url.for.relative.links.xml
 
-    Fixed typos.
+    Added new param man.base.url.for.relative.links .. specifies a
+    base URL for relative links (for ulink, @xlink:href, imagedata,
+    audiodata, videodata) shown in the generated NOTES section of
+    man-page output. The value of man.base.url.for.relative.links is
+    prepended to any relative URI that is a value of ulink url,
+    xlink:href, or fileref attribute.
 
-  * Mauritz Jeanson: autotoc.label.in.hyperlink.xml;
-    annotation.graphic.open.xml; highlight.so
+    If you use relative URIs in link sources in your DocBook refentry
+    source, and you leave man.base.url.for.relative.links unset, the
+    relative links will appear "as is" in the NOTES section of any
+    man-page output generated from your source. That's probably not
+    what you want, because such relative links are only usable in the
+    context of HTML output. So, to make the links meaningful and
+    usable in the context of man-page output, set a value for
+    man.base.url.for.relative.links that points
+    to the online version of HTML output generated from your DocBook
+    refentry source. For example:
 
-    Some small fixes.
+      <xsl:param name="man.base.url.for.relative.links"
+      >http://www.kernel.org/pub/software/scm/git/docs/</xsl:param>
 
-  * Mauritz Jeanson: passivetex.extensions.xml
+  ● Michael(tm) Smith: man.endnotes.list.enabled.xml
 
-    Updated URL, added note.
+    fixed typo
 
-  * Mauritz Jeanson: make.year.ranges.xml
+  ● Michael(tm) Smith: man.string.subst.map.xml
 
-    Added inline markup.
+    squeeze .sp\n.sp into a single .sp (to prevent a extra, spurious
+    line of whitespace from being inserted after programlisting etc.
+    in certain cases)
 
-  * Mauritz Jeanson: highlight.source.xml
+  ● Michael(tm) Smith: refentry.manual.fallback.profile.xml;
+    refentry.source.fallback.profile.⋯
 
-    Some recasting of the documentation.
+    don't use refmiscinfo@class=date value as fallback for refentry
+    "source" or "manual" metadata fields
 
-  * Mauritz Jeanson: funcsynopsis.decoration.xml; funcsynopsis.style.xml
+  ● Michael(tm) Smith: man.charmap.subset.profile.xml; man.charmap.enabled.xml;
+    man.charmap.su⋯
 
-    Changed element names to lowercase.
+    made some further doc tweaks related to the
+    man.charmap.subset.profile.english param
 
-  * Mauritz Jeanson: index.prefer.titleabbrev.xml
+  ● Michael(tm) Smith: man.charmap.subset.profile.xml;
+    man.charmap.subset.profile.english.xml
 
-    Added a description.
+    Fixed some typos.
 
-  * Mauritz Jeanson: function.parens.xml
+  ● Michael(tm) Smith: man.charmap.subset.profile.xml; man.charmap.enabled.xml;
+    man.charmap.su⋯
 
-    Fixed typos.
+    Added the man.charmap.subset.profile.english parameter and refined
+    the handling of charmap subsets to differentiate between English
+    and non-English source.
 
-  * Robert Stayton: procedure.properties.xml
+    This way charmap subsets are now handled is this:
 
-    procedure was inheriting keep-together from formal.object.properties, but
-    a procedure does not need to be kept together by default.
+    If the value of the man.charmap.use.subset parameter is non-zero,
+    and your DocBook source is not written in English (that is, if its
+    lang or xml:lang attribute has a value other than en), then the
+    character-map subset specified by the man.charmap.subset.profile
+    parameter is used instead of the full roff character map.
 
-  * Mauritz Jeanson: htmlhelp.show.favorities.xml
+    Otherwise, if the lang or xml:lang attribute on the root element
+    in your DocBook source or on the first refentry element in your
+    source has the value en or if it has no lang or xml:lang
+    attribute, then the character-map subset specified by the
+    man.charmap.subset.profile.english parameter is used instead of
+    man.charmap.subset.profile.
 
-    Corrected refpurpose and description.
-    (The name of this parameter is misspelt, but I'm ignoring that for now.
-    The HTML Help section in TCG has the correct spelling, btw.)
+    The difference between the two subsets is that
+    man.charmap.subset.profile provides mappings for characters in
+    Western European languages that are not part of the Roman
+    (English) alphabet (ASCII character set).
 
-  * Mauritz Jeanson: htmlhelp.use.hhk.xml
+  ● Michael(tm) Smith: man.charmap.subset.profile.xml
 
-    Updated refpurpose and description; added TCG link.
+    Added to default charmap used by manpages:
 
-  * Mauritz Jeanson: htmlhelp.enumerate.images.xml; htmlhelp.hhc.width.xml;
-    htmlhelp.hhc.show.
+      - the "letters" part of the 'C1 Controls And Latin-1 Supplement
+        (Latin-1 Supplement)' Unicode block
+      - Latin Extended-A block (but not all of the characters from
+        that block have mappings in groff, so some of them are still
+        passed through as-is)
 
-    More clarifications and wording tweaks.
+    The effects of this change are that in man pages generated for
+    most Western European languages and for Finnish, all characters
+    not part of the Roman alphabet are (e.g., "accented" characters)
+    are converted to groff escapes.
 
-  * Mauritz Jeanson: htmlhelp.show.menu.xml
+    Previously, by default we passed through those characters as is
+    (and users needed to use the full charmap if they wanted to have
+    those characters converted).
 
-    Tweaked wording (note that the parameter controls the display of a menu bar, not a menu).
+    As a result of this change, man pages generated for Western
+    European languages will be viewable in some environments in which
+    they are not viewable if the "raw" non-Roman characters are in them.
 
-  * Dave Pawson: javahelp.encoding.xml
+  ● Mauritz Jeanson: generate.legalnotice.link.xml;
+    generate.revhistory.link.xml
 
-    Tidy up of javahelp.encoding.xml
+    Added information on how the filename is computed.
 
-  * Michael(tm) Smith: reference.autolabel.xml
+  ● Mauritz Jeanson: default.table.width.xml
 
-    Fixed wording in embedded doc for reference.autolabel  param.
+    Clarified PI usage.
 
-  * Michael(tm) Smith: olink.fragid.xml
+  ● Michael(tm) Smith: man.funcsynopsis.style.xml
 
-    Restored equal sign in default value of olink.fragid param.
+    Added the man.funcsynopsis.style parameter. Has the same effect in
+    manpages output as the funcsynopsis.style parameter has in HTML
+    output -- except that its default value is 'ansi' instead of 'kr'.
 
-  * Michael(tm) Smith: html.longdesc.xml
-
-    Restored tag markup around textobject in html.longdesc param doc.
-
-  * Michael(tm) Smith: default.table.width.xml
-
-    Removed some invalid markup in the default.table.width param doc.
-
-  * Michael(tm) Smith: olink.resolver.xml
-
-    Restored leading "/" in default value of the olink.resolver param.
-
-  * Michael(tm) Smith: textinsert.extension.xml
-
-    The textinsert.extension parameter really does just enable the
-    textinsert extension (that is, it's not the parameter that inserts
-    the contents of external files - textinsert extension element does).
-
-  * Michael(tm) Smith: htmlhelp.force.map.and.alias.xml
-
-    Fixed typo (contex.h -> context.h) in htmlhelp.force.map.and.alias
-    param docs.
-
-  * Michael(tm) Smith: emphasis.propagates.style.xml
-
-    Restored tag markup on emphasis element in the
-    emphasis.propagates.style doc.
-
-  * Michael(tm) Smith: nominal.image.width.xml
-
-    Reverted the r7131 change to the value of the
-    nominal.image.width param (the value is an literal expression
-    that's meant to be evaluated, not a string expression.
-
-  * Michael(tm) Smith: htmlhelp.button.jump1.xml
-
-    Fixed "Jump2" typo (should be "Jump1")
-
-  * Michael(tm) Smith: htmlhelp.map.file.xml
-
-    Default value appears to actually be context.h
-
-  * Michael(tm) Smith: id.warnings.xml
-
-    Default for id.warnings is not actually for them not to be
-    emitted.
-
-  * Michael(tm) Smith: chunker.output.cdata-section-elements.xml;
-    chunker.output.standalone.xm
-
-    Restored necessary ".frag" in IDs of src:fragment instances in
-    chunker.output.* param files.
-
-  * Michael(tm) Smith: dry-run.xml
-
-    Restored necessary ".frag" part to ID on scr:fragment
-
-  * Dave Pawson: title.font.family.xml;
-    component.label.includes.part.label.xml; table.frame.b
-
-    Regular formatting re-org.
-
-  * Michael(tm) Smith: abstract.notitle.enabled.xml
-
-    Minor clean-up of abstract.notitle.enabled.xml to make it follow
-    proper convention for default values for booleans. Also, added
-    abstract.notitle.enabled=1 to stylesheet we use for building the
-    reference docs for the distro (I though it was there and in fact
-    claimed that it was there, but, well, I guess I was
-    wrong/drunk/lying...)
-
-  * Mauritz Jeanson: htmlhelp.only.xml
-
-    Fixed refpurpose wording.
-
-  * Michael(tm) Smith: man.authors.section.enabled.xml;
-    man.copyright.section.enabled.xml
-
-    Added the man.authors.section.enabled and
-    man.copyright.section.enabled parameters. Set those to zero when
-    you want to suppress display of the auto-generated AUTHORS and
-    COPYRIGHT sections. Closes request #1467806. Thanks to Daniel
-    Leidert.
-
-  * Michael(tm) Smith: tex.math.file.xml
+  ● Mauritz Jeanson: table.table.properties.xml; nominal.table.width.xml
 
     Fixed typo.
 
-  * Michael(tm) Smith: variablelist.as.table.xml; variablelist.as.blocks.xml;
-    glossary.as.bloc
+  ● Michael(tm) Smith: funcsynopsis.tabular.threshold.xml
 
-    Mark up PIs with tag@class=xmlpi so that they can get picked up an
-    formatted correctly by the doc build.
+    Removed the funcsynopsis.tabular.threshold param. It's no longer
+    being used in the code and hasn't been since mid 2006.
 
-  * Mauritz Jeanson: htmlhelp.button.back.xml; htmlhelp.button.forward.xml;
-    htmlhelp.button.zo
+  ● Mauritz Jeanson: table.properties.xml
 
-    Modified refpurpose text.
+    Set keep-together.within-column to "auto". This seems to be the most sensible
+    default value for tables.
 
-  * Mauritz Jeanson: htmlhelp.map.file.xml; htmlhelp.force.map.and.alias.xml;
-    htmlhelp.alias.f
+  ● Mauritz Jeanson: informal.object.properties.xml;
+    admon.graphics.extension.xml; informalequ⋯
 
-    Fixed typos, made some small changes.
+    Several small documentation fixes.
 
-  * Mauritz Jeanson: javahelp.encoding.xml
+  ● Mauritz Jeanson: manifest.in.base.dir.xml
 
-    Moved declaration and documentation of javahelp.encoding from javahelp.xsl to the
-    regular "parameter machinery".
+    Wording fixes.
 
-  * Mauritz Jeanson: generate.id.attributes.xml
+  ● Mauritz Jeanson: header.content.properties.xml;
+    footer.content.properties.xml
 
-    Added refpurpose text.
+    Added refpurpose.
 
-  * Mauritz Jeanson: annotation.js.xml; annotation.graphic.open.xml;
-    annotation.graphic.close.
+  ● Mauritz Jeanson: ulink.footnotes.xml; ulink.show.xml
 
-    Added better refpurpose texts.
+    Updated for DocBook 5.
 
-  * Mauritz Jeanson: index.on.type.xml
+  ● Mauritz Jeanson: index.method.xml; glossterm.auto.link.xml
 
-    Added two more class="attribute".
+    Spelling and wording fixes.
 
-  * Michael(tm) Smith: chunker.output.cdata-section-elements.xml;
-    chunker.output.doctype-syste
+  ● Mauritz Jeanson: callout.graphics.extension.xml
 
-    Corrected duplicate ID problem introduced in previous commit.
+    Clarifed available graphics formats and extensions.
 
-  * Michael(tm) Smith: chunker.output.cdata-section-elements.xml;
-    chunker.output.standalone.xm
+  ● Mauritz Jeanson: footnote.sep.leader.properties.xml
 
-    Fixed some broken formatting in source files for chunker.* params,
-    as pointed out by Dave Pawson.
+    Corrected refpurpose.
 
-  * Michael(tm) Smith: use.embed.for.svg.xml; generate.meta.abstract.xml
+  ● Jirka Kosek: footnote.properties.xml
 
-    Reverted addition of tag@role=html markup. It's no longer
-    necessary, because the doc build now has a smarter way of
-    distinguishing between DocBook elements marked up with the tag
-    element, and non-DocBook elements marked up with such.
+    Added more properties which make it possible to render correctly footnotes placed inside verbatim elements.
 
-  * Michael(tm) Smith: label.from.part.xml
+  ● Mauritz Jeanson: img.src.path.xml
 
-    Changed handling of reference auto-labeling such that reference
-    (when it appears at the component level) is now affected by the
-    label.from.part param, just as preface, chapter, and appendix.
+    img.src.path works with inlinegraphic too.
 
-  * Mauritz Jeanson: callout.graphics.extension.xml
+  ● Mauritz Jeanson: saxon.character.representation.xml
 
-    Clarified that 'extension' refers to file names.
+    Added TCG link.
 
-  * Mauritz Jeanson: section.title.level2.properties.xml;
-    section.title.level3.properties.xml;
+  ● Mauritz Jeanson: img.src.path.xml
 
-    Fixed level number in refpurpose.
-
-  * Mauritz Jeanson: index.on.role.xml
-
-    Added class="attribute" markup.
-
-  * Mauritz Jeanson: show.comments.xml
-
-    The comment element was renamed to remark in DB 4.0.
-
-  * Mauritz Jeanson: keep.relative.image.uris.xml
-
-    Fixed typo.
-
-  * Mauritz Jeanson: use.embed.for.svg.xml; generate.meta.abstract.xml;
-    index.on.type.xml
-
-    Added role/class attributes on some <tag>s to prevent generation of TDG links for DocBook
-    attributes and HTML elements.
-
-  * Michael(tm) Smith: tex.math.file.xml; tex.math.in.alt.xml;
-    tex.math.delims.xml
-
-    Added embedded documentation on the following PIs:
-
-      - dbhtml_start
-      - dbfo_start
-      - dbtex_delims
-      - dbtimestamp
-
-  * Michael(tm) Smith: textinsert.extension.xml
-
-    Completing adding all doc for HTML PIs. Added "see also" sections
-    with links to related global params, plus links to DocBook XSL: TCG
-    Also tried out adding some additional doc to param doc for the
-    textinsert.extension param that back-references the PI
-    documentation, plus added some TCG links there too.
-
-  * Michael(tm) Smith: abstract.notitle.enabled.xml
-
-    Added new param abstract.notitle.enabled.
-    If non-zero, in output of the abstract element on titlepages,
-    display of the abstract title is suppressed.
-    Because sometimes you really don't want or need that title
-    there...
-
-  * Michael(tm) Smith: man.string.subst.map.xml
-
-    Output copyright and legalnotice in man-page output in whatever
-    place they are in in document order. Closes #1690539. Thanks to
-    Daniel Leidert for reporting.
-
-  * Michael(tm) Smith: man.string.subst.map.xml
-
-    Updated manpages string-substitute map to reflect fact that
-    because of another recent change to suppress bold markup in .SH
-    output, we no longer need to add a workaround for the accidental
-    uppercasing of roff escapes that occurred previously.
-
-  * Jirka Kosek: margin.note.float.type.xml; title.font.family.xml;
-    table.frame.border.color.x
-
-    Improved parameter metadata
-
-  * Robert Stayton: index.div.title.properties.xml
-
-    Fixed repeated space-before.optimum
-
-  * Robert Stayton: profile.wordsize.xml; profile.audience.xml
-
-    Add support for profiling on new attributes audience and wordsize.
-
-  * Robert Stayton: callout.graphics.number.limit.xml;
-    callout.graphics.extension.xml
-
-    Added SVG graphics for fo output.
-
-  * Robert Stayton: callout.icon.size.xml
-
-    Set size of callout graphics.
-
-  * Robert Stayton: callout.bug.size.xml
-
-    Replaced with new name.
-
-  * Robert Stayton: callout.bug.size.xml
-
-    Control size of graphical callout bugs in FO output.
-
-  * Jirka Kosek: default.units.xml; chunker.output.method.xml;
-    toc.list.type.xml; output.inden
-
-    Updated parameter metadata to the new format.
-
-  * Jirka Kosek: man.output.quietly.xml; title.font.family.xml;
-    footnote.sep.leader.properties
-
-    Added type annotations into parameter definition files.
-
-  * Robert Stayton: section.container.element.xml
-
-    Support spans in sections for certain processors.
-
-  * Robert Stayton: component.titlepage.properties.xml
-
-    Empty attribute set for top level component titlepage block.
-    Allows setting a span on title info.
-
-  * Jirka Kosek: bibliography.style.xml
-
-    Added link to WiKi page with description of special markup needed for ISO690 biblioentries
-
-  * Michael(tm) Smith: man.string.subst.map.xml
-
-    Made some minor updates to param docs and comments in
-    manpages stylesheet. Also, removed some params for
-    manpages doc that are already doc'ed as HTML params.
-
-  * Robert Stayton: make.year.ranges.xml
-
-    Clarify that multiple year elements are required.
-
-  * Michael(tm) Smith: man.string.subst.map.xml
-
-    Reverted necessary escaping of backslash, dot, and dash
-    out of the well-intentioned (but it now appears,
-    misguided) "marker" mechanism (introduced in the 1.72.0
-    release) -- which made use of alternative "marker"
-    characters as internal representations of those
-    characters, and then replaced them just prior to
-    serialization -- and back into what's basically the
-    system that was used prior to the 1.69.0 release; that
-    is, into a part of stylesheet code that gets executed
-    at the beginning of processing -- before any other roff
-    markup up is. This change obviates the need for the
-    marker system. It also requires a lot less RAM during
-    processing (for large files, the marker mechanism
-    ending up requiring gigabytes of memory).
-
-    Closes bug #1661177. Thanks to Scott Smedley for
-    providing a test case (the fvwm man page) that exposed
-    the problem with the marker mechanism.
-
-    Also moved the mechanism for converting non-breaking
-    spaces back into the same area of the stylesheet code.
-
-  * Robert Stayton: id.warnings.xml
-
-    Turn off id.warnings by default.
-
-  * Michael(tm) Smith: title.font.family.xml; toc.line.properties.xml;
-    component.label.include
-
-    Port from docs-in-db5 branch of all DocBook5-formatted
-    params and all associated build changes needed for
-    building the param.xsl files and docs from them.
-
-  * Michael(tm) Smith: man.string.subst.map.xml
-
-    Fixed typo in param file.
-
-  * Jirka Kosek: bibliography.style.xml
-
-    Added support for formatting biblioentries according to ISO690 citation style.
-    New bibliography style can be turned on by setting parameter bibliography.style to "iso690"
-    The code was provided by Jana Dvorakova
-
-  * Robert Stayton: header.table.properties.xml; footer.table.properties.xml
-
-    Support adding table properties to header and footer tables.
-
-  * Michael(tm) Smith: man.string.subst.map.xml
-
-    Put custom "substitution" element in params/man.string.subst.map.xml into a namespace.
-
-  * Michael(tm) Smith: editedby.enabled.xml
-
-    Removed stray text that was causing WF error.
-
-  * Michael(tm) Smith: man.links.are.underlined.xml;
-    man.endnotes.list.enabled.xml; man.links.
-
-    Made a number of changes related to elements with
-    out-of-line content:
-
-    - Added handling for mediaobject & inlinemedidaobject.
-      Each imagedata, audiodata, or videodata element
-      within a mediaobject or inline mediaobject is now
-      treated as a "notesource" and so handled in much the
-      same way as links and annotation/alt/footnotes.
-
-      That means a numbered marker is generated inline to
-      mark the place in the main flow where the imagedata,
-      audiodata, or videodata element occurs, and a
-      corresponding numbered endnote for it is generated in
-      the endnotes list at the end of the man page; the
-      endnote contains the URL from the fileref attribute
-      of the imagedata, audiodata, or videodata element.
-
-      For mediobject and inlinemediaobject instances that
-      have a textobject child, the textobject is displayed
-      within the main text flow.
-
-    - Renamed several man.link.* params to man.endnotes.*,
-      to reflect that fact that the endnotes list now
-      contains more than just links. Also did similar
-      renaming for a number of stylesheet-internal vars.
-
-    - Added support for xlink:href (along with existing
-      support for the legacy ulink element).
-
-    - Cleaned up and streamlined the endnotes-handling
-      code. It's still messy and klunky and the basic
-      mechanism it uses is very inefficent for documents
-      that contain a lot of notesources, but at least it's
-      a bit better than it was.
-
-  * Robert Stayton: toc.line.properties.xml
-
-    Moved the end-indent properties from toc.line to the
-    toc.line.properties attribute-set.
-
-  * Robert Stayton: xep.index.item.properties.xml
-
-    Fixed case of class attribute in sgmltag element.
-
-Highlighting
-
-The following changes have been made to the highlighting code since the 1.72.0
-release.
-
-  * Michael(tm) Smith: common.xsl
-
-    Set keywords on a number of files.
-
-  * Michael(tm) Smith: common.xsl
-
-    In files that still referred to nwalsh.com URL in the copyright
-    header, changed to docbook.sf.net URL.
-
-  * Jirka Kosek: c-hl.xml; xslthl-config.xml
-
-    Added support for C language. Provided by Bruno Guegan.
+    Updated description of img.src.path. Bug #1785224 revealed that
+    there was a risk of misunderstanding how it works.
 
 Profiling
 
-The following changes have been made to the profiling code since the 1.72.0
+The following changes have been made to the profiling code since the 1.73.2
 release.
 
-  * Mauritz Jeanson: xsl2profile.xsl
+  ● Jirka Kosek: xsl2profile.xsl
 
-    Fixed bug that affected Eclipse profiling. "etoc" was added as a named template to be processed
-    in "correct" mode.
+    Added new rules to profile all content generated by HTML Help (including alias files)
 
-  * Michael(tm) Smith: xsl2profile.xsl
+  ● Robert Stayton: profile-mode.xsl
 
-    Updated stylesheets to use common logging template to log messages
-    emitted during namespace-stripping.
-    Also, moved pad-string template from lib to common because
-    it's needed in order to use logging template in the profiling
-    stylesheets, and the lib build relies on the profiling apparatus
-    (so the profiling apparatus can't rely on lib being built first...)
-
-  * Michael(tm) Smith: xsl2profile.xsl
-
-    Removed all "Do not edit this file" admonitions that get output in
-    generated stylesheets; such admonitions have in the past been
-    judged by the free-software police to be at-risk of
-    interpretation as license restrictions.
-    Also, made various updates to work around some funkiness is
-    xsltproc output.
-
-  * Robert Stayton: profile-mode.xsl
-
-    Add support for new profiling attributes audience and wordsize.
-
-  * Robert Stayton: profile.xsl
-
-    Add new profiling attributes audience and wordsize.
+    use mode="profile" instead of xsl:copy-of for attributes so
+    they can be more easily customized.
 
 Lib
 
-The following changes have been made to the lib code since the 1.72.0 release.
+The following changes have been made to the lib code since the 1.73.2 release.
 
-  * Michael(tm) Smith: lib.xweb
+  ● Keith Fahlgren: Makefile
 
-    Moved charmap templates out of lib.xweb and into
-    common/charmap.xsl, and added charmap doc to doc build.
+    Get rid of the rest of the hardcoded buildtools references and actually use DOCBOOK_SVN
 
-  * Michael(tm) Smith: lib.xweb
+  ● Michael(tm) Smith: .gitignore; .cvsignore
 
-    Make structure of lib.xweb embedded doc consistent with structure
-    of similar embedded doc in other source files.
-
-  * Michael(tm) Smith: lib.xweb
-
-    Make lib.xweb valid against our litprog grammar.
-
-  * Michael(tm) Smith: .cvsignore
-
-    Ignore another build-generated kludge. Yeah, I know it's
-    ridiculous. If you can come up with a prettier way of doing it,
-    all of my riches will be yours.
-
-  * Michael(tm) Smith: lib.xweb
-
-    Make *.xweb instances valid against the
-    https://docbook.svn.sourceforge.net/svnroot/docbook/trunk/docbook/relaxng/params/refentry.rnc
-    grammar.
-
-  * Michael(tm) Smith: lib.xweb
-
-    Updated embedded doc in XSL source files:
-
-     - added dbhtml@dir PIs to control where output goes when
-       generation HTML version of docs
-
-     - put xml:id instances on root elements of embedded doc
-
-     - changed all *info instances to just info (DocBook 5) and some
-       @id instance to @xml-id
-
-  * Michael(tm) Smith: .cvsignore
-
-    Updated ignore properties on lib dir
-
-  * Michael(tm) Smith: .cvsignore
-
-    Set updated ignore properties and adjusted for fact that shared
-    makefile now expects a "PARAMBASE" value to be specified (to
-    indicate base filename for the type of content being built: either
-    PARAMBASE=param or PARAMBASE=lib; this makes it possible to reduce
-    redundancy in the lib build, and just have it use the same
-    makefile "infrastructure" as the param builds for all the
-    param.xsl files. The reason for that is, lib use the same *.xweb
-    system for embedding documentation that the builds for the various
-    output formats use (as opposed to the jrefentry-based system that
-    used for building the template and PI docs in common etc.
-
-  * Michael(tm) Smith: Makefile
-
-    Made the lib build make reuse of the same makefile infrastructure
-    now used for param builds.
-
-  * Michael(tm) Smith: Makefile
-
-    Added a mechanism for "building" copies of the w2docbook.xsl,
-    ldocbook.xsl, cldocbook.xsl, xtangle.xsl files. All that this
-    "build" really does is to to first make the litprog module, then
-    copy over those files to the releasetools directory, prepending to
-    the copies a warning that they might not be up-to-date.
-    And so am no also checking in those copies to source control,
-    and updating the docbook-xsl build to use those instead of the
-    source versions in the litprog module.
-    This removes litprog as a build target/dependency for docbook-xsl.
-    The sole purpose of this change is just to make it easier for
-    other developers to do docbook-xsl release builds.
-    The litprog sources change very rarely, so it won't be a big
-    maintenance problem to keep these static copies in releasetools up
-    to date, and it'll certainly make it easier for developers to do
-    builds...
-
-  * Michael(tm) Smith: lib.xweb
-
-    In files that still referred to nwalsh.com URL in the copyright
-    header, changed to docbook.sf.net URL.
-
-  * Michael(tm) Smith: lib.xweb
-
-    Moved logging template and related templates to separate
-    utility.xsl file so that can be imported without importing the
-    whole common.xsl file (which is necessary for the build and for
-    using the logging template in standalone namespace-stripping
-    because the common.xsl file assumes it will be imported along with
-    all the params, which it can't be when building lib.xsl).
-
-  * Michael(tm) Smith: lib.xweb
-
-    Updated stylesheets to use common logging template to log messages
-    emitted during namespace-stripping.
-    Also, moved pad-string template from lib to common because
-    it's needed in order to use logging template in the profiling
-    stylesheets, and the lib build relies on the profiling apparatus
-    (so the profiling apparatus can't rely on lib being built first...)
-
-  * Michael(tm) Smith: lib.xweb
-
-    Fixed typo/oversight in trim-left lib template.
-
-  * Michael(tm) Smith: lib.xweb
-
-    Changed name of prepend-pad template to pad-string and twheeked so
-    it can do both right/left padding.
-
-  * Michael(tm) Smith: Makefile
-
-    Renamed cvstools dir to buildtools, and replaced all
-    references to "cvstools" in makefiles and elsewhere
-    with "buildtools".
-
-  * Michael(tm) Smith: lib.xweb
-
-    Updated copyright notices.
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
 Tools
 
-The following changes have been made to the tools code since the 1.72.0
+The following changes have been made to the tools code since the 1.73.2
 release.
 
-  * Michael(tm) Smith: xsl/build/doc-link-docbook.xsl
+  ● Michael(tm) Smith: xsl/build/.gitignore; xsl/build/.cvsignore
 
-    Moved release-notes boilerplate into abstract and added links to
-    online change history to release-notes and to README. Also made a
-    minor correction to the README.BUILD file.
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
-  * Michael(tm) Smith: xsl/build/make-xsl-pi.xsl
+  ● Michael(tm) Smith: make/Makefile.DocBook
 
-    Set keywords on a number of files.
+    various changes and additions to support making with asciidoc as
+    an input format
 
-  * Michael(tm) Smith: xsl/build/html2roff.xsl
+  ● Michael(tm) Smith: make/Makefile.DocBook
 
-    Updated html2roff.xsl to revert to output of real dot characters
-    instead of U+2302 markers.
+    make dblatex the default PDF maker for the example makefile
 
-  * Mauritz Jeanson: xsl/build/reference-fo.xsl
+  ● Michael(tm) Smith: xsl/build/html2roff.xsl
 
-    Added template for handling links with role='tcg' (patterned after HTML version).
+    Reworked handling of K&R funcprototype output. It no longer relies
+    on the HTML kr-tabular templates, but instead just does direct
+    transformation to roff. For K&R output, it displays the paramdef
+    output in an indented list following the prototype.
 
-  * Mauritz Jeanson: xsl/build/reference.xsl
+  ● Mauritz Jeanson: xsl/build/make-xsl-params.xsl
 
-    Use admon.textlabel instead of admon.graphics (to avoid problems with paths to the admonition graphics).
+    Made attribute-sets members of the param list. This enables links to attribute-sets in the
+    reference documentation.
 
-  * Mauritz Jeanson: xsl/build/reference.xsl
+  ● Michael(tm) Smith: xsl/build/html2roff.xsl
 
-    Set admon.graphics to 1 to make it easier to distinguish between types of admonitions.
+    use .BI handling in K&R funsynopsis output for manpages, just as
+    we do already of ANSI output
 
-  * Michael(tm) Smith: xsl/build/reference.xsl
+  ● Michael(tm) Smith: xsl/build/html2roff.xsl
 
-    Minor clean-up of abstract.notitle.enabled.xml to make it follow
-    proper convention for default values for booleans. Also, added
-    abstract.notitle.enabled=1 to stylesheet we use for building the
-    reference docs for the distro (I though it was there and in fact
-    claimed that it was there, but, well, I guess I was
-    wrong/drunk/lying...)
+    Implemented initial support for handling tabular K&R output of
+    funcprototype in manpages output. Accomplished by adding more
+    templates to the intermediate HTML-to-roff stylesheet that the
+    build uses to create the manpages/html-synop.xsl stylesheet.
 
-  * Michael(tm) Smith: xsl/build/reference.xsl; xsl/build/make-xsl-pi.xsl;
-    xsl/build/xsl-pi-li
+  ● Michael(tm) Smith: xsl/build/doc-link-docbook.xsl
 
-    Added support for auto-generating doc hyperlinks for names of
-    docbook-xsl PIs referenced in the docs.
-
-  * Michael(tm) Smith: xsl/build/jref2refsect1.xsl
-
-    Added handling for refsee@role=tcg sections.
-
-  * Michael(tm) Smith: xsl/build/make-xsl-params.xsl;
-    xsl/build/make-elements.xsl
-
-    Minor change to add more prominent "warning" in output of the
-    stylesheets that generate the elements and params list used in the
-    doc build.
-
-  * Michael(tm) Smith: xsl/build/fix-params-ns.xsl
-
-    Revert change made to fix-params-ns.xsl to cause namespaces to be
-    copied over.
-
-  * Michael(tm) Smith: xsl/build/reference.xsl
-
-    In reference doc for docbook-xsl, auto-label all part output, and
-    also include part labels in component labels.
-
-  * Michael(tm) Smith: xsl/build/reference.xsl
-
-    Don't include list of figures in book TOC for reference docs.
-
-  * Michael(tm) Smith: xsl/build/clrefentry.xsl; xsl/build/lrefentry.xsl;
-    xsl/build/jrefhtml.x
-
-    Removed obsoleted lrefentry, clrefentry, and jrefhtml stylesheets.
-    All HTML output is now generated using the reference.xsl
-    stylesheet (and the build now converts jref content to standard
-    DocBook content before generating HTML).
-
-  * Michael(tm) Smith: xsl/build/reference.xsl
-
-    Make the reference.xsl stylesheet (which is used for building the
-    HTML output of the docs) import the DocBook-element and
-    docbook-xsl-param auto-hyperlinking stylesheets (which are already
-    used for adding hyperlinks in the release notes). This makes the
-    auto-hyperlinking consistent between the systems used for the
-    release-notes build and for the reference docs.
-
-  * Michael(tm) Smith: xsl/build/xsl2jref.xsl
-
-    Don't output prolog in xsl2jref output (no doctype, not public ID,
-    no system ID). Because otherwise we end up with the output tree
-    getting populated with implied attributes some of which are no
-    longer valid in DocBook 5.
-
-  * Michael(tm) Smith: xsl/build/tdg-link.xsl
-
-    Cleaned up template that handles adding markup for sgmltag|tag
-    instances that are DocBook element names.
-
-  * Michael(tm) Smith: xsl/build/jref2refsect1.xsl
-
-    Made jref2refsect1 stylesheet convert all @id instances to @xml:id
-
-  * Michael(tm) Smith: xsl/build/id-to-xmlid.xsl
-
-    Adding yet another hack to workaround the fact that the DocBook 5
-    grammar requires @xml:id instead of @id, and xsltproc actually
-    takes xml:id seriously and checks that it's really a NCName.
-
-  * Michael(tm) Smith: xsl/build/xsl-param-link.xsl
-
-    Added the doc-baseuri param to the stylesheet used for
-    automatically adding hyperlinks in generated doc for stylesheet
-    params and in release-notes output.
-    For output of the param doc, doc-baseuri is set to "../" (relative
-    path so links point to local files).
-    For release-note output, doc-baseuri is set to the http: url for
-    the current version of the docbook-xsl docs (instead of to local
-    files); reason being that when installed from a downstream
-    package, the release notes can't point to local files because the
-    release notes are often installed in a separate place for the docs.
-
-  * Michael(tm) Smith: xsl/build/xsl2jref.xsl
-
-    Don't prepend "template." to IDs for embedded doc for PIs. (cause
-    of this was a copy/paste error -- the template for processing
-    embedded PI documentation began life as a copy of the template for
-    processing embeded doc for templates)
-
-  * Michael(tm) Smith: xsl/build/fix-params-ns.xsl
-
-    Don't strip namespace nodes from xsl:stylesheet instances when
-    generating doc files.
-
-  * Michael(tm) Smith: xsl/build/xsl2jref.xsl
-
-    Adjusted xsl2jref to copy over any attributes on source
-    doc:reference instances (primarily embedded doc for params) and to
-    also copy any PIs that are children of doc:reference.
-    That ensures that any id/xml:id attributes get copied over -- so
-    that they can be used when use.id.as.filename is on -- and that
-    any dbhtml@dir and dbhtml@filename PIs can be used for moving
-    files into the correct subdirs and are output with right names.
-
-  * Michael(tm) Smith: xsl/build/reference.xsl; xsl/build/reference-fo.xsl;
-    xsl/build/referenc
-
-    Updated stylesheet customization layers used for doc build,
-    including disabling extensions during doc build to prevent "Failed
-    to load image page.png" error messages.
-
-  * Michael(tm) Smith: xsl/build/xmlid-to-id.xsl
-
-    Kludge to replace xml:id with id so that we can build the docs
-    without xsltproc squawking about duplicate IDs.
-
-  * Michael(tm) Smith: xsl/build/reference-fo.xsl
-
-    Had wrong name for hyphenate param; fixed.
-
-  * Michael(tm) Smith: xsl/build/xsl2jref.xsl; xsl/build/jref2refsect1.xsl
-
-    Added some handling in the doc build for generating docs for PIs.
-
-  * Michael(tm) Smith: xsl/build/clrefentry.xsl; xsl/build/lrefentry.xsl
-
-    Added a mechanism for "building" copies of the w2docbook.xsl,
-    ldocbook.xsl, cldocbook.xsl, xtangle.xsl files. All that this
-    "build" really does is to to first make the litprog module, then
-    copy over those files to the releasetools directory, prepending to
-    the copies a warning that they might not be up-to-date.
-    And so am no also checking in those copies to source control,
-    and updating the docbook-xsl build to use those instead of the
-    source versions in the litprog module.
-    This removes litprog as a build target/dependency for docbook-xsl.
-    The sole purpose of this change is just to make it easier for
-    other developers to do docbook-xsl release builds.
-    The litprog sources change very rarely, so it won't be a big
-    maintenance problem to keep these static copies in releasetools up
-    to date, and it'll certainly make it easier for developers to do
-    builds...
-
-  * Michael(tm) Smith: xsl/build/jrefhtml.xsl; xsl/build/jref2refsect1.xsl;
-    xsl/build/xsl2jref
-
-    In files that still referred to nwalsh.com URL in the copyright
-    header, changed to docbook.sf.net URL.
-
-  * Michael(tm) Smith: xsl/build/dblatex-release-notes.xsl
-
-    Added monoseq.small param to dblatex customization to make inline
-    monospaced font be same side as default font for programlisting
-    and screen output.
-
-  * Michael(tm) Smith: xsl/build/dblatex-release-notes.xsl
-
-    Set doc.collab.show to 0 when building release-notes PDF with
-    dblatex (to get rid of the butt-ugly "Collaborators" table that
-    dblatex generates by default. Thanks Benoit Guillon for adding the
-    option to dblatex.
-
-  * Michael(tm) Smith: xsl/build/jrefhtml.xsl
-
-    Don't indent output from jrefhtml.xsl (which is used for building
-    the developer docs).
-
-  * Michael(tm) Smith: xsl/build/fix-params-ns.xsl;
-    xsl/build/make-elements.xsl; xsl/build/mak
-
-    Removed all "Do not edit this file" admonitions that get output in
-    generated stylesheets; such admonitions have in the past been
-    judged by the free-software police to be at-risk of
-    interpretation as license restrictions.
-    Also, made various updates to work around some funkiness is
-    xsltproc output.
-
-  * Michael(tm) Smith: make/Makefile.docParam
-
-    Updated Makefile.docParam to handle current db5-namespaced param
-    source. Also added support for it to copy xsl:attribute-set along
-    with xsl:param (neglected to have it doing that previously...)
-    Note that the Makefile.docParam makefile generates copies of the
-    html/param.xsl, fo/param.xsl, etc. files with the documentation
-    embedded. It was originally intended for use with oXygen XML
-    Editor (because oXygen has the capability to parse out that
-    embedded doc and display it in the oXygen UI) but could be useful
-    for other purposes.
-
-  * Michael(tm) Smith: xsl/build/xsl-param-link.xsl;
-    xsl/build/make-xsl-params.xsl
-
-    Made changes to cause build of separate
-    slides/fo/param.xsl and slides/html/param.xsl files,
-    and updated doc build to handle that split. Also
-    updated build of ChangeLog.xml, NEWS file and
-    RELEASE-NOTES.{html,txt,pdf} builds to include slides
-    and website changes.
-    Closes bug #1671745. Thanks to Justus Piater.
-
-  * Michael(tm) Smith: make/Makefile.combine
-
-    Made some minor updates to param docs and comments in
-    manpages stylesheet. Also, removed some params for
-    manpages doc that are already doc'ed as HTML params.
-
-  * Michael(tm) Smith: xsl/build/fix-params-ns.xsl; xsl/build/burst.xsl;
-    xsl/build/entify.xsl;
-
-    Port from docs-in-db5 branch of all DocBook5-formatted
-    params and all associated build changes needed for
-    building the param.xsl files and docs from them.
-
-  * Michael(tm) Smith: bin/docbook-xsl-update
-
-    Make docbook-xsl-update check for VERSION file instead of for
-    install.sh file.
-
-  * Michael(tm) Smith: bin/docbook-xsl-update
-
-    Corrected typo in docbook-xsl-update script.
-
-  * Michael(tm) Smith: bin; bin/docbook-xsl-update
-
-    Did some cleanup to the install.sh source and added a
-    docbook-xsl-update script to the docbook-xsl distro, the purpose
-    of which is to facilitate easy sync-up to the latest docbook-xsl
-    snapshot (by means of rynsc).
+    Made the xsl/tools/xsl/build/doc-link-docbook.xsl stylesheet
+    import profile-docbook.xsl, so that we can do profiling of release
+    notes. Corrected some problems in the target for the release-notes
+    HTML build.
 
 Template
 
-The following changes have been made to the template code since the 1.72.0
+The following changes have been made to the template code since the 1.73.2
 release.
 
-  * Michael(tm) Smith: titlepage.xsl
+  ● Michael(tm) Smith: .gitignore; .cvsignore
 
-    Make template/titlepage.xsl file valid against our litprog schema.
-
-  * Michael(tm) Smith: titlepage.xsl
-
-    Updated embedded doc in XSL source files:
-
-     - added dbhtml@dir PIs to control where output goes when
-       generation HTML version of docs
-
-     - put xml:id instances on root elements of embedded doc
-
-     - changed all *info instances to just info (DocBook 5) and some
-       @id instance to @xml-id
-
-  * Michael(tm) Smith: .cvsignore
-
-    Set updated ignore properties and adjusted for fact that shared
-    makefile now expects a "PARAMBASE" value to be specified (to
-    indicate base filename for the type of content being built: either
-    PARAMBASE=param or PARAMBASE=lib; this makes it possible to reduce
-    redundancy in the lib build, and just have it use the same
-    makefile "infrastructure" as the param builds for all the
-    param.xsl files. The reason for that is, lib use the same *.xweb
-    system for embedding documentation that the builds for the various
-    output formats use (as opposed to the jrefentry-based system that
-    used for building the template and PI docs in common etc.
-
-  * Michael(tm) Smith: titlepage.xsl
-
-    In files that still referred to nwalsh.com URL in the copyright
-    header, changed to docbook.sf.net URL.
-
-  * Michael(tm) Smith: titlepage.xsl
-
-    Moved logging template and related templates to separate
-    utility.xsl file so that can be imported without importing the
-    whole common.xsl file (which is necessary for the build and for
-    using the logging template in standalone namespace-stripping
-    because the common.xsl file assumes it will be imported along with
-    all the params, which it can't be when building lib.xsl).
-
-  * Michael(tm) Smith: titlepage.xsl
-
-    Removed all "Do not edit this file" admonitions that get output in
-    generated stylesheets; such admonitions have in the past been
-    judged by the free-software police to be at-risk of
-    interpretation as license restrictions.
-    Also, made various updates to work around some funkiness is
-    xsltproc output.
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
 Extensions
 
-The following changes have been made to the extensions code since the 1.72.0
+The following changes have been made to the extensions code since the 1.73.2
 release.
 
-  * Michael(tm) Smith: Makefile; xalan2
+  ● Keith Fahlgren: Makefile
 
-    Turned off xalan2.jar build. This removes DocBook XSL
-    Java extensions support for versions of Xalan prior to
-    Xalan 2.7. If you are currently using the extensions
-    with an earlier version of Xalan, you need to upgrade
-    to Xalan 2.7.
+    Get rid of the rest of the hardcoded buildtools references and actually use DOCBOOK_SVN
 
-  * Mauritz Jeanson: saxon65/src/com/nwalsh/saxon/FormatGraphicCallout.java
+  ● Keith Fahlgren: Makefile
 
-    Fixed bug #1640428: added 'url(...)' around the image path.
+    Use DOCBOOK_SVN variable everywhere, please; build with PDF_MAKER
 
-  * Mauritz Jeanson: xalan2/src/com/nwalsh/xalan/FormatGraphicCallout.java
+  ● Michael(tm) Smith: .gitignore; .cvsignore
 
-    Fixed bug #1640428: added 'url(...)' around the image path.
-    Fixed incorrect 'alt' attribute.
+    renamed all .cvsignore files to .gitignore, to facilitate use of git-svn
 
-  * Mauritz Jeanson: xalan27/src/com/nwalsh/xalan/FormatGraphicCallout.java
+  ● Michael(tm) Smith: Makefile
 
-    Fixed bug #1640428: added 'url(...)' around the image path.
-    Fixed incorrect 'alt' attribute.
+    moved extensions build targets from master xsl/Makefile to
+    xsl/extensions/Makefile
 
-  * Michael(tm) Smith: xalan2/src/com/nwalsh/xalan/Table.java;
-    xalan2/src/com/nwalsh/xalan/Ver
+  ● Michael(tm) Smith: .cvsignore
 
-    Removed org.apache.xml.utils.DOMHelper imports from Table.java and
-    Verbatim.Java files, per note from Mauritz Jeanson about them not
-    being needed.
+    ignore stuff
 
-  * Michael(tm) Smith: xalan2/src/com/nwalsh/xalan/Table.java;
-    xalan2/src/com/nwalsh/xalan/Ver
+  ● Michael(tm) Smith: .cvsignore
 
-    Use org.apache.xml.utils.DOMHelper as package name (instead of
-    org.apache.xpath.DOMHelper), because build otherwise fails.
-
-XSL-Java
-
-The following changes have been made to the xsl-java code since the 1.72.0
-release.
-
-  * Mauritz Jeanson: saxon65/src/com/nwalsh/saxon/Verbatim.java
-
-    Added test to avoid "Undefined variable: callout.icon.size" messages when generating HTML.
-
-  * Mauritz Jeanson: xalan27/src/com/nwalsh/xalan/Verbatim.java;
-    xalan27/src/com/nwalsh/xalan/
-
-    Added modifications so that the new callout.icon.size parameter is taken into account. This
-    parameter is used for FO output (where SVG now is the default graphics format for callouts).
-
-  * Mauritz Jeanson: saxon65/src/com/nwalsh/saxon/FormatCallout.java;
-    xalan27/src/com/nwalsh/x
-
-    Added code for generating id attributes on callouts in HTML and FO output.
-    These patches enable cross-references to callouts placed by area coordinates.
-    It works for graphic, unicode and text callouts.
-    Part of fix for bug #1675513 (xref to area broken).
-
-  * Mauritz Jeanson: xalan27/src/com/nwalsh/xalan/Text.java
-
-    Removed unnecessary import statements.
-    Added patch (from Text.java in the defunct xalan2 directory) to the getEncoding() method.
-
-  * Mauritz Jeanson: xalan27/src/com/nwalsh/xalan/Verbatim.java;
-    xalan27/src/com/nwalsh/xalan/
-
-    Cleaned up by removing several unnecessary import statements.
-
-  * Michael(tm) Smith: saxon65/src/com/nwalsh/saxon/Website.java;
-    xalan27/src/com/nwalsh/xalan
-
-    Copied over Website XSL Java extensions.
-
-  * Michael(tm) Smith: COPYING; README; Makefile; BUGS; AUTHORS; TODO;
-    VERSION; INSTALL
-
-    Copied xsl/extensions up a level to create a top-level
-    xsl-java module. Rationale is that we need to do a
-    separate docbook-xsl-java release in order to get the
-    XSL Java extensions packaged for Debian, and having it
-    as a top-level module allows the release build and
-    packaging to be done using the common build files in
-    releasetools/ and so makes it a lot easier to set up
-    and maintain the build and do the packaging and upload, etc.
-    After OK, would be best to next remove the
-    xsl/extensions directory from version control and
-    instead update the docbook-xsl build to simply copy
-    over the built jars from the xsl-java dir.
+    re-adding empty extensions subdir
 
 XSL-Saxon
 
-The following changes have been made to the xsl-saxon code since the 1.72.0
+The following changes have been made to the xsl-saxon code since the 1.73.2
 release.
 
-  * Michael(tm) Smith: VERSION
+  ● Michael(tm) Smith: VERSION
 
-    Switched to 1.00 numbering (instead of 1.0)
+    bring xsl2, xsl-saxon, and xsl-xalan VERSION files up-to-date with
+    recent change to snapshot build infrastructure
 
-  * Michael(tm) Smith: nbproject/project.properties; .cvsignore
+  ● Michael(tm) Smith: .gitignore; .cvsignore
 
-    Make sure classes dir gets built where it should and gets
-    packaged.
+    renamed a bunch more .cvsignore files to .gitignore (to facilitate use of git-svn)
 
-  * Michael(tm) Smith: .announcement-text; .cvsignore; Makefile
+  ● Michael(tm) Smith: nbproject/build-impl.xml; nbproject/project.properties
 
-    Made further preparations for release of Saxon and Xalan
-    extensions as standalone packages.
+    Changed hard-coded file references in "clean" target to variable
+    references. Closes #1792043. Thanks to Daniel Leidert.
 
-  * Michael(tm) Smith: VERSION
+  ● Michael(tm) Smith: VERSION; Makefile
 
-    Updated xsl-saxon and xsl-xalan VERSION files/stylesheets with
-    hooks for outputting the distro title.
+    Did post-release wrap-up of xsl-saxon and xsl-xalan dirs
 
-  * Michael(tm) Smith: src/com/nwalsh/saxon/Windows1252.java
+  ● Michael(tm) Smith: nbproject/build-impl.xml; VERSION; Makefile; test
 
-    Minor comment/whitespace change.
-
-  * Michael(tm) Smith: VERSION
-
-    Set release numbers correctly.
-
-  * Michael(tm) Smith: AUTHORS; VERSION; INSTALL; COPYING; Makefile; README;
-    build.xml; BUGS
-
-    Set keywords on various files.
-
-  * Michael(tm) Smith: nbproject/build-impl.xml; AUTHORS; VERSION; INSTALL;
-    nbproject/project.
-
-    Prepared xsl-saxon module for standalone release.
+    More tweaks to get release-ready
 
 XSL-Xalan
 
-The following changes have been made to the xsl-xalan code since the 1.72.0
+The following changes have been made to the xsl-xalan code since the 1.73.2
 release.
 
-  * Michael(tm) Smith: VERSION
+  ● Michael(tm) Smith: VERSION
 
-    Switched to 1.00 numbering (instead of just 1.0)
+    bring xsl2, xsl-saxon, and xsl-xalan VERSION files up-to-date with
+    recent change to snapshot build infrastructure
 
-  * Michael(tm) Smith: nbproject/project.properties; .cvsignore
+  ● Michael(tm) Smith: nbproject/.gitignore; .cvsignore; .gitignore; nbproject
+    /.cvsignore
 
-    Make sure classes dir gets built where it should and gets
-    packaged.
+    renamed a bunch more .cvsignore files to .gitignore (to facilitate use of git-svn)
 
-  * Michael(tm) Smith: .announcement-text; .cvsignore; Makefile
+  ● Michael(tm) Smith: nbproject/build-impl.xml
 
-    Made further preparations for release of Saxon and Xalan
-    extensions as standalone packages.
+    Changed hard-coded file references in "clean" target to variable
+    references. Closes #1792043. Thanks to Daniel Leidert.
 
-  * Michael(tm) Smith: VERSION
+  ● Michael(tm) Smith: Makefile; VERSION
 
-    Updated xsl-saxon and xsl-xalan VERSION files/stylesheets with
-    hooks for outputting the distro title.
+    Did post-release wrap-up of xsl-saxon and xsl-xalan dirs
 
-  * Michael(tm) Smith: src/com/nwalsh/xalan/Website.java
+  ● Michael(tm) Smith: Makefile; nbproject/build-impl.xml; VERSION
 
-    Minor change to comment.
+    More tweaks to get release-ready
 
-  * Michael(tm) Smith: INSTALL; nbproject/project.properties; COPYING;
-    .cvsignore; Makefile; R
+XSL-libxslt
 
-    Prepared xsl-xalan module for standalone release.
+The following changes have been made to the xsl-libxslt code since the 1.73.2
+release.
 
+  ● Mauritz Jeanson: python/xslt.py
+
+    Print the result to stdout if no outfile has been given.
+    Some unnecessary semicolons removed.
+
+  ● Mauritz Jeanson: python/xslt.py
+
+    Added a function that quotes parameter values (to ensure that they are interpreted as strings).
+    Replaced deprecated functions from the string module with string methods.
+
+  ● Michael(tm) Smith: python/.gitignore; python/.cvsignore
+
+    renamed a bunch more .cvsignore files to .gitignore (to facilitate use of git-svn)
+
+  ● Michael(tm) Smith: python/README; python/README.LIBXSLT
+
+    renamed xsl-libxslt/python/README to xsl-libxslt/python/README.LIBXSLT
+
+  ● Mauritz Jeanson: python/README
+
+    Tweaked the text a little.
 

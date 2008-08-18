@@ -5,7 +5,7 @@
 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: formal.xsl 7249 2007-08-18 09:34:34Z xmldoc $
+     $Id: formal.xsl 8000 2008-04-15 01:06:41Z abdelazer $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -187,13 +187,14 @@ version='1.0'>
       <xsl:call-template name="calsTable"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:copy>
+      <!-- do not use xsl:copy because of XHTML's needs -->
+      <table>
         <xsl:copy-of select="@*[not(local-name()='id')]"/>
         <xsl:attribute name="id">
           <xsl:call-template name="object.id"/>
         </xsl:attribute>
         <xsl:call-template name="htmlTable"/>
-      </xsl:copy>
+      </table>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

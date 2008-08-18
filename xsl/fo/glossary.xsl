@@ -10,7 +10,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: glossary.xsl 6933 2007-07-03 11:48:38Z xmldoc $
+     $Id: glossary.xsl 7632 2007-12-31 18:37:28Z dcramer $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -84,9 +84,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
           <xsl:choose>
             <xsl:when test="$glossary.sort != 0">
               <xsl:apply-templates select="$entries" mode="glossary.as.list">
-                <xsl:sort lang="{$language}"
-                          select="translate(d:glossterm, $lowercase, 
-                                            $uppercase)"/>
+				  <xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
               </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
@@ -101,9 +99,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
       <xsl:choose>
         <xsl:when test="$glossary.sort != 0">
           <xsl:apply-templates select="$entries" mode="glossary.as.blocks">
-            <xsl:sort lang="{$language}"
-                      select="translate(d:glossterm, $lowercase, 
-                                        $uppercase)"/>
+			  <xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
           </xsl:apply-templates>
         </xsl:when>
         <xsl:otherwise>
@@ -116,9 +112,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
       <xsl:choose>
         <xsl:when test="$glossary.sort != 0">
           <xsl:apply-templates select="$entries" mode="glossary.as.blocks">
-            <xsl:sort lang="{$language}"
-                      select="translate(d:glossterm, $lowercase, 
-                                        $uppercase)"/>
+				<xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
           </xsl:apply-templates>
         </xsl:when>
         <xsl:otherwise>
@@ -137,9 +131,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
           <xsl:choose>
             <xsl:when test="$glossary.sort != 0">
               <xsl:apply-templates select="$entries" mode="glossary.as.list">
-                <xsl:sort lang="{$language}"
-                          select="translate(d:glossterm, $lowercase, 
-                                            $uppercase)"/>
+					<xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
               </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
@@ -261,9 +253,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
         <xsl:choose>
           <xsl:when test="$glossary.sort != 0">
             <xsl:apply-templates select="d:glossentry" mode="glossary.as.list">
-              <xsl:sort lang="{$language}"
-                        select="translate(d:glossterm, $lowercase, 
-                                          $uppercase)"/>
+				<xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
             </xsl:apply-templates>
           </xsl:when>
           <xsl:otherwise>
@@ -276,9 +266,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
       <xsl:choose>
         <xsl:when test="$glossary.sort != 0">
           <xsl:apply-templates select="d:glossentry" mode="glossary.as.blocks">
-            <xsl:sort lang="{$language}"
-                      select="translate(d:glossterm, $lowercase, 
-                                        $uppercase)"/>
+				<xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
           </xsl:apply-templates>
         </xsl:when>
         <xsl:otherwise>
@@ -290,9 +278,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
       <xsl:choose>
         <xsl:when test="$glossary.sort != 0">
           <xsl:apply-templates select="d:glossentry" mode="glossary.as.blocks">
-            <xsl:sort lang="{$language}"
-                      select="translate(d:glossterm, $lowercase, 
-                                        $uppercase)"/>
+				<xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
           </xsl:apply-templates>
         </xsl:when>
         <xsl:otherwise>
@@ -307,9 +293,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
         <xsl:choose>
           <xsl:when test="$glossary.sort != 0">
             <xsl:apply-templates select="d:glossentry" mode="glossary.as.list">
-              <xsl:sort lang="{$language}"
-                        select="translate(d:glossterm, $lowercase, 
-                                          $uppercase)"/>
+				<xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
             </xsl:apply-templates>
           </xsl:when>
           <xsl:otherwise>
@@ -443,9 +427,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
             <xsl:choose>
               <xsl:when test="$glossary.sort != 0">
                 <xsl:for-each select="$collection//d:glossentry">
-                  <xsl:sort lang="{$language}"
-                            select="translate(d:glossterm, $lowercase, 
-                                              $uppercase)"/>
+				<xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
                   <xsl:variable name="cterm" select="d:glossterm"/>
                   <xsl:if test="$terms[@baseform = $cterm or . = $cterm]">
                     <xsl:apply-templates select="." 
@@ -470,9 +452,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
           <xsl:choose>
             <xsl:when test="$glossary.sort != 0">
               <xsl:for-each select="$collection//d:glossentry">
-                <xsl:sort lang="{$language}"
-                          select="translate(d:glossterm, $lowercase, 
-                                            $uppercase)"/>
+					<xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
                 <xsl:variable name="cterm" select="d:glossterm"/>
                 <xsl:if test="$terms[@baseform = $cterm or . = $cterm]">
                   <xsl:apply-templates select="." 
@@ -498,9 +478,8 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
             <xsl:choose>
               <xsl:when test="$glossary.sort != 0">
                 <xsl:for-each select="$collection//d:glossentry">
-                  <xsl:sort lang="{$language}"
-                            select="translate(d:glossterm, $lowercase, 
-                                              $uppercase)"/>
+
+				<xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
                   <xsl:variable name="cterm" select="d:glossterm"/>
                   <xsl:if test="$terms[@baseform = $cterm or . = $cterm]">
                     <xsl:apply-templates select="." 
@@ -619,8 +598,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
     <xsl:choose>
       <xsl:when test="$glossary.sort != 0">
         <xsl:for-each select="d:glossentry">
-          <xsl:sort lang="{$language}"
-                    select="translate(d:glossterm, $lowercase, $uppercase)"/>
+				<xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
           <xsl:variable name="cterm" select="d:glossterm"/>
           <xsl:if test="$terms[@baseform = $cterm or . = $cterm]">
             <xsl:apply-templates select="." mode="auto-glossary-as-list"/>
@@ -660,8 +638,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   <xsl:choose>
     <xsl:when test="$glossary.sort != 0">
       <xsl:for-each select="d:glossentry">
-        <xsl:sort lang="{$language}"
-                  select="translate(d:glossterm, $lowercase, $uppercase)"/>
+				<xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
         <xsl:variable name="cterm" select="d:glossterm"/>
         <xsl:if test="$terms[@baseform = $cterm or . = $cterm]">
           <xsl:apply-templates select="." mode="auto-glossary-as-blocks"/>
@@ -709,9 +686,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
     <xsl:choose>
       <xsl:when test="$glossary.sort != 0">
         <xsl:apply-templates select="$entries" mode="glossary.as.list">
-          <xsl:sort lang="{$language}"
-                    select="translate(d:glossterm, $lowercase, 
-                                      $uppercase)"/>
+				<xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
         </xsl:apply-templates>
       </xsl:when>
       <xsl:otherwise>
@@ -934,9 +909,7 @@ GlossEntry ::=
   <xsl:choose>
     <xsl:when test="$glossary.sort != 0">
       <xsl:apply-templates select="$entries" mode="glossary.as.blocks">
-        <xsl:sort lang="{$language}"
-                  select="translate(d:glossterm, $lowercase, 
-                                    $uppercase)"/>
+		  <xsl:sort lang="{$language}" select="normalize-space(translate(concat(@sortas, d:glossterm[not(parent::d:glossentry/@sortas) or parent::d:glossentry/@sortas = '']), &lowercase;, &uppercase;))"/>
       </xsl:apply-templates>
     </xsl:when>
     <xsl:otherwise>

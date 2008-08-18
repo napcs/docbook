@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1250"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet exclude-result-prefixes="d"
                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:d="http://docbook.org/ns/docbook"
@@ -115,7 +115,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   <xsl:call-template name="iso690.edition">
     <xsl:with-param name="after" select="./d:bibliomisc[@role='issuing']"/>
   </xsl:call-template>
-  <!-- Issue designation (date and/or n°) [nonEL] -->
+  <!-- Issue designation (date and/or nÂ°) [nonEL] -->
   <xsl:if test="not(./d:bibliomisc[@role='medium'])">
     <xsl:call-template name="iso690.issuing"/>
   </xsl:if>
@@ -592,7 +592,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </xsl:call-template>
 </xsl:template>
 
-<!-- Issue designation (date and/or n°) -->
+<!-- Issue designation (date and/or nÂ°) -->
 <xsl:template name="iso690.issuing">
   <xsl:param name="issuing.div">
     <xsl:call-template name="gentext.template"><xsl:with-param name="context" select="'iso690'"/><xsl:with-param name="name" select="'issuing.div'"/></xsl:call-template>
