@@ -2,12 +2,12 @@
 <!--This file was created automatically by xsl2profile-->
 <!--from the DocBook XSL stylesheets.-->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:d="http://docbook.org/ns/docbook"
-xmlns:ng="http://docbook.org/docbook-ng" xmlns:db="http://docbook.org/ns/docbook" xmlns:exsl="http://exslt.org/common" xmlns:exslt="http://exslt.org/common" exslt:dummy="dummy" ng:dummy="dummy" db:dummy="dummy" extension-element-prefixes="exslt" exclude-result-prefixes="db ng exsl exslt d" version="1.0">
+xmlns:ng="http://docbook.org/docbook-ng" xmlns:db="http://docbook.org/ns/docbook" xmlns:exsl="http://exslt.org/common" xmlns:exslt="http://exslt.org/common" exslt:dummy="dummy" ng:dummy="dummy" db:dummy="dummy" extension-element-prefixes="exslt" exclude-result-prefixes="db ng exsl exslt exslt d" version="1.0">
 
 <xsl:output method="html" encoding="ISO-8859-1" indent="no"/>
 
 <!-- ********************************************************************
-     $Id: docbook.xsl 7156 2007-07-26 21:42:04Z mzjn $
+     $Id: docbook.xsl 7939 2008-03-23 04:32:34Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.

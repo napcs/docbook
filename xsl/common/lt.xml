@@ -6,7 +6,7 @@
 <!-- * do not submit an edited version of this file. Instead, submit an -->
 <!-- * edited version of the source file at the following location: -->
 <!-- * -->
-<!-- *  https://svn.sourceforge.net/svnroot/docbook/trunk/gentext/locale/lt.xml -->
+<!-- *  https://docbook.svn.sourceforge.net/svnroot/docbook/trunk/gentext/locale/lt.xml -->
 <!-- * -->
 <!-- * E-mail the edited lt.xml source file to: -->
 <!-- * -->
@@ -35,7 +35,7 @@
 <l:gentext key="appendix" text="Priedas"/>
 <l:gentext key="Article" text="Straipsnis"/>
 <l:gentext key="article" text="Straipsnis"/>
-<l:gentext key="Author" text="Author" lang="en"/>
+<l:gentext key="Author" text="Autorius"/>
 <l:gentext key="Bibliography" text="Bibliografija"/>
 <l:gentext key="bibliography" text="Bibliografija"/>
 <l:gentext key="Book" text="Knyga"/>
@@ -105,7 +105,7 @@
 <l:gentext key="refentry" text=""/>
 <l:gentext key="Reference" text="Nuoroda"/>
 <l:gentext key="reference" text="Nuoroda"/>
-<l:gentext key="References" text="References" lang="en"/>
+<l:gentext key="References" text="Nuorodos"/>
 <l:gentext key="RefName" text="Pavadinimas"/>
 <l:gentext key="refname" text="Pavadinimas"/>
 <l:gentext key="RefSection" text=""/>
@@ -188,7 +188,7 @@
 <l:gentext key="ListofUnknown" text="Nežinomas sąrašas"/>
 <l:gentext key="listofunknown" text="Nežinomas sąrašas"/>
 <l:gentext key="nav-home" text="Į pradžią"/>
-<l:gentext key="nav-next" text="Sekantis"/>
+<l:gentext key="nav-next" text="Tolesnis"/>
 <l:gentext key="nav-next-sibling" text="Spartus pirmyn"/>
 <l:gentext key="nav-prev" text="Ankstesnis"/>
 <l:gentext key="nav-prev-sibling" text="Spartus atgal"/>
@@ -305,7 +305,7 @@
 <l:template name="sect5" text="%t"/>
 <l:template name="section" text="%t"/>
 <l:template name="simplesect" text="%t"/>
-<l:template name="part" text="%t" lang="en"/>
+<l:template name="part" text="%t"/>
 </l:context>
 <l:context name="title-numbered"><l:template name="appendix" text="Priedas %n. %t"/>
 <l:template name="article/appendix" text="%n. %t"/>
@@ -424,11 +424,11 @@
 <l:template name="olink.document.citation" text=" in %o"/>
 <l:template name="olink.page.citation" text=" (page %p)"/>
 <l:template name="page.citation" text=" [%p]"/>
-<l:template name="page" text="(page %p)"/>
-<l:template name="docname" text=" in %o"/>
-<l:template name="docnamelong" text=" in the document titled %o"/>
-<l:template name="pageabbrev" text="(p. %p)"/>
-<l:template name="Page" text="Page %p"/>
+<l:template name="page" text="(%p puslapis)"/>
+<l:template name="docname" text=" dokumente %o"/>
+<l:template name="docnamelong" text=" dokumente %o"/>
+<l:template name="pageabbrev" text="(%p p.)"/>
+<l:template name="Page" text="%p puslapis"/>
 <l:template name="bridgehead" text="skyrius pavadinimu „%t“"/>
 <l:template name="refsection" text="skyrius pavadinimu „%t“"/>
 <l:template name="refsect1" text="skyrius pavadinimu „%t“"/>
@@ -499,8 +499,8 @@
 </l:context>
 <l:context name="datetime"><l:template name="format" text="Y-m-d"/>
 </l:context>
-<l:context name="termdef"><l:template name="prefix" text="[Definition: " lang="en"/>
-<l:template name="suffix" text="]" lang="en"/>
+<l:context name="termdef"><l:template name="prefix" text="[Apibrėžimas: "/>
+<l:template name="suffix" text="]"/>
 </l:context>
 <l:context name="datetime-full"><l:template name="January" text="Sausis"/>
 <l:template name="February" text="Vasaris"/>
@@ -544,9 +544,9 @@
 </l:context>
 <l:context name="htmlhelp"><l:template name="langcode" text="0x0427 Lithuanian"/>
 </l:context>
-<l:context name="index"><l:template name="term-separator" text=", " lang="en"/>
-<l:template name="number-separator" text=", " lang="en"/>
-<l:template name="range-separator" text="-" lang="en"/>
+<l:context name="index"><l:template name="term-separator" text=", "/>
+<l:template name="number-separator" text=", "/>
+<l:template name="range-separator" text="-"/>
 </l:context>
 <l:context name="iso690"><l:template name="lastfirst.sep" text=", " lang="en"/>
 <l:template name="alt.person.two.sep" text=" – " lang="en"/>

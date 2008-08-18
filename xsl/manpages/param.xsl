@@ -6,7 +6,7 @@ version="1.0">
 <!-- This file is generated from param.xweb -->
 
 <!-- ********************************************************************
-     $Id: param.xweb 7112 2007-07-22 12:19:19Z xmldoc $
+     $Id: param.xweb 7885 2008-03-09 13:33:45Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -17,12 +17,34 @@ version="1.0">
 
 <xsl:param name="man.authors.section.enabled">1</xsl:param>
 <xsl:param name="man.break.after.slash">0</xsl:param>
+<xsl:param name="man.base.url.for.relative.links">[set $man.base.url.for.relative.links]/</xsl:param>
 <xsl:param name="man.charmap.enabled" select="1"/>
 <xsl:param name="man.charmap.subset.profile">
 @*[local-name() = 'block'] = 'Miscellaneous Technical' or
 (@*[local-name() = 'block'] = 'C1 Controls And Latin-1 Supplement (Latin-1 Supplement)' and
- @*[local-name() = 'class'] = 'symbols'
+ (@*[local-name() = 'class'] = 'symbols' or
+  @*[local-name() = 'class'] = 'letters')
 ) or
+@*[local-name() = 'block'] = 'Latin Extended-A'
+or
+(@*[local-name() = 'block'] = 'General Punctuation' and
+ (@*[local-name() = 'class'] = 'spaces' or
+  @*[local-name() = 'class'] = 'dashes' or
+  @*[local-name() = 'class'] = 'quotes' or
+  @*[local-name() = 'class'] = 'bullets'
+ )
+) or
+@*[local-name() = 'name'] = 'HORIZONTAL ELLIPSIS' or
+@*[local-name() = 'name'] = 'WORD JOINER' or
+@*[local-name() = 'name'] = 'SERVICE MARK' or
+@*[local-name() = 'name'] = 'TRADE MARK SIGN' or
+@*[local-name() = 'name'] = 'ZERO WIDTH NO-BREAK SPACE'
+</xsl:param>
+<xsl:param name="man.charmap.subset.profile.english">
+@*[local-name() = 'block'] = 'Miscellaneous Technical' or
+(@*[local-name() = 'block'] = 'C1 Controls And Latin-1 Supplement (Latin-1 Supplement)' and
+ @*[local-name() = 'class'] = 'symbols')
+or
 (@*[local-name() = 'block'] = 'General Punctuation' and
  (@*[local-name() = 'class'] = 'spaces' or
   @*[local-name() = 'class'] = 'dashes' or
@@ -44,8 +66,10 @@ version="1.0">
 <xsl:param name="man.endnotes.list.heading"/>
   <xsl:param name="man.font.funcprototype">BI</xsl:param>
   <xsl:param name="man.font.funcsynopsisinfo">B</xsl:param>
+<xsl:param name="man.font.links">B</xsl:param>
   <xsl:param name="man.font.table.headings">B</xsl:param>
   <xsl:param name="man.font.table.title">B</xsl:param>
+<xsl:param name="man.funcsynopsis.style">ansi</xsl:param>
 <xsl:param name="man.hyphenate.computer.inlines">0</xsl:param>
 <xsl:param name="man.hyphenate.filenames">0</xsl:param>
 <xsl:param name="man.hyphenate">0</xsl:param>
@@ -56,7 +80,6 @@ version="1.0">
 <xsl:param name="man.indent.verbatims" select="1"/>
 <xsl:param name="man.indent.width">4</xsl:param>
 <xsl:param name="man.justify">0</xsl:param>
-<xsl:param name="man.links.are.underlined">1</xsl:param>
 <xsl:param name="man.output.base.dir">man/</xsl:param>
 <xsl:param name="man.output.encoding">UTF-8</xsl:param>
 <xsl:param name="man.output.in.separate.dir" select="0"/>
@@ -80,6 +103,8 @@ version="1.0">
   <!-- * remove any .sp instances that directly precede a .PP  -->
   <substitution oldstring=".sp&#10;.PP" newstring=".PP"/>
   <!-- * remove any .sp instances that directly follow a .PP  -->
+  <substitution oldstring=".sp&#10;.sp" newstring=".sp"/>
+  <!-- * squeeze multiple .sp instances into a single .sp-->
   <substitution oldstring=".PP&#10;.sp" newstring=".PP"/>
   <!-- * squeeze multiple newlines after start of no-fill (verbatim) env. -->
   <substitution oldstring=".nf&#10;&#10;" newstring=".nf&#10;"/>
@@ -139,7 +164,7 @@ version="1.0">
   (($info[//d:date])[last()]/d:date)[1]|
   (($info[//d:pubdate])[last()]/d:pubdate)[1]</xsl:param>
 <xsl:param name="refentry.manual.fallback.profile">
-d:refmeta/d:refmiscinfo[1]/node()</xsl:param>
+d:refmeta/d:refmiscinfo[not(@class = 'date')][1]/node()</xsl:param>
 <xsl:param name="refentry.manual.profile.enabled">0</xsl:param>
 <xsl:param name="refentry.manual.profile">
   (($info[//title])[last()]/title)[1]|
@@ -147,7 +172,7 @@ d:refmeta/d:refmiscinfo[1]/node()</xsl:param>
 </xsl:param>
 <xsl:param name="refentry.meta.get.quietly" select="0"/>
 <xsl:param name="refentry.source.fallback.profile">
-d:refmeta/d:refmiscinfo[1]/node()</xsl:param>
+d:refmeta/d:refmiscinfo[not(@class = 'date')][1]/node()</xsl:param>
 <xsl:param name="refentry.source.name.profile.enabled">0</xsl:param>
 <xsl:param name="refentry.source.name.profile">
   (($info[//productname])[last()]/productname)[1]|

@@ -6,7 +6,7 @@
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: biblio.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: biblio.xsl 8009 2008-05-21 00:12:14Z abdelazer $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -60,6 +60,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     <xsl:apply-templates select="." mode="class.attribute"/>
     <xsl:call-template name="anchor">
       <xsl:with-param name="node" select=".."/>
+      <xsl:with-param name="conditional" select="0"/>
     </xsl:call-template>
     <xsl:apply-templates/>
   </h3>
@@ -93,7 +94,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <xsl:choose>
     <xsl:when test="string(.) = ''">
       <xsl:variable name="bib" select="document($bibliography.collection,.)"/>
-      <xsl:variable name="entry" select="$bib/d:bibliography/                                          *[@id=$id or @xml:id=$id][1]"/>
+      <xsl:variable name="entry" select="$bib/d:bibliography//                                          *[@id=$id or @xml:id=$id][1]"/>
       <xsl:choose>
         <xsl:when test="$entry">
           <xsl:choose>
@@ -162,7 +163,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <xsl:choose>
     <xsl:when test="string(.) = ''">
       <xsl:variable name="bib" select="document($bibliography.collection,.)"/>
-      <xsl:variable name="entry" select="$bib/d:bibliography/                                          *[@id=$id or @xml:id=$id][1]"/>
+      <xsl:variable name="entry" select="$bib/d:bibliography//                                          *[@id=$id or @xml:id=$id][1]"/>
       <xsl:choose>
         <xsl:when test="$entry">
           <xsl:choose>
@@ -799,6 +800,14 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   </span>
 </xsl:template>
 
+<!-- See FR #1934434 and http://doi.org -->
+<xsl:template match="d:biblioid[@class='doi']" mode="bibliography.mode">
+  <span>
+    <xsl:apply-templates select="." mode="class.attribute"/>
+    <a href="{concat('http://dx.doi.org/', .)}">doi:<xsl:value-of select="."/></a>
+  </span>
+</xsl:template>
+
 <!-- ==================================================================== -->
 
 <xsl:template match="*" mode="bibliomixed.mode">
@@ -1211,6 +1220,14 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <span>
     <xsl:apply-templates select="." mode="class.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
+  </span>
+</xsl:template>
+
+<!-- See FR #1934434 and http://doi.org -->
+<xsl:template match="d:biblioid[@class='doi']" mode="bibliomixed.mode">
+  <span>
+    <xsl:apply-templates select="." mode="class.attribute"/>
+    <a href="{concat('http://dx.doi.org/', .)}">doi:<xsl:value-of select="."/></a>
   </span>
 </xsl:template>
 

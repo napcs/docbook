@@ -3,7 +3,7 @@
 <info>
 <title>FO Parameter Reference</title>
 <releaseinfo role="meta">
-$Id: param.xweb 7042 2007-07-17 04:28:48Z xmldoc $
+$Id: param.xweb 7583 2007-12-03 17:02:33Z mzjn $
 </releaseinfo>
 <author>
   <personname>
@@ -62,7 +62,7 @@ a graphic.  Default graphics are provided in the distribution.
 </refmeta>
 <refnamediv>
 <refname>admon.graphics.extension</refname>
-<refpurpose>Extension for admonition graphics</refpurpose>
+<refpurpose>Filename extension for admonition graphics</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -73,7 +73,7 @@ a graphic.  Default graphics are provided in the distribution.
 
 <refsection><info><title>Description</title></info>
 
-<para>Sets the extension to use on admonition graphics.</para>
+<para>Sets the filename extension to use on admonition graphics.</para>
 
 </refsection>
 </refentry>
@@ -314,7 +314,7 @@ Default graphics are provided in the distribution.
 </refmeta>
 <refnamediv>
 <refname>callout.graphics.extension</refname>
-<refpurpose>File name extension for callout graphics</refpurpose>
+<refpurpose>Filename extension for callout graphics</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -325,11 +325,14 @@ Default graphics are provided in the distribution.
 </refsynopsisdiv>
 
 <refsection><info><title>Description</title></info>
+<para>Sets the filename extension to use on callout graphics. </para>
 
-<para>Sets the extension to use on callout graphics, hence the callout
-graphic format. The appropriate format (and range used) should be
-available. svg, png and gif are provided.</para>
-
+<itemizedlist>
+<para>The Docbook XSL distribution provides callout graphics in the following formats:</para>
+<listitem><para>SVG (extension: <filename class="extension">.svg</filename>)</para></listitem>
+<listitem><para>PNG (extension: <filename class="extension">.png</filename>)</para></listitem>
+<listitem><para>GIF (extension: <filename class="extension">.gif</filename>)</para></listitem>
+</itemizedlist>
 </refsection>
 </refentry>
 
@@ -567,7 +570,7 @@ callout elements.
 
 <refsection><info><title>Description</title></info>
 
-<para>String to use to seperate labels and title in a table of contents.</para>
+<para>String used to separate labels and titles in a table of contents.</para>
 
 </refsection>
 </refentry>
@@ -839,24 +842,24 @@ an automatically generated one and <quote>bingo</quote>!</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>This parameter lets you select which method should be
-used to sort and group index entries in an index.
-Indexes in latin-based languages that have accented characters typically
+<para>This parameter lets you select which method to use for sorting and grouping
+ index entries in an index.
+Indexes in Latin-based languages that have accented characters typically
 sort together accented words and unaccented words.
-Thus <quote>&#193;</quote> (A acute) would sort together
-with <quote>A</quote>, so both would appear in the <quote>A</quote>
+Thus <quote>&#193;</quote> (U+00C1 LATIN CAPITAL LETTER A WITH ACUTE) would sort together
+with <quote>A</quote> (U+0041 LATIN CAPITAL LETTER A), so both would appear in the <quote>A</quote>
 section of the index.
-Languages using other alphabets (such as Russian cyrillic)
+Languages using other alphabets (such as Russian,  which is written in the Cyrillic alphabet)
 and languages using ideographic chararacters (such as Japanese)
 require grouping specific to the languages and alphabets.
 </para>
 
 <para>The default indexing method is limited.
-It can group accented characters in latin-based languages only.
-It cannot handle non-latin alphabets or ideographic languages.
+It can group accented characters in Latin-based languages only.
+It cannot handle non-Latin alphabets or ideographic languages.
 The other indexing methods require extensions of one type or
 another, and do not work with
-all XSLT processors, which is why there are not used by default.</para>
+all XSLT processors, which is why they are not used by default.</para>
 
 <para>The three choices for indexing method are:</para>
 <variablelist>
@@ -865,7 +868,7 @@ all XSLT processors, which is why there are not used by default.</para>
 <listitem>
 <para>
 (default)  Sort and groups words based only on the Latin alphabet.
-Words with accented latin letters will group and sort with
+Words with accented Latin letters will group and sort with
 their respective primary letter, but
 words in non-Latin alphabets will be
 put in the <quote>Symbols</quote> section of the index.
@@ -876,11 +879,11 @@ put in the <quote>Symbols</quote> section of the index.
 <term><literal>kosek</literal></term>
 <listitem>
 <para>
-Sort and groups words based on letter groups configured in
+This method sorts and groups words based on letter groups configured in
 the DocBook locale file for the given language.
 See, for example, the French locale file <filename>common/fr.xml</filename>.
 This method requires that the XSLT processor
-support the EXSLT extensions (most do).
+supports the EXSLT extensions (most do).
 It also requires support for using 
 user-defined functions in xsl:key (xsltproc does not).
 </para>
@@ -919,10 +922,10 @@ customization.
 <listitem>
 <para>
 This method uses extensions to the Saxon processor to implement
-sophisticated indexing processes.  It uses its own 
+sophisticated indexing processes. It uses its own 
 configuration file, which can include information for any number of
-languages.  Each language's configuration can group
-words using one of two processes.  In the
+languages. Each language's configuration can group
+words using one of two processes. In the
 enumerated process similar to that used in the kosek method,
 you indicate the groupings character-by-character.
 In the between-key process, you specify the
@@ -934,12 +937,12 @@ want mixed Latin-alphabet words sorted.</para>
 <itemizedlist>
 <listitem>
 <para>For a whitepaper describing the extensions, see:
-<uri xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf">http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf</uri>.
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf">http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf</link>.
 </para>
 </listitem>
 <listitem>
 <para>To download the extension library, see
-<uri xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport">http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport</uri>.
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport">http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport</link>.
 </para>
 </listitem>
 </itemizedlist>
@@ -1631,7 +1634,7 @@ are supported</para>
 </refmeta>
 <refnamediv>
 <refname>fop.extensions</refname>
-<refpurpose>Enable FOP extensions for version 0.20.5 and earlier</refpurpose>
+<refpurpose>Enable extensions for FOP version 0.20.5 and earlier</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -1647,10 +1650,10 @@ At present, this consists of PDF bookmarks.
 </para>
 
 <para>This parameter can also affect which graphics file formats
-are supported</para>
+are supported.</para>
 
 <para>If you are using a version of FOP beyond
-version 0.20.5, then use the <parameter>fop1.extensions</parameter>
+version 0.20.5, then use the <parameter>fop1.extensions</parameter> parameter
 instead.
 </para>
 </refsection>
@@ -1663,7 +1666,7 @@ instead.
 </refmeta>
 <refnamediv>
 <refname>fop1.extensions</refname>
-<refpurpose>Enable extensions for FOP version 1 and later</refpurpose>
+<refpurpose>Enable extensions for FOP version 0.90 and later</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -1674,13 +1677,13 @@ instead.
 
 <para>If non-zero, extensions for 
 <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://xml.apache.org/fop/">FOP</link>
-version 1 and later will be used.
+version 0.90 and later will be used.
 </para>
 
 <para>This parameter can also affect which graphics file formats
-are supported</para>
+are supported.</para>
 
-<para>The original <parameter>fop.extensions</parameter>
+<para>The original <parameter>fop.extensions</parameter> parameter
 should still be used for FOP version 0.20.5 and earlier.
 </para>
 </refsection>
@@ -1906,10 +1909,9 @@ numbered. Note that numbering is one based, not zero based.
 
 <refsection><info><title>Description</title></info>
 
-<para>If non-zero, verbatim environments (elements that have the
-format='linespecific' notation attribute: address, literallayout,
-programlisting, screen, synopsis) that specify line numbering will
-have, line numbers.
+<para>If non-zero, verbatim environments (<tag>address</tag>, <tag>literallayout</tag>,
+<tag>programlisting</tag>, <tag>screen</tag>, <tag>synopsis</tag>) that specify line numbering will
+have line numbers.
 </para>
 
 </refsection>
@@ -2976,7 +2978,8 @@ suppressed in output.</para>
 <refsection><info><title>Description</title></info>
 <para>If non-zero, this value will be used for the
 <literal>width</literal> attribute on <tag>table</tag>s that do not specify an
-alternate width (with the dbhtml processing instruction).</para>
+alternate width (with the <tag class="xmlpi">dbhtml table-width</tag> or 
+<tag class="xmlpi">dbfo table-width</tag> processing instruction).</para>
 </refsection>
 </refentry>
 
@@ -3001,7 +3004,7 @@ alternate width (with the dbhtml processing instruction).</para>
 <para>In order to convert CALS column widths into HTML column widths, it
 is sometimes necessary to have an absolute table width to use for conversion
 of mixed absolute and relative widths. This value must be an absolute
-length (not a percentag).</para>
+length (not a percentage).</para>
 
 </refsection>
 </refentry>
@@ -3037,7 +3040,7 @@ table. </para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.padding</refname>
-<refpurpose/>
+<refpurpose>Specifies the padding of table cells</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3053,7 +3056,7 @@ table. </para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the padding of table cells.</para>
 
 </refsection>
 </refentry>
@@ -3098,7 +3101,7 @@ table. </para>
 </refmeta>
 <refnamediv>
 <refname>table.frame.border.style</refname>
-<refpurpose/>
+<refpurpose>Specifies the border style of table frames</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3109,7 +3112,7 @@ table. </para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the border style of table frames.</para>
 
 </refsection>
 </refentry>
@@ -3121,7 +3124,7 @@ table. </para>
 </refmeta>
 <refnamediv>
 <refname>table.frame.border.color</refname>
-<refpurpose/>
+<refpurpose>Specifies the border color of table frames</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3133,7 +3136,7 @@ table. </para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the border color of table frames.</para>
 
 </refsection>
 </refentry>
@@ -3145,7 +3148,7 @@ table. </para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.border.thickness</refname>
-<refpurpose/>
+<refpurpose>Specifies the thickness of table cell borders</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3159,6 +3162,11 @@ table. </para>
 <para>If non-zero, specifies the thickness of borders on table
 cells. The units are points. See <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.w3.org/TR/CSS21/box.html#border-width-properties">
 CSS</link></para>
+
+<note>
+  <para>To control properties of cell borders in HTML output, you must also turn on the 
+  <parameter>table.borders.with.css</parameter> parameter.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -3180,7 +3188,7 @@ CSS</link></para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.border.style</refname>
-<refpurpose/>
+<refpurpose>Specifies the border style of table cells</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3191,7 +3199,12 @@ CSS</link></para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the border style of table cells.</para>
+
+<note>
+  <para>To control properties of cell borders in HTML output, you must also turn on the 
+  <parameter>table.borders.with.css</parameter> parameter.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -3203,7 +3216,7 @@ CSS</link></para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.border.color</refname>
-<refpurpose/>
+<refpurpose>Specifies the border color of table cells</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3215,12 +3228,17 @@ CSS</link></para>
 
 <refsection><info><title>Description</title></info>
 
-<para>Set the color of table borders. If non-zero, the value is used
+<para>Set the color of table cell borders. If non-zero, the value is used
 for the border coloration. See <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.w3.org/TR/CSS21/syndata.html#value-def-color">CSS</link>. A
 <literal>color</literal> is either a keyword or a numerical RGB specification.
 Keywords are aqua, black, blue, fuchsia, gray, green, lime, maroon,
 navy, olive, orange, purple, red, silver, teal, white, and
 yellow.</para>
+
+<note>
+  <para>To control properties of cell borders in HTML output, you must also turn on the 
+  <parameter>table.borders.with.css</parameter> parameter.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -3248,7 +3266,7 @@ yellow.</para>
 
 <para>The styling for tables. This parameter should really
 have been called <literal>table.properties</literal>, but that parameter
-name was inadvertantly established for the block-level properties
+name was inadvertently established for the block-level properties
 of the table as a whole.
 </para>
 
@@ -4865,7 +4883,7 @@ all of the entries referenced appeared there literally.</para>
 </refmeta>
 <refnamediv>
 <refname>glossterm.auto.link</refname>
-<refpurpose>Generate links from glossterm to glossentry automaticaly?</refpurpose>
+<refpurpose>Generate links from glossterm to glossentry automatically?</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -4876,13 +4894,13 @@ all of the entries referenced appeared there literally.</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>If true, a link will be automatically created from glossterm 
-to glossentry for that glossary term. This is usefull when your
-glossterm names are consistent and you don't want to add links
-manually.</para>
-<para>If there is <tag class="attribute">linkend</tag> on
-<tag>glossterm</tag> then is used instead of autogeneration of
-link.</para>
+<para>If non-zero, links from inline <tag>glossterm</tag>s to the corresponding 
+<tag>glossentry</tag> elements in a <tag>glossary</tag> or <tag>glosslist</tag> 
+will be automatically generated. This is useful when your glossterms are consistent 
+and you don't want to add links manually.</para>
+
+<para>The automatic link generation feature is not used on <tag>glossterm</tag> elements
+that have a <tag class="attribute">linkend</tag> attribute.</para>
 
 </refsection>
 </refentry>
@@ -5624,7 +5642,15 @@ the formating properties of block quotations.</para>
 
 <para>If non-zero, the URL of each <tag>ulink</tag> will
 appear after the text of the link. If the text of the link and the URL
-are identical, the URL is suppressed.</para>
+are identical, the URL is suppressed. </para>
+
+<para>See also <parameter>ulink.footnotes</parameter>.</para>
+
+<note><para>DocBook 5 does not have an <tag>ulink</tag> element. When processing 
+DocBoook 5 documents, <parameter>ulink.show</parameter> applies to all inline 
+elements that are marked up with <tag class="attribute">xlink:href</tag> attributes 
+that point to external resources.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -5636,7 +5662,7 @@ are identical, the URL is suppressed.</para>
 </refmeta>
 <refnamediv>
 <refname>ulink.footnotes</refname>
-<refpurpose>Generate footnotes for <tag>ULink</tag>s?</refpurpose>
+<refpurpose>Generate footnotes for <tag>ulink</tag>s?</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -5647,9 +5673,14 @@ are identical, the URL is suppressed.</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>If non-zero, the URL of each <tag>ULink</tag> will
-appear as a footnote.
-</para>
+<para>If non-zero, and if <parameter>ulink.show</parameter> also is non-zero,
+the URL of each <tag>ulink</tag> will appear as a footnote.</para>
+
+<note><para>DocBook 5 does not have an <tag>ulink</tag> element. When processing 
+DocBoook 5 documents, <parameter>ulink.footnotes</parameter> applies to all inline 
+elements that are marked up with <tag class="attribute">xlink:href</tag> attributes 
+that point to external resources.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -6203,6 +6234,9 @@ that you may have trouble using those symbols for footnotes.</para>
   &lt;xsl:attribute name="text-align"&gt;&lt;xsl:value-of select="$alignment"&gt;&lt;/xsl:value-of&gt;&lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="start-indent"&gt;0pt&lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="text-indent"&gt;0pt&lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="hyphenate"&gt;&lt;xsl:value-of select="$hyphenate"&gt;&lt;/xsl:value-of&gt;&lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="wrap-option"&gt;wrap&lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="linefeed-treatment"&gt;treat-as-space&lt;/xsl:attribute&gt;
 &lt;/xsl:attribute-set&gt;
 </programlisting>
 </refsynopsisdiv>
@@ -6296,7 +6330,7 @@ an error if baseline-shift is used.
 </refmeta>
 <refnamediv>
 <refname>footnote.sep.leader.properties</refname>
-<refpurpose>Properties associated with a procedure</refpurpose>
+<refpurpose>Properties associated with footnote separators</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -6784,15 +6818,19 @@ ignored.</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>Add a path prefix to each HTML
-<tag class="element">img</tag> or FO 
-<tag class="element">fo:external-graphic</tag> element's
-<tag class="attribute">src</tag> attribute.
-This path could be relative to the directory where the HTML/FO
+<para>Add a path prefix to the value of the <tag class="attribute">fileref</tag> 
+attribute of <tag>graphic</tag>, <tag>inlinegraphic</tag>, and <tag>imagedata</tag> elements. The resulting 
+compound path is used in the output as the value of the <tag class="attribute">src</tag> 
+attribute of <tag class="element">img</tag> (HTML) or <tag class="element">external-graphic</tag> (FO).
+</para>
+
+<para>
+The path given by <literal>img.src.path</literal> could be relative to the directory where the HTML/FO
 files are created, or it could be an absolute URI.
 The default value is empty.
 Be sure to include a trailing slash if needed.
 </para>
+
 <para>This prefix is not applied to any filerefs that start
 with "/" or contain "//:".
 </para>
@@ -8474,7 +8512,7 @@ The default value is "14pt".</para>
 </refmeta>
 <refnamediv>
 <refname>header.content.properties</refname>
-<refpurpose/>
+<refpurpose>Properties of page header content</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -8504,7 +8542,7 @@ The default value is "14pt".</para>
 </refmeta>
 <refnamediv>
 <refname>footer.content.properties</refname>
-<refpurpose/>
+<refpurpose>Properties of page footer content</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -8823,7 +8861,7 @@ before and after the object.</para>
 </refmeta>
 <refnamediv>
 <refname>informal.object.properties</refname>
-<refpurpose>Properties associated with a formal object such as a figure, or other component that has a title</refpurpose>
+<refpurpose>Properties associated with an informal (untitled) object, such as an informalfigure</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -9896,7 +9934,9 @@ general <tag>section.properties</tag> attribute set.
 
 <refsynopsisdiv>
 <programlisting xml:id="table.properties.frag">
-&lt;xsl:attribute-set name="table.properties" use-attribute-sets="formal.object.properties"&gt;&lt;/xsl:attribute-set&gt;
+&lt;xsl:attribute-set name="table.properties" use-attribute-sets="formal.object.properties"&gt;
+  &lt;xsl:attribute name="keep-together.within-column"&gt;auto&lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
 </programlisting>
 </refsynopsisdiv>
 
@@ -9965,7 +10005,7 @@ problems.</para>
 </refmeta>
 <refnamediv>
 <refname>informalequation.properties</refname>
-<refpurpose>Properties associated with a informalequation</refpurpose>
+<refpurpose>Properties associated with an informalequation</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -10471,8 +10511,8 @@ one possibility.
 <reference xml:id="profiling"><title>Profiling</title>
 <partintro xml:id="profiling_partintro">
 <para>The following parameters can be used for attribute-based
-profiling of your document. FIXME: add link to profiling section
-in Bob&#8217;s book.</para>
+profiling of your document. For more information about profiling, see 
+<link xmlns:xlink="http://www.w3.org/1999/xlink" role="tcg" xlink:href="Profiling.html">Profiling (conditional text)</link>.</para>
 </partintro>
 <refentry version="5.0" xml:id="profile.arch">
 <refmeta>
@@ -11389,7 +11429,7 @@ around all these parameters.</para>
 &lt;!-- This file is generated from param.xweb --&gt;
 
 &lt;!-- ********************************************************************
-     $Id: param.xweb 7042 2007-07-17 04:28:48Z xmldoc $
+     $Id: param.xweb 7583 2007-12-03 17:02:33Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.

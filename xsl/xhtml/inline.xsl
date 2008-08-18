@@ -5,7 +5,7 @@
 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ext/com.nwalsh.saxon.UnwrapLinks" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xlink suwl d" version="1.0">
 
 <!-- ********************************************************************
-     $Id: inline.xsl 7232 2007-08-11 16:10:40Z mzjn $
+     $Id: inline.xsl 8014 2008-05-27 15:54:46Z abdelazer $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -18,9 +18,17 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
   <xsl:param name="content">
     <xsl:apply-templates/>
   </xsl:param>
-  <xsl:param name="a.target"/>
   <xsl:param name="linkend" select="$node/@linkend"/>
   <xsl:param name="xhref" select="$node/@xlink:href"/>
+
+  <!-- Support for @xlink:show -->
+  <xsl:variable name="target.show">
+    <xsl:choose>
+      <xsl:when test="$node/@xlink:show = 'new'">_blank</xsl:when>
+      <xsl:when test="$node/@xlink:show = 'replace'">_top</xsl:when>
+      <xsl:otherwise/>
+    </xsl:choose>
+  </xsl:variable>
 
   <xsl:variable name="link">
     <xsl:choose>
@@ -92,9 +100,9 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
                     </xsl:otherwise>
                   </xsl:choose>
 
-                  <xsl:if test="$a.target">
+                  <xsl:if test="$target.show !=''">
                     <xsl:attribute name="target">
-                      <xsl:value-of select="$a.target"/>
+                      <xsl:value-of select="$target.show"/>
                     </xsl:attribute>
                   </xsl:if>
 
@@ -123,6 +131,19 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
                   <xsl:value-of select="$node/@xlink:title"/>
                 </xsl:attribute>
               </xsl:if>
+
+	      <!-- For URIs, use @xlink:show if defined, otherwise use ulink.target -->
+	      <xsl:attribute name="target">
+		<xsl:choose>
+		  <xsl:when test="$target.show !=''">
+		    <xsl:value-of select="$target.show"/>
+		  </xsl:when>
+		  <xsl:otherwise>
+		  <xsl:value-of select="$ulink.target"/>
+		  </xsl:otherwise>
+		</xsl:choose>
+	      </xsl:attribute>
+	      
               <xsl:copy-of select="$content"/>
             </a>
           </xsl:otherwise>
@@ -697,7 +718,8 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 <xsl:template match="d:emphasis">
   <span>
     <xsl:choose>
-      <xsl:when test="@role and $emphasis.propagates.style != 0">
+      <!-- We don't want empty @class values, so do not propagate empty @roles -->
+      <xsl:when test="@role  and                       normalize-space(@role) != '' and                       $emphasis.propagates.style != 0">
         <xsl:apply-templates select="." mode="class.attribute">
           <xsl:with-param name="class" select="@role"/>
         </xsl:apply-templates>
@@ -755,7 +777,8 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
     <xsl:if test="@lang or @xml:lang">
       <xsl:call-template name="language.attribute"/>
     </xsl:if>
-    <xsl:if test="@role and $phrase.propagates.style != 0">
+    <!-- We don't want empty @class values, so do not propagate empty @roles -->
+    <xsl:if test="@role and                    normalize-space(@role) != '' and                   $phrase.propagates.style != 0">
       <xsl:apply-templates select="." mode="class.attribute">
         <xsl:with-param name="class" select="@role"/>
       </xsl:apply-templates>
@@ -1242,13 +1265,43 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
   </xsl:choose>
 </xsl:template>
 
+<xsl:template match="d:citebiblioid">
+  <xsl:variable name="targets" select="//*[d:biblioid = string(current())]"/>
+  <xsl:variable name="target" select="$targets[1]"/>
+
+  <xsl:choose>
+    <!-- try automatic linking based on match to parent of biblioid -->
+    <xsl:when test="$target and not(d:xref) and not(d:link)">
+
+      <xsl:text>[</xsl:text>
+      <a>
+        <xsl:apply-templates select="." mode="class.attribute"/>
+        <xsl:attribute name="href">
+          <xsl:call-template name="href.target">
+            <xsl:with-param name="object" select="$target"/>
+          </xsl:call-template>
+        </xsl:attribute>
+
+	<xsl:call-template name="inline.charseq"/>
+
+      </a>
+      <xsl:text>]</xsl:text>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:text>[</xsl:text>
+      <xsl:call-template name="inline.charseq"/>
+      <xsl:text>]</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 <xsl:template match="d:biblioentry|d:bibliomixed" mode="citation">
   <xsl:number from="d:bibliography" count="d:biblioentry|d:bibliomixed" level="any" format="1"/>
 </xsl:template>
 
 <!-- ==================================================================== -->
 
-<xsl:template match="d:comment[parent::d:answer|parent::d:appendix|parent::d:article|parent::d:bibliodiv|parent::d:bibliography|parent::d:blockquote|parent::d:caution|parent::d:chapter|parent::d:glossary|parent::d:glossdiv|parent::d:important|parent::d:index|parent::d:indexdiv|parent::d:listitem|parent::d:note|parent::d:orderedlist|parent::d:partintro|parent::d:preface|parent::d:procedure|parent::d:qandadiv|parent::d:qandaset|parent::d:question|parent::d:refentry|parent::d:refnamediv|parent::d:refsect1|parent::d:refsect2|parent::d:refsect3|parent::d:refsection|parent::d:refsynopsisdiv|parent::d:sect1|parent::d:sect2|parent::d:sect3|parent::d:sect4|parent::d:sect5|parent::d:section|parent::d:setindex|parent::d:sidebar|parent::d:simplesect|parent::d:taskprerequisites|parent::d:taskrelated|parent::d:tasksummary|parent::d:warning]|d:remark[parent::d:answer|parent::d:appendix|parent::d:article|parent::d:bibliodiv|parent::d:bibliography|parent::d:blockquote|parent::d:caution|parent::d:chapter|parent::d:glossary|parent::d:glossdiv|parent::d:important|parent::d:index|parent::d:indexdiv|parent::d:listitem|parent::d:note|parent::d:orderedlist|parent::d:partintro|parent::d:preface|parent::d:procedure|parent::d:qandadiv|parent::d:qandaset|parent::d:question|parent::d:refentry|parent::d:refnamediv|parent::d:refsect1|parent::d:refsect2|parent::d:refsect3|parent::d:refsection|parent::d:refsynopsisdiv|parent::d:sect1|parent::d:sect2|parent::d:sect3|parent::d:sect4|parent::d:sect5|parent::d:section|parent::d:setindex|parent::d:sidebar|parent::d:simplesect|parent::d:taskprerequisites|parent::d:taskrelated|parent::d:tasksummary|parent::d:warning]">
+<xsl:template match="d:comment[parent::d:answer|parent::d:appendix|parent::d:article|parent::d:bibliodiv|&#10;                                parent::d:bibliography|parent::d:blockquote|parent::d:caution|parent::d:chapter|&#10;                                parent::d:glossary|parent::d:glossdiv|parent::d:important|parent::d:index|&#10;                                parent::d:indexdiv|parent::d:listitem|parent::d:note|parent::d:orderedlist|&#10;                                parent::d:partintro|parent::d:preface|parent::d:procedure|parent::d:qandadiv|&#10;                                parent::d:qandaset|parent::d:question|parent::d:refentry|parent::d:refnamediv|&#10;                                parent::d:refsect1|parent::d:refsect2|parent::d:refsect3|parent::d:refsection|&#10;                                parent::d:refsynopsisdiv|parent::d:sect1|parent::d:sect2|parent::d:sect3|parent::d:sect4|&#10;                                parent::d:sect5|parent::d:section|parent::d:setindex|parent::d:sidebar|&#10;                                parent::d:simplesect|parent::d:taskprerequisites|parent::d:taskrelated|&#10;                                parent::d:tasksummary|parent::d:warning]|d:remark[parent::d:answer|parent::d:appendix|parent::d:article|parent::d:bibliodiv|&#10;                                parent::d:bibliography|parent::d:blockquote|parent::d:caution|parent::d:chapter|&#10;                                parent::d:glossary|parent::d:glossdiv|parent::d:important|parent::d:index|&#10;                                parent::d:indexdiv|parent::d:listitem|parent::d:note|parent::d:orderedlist|&#10;                                parent::d:partintro|parent::d:preface|parent::d:procedure|parent::d:qandadiv|&#10;                                parent::d:qandaset|parent::d:question|parent::d:refentry|parent::d:refnamediv|&#10;                                parent::d:refsect1|parent::d:refsect2|parent::d:refsect3|parent::d:refsection|&#10;                                parent::d:refsynopsisdiv|parent::d:sect1|parent::d:sect2|parent::d:sect3|parent::d:sect4|&#10;                                parent::d:sect5|parent::d:section|parent::d:setindex|parent::d:sidebar|&#10;                                parent::d:simplesect|parent::d:taskprerequisites|parent::d:taskrelated|&#10;                                parent::d:tasksummary|parent::d:warning]">
   <xsl:if test="$show.comments != 0">
     <p class="remark"><i><xsl:call-template name="inline.charseq"/></i></p>
   </xsl:if>

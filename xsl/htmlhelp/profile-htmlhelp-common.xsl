@@ -5,7 +5,7 @@
 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:exsl="http://exslt.org/common" xmlns:set="http://exslt.org/sets" xmlns:h="urn:x-hex" xmlns:ng="http://docbook.org/docbook-ng" xmlns:db="http://docbook.org/ns/docbook" xmlns:exslt="http://exslt.org/common" exslt:dummy="dummy" ng:dummy="dummy" db:dummy="dummy" extension-element-prefixes="exslt" version="1.0" exclude-result-prefixes="doc exsl set h db ng exslt d">
 
 <!-- ********************************************************************
-     $Id: htmlhelp-common.xsl 7244 2007-08-15 10:44:03Z mzjn $
+     $Id: htmlhelp-common.xsl 7427 2007-09-02 16:20:14Z mzjn $
      ******************************************************************** -->
 
 <!-- ==================================================================== -->
@@ -89,6 +89,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:exsl="http://exslt.org
       <xsl:call-template name="hhp-main"/>
     </xsl:with-param>
     <xsl:with-param name="encoding" select="$htmlhelp.encoding"/>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -476,6 +477,7 @@ Enhanced decompilation=</xsl:text>
       <xsl:call-template name="hhc-main"/>
     </xsl:with-param>
     <xsl:with-param name="encoding" select="$htmlhelp.encoding"/>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -815,10 +817,10 @@ Enhanced decompilation=</xsl:text>
 <xsl:if test="($htmlhelp.use.hhk != 0) and $htmlhelp.generate.index">
   <xsl:choose>
     <xsl:when test="$rootid != ''">
-      <xsl:apply-templates select="key('id',$rootid)" mode="hhk"/>
+      <xsl:apply-templates select="$profiled-nodes//*[@id=$rootid]" mode="hhk"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:apply-templates select="/" mode="hhk"/>
+      <xsl:apply-templates select="$profiled-nodes" mode="hhk"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:if>
@@ -826,6 +828,7 @@ Enhanced decompilation=</xsl:text>
 &lt;/BODY&gt;&lt;/HTML&gt;
 </xsl:text></xsl:with-param>
     <xsl:with-param name="encoding" select="$htmlhelp.encoding"/>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -937,14 +940,15 @@ Enhanced decompilation=</xsl:text>
     <xsl:with-param name="content">
      <xsl:choose>
        <xsl:when test="$rootid != ''">
-         <xsl:apply-templates select="key('id',$rootid)" mode="hh-map"/>
+         <xsl:apply-templates select="$profiled-nodes//*[@id=$rootid]" mode="hh-map"/>
        </xsl:when>
        <xsl:otherwise>
-         <xsl:apply-templates select="/" mode="hh-map"/>
+         <xsl:apply-templates select="$profiled-nodes" mode="hh-map"/>
        </xsl:otherwise>
      </xsl:choose>
     </xsl:with-param>
     <xsl:with-param name="encoding" select="$htmlhelp.encoding"/>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -985,14 +989,15 @@ Enhanced decompilation=</xsl:text>
     <xsl:with-param name="content">
      <xsl:choose>
        <xsl:when test="$rootid != ''">
-         <xsl:apply-templates select="key('id',$rootid)" mode="hh-alias"/>
+         <xsl:apply-templates select="$profiled-nodes//*[@id=$rootid]" mode="hh-alias"/>
        </xsl:when>
        <xsl:otherwise>
-         <xsl:apply-templates select="/" mode="hh-alias"/>
+         <xsl:apply-templates select="$profiled-nodes" mode="hh-alias"/>
        </xsl:otherwise>
      </xsl:choose>
     </xsl:with-param>
     <xsl:with-param name="encoding" select="$htmlhelp.encoding"/>
+    <xsl:with-param name="quiet" select="$chunk.quietly"/>
   </xsl:call-template>
 </xsl:template>
 

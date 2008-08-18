@@ -2,7 +2,7 @@
 
 <reference><info><title>FO Processing Instruction Reference</title>
     <releaseinfo role="meta">
-      $Id: pi.xsl 7240 2007-08-14 12:30:49Z mzjn $
+      $Id: pi.xsl 8012 2008-05-23 16:08:05Z mzjn $
     </releaseinfo>
   </info>
 
@@ -126,15 +126,15 @@
 
   </refsect1><refsect1 role="params"><title>Related Global Parameters</title>
     
-<para><parameter>sidebar.float.type parameter</parameter>,
-      <parameter>sidebar.float.width parameter</parameter>, 
-      <parameter>sidebar.properties attribute-set</parameter>,
-      <parameter>sidebar.title.properties</parameter>
+<para><parameter>sidebar.float.type</parameter> (parameter),
+      <parameter>sidebar.float.width</parameter> (parameter), 
+      <parameter>sidebar.properties</parameter> (attribute-set),
+      <parameter>sidebar.title.properties</parameter> (attribute-set)
     </para>
 
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
-<para><link xlink:href="SideFloats.html#SidebarFloats">A sidebar as
+<para><link role="tcg" xlink:href="SideFloats.html#SidebarFloats">A sidebar as
         side float</link></para>
 
   </refsect1></refentry>
@@ -179,7 +179,7 @@
 
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
-<para><link xlink:href="Glossaries.html#GlossaryFormatPrint">Glossary
+<para><link role="tcg" xlink:href="Glossaries.html#GlossaryFormatPrint">Glossary
         formatting in print</link></para>
 
   </refsect1></refentry>
@@ -224,7 +224,7 @@
 
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
-<para><link xlink:href="Glossaries.html#GlossaryFormatPrint">Glossary
+<para><link role="tcg" xlink:href="Glossaries.html#GlossaryFormatPrint">Glossary
         formatting in print</link></para>
 
   </refsect1></refentry>
@@ -267,7 +267,7 @@
 
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
-<para><link xlink:href="Glossaries.html#GlossaryFormatPrint">Glossary
+<para><link role="tcg" xlink:href="Glossaries.html#GlossaryFormatPrint">Glossary
         formatting in print</link></para>
 
   </refsect1></refentry>
@@ -276,7 +276,7 @@
 <refnamediv>
 <refname>dbfo_keep-together</refname>
 <refpurpose>Specifies “keep” behavior for a table, example,
-    figure, or equation</refpurpose>
+    figure, equation, procedure, or task</refpurpose>
 </refnamediv>
 <refsynopsisdiv>
 
@@ -287,9 +287,15 @@
     
 <para>Use the <tag class="xmlpi">dbfo keep-together</tag> PI as a child of a
       formal object (<tag>table</tag>, <tag>example</tag>,
-      <tag>figure</tag>, or <tag>equation</tag>) or their informal
-      equivalents) to specify “keep” behavior for the object (to
-      allow the object to “break” across a page).</para>
+      <tag>figure</tag>, <tag>equation</tag>, <tag>procedure</tag>, or
+      <tag>task</tag>) to specify “keep” behavior (to allow the object to 
+    “break” across a page).</para>
+
+    
+<para>The PI also works with <tag>informaltable</tag>, <tag>informalexample</tag>,
+      <tag>informalfigure</tag> and <tag>informalequation</tag>.
+    </para>
+
 
   </refsect1><refsect1><title>Parameters</title>
     
@@ -317,14 +323,15 @@
 
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
-<para><link xlink:href="PageBreaking.html#KeepTogetherPI">Keep-together processing instruction</link></para>
+<para><link role="tcg" xlink:href="PageBreaking.html#KeepTogetherPI">Keep-together processing instruction</link></para>
 
   </refsect1></refentry>
 
 <refentry xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="dbfo_label-width">
 <refnamediv>
 <refname>dbfo_label-width</refname>
-<refpurpose>Specifies the label width for a qandaset</refpurpose>
+<refpurpose>Specifies the label width for a qandaset, itemizedlist, orderedlist
+  or calloutlist</refpurpose>
 </refnamediv>
 <refsynopsisdiv>
 
@@ -334,7 +341,8 @@
 <refsect1><title/>
     
 <para>Use the <tag class="xmlpi">dbfo label-width</tag> PI as a child of a
-      <tag>qandaset</tag> to specify the width of labels.</para>
+      <tag>qandaset</tag>, <tag>itemizedlist</tag>, <tag>orderedlist</tag>, 
+      or <tag>calloutlist</tag> to specify the width of labels.</para>
 
   </refsect1><refsect1><title>Parameters</title>
     
@@ -712,7 +720,7 @@
 
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
-<para><link xlink:href="SideFloats.html#SidebarFloats">A sidebar as
+<para><link role="tcg" xlink:href="SideFloats.html#SidebarFloats">A sidebar as
         side float</link></para>
 
   </refsect1></refentry>

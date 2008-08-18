@@ -6,7 +6,7 @@
 <!-- * do not submit an edited version of this file. Instead, submit an -->
 <!-- * edited version of the source file at the following location: -->
 <!-- * -->
-<!-- *  https://svn.sourceforge.net/svnroot/docbook/trunk/gentext/locale/ja.xml -->
+<!-- *  https://docbook.svn.sourceforge.net/svnroot/docbook/trunk/gentext/locale/ja.xml -->
 <!-- * -->
 <!-- * E-mail the edited ja.xml source file to: -->
 <!-- * -->
@@ -217,7 +217,7 @@
 </l:context>
 <l:context name="title"><l:template name="abstract" text="%t"/>
 <l:template name="answer" text="%t"/>
-<l:template name="appendix" text="付録 %n. %t"/>
+<l:template name="appendix" text="付録%n %t"/>
 <l:template name="article" text="%t"/>
 <l:template name="authorblurb" text="%t"/>
 <l:template name="bibliodiv" text="%t"/>
@@ -231,12 +231,12 @@
 <l:template name="book" text="%t"/>
 <l:template name="calloutlist" text="%t"/>
 <l:template name="caution" text="%t"/>
-<l:template name="chapter" text="第%n章 %t"/>
+<l:template name="chapter" text="第%n章%t"/>
 <l:template name="colophon" text="%t"/>
 <l:template name="dedication" text="%t"/>
-<l:template name="equation" text="式 %n. %t"/>
-<l:template name="example" text="例 %n. %t"/>
-<l:template name="figure" text="図 %n. %t"/>
+<l:template name="equation" text="式%n %t"/>
+<l:template name="example" text="例%n %t"/>
+<l:template name="figure" text="図%n %t"/>
 <l:template name="foil" text="%t" lang="en"/>
 <l:template name="foilgroup" text="%t" lang="en"/>
 <l:template name="formalpara" text="%t"/>
@@ -259,11 +259,11 @@
 <l:template name="msgsub" text="%t"/>
 <l:template name="note" text="%t"/>
 <l:template name="orderedlist" text="%t"/>
-<l:template name="part" text="パート %n. %t"/>
+<l:template name="part" text="パート%n %t"/>
 <l:template name="partintro" text="%t"/>
 <l:template name="preface" text="%t"/>
 <l:template name="procedure" text="%t"/>
-<l:template name="procedure.formal" text="手順 %n. %t"/>
+<l:template name="procedure.formal" text="手順%n %t"/>
 <l:template name="productionset" text="%t"/>
 <l:template name="productionset.formal" text="プロダクション %n"/>
 <l:template name="qandadiv" text="%t"/>
@@ -283,7 +283,7 @@
 <l:template name="setindex" text="%t"/>
 <l:template name="sidebar" text="%t"/>
 <l:template name="step" text="%t"/>
-<l:template name="table" text="表 %n. %t"/>
+<l:template name="table" text="表%n %t"/>
 <l:template name="task" text="%t" lang="en"/>
 <l:template name="tasksummary" text="%t" lang="en"/>
 <l:template name="taskprerequisites" text="%t" lang="en"/>
@@ -307,9 +307,9 @@
 <l:template name="simplesect" text="%t"/>
 <l:template name="part" text="%t" lang="en"/>
 </l:context>
-<l:context name="title-numbered"><l:template name="appendix" text="付録 %n. %t"/>
+<l:context name="title-numbered"><l:template name="appendix" text="付録%n %t"/>
 <l:template name="article/appendix" text="%n. %t" lang="en"/>
-<l:template name="bridgehead" text="%n. %t"/>
+<l:template name="bridgehead" text="%n %t"/>
 <l:template name="chapter" text="第%n章 %t"/>
 <l:template name="part" text="パート %n. %t"/>
 <l:template name="sect1" text="%n. %t"/>
@@ -429,18 +429,18 @@
 <l:template name="docnamelong" text=" in the document titled %o" lang="en"/>
 <l:template name="pageabbrev" text="(p. %p)" lang="en"/>
 <l:template name="Page" text="Page %p" lang="en"/>
-<l:template name="bridgehead" text="%t項"/>
-<l:template name="refsection" text="%t項"/>
-<l:template name="refsect1" text="%t項"/>
-<l:template name="refsect2" text="%t項"/>
-<l:template name="refsect3" text="%t項"/>
-<l:template name="sect1" text="%t項"/>
-<l:template name="sect2" text="%t項"/>
-<l:template name="sect3" text="%t項"/>
-<l:template name="sect4" text="%t項"/>
-<l:template name="sect5" text="%t項"/>
-<l:template name="section" text="%t項"/>
-<l:template name="simplesect" text="%t項"/>
+<l:template name="bridgehead" text="「%t」"/>
+<l:template name="refsection" text="「%t」"/>
+<l:template name="refsect1" text="「%t」"/>
+<l:template name="refsect2" text="「%t」t"/>
+<l:template name="refsect3" text="「%t」"/>
+<l:template name="sect1" text="「%t」"/>
+<l:template name="sect2" text="「%t」"/>
+<l:template name="sect3" text="「%t」"/>
+<l:template name="sect4" text="「%t」"/>
+<l:template name="sect5" text="「%t」"/>
+<l:template name="section" text="「%t」"/>
+<l:template name="simplesect" text="「%t」"/>
 </l:context>
 <l:context name="xref-number"><l:template name="answer" text="答： %n"/>
 <l:template name="appendix" text="付録%n"/>
@@ -455,43 +455,43 @@
 <l:template name="qandadiv" text="問：、答： %n"/>
 <l:template name="qandaentry" text="問： %n"/>
 <l:template name="question" text="問： %n"/>
-<l:template name="sect1" text="項%n"/>
-<l:template name="sect2" text="項%n"/>
-<l:template name="sect3" text="項%n"/>
-<l:template name="sect4" text="項%n"/>
-<l:template name="sect5" text="項%n"/>
-<l:template name="section" text="項%n"/>
+<l:template name="sect1" text="%n"/>
+<l:template name="sect2" text="%n"/>
+<l:template name="sect3" text="%n"/>
+<l:template name="sect4" text="%n"/>
+<l:template name="sect5" text="%n"/>
+<l:template name="section" text="%n"/>
 <l:template name="table" text="表 %n"/>
 </l:context>
-<l:context name="xref-number-and-title"><l:template name="appendix" text="付録 %n. %t"/>
-<l:template name="bridgehead" text="項 %n. 「%t」"/>
-<l:template name="chapter" text="第%n章"/>
-<l:template name="equation" text="式 %n. 「%t」"/>
-<l:template name="example" text="例 %n. 「%t」"/>
-<l:template name="figure" text="図 %n. 「%t」"/>
-<l:template name="part" text="パート %n. 「%t」"/>
-<l:template name="procedure" text="手順 %n. 「%t」"/>
-<l:template name="productionset" text="プロダクション %n. 「%t」"/>
-<l:template name="qandadiv" text="問：、答： %n. 「%t」"/>
+<l:context name="xref-number-and-title"><l:template name="appendix" text="付録%n %t"/>
+<l:template name="bridgehead" text="%n項「%t」"/>
+<l:template name="chapter" text="%n章%t"/>
+<l:template name="equation" text="式%n「%t」"/>
+<l:template name="example" text="例%n「%t」"/>
+<l:template name="figure" text="図%n「%t」"/>
+<l:template name="part" text="パート%n「%t」"/>
+<l:template name="procedure" text="手順%n「%t」"/>
+<l:template name="productionset" text="プロダクション%n「%t」"/>
+<l:template name="qandadiv" text="問：、答：%n「%t」"/>
 <l:template name="refsect1" text="「%t」"/>
 <l:template name="refsect2" text="「%t」"/>
 <l:template name="refsect3" text="「%t」"/>
 <l:template name="refsection" text="「%t」"/>
-<l:template name="sect1" text="項%n. 「%t」"/>
-<l:template name="sect2" text="項%n. 「%t」"/>
-<l:template name="sect3" text="項%n. 「%t」"/>
-<l:template name="sect4" text="項%n. 「%t」"/>
-<l:template name="sect5" text="項%n. 「%t」"/>
-<l:template name="section" text="項%n. 「%t」"/>
+<l:template name="sect1" text="「%t」"/>
+<l:template name="sect2" text="「%t」"/>
+<l:template name="sect3" text="「%t」"/>
+<l:template name="sect4" text="「%t」"/>
+<l:template name="sect5" text="「%t」"/>
+<l:template name="section" text="「%t」"/>
 <l:template name="simplesect" text="「%t」"/>
-<l:template name="table" text="表 %n. 「%t」"/>
+<l:template name="table" text="表%n「%t」"/>
 </l:context>
 <l:context name="authorgroup"><l:template name="sep" text=", "/>
 <l:template name="sep2" text=" 、 "/>
 <l:template name="seplast" text=", 、 "/>
 </l:context>
-<l:context name="glossary"><l:template name="see" text="参照 %t"/>
-<l:template name="seealso" text="参照 %t"/>
+<l:context name="glossary"><l:template name="see" text="%t参照"/>
+<l:template name="seealso" text="%t参照"/>
 </l:context>
 <l:context name="msgset"><l:template name="MsgAud" text="対象者: "/>
 <l:template name="MsgLevel" text="レベル: "/>

@@ -5,7 +5,7 @@
 version="1.0">
 
 <!-- ********************************************************************
-     $Id: param.xweb 7098 2007-07-20 14:59:23Z mzjn $
+     $Id: param.xweb 7679 2008-02-17 13:26:47Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -154,7 +154,6 @@ task before
 </xsl:param>
 <xsl:param name="funcsynopsis.decoration" select="1"/>
 <xsl:param name="funcsynopsis.style">kr</xsl:param>
-<xsl:param name="funcsynopsis.tabular.threshold">40</xsl:param>
 <xsl:param name="function.parens" select="0"/>
 <xsl:param name="generate.id.attributes" select="0"/>
 <xsl:param name="generate.index" select="1"/>

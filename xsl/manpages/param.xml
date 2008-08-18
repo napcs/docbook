@@ -3,7 +3,7 @@
   <info>
     <title>Manpages Parameter Reference</title>
     <releaseinfo role="meta">
-      $Id: param.xweb 7112 2007-07-22 12:19:19Z xmldoc $
+      $Id: param.xweb 7885 2008-03-09 13:33:45Z xmldoc $
     </releaseinfo>
     <author>
       <orgname>The DocBook Project</orgname>
@@ -551,6 +551,65 @@ should be a valid roff font name, such as <literal>B</literal> or
 </refsection>
 </refentry>
 
+<refentry version="5.0" xml:id="man.font.links">
+<refmeta>
+<refentrytitle>man.font.links</refentrytitle>
+<refmiscinfo class="other" otherclass="datatype">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>man.font.links</refname>
+<refpurpose>Specifies font for links</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting xml:id="man.font.links.frag">
+&lt;xsl:param name="man.font.links"&gt;B&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsection><info><title>Description</title></info>
+
+<para>The <parameter>man.font.links</parameter> parameter
+specifies the font for output of links (<tag>ulink</tag> instances
+and any instances of any element with an <tag class="attribute">xlink:href</tag> attribute).</para>
+
+<para>The value of <parameter>man.font.links</parameter> must be
+  either <literal>B</literal> or <literal>I</literal>, or empty. If
+the value is empty, no font formatting is applied to links.</para>
+
+<para>If you set <parameter>man.endnotes.are.numbered</parameter> and/or
+<parameter>man.endnotes.list.enabled</parameter> to zero (disabled), then
+you should probably also set an empty value for
+<parameter>man.font.links</parameter>. But if
+<parameter>man.endnotes.are.numbered</parameter> is non-zero (enabled),
+you should probably keep
+<parameter>man.font.links</parameter> set to
+<literal>B</literal> or <literal>I</literal><footnote><para>The
+    main purpose of applying a font format to links in most output
+formats it to indicate that the formatted text is
+&#8220;clickable&#8221;; given that links rendered in man pages are
+not &#8220;real&#8221; hyperlinks that users can click on, it might
+seem like there is never a good reason to have font formatting for
+link contents in man output.</para>
+<para>In fact, if you suppress the
+display of inline link references (by setting
+<parameter>man.endnotes.are.numbered</parameter> to zero), there is no
+good reason to apply font formatting to links. However, if
+<parameter>man.endnotes.are.numbered</parameter> is non-zero, having
+font formatting for links (arguably) serves a purpose: It provides
+&#8220;context&#8221; information about exactly what part of the text
+is being &#8220;annotated&#8221; by the link. Depending on how you
+mark up your content, that context information may or may not
+have value.</para></footnote>.</para>
+</refsection>
+
+<refsection><info><title>Related Parameters</title></info>
+  <para><parameter>man.endnotes.list.enabled</parameter>,
+    <parameter>man.endnotes.are.numbered</parameter></para>
+</refsection>
+
+</refentry>
+
 <refentry version="5.0" xml:id="man.font.table.headings">
 <refmeta>
 <refentrytitle>man.font.table.headings</refentrytitle>
@@ -600,6 +659,31 @@ specifies the font for <tag>table</tag> titles. It should be
 a valid roff font, such as <literal>B</literal> or
 <literal>I</literal>.</para>
 
+</refsection>
+</refentry>
+
+  </reference>
+  <reference xml:id="synopsis">
+  <title>SYNOPSIS section</title>
+<refentry version="5.0" xml:id="man.funcsynopsis.style">
+<refmeta>
+<refentrytitle>man.funcsynopsis.style</refentrytitle>
+<refmiscinfo class="other" otherclass="datatype">list</refmiscinfo>
+<refmiscinfo class="other" otherclass="value">ansi</refmiscinfo>
+<refmiscinfo class="other" otherclass="value">kr</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>man.funcsynopsis.style</refname>
+<refpurpose>What style of <tag>funcsynopsis</tag> should be generated?</refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+<programlisting xml:id="man.funcsynopsis.style.frag">&lt;xsl:param name="man.funcsynopsis.style"&gt;ansi&lt;/xsl:param&gt;</programlisting>
+</refsynopsisdiv>
+<refsection><info><title>Description</title></info>
+<para>If <parameter>man.funcsynopsis.style</parameter> is
+<literal>ansi</literal>, ANSI-style function synopses are
+generated for a <tag>funcsynopsis</tag>, otherwise K&amp;R-style
+function synopses are generated.</para>
 </refsection>
 </refentry>
 
@@ -744,11 +828,11 @@ if a (numbered) list of endnotes is also generated.</para>
     recognizing URLs and can, for example, present users with
     an options to open a URL in a browser with the user clicks on
     the URL is a terminal window. And short of those, users with X
-    terminals can always manualy cut and paste the URLs into a web
+    terminals can always manually cut and paste the URLs into a web
     browser.</para>
   <para>Also, note that various &#8220;man to html&#8221; tools, such as the
     widely used <command><link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://users.actrix.gen.nz/michael/vhman2html.html">man2html</link></command> (<literal>VH-Man2html</literal>)
-  application, automatically mark up URLs with into a@href markup
+    application, automatically mark up URLs with <literal>a@href</literal> markup
   during conversion &#8212; resulting in &#8220;real&#8221; hyperlinks in HTML
   output from those tools.</para>
 </note>
@@ -866,13 +950,13 @@ an &#8220;empty&#8221; notesource is on that looks like this:<literallayout clas
 </itemizedlist>
 The default heading for the list of endnotes is
 <literal>NOTES</literal>. To output a different heading, set a value
-for the <parameter>man.links.section.heading</parameter>
+for the <parameter>man.endnotes.section.heading</parameter>
 parameter.</para>
 
 <note>
   <para>The endnotes list is also displayed (but without
     numbers) if the value of
-    <parameter>man.links.list.enabled</parameter> is
+    <parameter>man.endnotes.list.enabled</parameter> is
     non-zero.</para>
 </note>
 
@@ -918,63 +1002,83 @@ parameter. Empty links are handled simply by displaying their URLs
 inline. Empty links are never auto-numbered.</para>
 
 <para>If you disable endnotes numbering, you should probably also set
-<parameter>man.links.are.underlined</parameter> to zero (to disable
-link underlining).</para>
+<parameter>man.font.links</parameter> to an empty value (to
+disable font formatting for links.</para>
+</refsection>
+
+<refsection><info><title>Related Parameters</title></info>
+  <para><parameter>man.endnotes.list.enabled</parameter>,
+    <parameter>man.font.links</parameter></para>
 </refsection>
 </refentry>
 
-<refentry version="5.0" xml:id="man.links.are.underlined">
-<refmeta>
-<refentrytitle>man.links.are.underlined</refentrytitle>
-<refmiscinfo class="other" otherclass="datatype">boolean</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>man.links.are.underlined</refname>
-<refpurpose>Underline links?</refpurpose>
-</refnamediv>
+<refentry version="5.0" xml:id="man.base.url.for.relative.links">
+  <refmeta>
+    <refentrytitle>man.base.url.for.relative.links</refentrytitle>
+    <refmiscinfo class="other" otherclass="datatype">string</refmiscinfo>
+  </refmeta>
+  <refnamediv>
+    <refname>man.base.url.for.relative.links</refname>
+    <refpurpose>Specifies a base URL for relative links</refpurpose>
+  </refnamediv>
 
-<refsynopsisdiv>
-<programlisting xml:id="man.links.are.underlined.frag">
-&lt;xsl:param name="man.links.are.underlined"&gt;1&lt;/xsl:param&gt;
-</programlisting>
-</refsynopsisdiv>
+  <refsynopsisdiv>
+    <programlisting xml:id="man.base.url.for.relative.links.frag">&lt;xsl:param name="man.base.url.for.relative.links"&gt;[set $man.base.url.for.relative.links]/&lt;/xsl:param&gt;</programlisting>
+  </refsynopsisdiv>
 
-<refsection><info><title>Description</title></info>
+  <refsection><info><title>Description</title></info>
 
-<para>If the value of <parameter>man.links.are.underlined</parameter>
-is non-zero (the default), then the contents of links are rendered
-with an underline.</para>
+    <para>For any &#8220;notesource&#8221; listed in the auto-generated
+      &#8220;NOTES&#8221; section of output man pages (which is generated when
+      the value of the
+      <parameter>man.endnotes.list.enabled</parameter> parameter
+      is non-zero), if the notesource is a link source with a
+      relative URI, the URI is displayed in output with the value
+      of the
+      <parameter>man.base.url.for.relative.links</parameter>
+      parameter prepended to the value of the link URI.</para>
 
-<para>If the value of <parameter>man.links.are.underlined</parameter>
-is zero, links are displayed without any underlining.</para>
+    <note>
+      <para>A link source is an notesource that references an
+        external resource:
+        <itemizedlist>
+          <listitem>
+            <para>a <tag>ulink</tag> element with a <tag class="attribute">url</tag> attribute</para>
+          </listitem>
+          <listitem>
+            <para>any element with an <tag class="attribute">xlink:href</tag> attribute</para>
+          </listitem>
+          <listitem>
+            <para>an <tag>imagedata</tag>, <tag>audiodata</tag>, or
+              <tag>videodata</tag> element</para>
+          </listitem>
+        </itemizedlist>
+      </para>
+    </note>
 
-<note>
-  <para>Currently, this parameter only affects output for
-  <tag>ulink</tag>s.</para>
-</note>
+    <para>If you use relative URIs in link sources in your DocBook
+      <tag>refentry</tag> source, and you leave
+      <parameter>man.base.url.for.relative.links</parameter>
+      unset, the relative links will appear &#8220;as is&#8221; in the &#8220;Notes&#8221;
+      section of any man-page output generated from your source.
+      That&#8217;s probably not what you want, because such relative
+      links are only usable in the context of HTML output. So, to
+      make the links meaningful and usable in the context of
+      man-page output, set a value for
+      <parameter>man.base.url.for.relative.links</parameter> that
+      points to the online version of HTML output generated from
+      your DocBook <tag>refentry</tag> source. For
+      example:
+      <programlisting>&lt;xsl:param name="man.base.url.for.relative.links"
+        &gt;http://www.kernel.org/pub/software/scm/git/docs/&lt;/xsl:param&gt;</programlisting>
+    </para>
 
-<para>If you set <parameter>man.links.are.numbered</parameter> and/or
-<parameter>man.links.list.enabled</parameter> to zero (disabled), then
-you should probably also set
-<parameter>man.links.are.underlined</parameter> to zero. But if
-<parameter>man.links.are.numbered</parameter> is non-zero (enabled),
-you should probably set a non-zero value for
-<parameter>man.links.are.underlined</parameter> also<footnote><para>If the main purpose of underlining of links in most output
-formats it to indicate that the underlined text is
-&#8220;clickable&#8221;, given that links rendered in man pages are
-not &#8220;real&#8221; hyperlinks that users can click on, it might
-seem like there is never a good reason to have link contents
-underlined in man output.</para> <para>In fact, if you suppress the
-display of inline link references (by setting
-<parameter>man.links.are.numbered</parameter> to zero), there is no
-good reason to have links underlined. However, if
-<parameter>man.links.are.numbered</parameter> is non-zero, having
-links underlined may (arguably) serve a purpose: It provides
-&#8220;context&#8221; information about exactly what part of the text
-is being &#8220;annotated&#8221; by the link. Depending on how you
-mark up your content, that context information may or may not
-have value.</para></footnote>.</para>
-</refsection>
+  </refsection>
+
+  <refsection><info><title>Related Parameters</title></info>
+    <para><parameter>man.endnotes.list.enabled</parameter></para>
+  </refsection>
+
 </refentry>
 
   </reference>
@@ -1048,9 +1152,11 @@ parameter to specify a URI for the location for an alternate roff
 character map to use in place of the standard roff character map
 provided in the distribution.</para>
 
-<para>You can also use a subset of a character map. For details, see
-the <parameter>man.charmap.use.subset</parameter> and
-<parameter>man.charmap.subset.profile</parameter> parameters.</para>
+<para>You can also use a subset of a character map. For details,
+see the <parameter>man.charmap.use.subset</parameter>,
+<parameter>man.charmap.subset.profile</parameter>, and
+<parameter>man.charmap.subset.profile.english</parameter>
+parameters.</para>
 
 </refsection>
 </refsection>
@@ -1115,8 +1221,12 @@ standard one provided in the distribution.</para>
 <para>If the value of the
 <parameter>man.charmap.use.subset</parameter> parameter is non-zero,
 a subset of the roff character map is used instead of the full roff
-character map. The profile of the subset used is specified by the
-<parameter>man.charmap.subset.profile</parameter> parameter.</para>
+character map. The profile of the subset used is determined either
+by the value of the
+<parameter>man.charmap.subset.profile</parameter>
+parameter (if the source is not in English) or the
+<parameter>man.charmap.subset.profile.english</parameter>
+parameter (if the source is in English).</para>
 
 <note>
   <para>You may want to experiment with setting a non-zero value of
@@ -1158,8 +1268,9 @@ provided in the distribution.</para>
 never necessary to use it in full -- the DocBook XSL Stylesheets
 support a mechanism for using, within any given character map, a
 subset of character mappings instead of the full set. You can use the
-<parameter>man.charmap.subset.profile</parameter> parameter to tune
-the profile of that subset to use.</para>
+<parameter>man.charmap.subset.profile</parameter> or
+<parameter>man.charmap.subset.profile.english</parameter>
+parameter to tune the profile of that subset to use.</para>
 
 </refsection>
 </refsection>
@@ -1180,8 +1291,11 @@ the profile of that subset to use.</para>
 &lt;xsl:param name="man.charmap.subset.profile"&gt;
 @*[local-name() = 'block'] = 'Miscellaneous Technical' or
 (@*[local-name() = 'block'] = 'C1 Controls And Latin-1 Supplement (Latin-1 Supplement)' and
- @*[local-name() = 'class'] = 'symbols'
+ (@*[local-name() = 'class'] = 'symbols' or
+  @*[local-name() = 'class'] = 'letters')
 ) or
+@*[local-name() = 'block'] = 'Latin Extended-A'
+or
 (@*[local-name() = 'block'] = 'General Punctuation' and
  (@*[local-name() = 'class'] = 'spaces' or
   @*[local-name() = 'class'] = 'dashes' or
@@ -1202,13 +1316,32 @@ the profile of that subset to use.</para>
 
 <para>If the value of the
 <parameter>man.charmap.use.subset</parameter> parameter is non-zero,
-The character-map subset specified by the
-<parameter>man.charmap.subset.profile</parameter> parameter is used
-instead of the full roff character map.</para>
+and your DocBook source is not written in English (that
+  is, if the <tag class="attribute">lang</tag> or <tag class="attribute">xml:lang</tag> attribute on the root element
+  in your DocBook source or on the first <tag>refentry</tag>
+  element in your source has a value other than
+  <literal>en</literal>), then the character-map subset specified
+  by the <parameter>man.charmap.subset.profile</parameter>
+  parameter is used instead of the full roff character map.</para>
+
+<para>Otherwise, if the <tag class="attribute">lang</tag> or <tag class="attribute">xml:lang</tag> attribute on the root
+  element in your DocBook
+  source or on the first <tag>refentry</tag> element in your source
+  has the value <literal>en</literal> or if it has no <tag class="attribute">lang</tag> or <tag class="attribute">xml:lang</tag> attribute, then the character-map
+  subset specified by the
+  <parameter>man.charmap.subset.profile.english</parameter>
+  parameter is used instead of
+  <parameter>man.charmap.subset.profile</parameter>.</para>
+
+<para>The difference between the two subsets is that
+  <parameter>man.charmap.subset.profile</parameter> provides
+  mappings for characters in Western European languages that are
+  not part of the Roman (English) alphabet (ASCII character set).</para>
 
 <para>The value of <parameter>man.charmap.subset.profile</parameter>
-is a string representating an XPath expression that matches attribute
-names and values for <tag namespace="http://docbook.sf.net/xmlns/unichar/1.0">output-character</tag> elements in the character map.</para>
+is a string representing an XPath expression that matches attribute
+names and values for <tag namespace="http://docbook.sf.net/xmlns/unichar/1.0">output-character</tag>
+elements in the character map.</para>
 
 <para>The attributes supported in the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://docbook.sourceforge.net/snapshot/xsl/manpages/charmap.groff.xsl">standard roff character map included in the distribution</link> are:
 <variablelist>
@@ -1260,7 +1393,7 @@ names and values for <tag namespace="http://docbook.sf.net/xmlns/unichar/1.0">ou
   <varlistentry>
     <term>string</term>
     <listitem>
-      <simpara>a string representating an roff/groff escape-code (with
+      <simpara>a string representing an roff/groff escape-code (with
       "@esc@" used in place of the backslash), or a simple ASCII
       string; all characters in the roff character map have this
       attribute</simpara>
@@ -1283,7 +1416,7 @@ characters to be converted into roff markup. </para>
 <note>
 <para>Depending on which XSLT engine you use, either the EXSLT
 <function>dyn:evaluate</function> extension function (for xsltproc or
-Xalan) or <function>saxon:evaluate</function> extensio function (for
+Xalan) or <function>saxon:evaluate</function> extension function (for
 Saxon) are used to dynamically evaluate the value of
 <parameter>man.charmap.subset.profile</parameter> at run-time. If you
 don't use xsltproc, Saxon, Xalan -- or some other XSLT engine that
@@ -1431,6 +1564,77 @@ and add any of the supported Unicode block names to the value of
 </refsection>
 </refentry>
 
+<refentry version="5.0" xml:id="man.charmap.subset.profile.english">
+<refmeta>
+<refentrytitle>man.charmap.subset.profile.english</refentrytitle>
+<refmiscinfo class="other" otherclass="datatype">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>man.charmap.subset.profile.english</refname>
+<refpurpose>Profile of character map subset</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting xml:id="man.charmap.subset.profile.english.frag">
+&lt;xsl:param name="man.charmap.subset.profile.english"&gt;
+@*[local-name() = 'block'] = 'Miscellaneous Technical' or
+(@*[local-name() = 'block'] = 'C1 Controls And Latin-1 Supplement (Latin-1 Supplement)' and
+ @*[local-name() = 'class'] = 'symbols')
+or
+(@*[local-name() = 'block'] = 'General Punctuation' and
+ (@*[local-name() = 'class'] = 'spaces' or
+  @*[local-name() = 'class'] = 'dashes' or
+  @*[local-name() = 'class'] = 'quotes' or
+  @*[local-name() = 'class'] = 'bullets'
+ )
+) or
+@*[local-name() = 'name'] = 'HORIZONTAL ELLIPSIS' or
+@*[local-name() = 'name'] = 'WORD JOINER' or
+@*[local-name() = 'name'] = 'SERVICE MARK' or
+@*[local-name() = 'name'] = 'TRADE MARK SIGN' or
+@*[local-name() = 'name'] = 'ZERO WIDTH NO-BREAK SPACE'
+&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsection><info><title>Description</title></info>
+
+<para>If the value of the
+  <parameter>man.charmap.use.subset</parameter> parameter is
+  non-zero, and your DocBook source is written in English (that
+  is, if its <tag class="attribute">lang</tag> or <tag class="attribute">xml:lang</tag> attribute on the root element
+  in your DocBook source or on the first <tag>refentry</tag>
+  element in your source has the value <literal>en</literal> or if
+  it has no <tag class="attribute">lang</tag> or <tag class="attribute">xml:lang</tag> attribute), then the
+  character-map subset specified by the
+  <parameter>man.charmap.subset.profile.english</parameter>
+  parameter is used instead of the full roff character map.</para>
+
+<para>Otherwise, if the <tag class="attribute">lang</tag> or <tag class="attribute">xml:lang</tag> attribute
+  on the root element in your DocBook source or on the first
+  <tag>refentry</tag> element in your source has a value other
+  than <literal>en</literal>, then the character-map subset
+  specified by the
+  <parameter>man.charmap.subset.profile</parameter> parameter is
+  used instead of
+  <parameter>man.charmap.subset.profile.english</parameter>.</para>
+
+<para>The difference between the two subsets is that
+  <parameter>man.charmap.subset.profile</parameter> provides
+  mappings for characters in Western European languages that are
+  not part of the Roman (English) alphabet (ASCII character set).</para>
+
+<para>The value of <parameter>man.charmap.subset.profile.english</parameter>
+is a string representing an XPath expression that matches attribute
+names and values for <tag namespace="http://docbook.sf.net/xmlns/unichar/1.0">output-character</tag> elements in the character map.</para>
+
+<para>For other details, see the documentation for the
+<parameter>man.charmap.subset.profile.english</parameter> and
+<parameter>man.charmap.use.subset</parameter> parameters.</para>
+
+</refsection>
+</refentry>
+
 <refentry version="5.0" xml:id="man.string.subst.map.local.pre">
 <refmeta>
 <refentrytitle>man.string.subst.map.local.pre</refentrytitle>
@@ -1491,6 +1695,9 @@ parameter.</para>
   &lt;ss:substitution oldstring=".sp
 .PP" newstring=".PP"&gt;&lt;/ss:substitution&gt;
   &lt;!-- * remove any .sp instances that directly follow a .PP  --&gt;
+  &lt;ss:substitution oldstring=".sp
+.sp" newstring=".sp"&gt;&lt;/ss:substitution&gt;
+  &lt;!-- * squeeze multiple .sp instances into a single .sp--&gt;
   &lt;ss:substitution oldstring=".PP
 .sp" newstring=".PP"&gt;&lt;/ss:substitution&gt;
   &lt;!-- * squeeze multiple newlines after start of no-fill (verbatim) env. --&gt;
@@ -2179,7 +2386,7 @@ meanings in this context. For details, see the documentation for the
 <refsynopsisdiv>
 <programlisting xml:id="refentry.manual.fallback.profile.frag">
 &lt;xsl:param name="refentry.manual.fallback.profile"&gt;
-refmeta/refmiscinfo[1]/node()&lt;/xsl:param&gt;
+refmeta/refmiscinfo[not(@class = 'date')][1]/node()&lt;/xsl:param&gt;
 </programlisting>
 </refsynopsisdiv>
 
@@ -2223,7 +2430,7 @@ parameter.</para>
 <refsynopsisdiv>
 <programlisting xml:id="refentry.source.fallback.profile.frag">
 &lt;xsl:param name="refentry.source.fallback.profile"&gt;
-refmeta/refmiscinfo[1]/node()&lt;/xsl:param&gt;
+refmeta/refmiscinfo[not(@class = 'date')][1]/node()&lt;/xsl:param&gt;
 </programlisting>
 </refsynopsisdiv>
 
@@ -2877,7 +3084,7 @@ simply for the purpose of increasing reability of the source.</para>
 &lt;!-- This file is generated from param.xweb --&gt;
 
 &lt;!-- ********************************************************************
-     $Id: param.xweb 7112 2007-07-22 12:19:19Z xmldoc $
+     $Id: param.xweb 7885 2008-03-09 13:33:45Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -2888,8 +3095,10 @@ simply for the purpose of increasing reability of the source.</para>
 
 &lt;src:fragref linkend="man.authors.section.enabled.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.break.after.slash.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="man.base.url.for.relative.links.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.charmap.enabled.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.charmap.subset.profile.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="man.charmap.subset.profile.english.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.charmap.uri.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.charmap.use.subset.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.copyright.section.enabled.frag"&gt;&lt;/src:fragref&gt;
@@ -2898,8 +3107,10 @@ simply for the purpose of increasing reability of the source.</para>
 &lt;src:fragref linkend="man.endnotes.list.heading.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.font.funcprototype.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.font.funcsynopsisinfo.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="man.font.links.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.font.table.headings.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.font.table.title.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="man.funcsynopsis.style.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.hyphenate.computer.inlines.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.hyphenate.filenames.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.hyphenate.frag"&gt;&lt;/src:fragref&gt;
@@ -2910,7 +3121,6 @@ simply for the purpose of increasing reability of the source.</para>
 &lt;src:fragref linkend="man.indent.verbatims.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.indent.width.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.justify.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="man.links.are.underlined.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.output.base.dir.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.output.encoding.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="man.output.in.separate.dir.frag"&gt;&lt;/src:fragref&gt;

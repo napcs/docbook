@@ -9,7 +9,7 @@
   <!-- * WARNING WARNING WARNING -->
   <!-- * WARNING WARNING WARNING -->
   <title>DocBook XSL Stylesheets: Reference&#160;Documentation</title>
-  <info><releaseinfo role="meta">$Id: reference.xml 7295 2007-08-28 09:15:14Z xmldoc $ </releaseinfo>
+  <info><releaseinfo role="meta">$Id: reference.xml 7685 2008-02-18 01:51:37Z xmldoc $ </releaseinfo>
     <authorgroup version="5.0">
   <author>
     <personname>
@@ -127,7 +127,7 @@ THE SOFTWARE.</para>
 </refmeta>
 <refnamediv>
 <refname>admon.graphics.extension</refname>
-<refpurpose>Extension for admonition graphics</refpurpose>
+<refpurpose>Filename extension for admonition graphics</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -138,7 +138,7 @@ THE SOFTWARE.</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>Sets the extension to use on admonition graphics.</para>
+<para>Sets the filename extension to use on admonition graphics.</para>
 
 </refsection>
 </refentry>
@@ -279,7 +279,7 @@ it will appear in the default column.
 </refmeta>
 <refnamediv>
 <refname>callout.graphics.extension</refname>
-<refpurpose>File name extension for callout graphics</refpurpose>
+<refpurpose>Filename extension for callout graphics</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -290,11 +290,14 @@ it will appear in the default column.
 </refsynopsisdiv>
 
 <refsection><info><title>Description</title></info>
+<para>Sets the filename extension to use on callout graphics. </para>
 
-<para>Sets the extension to use on callout graphics, hence the callout
-graphic format. The appropriate format (and range used) should be
-available. svg, png and gif are provided.</para>
-
+<itemizedlist>
+<para>The Docbook XSL distribution provides callout graphics in the following formats:</para>
+<listitem><para>SVG (extension: <filename class="extension">.svg</filename>)</para></listitem>
+<listitem><para>PNG (extension: <filename class="extension">.png</filename>)</para></listitem>
+<listitem><para>GIF (extension: <filename class="extension">.gif</filename>)</para></listitem>
+</itemizedlist>
 </refsection>
 </refentry>
 
@@ -668,7 +671,7 @@ TOC entries will be displayed.
 
 <refsection><info><title>Description</title></info>
 
-<para>String to use to seperate labels and title in a table of contents.</para>
+<para>String used to separate labels and titles in a table of contents.</para>
 
 </refsection>
 </refentry>
@@ -1071,24 +1074,24 @@ level sections, but not in fourth level sections.
 
 <refsection><info><title>Description</title></info>
 
-<para>This parameter lets you select which method should be
-used to sort and group index entries in an index.
-Indexes in latin-based languages that have accented characters typically
+<para>This parameter lets you select which method to use for sorting and grouping
+ index entries in an index.
+Indexes in Latin-based languages that have accented characters typically
 sort together accented words and unaccented words.
-Thus <quote>&#193;</quote> (A acute) would sort together
-with <quote>A</quote>, so both would appear in the <quote>A</quote>
+Thus <quote>&#193;</quote> (U+00C1 LATIN CAPITAL LETTER A WITH ACUTE) would sort together
+with <quote>A</quote> (U+0041 LATIN CAPITAL LETTER A), so both would appear in the <quote>A</quote>
 section of the index.
-Languages using other alphabets (such as Russian cyrillic)
+Languages using other alphabets (such as Russian,  which is written in the Cyrillic alphabet)
 and languages using ideographic chararacters (such as Japanese)
 require grouping specific to the languages and alphabets.
 </para>
 
 <para>The default indexing method is limited.
-It can group accented characters in latin-based languages only.
-It cannot handle non-latin alphabets or ideographic languages.
+It can group accented characters in Latin-based languages only.
+It cannot handle non-Latin alphabets or ideographic languages.
 The other indexing methods require extensions of one type or
 another, and do not work with
-all XSLT processors, which is why there are not used by default.</para>
+all XSLT processors, which is why they are not used by default.</para>
 
 <para>The three choices for indexing method are:</para>
 <variablelist>
@@ -1097,7 +1100,7 @@ all XSLT processors, which is why there are not used by default.</para>
 <listitem>
 <para>
 (default)  Sort and groups words based only on the Latin alphabet.
-Words with accented latin letters will group and sort with
+Words with accented Latin letters will group and sort with
 their respective primary letter, but
 words in non-Latin alphabets will be
 put in the <quote>Symbols</quote> section of the index.
@@ -1108,11 +1111,11 @@ put in the <quote>Symbols</quote> section of the index.
 <term><literal>kosek</literal></term>
 <listitem>
 <para>
-Sort and groups words based on letter groups configured in
+This method sorts and groups words based on letter groups configured in
 the DocBook locale file for the given language.
 See, for example, the French locale file <filename>common/fr.xml</filename>.
 This method requires that the XSLT processor
-support the EXSLT extensions (most do).
+supports the EXSLT extensions (most do).
 It also requires support for using 
 user-defined functions in xsl:key (xsltproc does not).
 </para>
@@ -1151,10 +1154,10 @@ customization.
 <listitem>
 <para>
 This method uses extensions to the Saxon processor to implement
-sophisticated indexing processes.  It uses its own 
+sophisticated indexing processes. It uses its own 
 configuration file, which can include information for any number of
-languages.  Each language's configuration can group
-words using one of two processes.  In the
+languages. Each language's configuration can group
+words using one of two processes. In the
 enumerated process similar to that used in the kosek method,
 you indicate the groupings character-by-character.
 In the between-key process, you specify the
@@ -1166,12 +1169,12 @@ want mixed Latin-alphabet words sorted.</para>
 <itemizedlist>
 <listitem>
 <para>For a whitepaper describing the extensions, see:
-<uri xlink:href="http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf">http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf</uri>.
+<link xlink:href="http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf">http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf</link>.
 </para>
 </listitem>
 <listitem>
 <para>To download the extension library, see
-<uri xlink:href="http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport">http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport</uri>.
+<link xlink:href="http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport">http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport</link>.
 </para>
 </listitem>
 </itemizedlist>
@@ -1522,10 +1525,9 @@ numbered. Note that numbering is one based, not zero based.
 
 <refsection><info><title>Description</title></info>
 
-<para>If non-zero, verbatim environments (elements that have the
-format='linespecific' notation attribute: address, literallayout,
-programlisting, screen, synopsis) that specify line numbering will
-have, line numbers.
+<para>If non-zero, verbatim environments (<tag>address</tag>, <tag>literallayout</tag>,
+<tag>programlisting</tag>, <tag>screen</tag>, <tag>synopsis</tag>) that specify line numbering will
+have line numbers.
 </para>
 
 </refsection>
@@ -2541,7 +2543,7 @@ are created from the <tag>textobject</tag>s in
 <para>If non-zero, links will be created to the
 HTML files created for the
 <literal>longdesc</literal> attribute. It makes no
-sense to turn enable this option without also enabling the
+sense to enable this option without also enabling the
 <parameter>html.longdesc</parameter> parameter.</para>
 
 
@@ -3202,6 +3204,29 @@ is non-zero, the stylesheet:
   zero, <tag>legalnotice</tag> contents are rendered on the title
   page.</para>
 
+<para>The name of the separate HTML file is computed as follows:
+
+<orderedlist>
+<listitem>
+  <para>If a filename is given by the <tag class="xmlpi">dbhtml filename</tag> 
+processing instruction, that filename is used.</para>
+</listitem>
+<listitem>
+  <para>If the legalnotice has an <tag class="attribute">id</tag>/<tag class="attribute">xml:id</tag> 
+attribute, and if <parameter>use.id.as.filename</parameter> != 0, the filename 
+is the concatenation of the id value and the value of the <parameter>html.ext</parameter> 
+parameter.</para>
+</listitem>
+<listitem>
+  <para>If the legalnotice does not have an <tag class="attribute">id</tag>/<tag class="attribute">xml:id</tag>
+ attribute, or if <parameter>use.id.as.filename</parameter> = 0, the filename is the concatenation of "ln-", 
+auto-generated id value, and <parameter>html.ext</parameter> value.
+  </para>
+</listitem>
+</orderedlist>
+
+</para>
+
 </refsection>
 </refentry>
 
@@ -3225,6 +3250,28 @@ is non-zero, the stylesheet:
 to a separate HTML file and a link to the file is
 generated. Otherwise, <tag>revhistory</tag> contents are rendered on
 the title page.</para>
+
+<para>The name of the separate HTML file is computed as follows:
+
+<orderedlist>
+<listitem>
+  <para>If a filename is given by the <tag class="xmlpi">dbhtml filename</tag> processing instruction, 
+that filename is used.</para>
+</listitem>
+<listitem>
+  <para>If the revhistory has an <tag class="attribute">id</tag>/<tag class="attribute">xml:id</tag> 
+attribute, and if <parameter>use.id.as.filename</parameter> != 0, the filename is the concatenation of 
+the id value and the value of the <parameter>html.ext</parameter> parameter.</para>
+</listitem>
+<listitem>
+  <para>If the revhistory does not have an <tag class="attribute">id</tag>/<tag class="attribute">xml:id</tag> 
+attribute, or if <parameter>use.id.as.filename</parameter> = 0, the filename is the concatenation of "rh-", 
+auto-generated id value, and <parameter>html.ext</parameter> value.
+  </para>
+</listitem>
+</orderedlist>
+
+</para>
 
 </refsection>
 </refentry>
@@ -3390,31 +3437,6 @@ ANSI-style function synopses are generated for a
 <tag>funcsynopsis</tag>, otherwise K&amp;R-style
 function synopses are generated.
 </para>
-
-</refsection>
-</refentry>
-
-<refentry version="5.0" id="funcsynopsis.tabular.threshold">
-<refmeta>
-<refentrytitle>funcsynopsis.tabular.threshold</refentrytitle>
-<refmiscinfo class="other" otherclass="datatype">integer</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>funcsynopsis.tabular.threshold</refname>
-<refpurpose>Width beyond which a tabular presentation will be used</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="funcsynopsis.tabular.threshold.frag">
-&lt;xsl:param name="funcsynopsis.tabular.threshold"&gt;40&lt;/xsl:param&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsection><info><title>Description</title></info>
-
-<para>If <parameter>funcsynopsis.tabular.threshold</parameter> is greater than
-zero then if a <tag>funcprototype</tag> is wider than the threshold
-value, it will be presented in a table.</para>
 
 </refsection>
 </refentry>
@@ -3621,7 +3643,8 @@ suppressed in output.</para>
 <refsection><info><title>Description</title></info>
 <para>If non-zero, this value will be used for the
 <literal>width</literal> attribute on <tag>table</tag>s that do not specify an
-alternate width (with the dbhtml processing instruction).</para>
+alternate width (with the <tag class="xmlpi">dbhtml table-width</tag> or 
+<tag class="xmlpi">dbfo table-width</tag> processing instruction).</para>
 </refsection>
 </refentry>
 
@@ -3646,7 +3669,7 @@ alternate width (with the dbhtml processing instruction).</para>
 <para>In order to convert CALS column widths into HTML column widths, it
 is sometimes necessary to have an absolute table width to use for conversion
 of mixed absolute and relative widths. This value must be an absolute
-length (not a percentag).</para>
+length (not a percentage).</para>
 
 </refsection>
 </refentry>
@@ -3692,7 +3715,7 @@ length (not a percentag).</para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.border.style</refname>
-<refpurpose/>
+<refpurpose>Specifies the border style of table cells</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3703,7 +3726,12 @@ length (not a percentag).</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the border style of table cells.</para>
+
+<note>
+  <para>To control properties of cell borders in HTML output, you must also turn on the 
+  <parameter>table.borders.with.css</parameter> parameter.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -3715,7 +3743,7 @@ length (not a percentag).</para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.border.thickness</refname>
-<refpurpose/>
+<refpurpose>Specifies the thickness of table cell borders</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3730,6 +3758,11 @@ length (not a percentag).</para>
 cells. The units are points. See <link xlink:href="http://www.w3.org/TR/CSS21/box.html#border-width-properties">
 CSS</link></para>
 
+<note>
+  <para>To control properties of cell borders in HTML output, you must also turn on the 
+  <parameter>table.borders.with.css</parameter> parameter.</para>
+</note>
+
 </refsection>
 </refentry>
 
@@ -3740,7 +3773,7 @@ CSS</link></para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.border.color</refname>
-<refpurpose/>
+<refpurpose>Specifies the border color of table cells</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3752,12 +3785,17 @@ CSS</link></para>
 
 <refsection><info><title>Description</title></info>
 
-<para>Set the color of table borders. If non-zero, the value is used
+<para>Set the color of table cell borders. If non-zero, the value is used
 for the border coloration. See <link xlink:href="http://www.w3.org/TR/CSS21/syndata.html#value-def-color">CSS</link>. A
 <literal>color</literal> is either a keyword or a numerical RGB specification.
 Keywords are aqua, black, blue, fuchsia, gray, green, lime, maroon,
 navy, olive, orange, purple, red, silver, teal, white, and
 yellow.</para>
+
+<note>
+  <para>To control properties of cell borders in HTML output, you must also turn on the 
+  <parameter>table.borders.with.css</parameter> parameter.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -3779,7 +3817,7 @@ yellow.</para>
 </refmeta>
 <refnamediv>
 <refname>table.frame.border.style</refname>
-<refpurpose/>
+<refpurpose>Specifies the border style of table frames</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3790,7 +3828,7 @@ yellow.</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the border style of table frames.</para>
 
 </refsection>
 </refentry>
@@ -3825,7 +3863,7 @@ yellow.</para>
 </refmeta>
 <refnamediv>
 <refname>table.frame.border.color</refname>
-<refpurpose/>
+<refpurpose>Specifies the border color of table frames</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3837,7 +3875,7 @@ yellow.</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the border color of table frames.</para>
 
 </refsection>
 </refentry>
@@ -5467,7 +5505,7 @@ all of the entries referenced appeared there literally.</para>
 </refmeta>
 <refnamediv>
 <refname>glossterm.auto.link</refname>
-<refpurpose>Generate links from glossterm to glossentry automaticaly?</refpurpose>
+<refpurpose>Generate links from glossterm to glossentry automatically?</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -5478,13 +5516,13 @@ all of the entries referenced appeared there literally.</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>If true, a link will be automatically created from glossterm 
-to glossentry for that glossary term. This is usefull when your
-glossterm names are consistent and you don't want to add links
-manually.</para>
-<para>If there is <tag class="attribute">linkend</tag> on
-<tag>glossterm</tag> then is used instead of autogeneration of
-link.</para>
+<para>If non-zero, links from inline <tag>glossterm</tag>s to the corresponding 
+<tag>glossentry</tag> elements in a <tag>glossary</tag> or <tag>glosslist</tag> 
+will be automatically generated. This is useful when your glossterms are consistent 
+and you don't want to add links manually.</para>
+
+<para>The automatic link generation feature is not used on <tag>glossterm</tag> elements
+that have a <tag class="attribute">linkend</tag> attribute.</para>
 
 </refsection>
 </refentry>
@@ -6820,15 +6858,19 @@ click to dismiss the popup. It may be replaced by a user provided graphic. The s
 
 <refsection><info><title>Description</title></info>
 
-<para>Add a path prefix to each HTML
-<tag class="element">img</tag> or FO 
-<tag class="element">fo:external-graphic</tag> element's
-<tag class="attribute">src</tag> attribute.
-This path could be relative to the directory where the HTML/FO
+<para>Add a path prefix to the value of the <tag class="attribute">fileref</tag> 
+attribute of <tag>graphic</tag>, <tag>inlinegraphic</tag>, and <tag>imagedata</tag> elements. The resulting 
+compound path is used in the output as the value of the <tag class="attribute">src</tag> 
+attribute of <tag class="element">img</tag> (HTML) or <tag class="element">external-graphic</tag> (FO).
+</para>
+
+<para>
+The path given by <literal>img.src.path</literal> could be relative to the directory where the HTML/FO
 files are created, or it could be an absolute URI.
 The default value is empty.
 Be sure to include a trailing slash if needed.
 </para>
+
 <para>This prefix is not applied to any filerefs that start
 with "/" or contain "//:".
 </para>
@@ -7420,12 +7462,15 @@ If you want to suppress entity references for characters with direct representat
 <parameter>chunker.output.encoding</parameter>, set the parameter value to <literal>native</literal>. 
 </para>
 
+<para> For more information, see <link role="tcg" xlink:href="OutputEncoding.html#SaxonCharacter">Saxon output character representation</link>.</para>
+
 <note>
 <para>This parameter is documented here, but the declaration is actually
 in the <filename>chunker.xsl</filename> stylesheet module.</para>
 </note>
 
 </refsection>
+
 </refentry>
 
 <refentry version="5.0" id="html.ext">
@@ -7611,7 +7656,7 @@ is system dependent.)</para>
 </refmeta>
 <refnamediv>
 <refname>manifest.in.base.dir</refname>
-<refpurpose>Should be manifest file written in $base.dir?</refpurpose>
+<refpurpose>Should the manifest file be written into <parameter>base.dir</parameter>?</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -7622,9 +7667,9 @@ is system dependent.)</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>If non-zero manifest file and project files for HTML Help and
+<para>If non-zero, the manifest file as well as project files for HTML Help and
 Eclipse Help are written into <parameter>base.dir</parameter> instead
-of current directory.</para>
+of the current directory.</para>
 
 </refsection>
 </refentry>
@@ -7949,7 +7994,8 @@ If false (zero), then only the words 'Next' and 'Previous'
 </reference><reference id="profiling" xml:base="../html/param.xml"><title>Profiling</title>
 <partintro id="partintro">
 <para>The following parameters can be used for attribute-based
-profiling of your document. FIXME: Add link to Bob&#8217;s book.</para>
+profiling of your document. For more information about profiling, see 
+<link role="tcg" xlink:href="Profiling.html">Profiling (conditional text)</link>.</para>
 </partintro>
 <refentry version="5.0" id="profile.arch">
 <refmeta>
@@ -10030,7 +10076,7 @@ a graphic.  Default graphics are provided in the distribution.
 </refmeta>
 <refnamediv>
 <refname>admon.graphics.extension</refname>
-<refpurpose>Extension for admonition graphics</refpurpose>
+<refpurpose>Filename extension for admonition graphics</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -10041,7 +10087,7 @@ a graphic.  Default graphics are provided in the distribution.
 
 <refsection><info><title>Description</title></info>
 
-<para>Sets the extension to use on admonition graphics.</para>
+<para>Sets the filename extension to use on admonition graphics.</para>
 
 </refsection>
 </refentry>
@@ -10281,7 +10327,7 @@ Default graphics are provided in the distribution.
 </refmeta>
 <refnamediv>
 <refname>callout.graphics.extension</refname>
-<refpurpose>File name extension for callout graphics</refpurpose>
+<refpurpose>Filename extension for callout graphics</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -10292,11 +10338,14 @@ Default graphics are provided in the distribution.
 </refsynopsisdiv>
 
 <refsection><info><title>Description</title></info>
+<para>Sets the filename extension to use on callout graphics. </para>
 
-<para>Sets the extension to use on callout graphics, hence the callout
-graphic format. The appropriate format (and range used) should be
-available. svg, png and gif are provided.</para>
-
+<itemizedlist>
+<para>The Docbook XSL distribution provides callout graphics in the following formats:</para>
+<listitem><para>SVG (extension: <filename class="extension">.svg</filename>)</para></listitem>
+<listitem><para>PNG (extension: <filename class="extension">.png</filename>)</para></listitem>
+<listitem><para>GIF (extension: <filename class="extension">.gif</filename>)</para></listitem>
+</itemizedlist>
 </refsection>
 </refentry>
 
@@ -10533,7 +10582,7 @@ callout elements.
 
 <refsection><info><title>Description</title></info>
 
-<para>String to use to seperate labels and title in a table of contents.</para>
+<para>String used to separate labels and titles in a table of contents.</para>
 
 </refsection>
 </refentry>
@@ -10805,24 +10854,24 @@ an automatically generated one and <quote>bingo</quote>!</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>This parameter lets you select which method should be
-used to sort and group index entries in an index.
-Indexes in latin-based languages that have accented characters typically
+<para>This parameter lets you select which method to use for sorting and grouping
+ index entries in an index.
+Indexes in Latin-based languages that have accented characters typically
 sort together accented words and unaccented words.
-Thus <quote>&#193;</quote> (A acute) would sort together
-with <quote>A</quote>, so both would appear in the <quote>A</quote>
+Thus <quote>&#193;</quote> (U+00C1 LATIN CAPITAL LETTER A WITH ACUTE) would sort together
+with <quote>A</quote> (U+0041 LATIN CAPITAL LETTER A), so both would appear in the <quote>A</quote>
 section of the index.
-Languages using other alphabets (such as Russian cyrillic)
+Languages using other alphabets (such as Russian,  which is written in the Cyrillic alphabet)
 and languages using ideographic chararacters (such as Japanese)
 require grouping specific to the languages and alphabets.
 </para>
 
 <para>The default indexing method is limited.
-It can group accented characters in latin-based languages only.
-It cannot handle non-latin alphabets or ideographic languages.
+It can group accented characters in Latin-based languages only.
+It cannot handle non-Latin alphabets or ideographic languages.
 The other indexing methods require extensions of one type or
 another, and do not work with
-all XSLT processors, which is why there are not used by default.</para>
+all XSLT processors, which is why they are not used by default.</para>
 
 <para>The three choices for indexing method are:</para>
 <variablelist>
@@ -10831,7 +10880,7 @@ all XSLT processors, which is why there are not used by default.</para>
 <listitem>
 <para>
 (default)  Sort and groups words based only on the Latin alphabet.
-Words with accented latin letters will group and sort with
+Words with accented Latin letters will group and sort with
 their respective primary letter, but
 words in non-Latin alphabets will be
 put in the <quote>Symbols</quote> section of the index.
@@ -10842,11 +10891,11 @@ put in the <quote>Symbols</quote> section of the index.
 <term><literal>kosek</literal></term>
 <listitem>
 <para>
-Sort and groups words based on letter groups configured in
+This method sorts and groups words based on letter groups configured in
 the DocBook locale file for the given language.
 See, for example, the French locale file <filename>common/fr.xml</filename>.
 This method requires that the XSLT processor
-support the EXSLT extensions (most do).
+supports the EXSLT extensions (most do).
 It also requires support for using 
 user-defined functions in xsl:key (xsltproc does not).
 </para>
@@ -10885,10 +10934,10 @@ customization.
 <listitem>
 <para>
 This method uses extensions to the Saxon processor to implement
-sophisticated indexing processes.  It uses its own 
+sophisticated indexing processes. It uses its own 
 configuration file, which can include information for any number of
-languages.  Each language's configuration can group
-words using one of two processes.  In the
+languages. Each language's configuration can group
+words using one of two processes. In the
 enumerated process similar to that used in the kosek method,
 you indicate the groupings character-by-character.
 In the between-key process, you specify the
@@ -10900,12 +10949,12 @@ want mixed Latin-alphabet words sorted.</para>
 <itemizedlist>
 <listitem>
 <para>For a whitepaper describing the extensions, see:
-<uri xlink:href="http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf">http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf</uri>.
+<link xlink:href="http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf">http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf</link>.
 </para>
 </listitem>
 <listitem>
 <para>To download the extension library, see
-<uri xlink:href="http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport">http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport</uri>.
+<link xlink:href="http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport">http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport</link>.
 </para>
 </listitem>
 </itemizedlist>
@@ -11596,7 +11645,7 @@ are supported</para>
 </refmeta>
 <refnamediv>
 <refname>fop.extensions</refname>
-<refpurpose>Enable FOP extensions for version 0.20.5 and earlier</refpurpose>
+<refpurpose>Enable extensions for FOP version 0.20.5 and earlier</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -11612,10 +11661,10 @@ At present, this consists of PDF bookmarks.
 </para>
 
 <para>This parameter can also affect which graphics file formats
-are supported</para>
+are supported.</para>
 
 <para>If you are using a version of FOP beyond
-version 0.20.5, then use the <parameter>fop1.extensions</parameter>
+version 0.20.5, then use the <parameter>fop1.extensions</parameter> parameter
 instead.
 </para>
 </refsection>
@@ -11628,7 +11677,7 @@ instead.
 </refmeta>
 <refnamediv>
 <refname>fop1.extensions</refname>
-<refpurpose>Enable extensions for FOP version 1 and later</refpurpose>
+<refpurpose>Enable extensions for FOP version 0.90 and later</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -11639,13 +11688,13 @@ instead.
 
 <para>If non-zero, extensions for 
 <link xlink:href="http://xml.apache.org/fop/">FOP</link>
-version 1 and later will be used.
+version 0.90 and later will be used.
 </para>
 
 <para>This parameter can also affect which graphics file formats
-are supported</para>
+are supported.</para>
 
-<para>The original <parameter>fop.extensions</parameter>
+<para>The original <parameter>fop.extensions</parameter> parameter
 should still be used for FOP version 0.20.5 and earlier.
 </para>
 </refsection>
@@ -11870,10 +11919,9 @@ numbered. Note that numbering is one based, not zero based.
 
 <refsection><info><title>Description</title></info>
 
-<para>If non-zero, verbatim environments (elements that have the
-format='linespecific' notation attribute: address, literallayout,
-programlisting, screen, synopsis) that specify line numbering will
-have, line numbers.
+<para>If non-zero, verbatim environments (<tag>address</tag>, <tag>literallayout</tag>,
+<tag>programlisting</tag>, <tag>screen</tag>, <tag>synopsis</tag>) that specify line numbering will
+have line numbers.
 </para>
 
 </refsection>
@@ -12935,7 +12983,8 @@ suppressed in output.</para>
 <refsection><info><title>Description</title></info>
 <para>If non-zero, this value will be used for the
 <literal>width</literal> attribute on <tag>table</tag>s that do not specify an
-alternate width (with the dbhtml processing instruction).</para>
+alternate width (with the <tag class="xmlpi">dbhtml table-width</tag> or 
+<tag class="xmlpi">dbfo table-width</tag> processing instruction).</para>
 </refsection>
 </refentry>
 
@@ -12960,7 +13009,7 @@ alternate width (with the dbhtml processing instruction).</para>
 <para>In order to convert CALS column widths into HTML column widths, it
 is sometimes necessary to have an absolute table width to use for conversion
 of mixed absolute and relative widths. This value must be an absolute
-length (not a percentag).</para>
+length (not a percentage).</para>
 
 </refsection>
 </refentry>
@@ -12996,7 +13045,7 @@ table. </para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.padding</refname>
-<refpurpose/>
+<refpurpose>Specifies the padding of table cells</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -13012,7 +13061,7 @@ table. </para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the padding of table cells.</para>
 
 </refsection>
 </refentry>
@@ -13057,7 +13106,7 @@ table. </para>
 </refmeta>
 <refnamediv>
 <refname>table.frame.border.style</refname>
-<refpurpose/>
+<refpurpose>Specifies the border style of table frames</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -13068,7 +13117,7 @@ table. </para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the border style of table frames.</para>
 
 </refsection>
 </refentry>
@@ -13080,7 +13129,7 @@ table. </para>
 </refmeta>
 <refnamediv>
 <refname>table.frame.border.color</refname>
-<refpurpose/>
+<refpurpose>Specifies the border color of table frames</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -13092,7 +13141,7 @@ table. </para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the border color of table frames.</para>
 
 </refsection>
 </refentry>
@@ -13104,7 +13153,7 @@ table. </para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.border.thickness</refname>
-<refpurpose/>
+<refpurpose>Specifies the thickness of table cell borders</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -13118,6 +13167,11 @@ table. </para>
 <para>If non-zero, specifies the thickness of borders on table
 cells. The units are points. See <link xlink:href="http://www.w3.org/TR/CSS21/box.html#border-width-properties">
 CSS</link></para>
+
+<note>
+  <para>To control properties of cell borders in HTML output, you must also turn on the 
+  <parameter>table.borders.with.css</parameter> parameter.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -13139,7 +13193,7 @@ CSS</link></para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.border.style</refname>
-<refpurpose/>
+<refpurpose>Specifies the border style of table cells</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -13150,7 +13204,12 @@ CSS</link></para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the border style of table cells.</para>
+
+<note>
+  <para>To control properties of cell borders in HTML output, you must also turn on the 
+  <parameter>table.borders.with.css</parameter> parameter.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -13162,7 +13221,7 @@ CSS</link></para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.border.color</refname>
-<refpurpose/>
+<refpurpose>Specifies the border color of table cells</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -13174,12 +13233,17 @@ CSS</link></para>
 
 <refsection><info><title>Description</title></info>
 
-<para>Set the color of table borders. If non-zero, the value is used
+<para>Set the color of table cell borders. If non-zero, the value is used
 for the border coloration. See <link xlink:href="http://www.w3.org/TR/CSS21/syndata.html#value-def-color">CSS</link>. A
 <literal>color</literal> is either a keyword or a numerical RGB specification.
 Keywords are aqua, black, blue, fuchsia, gray, green, lime, maroon,
 navy, olive, orange, purple, red, silver, teal, white, and
 yellow.</para>
+
+<note>
+  <para>To control properties of cell borders in HTML output, you must also turn on the 
+  <parameter>table.borders.with.css</parameter> parameter.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -13207,7 +13271,7 @@ yellow.</para>
 
 <para>The styling for tables. This parameter should really
 have been called <literal>table.properties</literal>, but that parameter
-name was inadvertantly established for the block-level properties
+name was inadvertently established for the block-level properties
 of the table as a whole.
 </para>
 
@@ -14818,7 +14882,7 @@ all of the entries referenced appeared there literally.</para>
 </refmeta>
 <refnamediv>
 <refname>glossterm.auto.link</refname>
-<refpurpose>Generate links from glossterm to glossentry automaticaly?</refpurpose>
+<refpurpose>Generate links from glossterm to glossentry automatically?</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -14829,13 +14893,13 @@ all of the entries referenced appeared there literally.</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>If true, a link will be automatically created from glossterm 
-to glossentry for that glossary term. This is usefull when your
-glossterm names are consistent and you don't want to add links
-manually.</para>
-<para>If there is <tag class="attribute">linkend</tag> on
-<tag>glossterm</tag> then is used instead of autogeneration of
-link.</para>
+<para>If non-zero, links from inline <tag>glossterm</tag>s to the corresponding 
+<tag>glossentry</tag> elements in a <tag>glossary</tag> or <tag>glosslist</tag> 
+will be automatically generated. This is useful when your glossterms are consistent 
+and you don't want to add links manually.</para>
+
+<para>The automatic link generation feature is not used on <tag>glossterm</tag> elements
+that have a <tag class="attribute">linkend</tag> attribute.</para>
 
 </refsection>
 </refentry>
@@ -15576,7 +15640,15 @@ the formating properties of block quotations.</para>
 
 <para>If non-zero, the URL of each <tag>ulink</tag> will
 appear after the text of the link. If the text of the link and the URL
-are identical, the URL is suppressed.</para>
+are identical, the URL is suppressed. </para>
+
+<para>See also <parameter>ulink.footnotes</parameter>.</para>
+
+<note><para>DocBook 5 does not have an <tag>ulink</tag> element. When processing 
+DocBoook 5 documents, <parameter>ulink.show</parameter> applies to all inline 
+elements that are marked up with <tag class="attribute">xlink:href</tag> attributes 
+that point to external resources.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -15588,7 +15660,7 @@ are identical, the URL is suppressed.</para>
 </refmeta>
 <refnamediv>
 <refname>ulink.footnotes</refname>
-<refpurpose>Generate footnotes for <tag>ULink</tag>s?</refpurpose>
+<refpurpose>Generate footnotes for <tag>ulink</tag>s?</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -15599,9 +15671,14 @@ are identical, the URL is suppressed.</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>If non-zero, the URL of each <tag>ULink</tag> will
-appear as a footnote.
-</para>
+<para>If non-zero, and if <parameter>ulink.show</parameter> also is non-zero,
+the URL of each <tag>ulink</tag> will appear as a footnote.</para>
+
+<note><para>DocBook 5 does not have an <tag>ulink</tag> element. When processing 
+DocBoook 5 documents, <parameter>ulink.footnotes</parameter> applies to all inline 
+elements that are marked up with <tag class="attribute">xlink:href</tag> attributes 
+that point to external resources.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -16155,6 +16232,9 @@ that you may have trouble using those symbols for footnotes.</para>
   &lt;xsl:attribute name="text-align"&gt;&lt;xsl:value-of select="$alignment"&gt;&lt;/xsl:value-of&gt;&lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="start-indent"&gt;0pt&lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="text-indent"&gt;0pt&lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="hyphenate"&gt;&lt;xsl:value-of select="$hyphenate"&gt;&lt;/xsl:value-of&gt;&lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="wrap-option"&gt;wrap&lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="linefeed-treatment"&gt;treat-as-space&lt;/xsl:attribute&gt;
 &lt;/xsl:attribute-set&gt;
 </programlisting>
 </refsynopsisdiv>
@@ -16248,7 +16328,7 @@ an error if baseline-shift is used.
 </refmeta>
 <refnamediv>
 <refname>footnote.sep.leader.properties</refname>
-<refpurpose>Properties associated with a procedure</refpurpose>
+<refpurpose>Properties associated with footnote separators</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -16735,15 +16815,19 @@ ignored.</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>Add a path prefix to each HTML
-<tag class="element">img</tag> or FO 
-<tag class="element">fo:external-graphic</tag> element's
-<tag class="attribute">src</tag> attribute.
-This path could be relative to the directory where the HTML/FO
+<para>Add a path prefix to the value of the <tag class="attribute">fileref</tag> 
+attribute of <tag>graphic</tag>, <tag>inlinegraphic</tag>, and <tag>imagedata</tag> elements. The resulting 
+compound path is used in the output as the value of the <tag class="attribute">src</tag> 
+attribute of <tag class="element">img</tag> (HTML) or <tag class="element">external-graphic</tag> (FO).
+</para>
+
+<para>
+The path given by <literal>img.src.path</literal> could be relative to the directory where the HTML/FO
 files are created, or it could be an absolute URI.
 The default value is empty.
 Be sure to include a trailing slash if needed.
 </para>
+
 <para>This prefix is not applied to any filerefs that start
 with "/" or contain "//:".
 </para>
@@ -18424,7 +18508,7 @@ The default value is "14pt".</para>
 </refmeta>
 <refnamediv>
 <refname>header.content.properties</refname>
-<refpurpose/>
+<refpurpose>Properties of page header content</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -18454,7 +18538,7 @@ The default value is "14pt".</para>
 </refmeta>
 <refnamediv>
 <refname>footer.content.properties</refname>
-<refpurpose/>
+<refpurpose>Properties of page footer content</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -18771,7 +18855,7 @@ before and after the object.</para>
 </refmeta>
 <refnamediv>
 <refname>informal.object.properties</refname>
-<refpurpose>Properties associated with a formal object such as a figure, or other component that has a title</refpurpose>
+<refpurpose>Properties associated with an informal (untitled) object, such as an informalfigure</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -19844,7 +19928,9 @@ general <tag>section.properties</tag> attribute set.
 
 <refsynopsisdiv>
 <programlisting id="table.properties.frag">
-&lt;xsl:attribute-set name="table.properties" use-attribute-sets="formal.object.properties"&gt;&lt;/xsl:attribute-set&gt;
+&lt;xsl:attribute-set name="table.properties" use-attribute-sets="formal.object.properties"&gt;
+  &lt;xsl:attribute name="keep-together.within-column"&gt;auto&lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
 </programlisting>
 </refsynopsisdiv>
 
@@ -19913,7 +19999,7 @@ problems.</para>
 </refmeta>
 <refnamediv>
 <refname>informalequation.properties</refname>
-<refpurpose>Properties associated with a informalequation</refpurpose>
+<refpurpose>Properties associated with an informalequation</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -20418,8 +20504,8 @@ one possibility.
 </reference><reference id="profiling" xml:base="../fo/param.xml"><title>Profiling</title>
 <partintro id="profiling_partintro">
 <para>The following parameters can be used for attribute-based
-profiling of your document. FIXME: add link to profiling section
-in Bob&#8217;s book.</para>
+profiling of your document. For more information about profiling, see 
+<link role="tcg" xlink:href="Profiling.html">Profiling (conditional text)</link>.</para>
 </partintro>
 <refentry version="5.0" id="profile.arch">
 <refmeta>
@@ -21864,6 +21950,65 @@ should be a valid roff font name, such as <literal>B</literal> or
 </refsection>
 </refentry>
 
+<refentry version="5.0" id="man.font.links">
+<refmeta>
+<refentrytitle>man.font.links</refentrytitle>
+<refmiscinfo class="other" otherclass="datatype">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>man.font.links</refname>
+<refpurpose>Specifies font for links</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="man.font.links.frag">
+&lt;xsl:param name="man.font.links"&gt;B&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsection><info><title>Description</title></info>
+
+<para>The <parameter>man.font.links</parameter> parameter
+specifies the font for output of links (<tag>ulink</tag> instances
+and any instances of any element with an <tag class="attribute">xlink:href</tag> attribute).</para>
+
+<para>The value of <parameter>man.font.links</parameter> must be
+  either <literal>B</literal> or <literal>I</literal>, or empty. If
+the value is empty, no font formatting is applied to links.</para>
+
+<para>If you set <parameter>man.endnotes.are.numbered</parameter> and/or
+<parameter>man.endnotes.list.enabled</parameter> to zero (disabled), then
+you should probably also set an empty value for
+<parameter>man.font.links</parameter>. But if
+<parameter>man.endnotes.are.numbered</parameter> is non-zero (enabled),
+you should probably keep
+<parameter>man.font.links</parameter> set to
+<literal>B</literal> or <literal>I</literal><footnote><para>The
+    main purpose of applying a font format to links in most output
+formats it to indicate that the formatted text is
+&#8220;clickable&#8221;; given that links rendered in man pages are
+not &#8220;real&#8221; hyperlinks that users can click on, it might
+seem like there is never a good reason to have font formatting for
+link contents in man output.</para>
+<para>In fact, if you suppress the
+display of inline link references (by setting
+<parameter>man.endnotes.are.numbered</parameter> to zero), there is no
+good reason to apply font formatting to links. However, if
+<parameter>man.endnotes.are.numbered</parameter> is non-zero, having
+font formatting for links (arguably) serves a purpose: It provides
+&#8220;context&#8221; information about exactly what part of the text
+is being &#8220;annotated&#8221; by the link. Depending on how you
+mark up your content, that context information may or may not
+have value.</para></footnote>.</para>
+</refsection>
+
+<refsection><info><title>Related Parameters</title></info>
+  <para><parameter>man.endnotes.list.enabled</parameter>,
+    <parameter>man.endnotes.are.numbered</parameter></para>
+</refsection>
+
+</refentry>
+
 <refentry version="5.0" id="man.font.table.headings">
 <refmeta>
 <refentrytitle>man.font.table.headings</refentrytitle>
@@ -21913,6 +22058,30 @@ specifies the font for <tag>table</tag> titles. It should be
 a valid roff font, such as <literal>B</literal> or
 <literal>I</literal>.</para>
 
+</refsection>
+</refentry>
+
+  </reference><reference id="synopsis" xml:base="../manpages/param.xml">
+  <title>SYNOPSIS section</title>
+<refentry version="5.0" id="man.funcsynopsis.style">
+<refmeta>
+<refentrytitle>man.funcsynopsis.style</refentrytitle>
+<refmiscinfo class="other" otherclass="datatype">list</refmiscinfo>
+<refmiscinfo class="other" otherclass="value">ansi</refmiscinfo>
+<refmiscinfo class="other" otherclass="value">kr</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>man.funcsynopsis.style</refname>
+<refpurpose>What style of <tag>funcsynopsis</tag> should be generated?</refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+<programlisting id="man.funcsynopsis.style.frag">&lt;xsl:param name="man.funcsynopsis.style"&gt;ansi&lt;/xsl:param&gt;</programlisting>
+</refsynopsisdiv>
+<refsection><info><title>Description</title></info>
+<para>If <parameter>man.funcsynopsis.style</parameter> is
+<literal>ansi</literal>, ANSI-style function synopses are
+generated for a <tag>funcsynopsis</tag>, otherwise K&amp;R-style
+function synopses are generated.</para>
 </refsection>
 </refentry>
 
@@ -22055,11 +22224,11 @@ if a (numbered) list of endnotes is also generated.</para>
     recognizing URLs and can, for example, present users with
     an options to open a URL in a browser with the user clicks on
     the URL is a terminal window. And short of those, users with X
-    terminals can always manualy cut and paste the URLs into a web
+    terminals can always manually cut and paste the URLs into a web
     browser.</para>
   <para>Also, note that various &#8220;man to html&#8221; tools, such as the
     widely used <command><link xlink:href="http://users.actrix.gen.nz/michael/vhman2html.html">man2html</link></command> (<literal>VH-Man2html</literal>)
-  application, automatically mark up URLs with into a@href markup
+    application, automatically mark up URLs with <literal>a@href</literal> markup
   during conversion &#8212; resulting in &#8220;real&#8221; hyperlinks in HTML
   output from those tools.</para>
 </note>
@@ -22177,13 +22346,13 @@ an &#8220;empty&#8221; notesource is on that looks like this:<literallayout clas
 </itemizedlist>
 The default heading for the list of endnotes is
 <literal>NOTES</literal>. To output a different heading, set a value
-for the <parameter>man.links.section.heading</parameter>
+for the <parameter>man.endnotes.section.heading</parameter>
 parameter.</para>
 
 <note>
   <para>The endnotes list is also displayed (but without
     numbers) if the value of
-    <parameter>man.links.list.enabled</parameter> is
+    <parameter>man.endnotes.list.enabled</parameter> is
     non-zero.</para>
 </note>
 
@@ -22229,63 +22398,83 @@ parameter. Empty links are handled simply by displaying their URLs
 inline. Empty links are never auto-numbered.</para>
 
 <para>If you disable endnotes numbering, you should probably also set
-<parameter>man.links.are.underlined</parameter> to zero (to disable
-link underlining).</para>
+<parameter>man.font.links</parameter> to an empty value (to
+disable font formatting for links.</para>
+</refsection>
+
+<refsection><info><title>Related Parameters</title></info>
+  <para><parameter>man.endnotes.list.enabled</parameter>,
+    <parameter>man.font.links</parameter></para>
 </refsection>
 </refentry>
 
-<refentry version="5.0" id="man.links.are.underlined">
-<refmeta>
-<refentrytitle>man.links.are.underlined</refentrytitle>
-<refmiscinfo class="other" otherclass="datatype">boolean</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>man.links.are.underlined</refname>
-<refpurpose>Underline links?</refpurpose>
-</refnamediv>
+<refentry version="5.0" id="man.base.url.for.relative.links">
+  <refmeta>
+    <refentrytitle>man.base.url.for.relative.links</refentrytitle>
+    <refmiscinfo class="other" otherclass="datatype">string</refmiscinfo>
+  </refmeta>
+  <refnamediv>
+    <refname>man.base.url.for.relative.links</refname>
+    <refpurpose>Specifies a base URL for relative links</refpurpose>
+  </refnamediv>
 
-<refsynopsisdiv>
-<programlisting id="man.links.are.underlined.frag">
-&lt;xsl:param name="man.links.are.underlined"&gt;1&lt;/xsl:param&gt;
-</programlisting>
-</refsynopsisdiv>
+  <refsynopsisdiv>
+    <programlisting id="man.base.url.for.relative.links.frag">&lt;xsl:param name="man.base.url.for.relative.links"&gt;[set $man.base.url.for.relative.links]/&lt;/xsl:param&gt;</programlisting>
+  </refsynopsisdiv>
 
-<refsection><info><title>Description</title></info>
+  <refsection><info><title>Description</title></info>
 
-<para>If the value of <parameter>man.links.are.underlined</parameter>
-is non-zero (the default), then the contents of links are rendered
-with an underline.</para>
+    <para>For any &#8220;notesource&#8221; listed in the auto-generated
+      &#8220;NOTES&#8221; section of output man pages (which is generated when
+      the value of the
+      <parameter>man.endnotes.list.enabled</parameter> parameter
+      is non-zero), if the notesource is a link source with a
+      relative URI, the URI is displayed in output with the value
+      of the
+      <parameter>man.base.url.for.relative.links</parameter>
+      parameter prepended to the value of the link URI.</para>
 
-<para>If the value of <parameter>man.links.are.underlined</parameter>
-is zero, links are displayed without any underlining.</para>
+    <note>
+      <para>A link source is an notesource that references an
+        external resource:
+        <itemizedlist>
+          <listitem>
+            <para>a <tag>ulink</tag> element with a <tag class="attribute">url</tag> attribute</para>
+          </listitem>
+          <listitem>
+            <para>any element with an <tag class="attribute">xlink:href</tag> attribute</para>
+          </listitem>
+          <listitem>
+            <para>an <tag>imagedata</tag>, <tag>audiodata</tag>, or
+              <tag>videodata</tag> element</para>
+          </listitem>
+        </itemizedlist>
+      </para>
+    </note>
 
-<note>
-  <para>Currently, this parameter only affects output for
-  <tag>ulink</tag>s.</para>
-</note>
+    <para>If you use relative URIs in link sources in your DocBook
+      <tag>refentry</tag> source, and you leave
+      <parameter>man.base.url.for.relative.links</parameter>
+      unset, the relative links will appear &#8220;as is&#8221; in the &#8220;Notes&#8221;
+      section of any man-page output generated from your source.
+      That&#8217;s probably not what you want, because such relative
+      links are only usable in the context of HTML output. So, to
+      make the links meaningful and usable in the context of
+      man-page output, set a value for
+      <parameter>man.base.url.for.relative.links</parameter> that
+      points to the online version of HTML output generated from
+      your DocBook <tag>refentry</tag> source. For
+      example:
+      <programlisting>&lt;xsl:param name="man.base.url.for.relative.links"
+        &gt;http://www.kernel.org/pub/software/scm/git/docs/&lt;/xsl:param&gt;</programlisting>
+    </para>
 
-<para>If you set <parameter>man.links.are.numbered</parameter> and/or
-<parameter>man.links.list.enabled</parameter> to zero (disabled), then
-you should probably also set
-<parameter>man.links.are.underlined</parameter> to zero. But if
-<parameter>man.links.are.numbered</parameter> is non-zero (enabled),
-you should probably set a non-zero value for
-<parameter>man.links.are.underlined</parameter> also<footnote><para>If the main purpose of underlining of links in most output
-formats it to indicate that the underlined text is
-&#8220;clickable&#8221;, given that links rendered in man pages are
-not &#8220;real&#8221; hyperlinks that users can click on, it might
-seem like there is never a good reason to have link contents
-underlined in man output.</para> <para>In fact, if you suppress the
-display of inline link references (by setting
-<parameter>man.links.are.numbered</parameter> to zero), there is no
-good reason to have links underlined. However, if
-<parameter>man.links.are.numbered</parameter> is non-zero, having
-links underlined may (arguably) serve a purpose: It provides
-&#8220;context&#8221; information about exactly what part of the text
-is being &#8220;annotated&#8221; by the link. Depending on how you
-mark up your content, that context information may or may not
-have value.</para></footnote>.</para>
-</refsection>
+  </refsection>
+
+  <refsection><info><title>Related Parameters</title></info>
+    <para><parameter>man.endnotes.list.enabled</parameter></para>
+  </refsection>
+
 </refentry>
 
   </reference><reference id="lists" xml:base="../manpages/param.xml">
@@ -22357,9 +22546,11 @@ parameter to specify a URI for the location for an alternate roff
 character map to use in place of the standard roff character map
 provided in the distribution.</para>
 
-<para>You can also use a subset of a character map. For details, see
-the <parameter>man.charmap.use.subset</parameter> and
-<parameter>man.charmap.subset.profile</parameter> parameters.</para>
+<para>You can also use a subset of a character map. For details,
+see the <parameter>man.charmap.use.subset</parameter>,
+<parameter>man.charmap.subset.profile</parameter>, and
+<parameter>man.charmap.subset.profile.english</parameter>
+parameters.</para>
 
 </refsection>
 </refsection>
@@ -22424,8 +22615,12 @@ standard one provided in the distribution.</para>
 <para>If the value of the
 <parameter>man.charmap.use.subset</parameter> parameter is non-zero,
 a subset of the roff character map is used instead of the full roff
-character map. The profile of the subset used is specified by the
-<parameter>man.charmap.subset.profile</parameter> parameter.</para>
+character map. The profile of the subset used is determined either
+by the value of the
+<parameter>man.charmap.subset.profile</parameter>
+parameter (if the source is not in English) or the
+<parameter>man.charmap.subset.profile.english</parameter>
+parameter (if the source is in English).</para>
 
 <note>
   <para>You may want to experiment with setting a non-zero value of
@@ -22467,8 +22662,9 @@ provided in the distribution.</para>
 never necessary to use it in full -- the DocBook XSL Stylesheets
 support a mechanism for using, within any given character map, a
 subset of character mappings instead of the full set. You can use the
-<parameter>man.charmap.subset.profile</parameter> parameter to tune
-the profile of that subset to use.</para>
+<parameter>man.charmap.subset.profile</parameter> or
+<parameter>man.charmap.subset.profile.english</parameter>
+parameter to tune the profile of that subset to use.</para>
 
 </refsection>
 </refsection>
@@ -22489,8 +22685,11 @@ the profile of that subset to use.</para>
 &lt;xsl:param name="man.charmap.subset.profile"&gt;
 @*[local-name() = 'block'] = 'Miscellaneous Technical' or
 (@*[local-name() = 'block'] = 'C1 Controls And Latin-1 Supplement (Latin-1 Supplement)' and
- @*[local-name() = 'class'] = 'symbols'
+ (@*[local-name() = 'class'] = 'symbols' or
+  @*[local-name() = 'class'] = 'letters')
 ) or
+@*[local-name() = 'block'] = 'Latin Extended-A'
+or
 (@*[local-name() = 'block'] = 'General Punctuation' and
  (@*[local-name() = 'class'] = 'spaces' or
   @*[local-name() = 'class'] = 'dashes' or
@@ -22511,13 +22710,32 @@ the profile of that subset to use.</para>
 
 <para>If the value of the
 <parameter>man.charmap.use.subset</parameter> parameter is non-zero,
-The character-map subset specified by the
-<parameter>man.charmap.subset.profile</parameter> parameter is used
-instead of the full roff character map.</para>
+and your DocBook source is not written in English (that
+  is, if the <tag class="attribute">lang</tag> or <tag class="attribute">xml:lang</tag> attribute on the root element
+  in your DocBook source or on the first <tag>refentry</tag>
+  element in your source has a value other than
+  <literal>en</literal>), then the character-map subset specified
+  by the <parameter>man.charmap.subset.profile</parameter>
+  parameter is used instead of the full roff character map.</para>
+
+<para>Otherwise, if the <tag class="attribute">lang</tag> or <tag class="attribute">xml:lang</tag> attribute on the root
+  element in your DocBook
+  source or on the first <tag>refentry</tag> element in your source
+  has the value <literal>en</literal> or if it has no <tag class="attribute">lang</tag> or <tag class="attribute">xml:lang</tag> attribute, then the character-map
+  subset specified by the
+  <parameter>man.charmap.subset.profile.english</parameter>
+  parameter is used instead of
+  <parameter>man.charmap.subset.profile</parameter>.</para>
+
+<para>The difference between the two subsets is that
+  <parameter>man.charmap.subset.profile</parameter> provides
+  mappings for characters in Western European languages that are
+  not part of the Roman (English) alphabet (ASCII character set).</para>
 
 <para>The value of <parameter>man.charmap.subset.profile</parameter>
-is a string representating an XPath expression that matches attribute
-names and values for <tag namespace="http://docbook.sf.net/xmlns/unichar/1.0">output-character</tag> elements in the character map.</para>
+is a string representing an XPath expression that matches attribute
+names and values for <tag namespace="http://docbook.sf.net/xmlns/unichar/1.0">output-character</tag>
+elements in the character map.</para>
 
 <para>The attributes supported in the <link xlink:href="http://docbook.sourceforge.net/snapshot/xsl/manpages/charmap.groff.xsl">standard roff character map included in the distribution</link> are:
 <variablelist>
@@ -22569,7 +22787,7 @@ names and values for <tag namespace="http://docbook.sf.net/xmlns/unichar/1.0">ou
   <varlistentry>
     <term>string</term>
     <listitem>
-      <simpara>a string representating an roff/groff escape-code (with
+      <simpara>a string representing an roff/groff escape-code (with
       "@esc@" used in place of the backslash), or a simple ASCII
       string; all characters in the roff character map have this
       attribute</simpara>
@@ -22592,7 +22810,7 @@ characters to be converted into roff markup. </para>
 <note>
 <para>Depending on which XSLT engine you use, either the EXSLT
 <function>dyn:evaluate</function> extension function (for xsltproc or
-Xalan) or <function>saxon:evaluate</function> extensio function (for
+Xalan) or <function>saxon:evaluate</function> extension function (for
 Saxon) are used to dynamically evaluate the value of
 <parameter>man.charmap.subset.profile</parameter> at run-time. If you
 don't use xsltproc, Saxon, Xalan -- or some other XSLT engine that
@@ -22740,6 +22958,77 @@ and add any of the supported Unicode block names to the value of
 </refsection>
 </refentry>
 
+<refentry version="5.0" id="man.charmap.subset.profile.english">
+<refmeta>
+<refentrytitle>man.charmap.subset.profile.english</refentrytitle>
+<refmiscinfo class="other" otherclass="datatype">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>man.charmap.subset.profile.english</refname>
+<refpurpose>Profile of character map subset</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="man.charmap.subset.profile.english.frag">
+&lt;xsl:param name="man.charmap.subset.profile.english"&gt;
+@*[local-name() = 'block'] = 'Miscellaneous Technical' or
+(@*[local-name() = 'block'] = 'C1 Controls And Latin-1 Supplement (Latin-1 Supplement)' and
+ @*[local-name() = 'class'] = 'symbols')
+or
+(@*[local-name() = 'block'] = 'General Punctuation' and
+ (@*[local-name() = 'class'] = 'spaces' or
+  @*[local-name() = 'class'] = 'dashes' or
+  @*[local-name() = 'class'] = 'quotes' or
+  @*[local-name() = 'class'] = 'bullets'
+ )
+) or
+@*[local-name() = 'name'] = 'HORIZONTAL ELLIPSIS' or
+@*[local-name() = 'name'] = 'WORD JOINER' or
+@*[local-name() = 'name'] = 'SERVICE MARK' or
+@*[local-name() = 'name'] = 'TRADE MARK SIGN' or
+@*[local-name() = 'name'] = 'ZERO WIDTH NO-BREAK SPACE'
+&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsection><info><title>Description</title></info>
+
+<para>If the value of the
+  <parameter>man.charmap.use.subset</parameter> parameter is
+  non-zero, and your DocBook source is written in English (that
+  is, if its <tag class="attribute">lang</tag> or <tag class="attribute">xml:lang</tag> attribute on the root element
+  in your DocBook source or on the first <tag>refentry</tag>
+  element in your source has the value <literal>en</literal> or if
+  it has no <tag class="attribute">lang</tag> or <tag class="attribute">xml:lang</tag> attribute), then the
+  character-map subset specified by the
+  <parameter>man.charmap.subset.profile.english</parameter>
+  parameter is used instead of the full roff character map.</para>
+
+<para>Otherwise, if the <tag class="attribute">lang</tag> or <tag class="attribute">xml:lang</tag> attribute
+  on the root element in your DocBook source or on the first
+  <tag>refentry</tag> element in your source has a value other
+  than <literal>en</literal>, then the character-map subset
+  specified by the
+  <parameter>man.charmap.subset.profile</parameter> parameter is
+  used instead of
+  <parameter>man.charmap.subset.profile.english</parameter>.</para>
+
+<para>The difference between the two subsets is that
+  <parameter>man.charmap.subset.profile</parameter> provides
+  mappings for characters in Western European languages that are
+  not part of the Roman (English) alphabet (ASCII character set).</para>
+
+<para>The value of <parameter>man.charmap.subset.profile.english</parameter>
+is a string representing an XPath expression that matches attribute
+names and values for <tag namespace="http://docbook.sf.net/xmlns/unichar/1.0">output-character</tag> elements in the character map.</para>
+
+<para>For other details, see the documentation for the
+<parameter>man.charmap.subset.profile.english</parameter> and
+<parameter>man.charmap.use.subset</parameter> parameters.</para>
+
+</refsection>
+</refentry>
+
 <refentry version="5.0" id="man.string.subst.map.local.pre">
 <refmeta>
 <refentrytitle>man.string.subst.map.local.pre</refentrytitle>
@@ -22800,6 +23089,9 @@ parameter.</para>
   &lt;ss:substitution oldstring=".sp
 .PP" newstring=".PP"&gt;&lt;/ss:substitution&gt;
   &lt;!-- * remove any .sp instances that directly follow a .PP  --&gt;
+  &lt;ss:substitution oldstring=".sp
+.sp" newstring=".sp"&gt;&lt;/ss:substitution&gt;
+  &lt;!-- * squeeze multiple .sp instances into a single .sp--&gt;
   &lt;ss:substitution oldstring=".PP
 .sp" newstring=".PP"&gt;&lt;/ss:substitution&gt;
   &lt;!-- * squeeze multiple newlines after start of no-fill (verbatim) env. --&gt;
@@ -23487,7 +23779,7 @@ meanings in this context. For details, see the documentation for the
 <refsynopsisdiv>
 <programlisting id="refentry.manual.fallback.profile.frag">
 &lt;xsl:param name="refentry.manual.fallback.profile"&gt;
-refmeta/refmiscinfo[1]/node()&lt;/xsl:param&gt;
+refmeta/refmiscinfo[not(@class = 'date')][1]/node()&lt;/xsl:param&gt;
 </programlisting>
 </refsynopsisdiv>
 
@@ -23531,7 +23823,7 @@ parameter.</para>
 <refsynopsisdiv>
 <programlisting id="refentry.source.fallback.profile.frag">
 &lt;xsl:param name="refentry.source.fallback.profile"&gt;
-refmeta/refmiscinfo[1]/node()&lt;/xsl:param&gt;
+refmeta/refmiscinfo[not(@class = 'date')][1]/node()&lt;/xsl:param&gt;
 </programlisting>
 </refsynopsisdiv>
 
@@ -26553,7 +26845,7 @@ will be used to indent the TOC.</para>
     <part id="pi-html">
       <info xml:base="../html/pi.xml"><title>HTML Processing Instruction Reference</title>
     <releaseinfo role="meta">
-      $Id: pi.xsl 7250 2007-08-18 10:19:00Z xmldoc $
+      $Id: pi.xsl 7684 2008-02-18 01:50:02Z xmldoc $
     </releaseinfo>
   </info>
   <partintro id="partintro" xml:base="../html/pi.xml">
@@ -26850,9 +27142,9 @@ will be used to indent the TOC.</para>
 <refsect1><title/>
     
 <para>Use the <tag class="xmlpi">dbhtml funcsynopsis-style</tag> PI as a child of
-      a <tag>funcprototype</tag> or anywhere within a funcprototype
-      control the presentation style for the <tag>funcsynopsis</tag>
-      in output.</para>
+      a <tag>funcsynopsis</tag> or anywhere within a funcsynopsis
+      to control the presentation style for output of all
+      <tag>funcprototype</tag> instances within that funcsynopsis.</para>
 
   </refsect1><refsect1><title>Parameters</title>
     
@@ -26860,14 +27152,14 @@ will be used to indent the TOC.</para>
       <varlistentry><term>funcsynopsis-style="kr"</term>
         <listitem>
           
-<para>Displays the <tag>funcprototype</tag> in K&amp;R style</para>
+<para>Displays <tag>funcprototype</tag> output in K&amp;R style</para>
 
         </listitem>
       </varlistentry>
       <varlistentry><term>funcsynopsis-style="ansi"</term>
         <listitem>
           
-<para>Displays the <tag>funcprototype</tag> in ANSI style</para>
+<para>Displays <tag>funcprototype</tag> output in ANSI style</para>
 
         </listitem>
       </varlistentry>
@@ -27237,6 +27529,34 @@ will be used to indent the TOC.</para>
 
   </refsect1></refentry>
 
+<refentry id="dbhtml_stop-chunking" xml:base="../html/pi.xml">
+<refnamediv>
+<refname>dbhtml_stop-chunking</refname>
+<refpurpose>Do not chunk any descendents of this element.</refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+
+    <synopsis><tag class="xmlpi">dbhtml stop-chunking</tag></synopsis>
+  
+</refsynopsisdiv>
+<refsect1><title/>
+    
+<para>When generating chunked html output, adding this as the child of an element that contains elements that would normally be generated on separate pages if generating chunked output causes chunking to stop at this point. No descendants of the current element will be split into new html pages:
+<programlisting>&lt;section&gt;
+&lt;title&gt;Configuring pencil&lt;/title&gt;
+&lt;?dbhtml stop-chunking?&gt;
+
+...
+
+&lt;/section&gt;</programlisting>
+</para>
+
+  </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
+    
+<para><link role="tcg" xlink:href="Chunking.html">Chunking into multiple HTML files</link></para>
+
+  </refsect1></refentry>
+
 <refentry id="dbhtml_table-summary" xml:base="../html/pi.xml">
 <refnamediv>
 <refname>dbhtml_table-summary</refname>
@@ -27589,7 +27909,7 @@ will be used to indent the TOC.</para>
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
 <para><link role="tcg" xlink:href="InsertExtHtml.html">Inserting external HTML code</link>,
-      <link xlink:href="ExternalCode.html">External code files</link></para>
+      <link role="tcg" xlink:href="ExternalCode.html">External code files</link></para>
 
   </refsect1></refentry>
 
@@ -27637,7 +27957,7 @@ will be used to indent the TOC.</para>
     <part id="pi-fo">
       <info xml:base="../fo/pi.xml"><title>FO Processing Instruction Reference</title>
     <releaseinfo role="meta">
-      $Id: pi.xsl 7240 2007-08-14 12:30:49Z mzjn $
+      $Id: pi.xsl 8012 2008-05-23 16:08:05Z mzjn $
     </releaseinfo>
   </info>
 
@@ -27761,15 +28081,15 @@ will be used to indent the TOC.</para>
 
   </refsect1><refsect1 role="params"><title>Related Global Parameters</title>
     
-<para><parameter>sidebar.float.type parameter</parameter>,
-      <parameter>sidebar.float.width parameter</parameter>, 
-      <parameter>sidebar.properties attribute-set</parameter>,
-      <parameter>sidebar.title.properties</parameter>
+<para><parameter>sidebar.float.type</parameter> (parameter),
+      <parameter>sidebar.float.width</parameter> (parameter), 
+      <parameter>sidebar.properties</parameter> (attribute-set),
+      <parameter>sidebar.title.properties</parameter> (attribute-set)
     </para>
 
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
-<para><link xlink:href="SideFloats.html#SidebarFloats">A sidebar as
+<para><link role="tcg" xlink:href="SideFloats.html#SidebarFloats">A sidebar as
         side float</link></para>
 
   </refsect1></refentry>
@@ -27814,7 +28134,7 @@ will be used to indent the TOC.</para>
 
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
-<para><link xlink:href="Glossaries.html#GlossaryFormatPrint">Glossary
+<para><link role="tcg" xlink:href="Glossaries.html#GlossaryFormatPrint">Glossary
         formatting in print</link></para>
 
   </refsect1></refentry>
@@ -27859,7 +28179,7 @@ will be used to indent the TOC.</para>
 
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
-<para><link xlink:href="Glossaries.html#GlossaryFormatPrint">Glossary
+<para><link role="tcg" xlink:href="Glossaries.html#GlossaryFormatPrint">Glossary
         formatting in print</link></para>
 
   </refsect1></refentry>
@@ -27902,7 +28222,7 @@ will be used to indent the TOC.</para>
 
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
-<para><link xlink:href="Glossaries.html#GlossaryFormatPrint">Glossary
+<para><link role="tcg" xlink:href="Glossaries.html#GlossaryFormatPrint">Glossary
         formatting in print</link></para>
 
   </refsect1></refentry>
@@ -27911,7 +28231,7 @@ will be used to indent the TOC.</para>
 <refnamediv>
 <refname>dbfo_keep-together</refname>
 <refpurpose>Specifies &#8220;keep&#8221; behavior for a table, example,
-    figure, or equation</refpurpose>
+    figure, equation, procedure, or task</refpurpose>
 </refnamediv>
 <refsynopsisdiv>
 
@@ -27922,9 +28242,15 @@ will be used to indent the TOC.</para>
     
 <para>Use the <tag class="xmlpi">dbfo keep-together</tag> PI as a child of a
       formal object (<tag>table</tag>, <tag>example</tag>,
-      <tag>figure</tag>, or <tag>equation</tag>) or their informal
-      equivalents) to specify &#8220;keep&#8221; behavior for the object (to
-      allow the object to &#8220;break&#8221; across a page).</para>
+      <tag>figure</tag>, <tag>equation</tag>, <tag>procedure</tag>, or
+      <tag>task</tag>) to specify &#8220;keep&#8221; behavior (to allow the object to 
+    &#8220;break&#8221; across a page).</para>
+
+    
+<para>The PI also works with <tag>informaltable</tag>, <tag>informalexample</tag>,
+      <tag>informalfigure</tag> and <tag>informalequation</tag>.
+    </para>
+
 
   </refsect1><refsect1><title>Parameters</title>
     
@@ -27952,14 +28278,15 @@ will be used to indent the TOC.</para>
 
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
-<para><link xlink:href="PageBreaking.html#KeepTogetherPI">Keep-together processing instruction</link></para>
+<para><link role="tcg" xlink:href="PageBreaking.html#KeepTogetherPI">Keep-together processing instruction</link></para>
 
   </refsect1></refentry>
 
 <refentry id="dbfo_label-width" xml:base="../fo/pi.xml">
 <refnamediv>
 <refname>dbfo_label-width</refname>
-<refpurpose>Specifies the label width for a qandaset</refpurpose>
+<refpurpose>Specifies the label width for a qandaset, itemizedlist, orderedlist
+  or calloutlist</refpurpose>
 </refnamediv>
 <refsynopsisdiv>
 
@@ -27969,7 +28296,8 @@ will be used to indent the TOC.</para>
 <refsect1><title/>
     
 <para>Use the <tag class="xmlpi">dbfo label-width</tag> PI as a child of a
-      <tag>qandaset</tag> to specify the width of labels.</para>
+      <tag>qandaset</tag>, <tag>itemizedlist</tag>, <tag>orderedlist</tag>, 
+      or <tag>calloutlist</tag> to specify the width of labels.</para>
 
   </refsect1><refsect1><title>Parameters</title>
     
@@ -28347,7 +28675,7 @@ will be used to indent the TOC.</para>
 
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
-<para><link xlink:href="SideFloats.html#SidebarFloats">A sidebar as
+<para><link role="tcg" xlink:href="SideFloats.html#SidebarFloats">A sidebar as
         side float</link></para>
 
   </refsect1></refentry>
@@ -28545,6 +28873,75 @@ will be used to indent the TOC.</para>
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
 <para><link role="tcg" xlink:href="PageBreaking.html#SoftPageBreaks">Soft page breaks</link></para>
+
+  </refsect1></refentry>
+
+    </part>
+    <part id="pi-man">
+      <info xml:base="../manpages/pi.xml"><title>manpages Processing Instruction Reference</title>
+    <releaseinfo role="meta">
+      $Id: pi.xsl 7644 2008-01-16 11:04:07Z xmldoc $
+    </releaseinfo>
+  </info>
+  <partintro id="partintro" xml:base="../manpages/pi.xml">
+    <title>Introduction</title>
+    
+<para>This is generated reference documentation for all
+      user-specifiable processing instructions (PIs) in the DocBook
+      XSL stylesheets for manpages output.
+      <note>
+        
+<para>You add these PIs at particular points in a document to
+          cause specific &#8220;exceptions&#8221; to formatting/output behavior. To
+          make global changes in formatting/output behavior across an
+          entire document, it&#8217;s better to do it by setting an
+          appropriate stylesheet parameter (if there is one).</para>
+
+      </note>
+    </para>
+
+  </partintro>
+
+<refentry id="dbman_funcsynopsis-style" xml:base="../manpages/pi.xml">
+<refnamediv>
+<refname>dbman_funcsynopsis-style</refname>
+<refpurpose>Specifies presentation style for a funcsynopsis.</refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+
+    <synopsis><tag class="xmlpi">dbman funcsynopsis-style="kr"|"ansi"</tag></synopsis>
+  
+</refsynopsisdiv>
+<refsect1><title/>
+    
+<para>Use the <tag class="xmlpi">dbman
+        funcsynopsis-style</tag> PI as a child of a
+      <tag>funcsynopsis</tag> or anywhere within a funcsynopsis
+      to control the presentation style for output of all
+      <tag>funcprototype</tag> instances within that funcsynopsis.</para>
+
+  </refsect1><refsect1><title>Parameters</title>
+    
+<variablelist>
+      <varlistentry><term>funcsynopsis-style="kr"</term>
+        <listitem>
+          
+<para>Displays the <tag>funcprototype</tag> in K&amp;R style</para>
+
+        </listitem>
+      </varlistentry>
+      <varlistentry><term>funcsynopsis-style="ansi"</term>
+        <listitem>
+          
+<para>Displays the <tag>funcprototype</tag> in ANSI style</para>
+
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+  </refsect1><refsect1 role="params"><title>Related Global Parameters</title>
+    
+<para><parameter>man.funcsynopsis.style</parameter></para>
 
   </refsect1></refentry>
 
@@ -29666,7 +30063,7 @@ which would effectively move <quote>up</quote> the hierarchy.</para>
   <info>
     <title>Common &#187; Base Template Reference</title>
     <releaseinfo role="meta">
-      $Id: common.xsl 7056 2007-07-17 13:56:09Z xmldoc $
+      $Id: common.xsl 8002 2008-04-21 16:03:57Z kosek $
     </releaseinfo>
   </info>
   
@@ -30285,7 +30682,7 @@ unchanged.</para>
   <info>
     <title>Common &#187; Refentry Metadata Template Reference</title>
     <releaseinfo role="meta">
-      $Id: refentry.xsl 7056 2007-07-17 13:56:09Z xmldoc $
+      $Id: refentry.xsl 7867 2008-03-07 09:54:25Z xmldoc $
     </releaseinfo>
   </info>
   
@@ -30334,7 +30731,7 @@ unchanged.</para>
     context information in different ways. Often (usually), the
     context information is not actually part of the content of the
     <tag>refentry</tag> itself, but instead part of the content of a
-    parent or ancestor element to the the <tag>refentry</tag>. And
+    parent or ancestor element to the <tag>refentry</tag>. And
     even then, DocBook provides a variety of elements that users might
     potentially use to mark up the same kind of information. One user
     might use the <tag>productnumber</tag> element to mark up version
@@ -31504,7 +31901,7 @@ unchanged.</para>
   <info xml:base="../fo/table.xml">
     <title>Formatting Object Table Reference</title>
     <releaseinfo role="meta">
-      $Id: table.xsl 7252 2007-08-18 16:27:46Z mzjn $
+      $Id: table.xsl 7681 2008-02-17 19:08:14Z mzjn $
     </releaseinfo>
   </info>
   <partintro id="partintro" xml:base="../fo/table.xml">

@@ -7,7 +7,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:stbl="http://nwalsh.co
 <xsl:include href="../common/table.xsl"/>
 
 <!-- ********************************************************************
-     $Id: table.xsl 7009 2007-07-11 09:42:54Z mzjn $
+     $Id: table.xsl 8010 2008-05-21 16:17:44Z abdelazer $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -167,6 +167,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:stbl="http://nwalsh.co
       <!-- Otherwise, if there's a title, use that -->
       <xsl:when test="../d:title">
         <xsl:attribute name="summary">
+          <!-- This screws up on inline markup and footnotes, oh well... -->
           <xsl:value-of select="string(../d:title)"/>
         </xsl:attribute>
       </xsl:when>
@@ -398,11 +399,11 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:stbl="http://nwalsh.co
     <xsl:apply-templates select="d:tfoot"/>
     <xsl:apply-templates select="d:tbody"/>
 
-    <xsl:if test=".//d:footnote">
+    <xsl:if test=".//d:footnote|../d:title//d:footnote">
       <tbody class="footnotes">
         <tr>
           <td colspan="{@cols}">
-            <xsl:apply-templates select=".//d:footnote" mode="table.footnote.mode"/>
+            <xsl:apply-templates select=".//d:footnote|../d:title//d:footnote" mode="table.footnote.mode"/>
           </td>
         </tr>
       </tbody>
@@ -676,7 +677,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:stbl="http://nwalsh.co
   <xsl:variable name="rowsep">
     <xsl:choose>
       <!-- If this is the last row, rowsep never applies. -->
-      <xsl:when test="ancestor::d:entrytbl                       and not (ancestor-or-self::d:row[1]/following-sibling::d:row)">
+      <xsl:when test="ancestor::d:entrytbl                       and not (ancestor-or-self::d:row[1]/following-sibling::d:row)         and not (ancestor::d:thead)">
         <xsl:value-of select="0"/>
       </xsl:when>
       <xsl:when test="not(ancestor-or-self::d:row[1]/following-sibling::d:row                           or ancestor-or-self::d:thead/following-sibling::d:tbody                           or ancestor-or-self::d:tbody/preceding-sibling::d:tfoot)">

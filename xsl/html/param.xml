@@ -3,7 +3,7 @@
 <info>
 <title>HTML Parameter Reference</title>
 <releaseinfo role="meta">
-$Id: param.xweb 7098 2007-07-20 14:59:23Z mzjn $
+$Id: param.xweb 7679 2008-02-17 13:26:47Z xmldoc $
 </releaseinfo>
 <author>
   <personname>
@@ -37,7 +37,7 @@ $Id: param.xweb 7098 2007-07-20 14:59:23Z mzjn $
 </refmeta>
 <refnamediv>
 <refname>admon.graphics.extension</refname>
-<refpurpose>Extension for admonition graphics</refpurpose>
+<refpurpose>Filename extension for admonition graphics</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -48,7 +48,7 @@ $Id: param.xweb 7098 2007-07-20 14:59:23Z mzjn $
 
 <refsection><info><title>Description</title></info>
 
-<para>Sets the extension to use on admonition graphics.</para>
+<para>Sets the filename extension to use on admonition graphics.</para>
 
 </refsection>
 </refentry>
@@ -190,7 +190,7 @@ it will appear in the default column.
 </refmeta>
 <refnamediv>
 <refname>callout.graphics.extension</refname>
-<refpurpose>File name extension for callout graphics</refpurpose>
+<refpurpose>Filename extension for callout graphics</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -201,11 +201,14 @@ it will appear in the default column.
 </refsynopsisdiv>
 
 <refsection><info><title>Description</title></info>
+<para>Sets the filename extension to use on callout graphics. </para>
 
-<para>Sets the extension to use on callout graphics, hence the callout
-graphic format. The appropriate format (and range used) should be
-available. svg, png and gif are provided.</para>
-
+<itemizedlist>
+<para>The Docbook XSL distribution provides callout graphics in the following formats:</para>
+<listitem><para>SVG (extension: <filename class="extension">.svg</filename>)</para></listitem>
+<listitem><para>PNG (extension: <filename class="extension">.png</filename>)</para></listitem>
+<listitem><para>GIF (extension: <filename class="extension">.gif</filename>)</para></listitem>
+</itemizedlist>
 </refsection>
 </refentry>
 
@@ -581,7 +584,7 @@ TOC entries will be displayed.
 
 <refsection><info><title>Description</title></info>
 
-<para>String to use to seperate labels and title in a table of contents.</para>
+<para>String used to separate labels and titles in a table of contents.</para>
 
 </refsection>
 </refentry>
@@ -984,24 +987,24 @@ level sections, but not in fourth level sections.
 
 <refsection><info><title>Description</title></info>
 
-<para>This parameter lets you select which method should be
-used to sort and group index entries in an index.
-Indexes in latin-based languages that have accented characters typically
+<para>This parameter lets you select which method to use for sorting and grouping
+ index entries in an index.
+Indexes in Latin-based languages that have accented characters typically
 sort together accented words and unaccented words.
-Thus <quote>&#193;</quote> (A acute) would sort together
-with <quote>A</quote>, so both would appear in the <quote>A</quote>
+Thus <quote>&#193;</quote> (U+00C1 LATIN CAPITAL LETTER A WITH ACUTE) would sort together
+with <quote>A</quote> (U+0041 LATIN CAPITAL LETTER A), so both would appear in the <quote>A</quote>
 section of the index.
-Languages using other alphabets (such as Russian cyrillic)
+Languages using other alphabets (such as Russian,  which is written in the Cyrillic alphabet)
 and languages using ideographic chararacters (such as Japanese)
 require grouping specific to the languages and alphabets.
 </para>
 
 <para>The default indexing method is limited.
-It can group accented characters in latin-based languages only.
-It cannot handle non-latin alphabets or ideographic languages.
+It can group accented characters in Latin-based languages only.
+It cannot handle non-Latin alphabets or ideographic languages.
 The other indexing methods require extensions of one type or
 another, and do not work with
-all XSLT processors, which is why there are not used by default.</para>
+all XSLT processors, which is why they are not used by default.</para>
 
 <para>The three choices for indexing method are:</para>
 <variablelist>
@@ -1010,7 +1013,7 @@ all XSLT processors, which is why there are not used by default.</para>
 <listitem>
 <para>
 (default)  Sort and groups words based only on the Latin alphabet.
-Words with accented latin letters will group and sort with
+Words with accented Latin letters will group and sort with
 their respective primary letter, but
 words in non-Latin alphabets will be
 put in the <quote>Symbols</quote> section of the index.
@@ -1021,11 +1024,11 @@ put in the <quote>Symbols</quote> section of the index.
 <term><literal>kosek</literal></term>
 <listitem>
 <para>
-Sort and groups words based on letter groups configured in
+This method sorts and groups words based on letter groups configured in
 the DocBook locale file for the given language.
 See, for example, the French locale file <filename>common/fr.xml</filename>.
 This method requires that the XSLT processor
-support the EXSLT extensions (most do).
+supports the EXSLT extensions (most do).
 It also requires support for using 
 user-defined functions in xsl:key (xsltproc does not).
 </para>
@@ -1064,10 +1067,10 @@ customization.
 <listitem>
 <para>
 This method uses extensions to the Saxon processor to implement
-sophisticated indexing processes.  It uses its own 
+sophisticated indexing processes. It uses its own 
 configuration file, which can include information for any number of
-languages.  Each language's configuration can group
-words using one of two processes.  In the
+languages. Each language's configuration can group
+words using one of two processes. In the
 enumerated process similar to that used in the kosek method,
 you indicate the groupings character-by-character.
 In the between-key process, you specify the
@@ -1079,12 +1082,12 @@ want mixed Latin-alphabet words sorted.</para>
 <itemizedlist>
 <listitem>
 <para>For a whitepaper describing the extensions, see:
-<uri xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf">http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf</uri>.
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf">http://www.innodata-isogen.com/knowledge_center/white_papers/back_of_book_for_xsl_fo.pdf</link>.
 </para>
 </listitem>
 <listitem>
 <para>To download the extension library, see
-<uri xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport">http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport</uri>.
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport">http://www.innodata-isogen.com/knowledge_center/tools_downloads/i18nsupport</link>.
 </para>
 </listitem>
 </itemizedlist>
@@ -1436,10 +1439,9 @@ numbered. Note that numbering is one based, not zero based.
 
 <refsection><info><title>Description</title></info>
 
-<para>If non-zero, verbatim environments (elements that have the
-format='linespecific' notation attribute: address, literallayout,
-programlisting, screen, synopsis) that specify line numbering will
-have, line numbers.
+<para>If non-zero, verbatim environments (<tag>address</tag>, <tag>literallayout</tag>,
+<tag>programlisting</tag>, <tag>screen</tag>, <tag>synopsis</tag>) that specify line numbering will
+have line numbers.
 </para>
 
 </refsection>
@@ -2458,7 +2460,7 @@ are created from the <tag>textobject</tag>s in
 <para>If non-zero, links will be created to the
 HTML files created for the
 <literal>longdesc</literal> attribute. It makes no
-sense to turn enable this option without also enabling the
+sense to enable this option without also enabling the
 <parameter>html.longdesc</parameter> parameter.</para>
 
 
@@ -3121,6 +3123,29 @@ is non-zero, the stylesheet:
   zero, <tag>legalnotice</tag> contents are rendered on the title
   page.</para>
 
+<para>The name of the separate HTML file is computed as follows:
+
+<orderedlist>
+<listitem>
+  <para>If a filename is given by the <tag class="xmlpi">dbhtml filename</tag> 
+processing instruction, that filename is used.</para>
+</listitem>
+<listitem>
+  <para>If the legalnotice has an <tag class="attribute">id</tag>/<tag class="attribute">xml:id</tag> 
+attribute, and if <parameter>use.id.as.filename</parameter> != 0, the filename 
+is the concatenation of the id value and the value of the <parameter>html.ext</parameter> 
+parameter.</para>
+</listitem>
+<listitem>
+  <para>If the legalnotice does not have an <tag class="attribute">id</tag>/<tag class="attribute">xml:id</tag>
+ attribute, or if <parameter>use.id.as.filename</parameter> = 0, the filename is the concatenation of "ln-", 
+auto-generated id value, and <parameter>html.ext</parameter> value.
+  </para>
+</listitem>
+</orderedlist>
+
+</para>
+
 </refsection>
 </refentry>
 
@@ -3144,6 +3169,28 @@ is non-zero, the stylesheet:
 to a separate HTML file and a link to the file is
 generated. Otherwise, <tag>revhistory</tag> contents are rendered on
 the title page.</para>
+
+<para>The name of the separate HTML file is computed as follows:
+
+<orderedlist>
+<listitem>
+  <para>If a filename is given by the <tag class="xmlpi">dbhtml filename</tag> processing instruction, 
+that filename is used.</para>
+</listitem>
+<listitem>
+  <para>If the revhistory has an <tag class="attribute">id</tag>/<tag class="attribute">xml:id</tag> 
+attribute, and if <parameter>use.id.as.filename</parameter> != 0, the filename is the concatenation of 
+the id value and the value of the <parameter>html.ext</parameter> parameter.</para>
+</listitem>
+<listitem>
+  <para>If the revhistory does not have an <tag class="attribute">id</tag>/<tag class="attribute">xml:id</tag> 
+attribute, or if <parameter>use.id.as.filename</parameter> = 0, the filename is the concatenation of "rh-", 
+auto-generated id value, and <parameter>html.ext</parameter> value.
+  </para>
+</listitem>
+</orderedlist>
+
+</para>
 
 </refsection>
 </refentry>
@@ -3310,31 +3357,6 @@ ANSI-style function synopses are generated for a
 <tag>funcsynopsis</tag>, otherwise K&amp;R-style
 function synopses are generated.
 </para>
-
-</refsection>
-</refentry>
-
-<refentry version="5.0" xml:id="funcsynopsis.tabular.threshold">
-<refmeta>
-<refentrytitle>funcsynopsis.tabular.threshold</refentrytitle>
-<refmiscinfo class="other" otherclass="datatype">integer</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>funcsynopsis.tabular.threshold</refname>
-<refpurpose>Width beyond which a tabular presentation will be used</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting xml:id="funcsynopsis.tabular.threshold.frag">
-&lt;xsl:param name="funcsynopsis.tabular.threshold"&gt;40&lt;/xsl:param&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsection><info><title>Description</title></info>
-
-<para>If <parameter>funcsynopsis.tabular.threshold</parameter> is greater than
-zero then if a <tag>funcprototype</tag> is wider than the threshold
-value, it will be presented in a table.</para>
 
 </refsection>
 </refentry>
@@ -3542,7 +3564,8 @@ suppressed in output.</para>
 <refsection><info><title>Description</title></info>
 <para>If non-zero, this value will be used for the
 <literal>width</literal> attribute on <tag>table</tag>s that do not specify an
-alternate width (with the dbhtml processing instruction).</para>
+alternate width (with the <tag class="xmlpi">dbhtml table-width</tag> or 
+<tag class="xmlpi">dbfo table-width</tag> processing instruction).</para>
 </refsection>
 </refentry>
 
@@ -3567,7 +3590,7 @@ alternate width (with the dbhtml processing instruction).</para>
 <para>In order to convert CALS column widths into HTML column widths, it
 is sometimes necessary to have an absolute table width to use for conversion
 of mixed absolute and relative widths. This value must be an absolute
-length (not a percentag).</para>
+length (not a percentage).</para>
 
 </refsection>
 </refentry>
@@ -3613,7 +3636,7 @@ length (not a percentag).</para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.border.style</refname>
-<refpurpose/>
+<refpurpose>Specifies the border style of table cells</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3624,7 +3647,12 @@ length (not a percentag).</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the border style of table cells.</para>
+
+<note>
+  <para>To control properties of cell borders in HTML output, you must also turn on the 
+  <parameter>table.borders.with.css</parameter> parameter.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -3636,7 +3664,7 @@ length (not a percentag).</para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.border.thickness</refname>
-<refpurpose/>
+<refpurpose>Specifies the thickness of table cell borders</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3651,6 +3679,11 @@ length (not a percentag).</para>
 cells. The units are points. See <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.w3.org/TR/CSS21/box.html#border-width-properties">
 CSS</link></para>
 
+<note>
+  <para>To control properties of cell borders in HTML output, you must also turn on the 
+  <parameter>table.borders.with.css</parameter> parameter.</para>
+</note>
+
 </refsection>
 </refentry>
 
@@ -3661,7 +3694,7 @@ CSS</link></para>
 </refmeta>
 <refnamediv>
 <refname>table.cell.border.color</refname>
-<refpurpose/>
+<refpurpose>Specifies the border color of table cells</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3673,12 +3706,17 @@ CSS</link></para>
 
 <refsection><info><title>Description</title></info>
 
-<para>Set the color of table borders. If non-zero, the value is used
+<para>Set the color of table cell borders. If non-zero, the value is used
 for the border coloration. See <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.w3.org/TR/CSS21/syndata.html#value-def-color">CSS</link>. A
 <literal>color</literal> is either a keyword or a numerical RGB specification.
 Keywords are aqua, black, blue, fuchsia, gray, green, lime, maroon,
 navy, olive, orange, purple, red, silver, teal, white, and
 yellow.</para>
+
+<note>
+  <para>To control properties of cell borders in HTML output, you must also turn on the 
+  <parameter>table.borders.with.css</parameter> parameter.</para>
+</note>
 
 </refsection>
 </refentry>
@@ -3700,7 +3738,7 @@ yellow.</para>
 </refmeta>
 <refnamediv>
 <refname>table.frame.border.style</refname>
-<refpurpose/>
+<refpurpose>Specifies the border style of table frames</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3711,7 +3749,7 @@ yellow.</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the border style of table frames.</para>
 
 </refsection>
 </refentry>
@@ -3746,7 +3784,7 @@ yellow.</para>
 </refmeta>
 <refnamediv>
 <refname>table.frame.border.color</refname>
-<refpurpose/>
+<refpurpose>Specifies the border color of table frames</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -3758,7 +3796,7 @@ yellow.</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>FIXME:</para>
+<para>Specifies the border color of table frames.</para>
 
 </refsection>
 </refentry>
@@ -5394,7 +5432,7 @@ all of the entries referenced appeared there literally.</para>
 </refmeta>
 <refnamediv>
 <refname>glossterm.auto.link</refname>
-<refpurpose>Generate links from glossterm to glossentry automaticaly?</refpurpose>
+<refpurpose>Generate links from glossterm to glossentry automatically?</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -5405,13 +5443,13 @@ all of the entries referenced appeared there literally.</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>If true, a link will be automatically created from glossterm 
-to glossentry for that glossary term. This is usefull when your
-glossterm names are consistent and you don't want to add links
-manually.</para>
-<para>If there is <tag class="attribute">linkend</tag> on
-<tag>glossterm</tag> then is used instead of autogeneration of
-link.</para>
+<para>If non-zero, links from inline <tag>glossterm</tag>s to the corresponding 
+<tag>glossentry</tag> elements in a <tag>glossary</tag> or <tag>glosslist</tag> 
+will be automatically generated. This is useful when your glossterms are consistent 
+and you don't want to add links manually.</para>
+
+<para>The automatic link generation feature is not used on <tag>glossterm</tag> elements
+that have a <tag class="attribute">linkend</tag> attribute.</para>
 
 </refsection>
 </refentry>
@@ -6750,15 +6788,19 @@ click to dismiss the popup. It may be replaced by a user provided graphic. The s
 
 <refsection><info><title>Description</title></info>
 
-<para>Add a path prefix to each HTML
-<tag class="element">img</tag> or FO 
-<tag class="element">fo:external-graphic</tag> element's
-<tag class="attribute">src</tag> attribute.
-This path could be relative to the directory where the HTML/FO
+<para>Add a path prefix to the value of the <tag class="attribute">fileref</tag> 
+attribute of <tag>graphic</tag>, <tag>inlinegraphic</tag>, and <tag>imagedata</tag> elements. The resulting 
+compound path is used in the output as the value of the <tag class="attribute">src</tag> 
+attribute of <tag class="element">img</tag> (HTML) or <tag class="element">external-graphic</tag> (FO).
+</para>
+
+<para>
+The path given by <literal>img.src.path</literal> could be relative to the directory where the HTML/FO
 files are created, or it could be an absolute URI.
 The default value is empty.
 Be sure to include a trailing slash if needed.
 </para>
+
 <para>This prefix is not applied to any filerefs that start
 with "/" or contain "//:".
 </para>
@@ -7351,12 +7393,15 @@ If you want to suppress entity references for characters with direct representat
 <parameter>chunker.output.encoding</parameter>, set the parameter value to <literal>native</literal>. 
 </para>
 
+<para> For more information, see <link xmlns:xlink="http://www.w3.org/1999/xlink" role="tcg" xlink:href="OutputEncoding.html#SaxonCharacter">Saxon output character representation</link>.</para>
+
 <note>
 <para>This parameter is documented here, but the declaration is actually
 in the <filename>chunker.xsl</filename> stylesheet module.</para>
 </note>
 
 </refsection>
+
 </refentry>
 
 <refentry version="5.0" xml:id="html.ext">
@@ -7542,7 +7587,7 @@ is system dependent.)</para>
 </refmeta>
 <refnamediv>
 <refname>manifest.in.base.dir</refname>
-<refpurpose>Should be manifest file written in $base.dir?</refpurpose>
+<refpurpose>Should the manifest file be written into <parameter>base.dir</parameter>?</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -7553,9 +7598,9 @@ is system dependent.)</para>
 
 <refsection><info><title>Description</title></info>
 
-<para>If non-zero manifest file and project files for HTML Help and
+<para>If non-zero, the manifest file as well as project files for HTML Help and
 Eclipse Help are written into <parameter>base.dir</parameter> instead
-of current directory.</para>
+of the current directory.</para>
 
 </refsection>
 </refentry>
@@ -7881,7 +7926,8 @@ If false (zero), then only the words 'Next' and 'Previous'
 <reference xml:id="profiling"><title>Profiling</title>
 <partintro xml:id="partintro">
 <para>The following parameters can be used for attribute-based
-profiling of your document. FIXME: Add link to Bob&#8217;s book.</para>
+profiling of your document. For more information about profiling, see 
+<link xmlns:xlink="http://www.w3.org/1999/xlink" role="tcg" xlink:href="Profiling.html">Profiling (conditional text)</link>.</para>
 </partintro>
 <refentry version="5.0" xml:id="profile.arch">
 <refmeta>
@@ -9933,7 +9979,7 @@ around all these parameters.</para>
 &lt;xsl:stylesheet exclude-result-prefixes="src" version="1.0"&gt;
 
 &lt;!-- ********************************************************************
-     $Id: param.xweb 7098 2007-07-20 14:59:23Z mzjn $
+     $Id: param.xweb 7679 2008-02-17 13:26:47Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -10015,7 +10061,6 @@ around all these parameters.</para>
 &lt;src:fragref linkend="formal.title.placement.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="funcsynopsis.decoration.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="funcsynopsis.style.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="funcsynopsis.tabular.threshold.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="function.parens.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="generate.id.attributes.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="generate.index.frag"&gt;&lt;/src:fragref&gt;

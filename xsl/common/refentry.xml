@@ -4,7 +4,7 @@
   <info>
     <title>Common » Refentry Metadata Template Reference</title>
     <releaseinfo role="meta">
-      $Id: refentry.xsl 7056 2007-07-17 13:56:09Z xmldoc $
+      $Id: refentry.xsl 7867 2008-03-07 09:54:25Z xmldoc $
     </releaseinfo>
   </info>
   
@@ -53,7 +53,7 @@
     context information in different ways. Often (usually), the
     context information is not actually part of the content of the
     <tag>refentry</tag> itself, but instead part of the content of a
-    parent or ancestor element to the the <tag>refentry</tag>. And
+    parent or ancestor element to the <tag>refentry</tag>. And
     even then, DocBook provides a variety of elements that users might
     potentially use to mark up the same kind of information. One user
     might use the <tag>productnumber</tag> element to mark up version

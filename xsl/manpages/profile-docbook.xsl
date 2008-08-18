@@ -10,7 +10,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:ng="http://docbook.org/docbook-ng" xm
   <xsl:import href="html-synop.xsl"/>
   <xsl:output method="text" encoding="UTF-8" indent="no"/>
   <!-- ********************************************************************
-       $Id: docbook.xsl 7153 2007-07-26 14:08:55Z xmldoc $
+       $Id: docbook.xsl 7868 2008-03-07 11:17:29Z xmldoc $
        ********************************************************************
 
        This file is part of the XSL DocBook Stylesheet distribution.
@@ -34,6 +34,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:ng="http://docbook.org/docbook-ng" xm
   <xsl:include href="lists.xsl"/>
   <xsl:include href="endnotes.xsl"/>
   <xsl:include href="table.xsl"/>
+  <xsl:include href="pi.xsl"/>
 
   <!-- * we rename the following just to avoid using params with "man" -->
   <!-- * prefixes in the table.xsl stylesheet (because that stylesheet -->
@@ -166,6 +167,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:ng="http://docbook.org/docbook-ng" xm
         <xsl:with-param name="title" select="$refentry.metadata/title"/>
         <xsl:with-param name="manual" select="$refentry.metadata/manual"/>
         <xsl:with-param name="source" select="$refentry.metadata/source"/>
+        <xsl:with-param name="refname" select="$first.refname"/>
       </xsl:call-template>
       <!-- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
       <!-- * TH.title.line = title line in header/footer of man page -->
@@ -191,6 +193,10 @@ xmlns:exsl="http://exslt.org/common" xmlns:ng="http://docbook.org/docbook-ng" xm
         <xsl:with-param name="extra3" select="$refentry.metadata/manual"/>
       </xsl:call-template>
       <!-- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+      <!-- * (re)define some macros -->
+      <!-- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+      <xsl:call-template name="define.macros"/>
+      <!-- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
       <!-- * Set default hyphenation, justification, indentation, and -->
       <!-- * line-breaking -->
       <!-- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -198,6 +204,12 @@ xmlns:exsl="http://exslt.org/common" xmlns:ng="http://docbook.org/docbook-ng" xm
       <!-- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
       <!-- * Main body of man page -->
       <!-- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+      <xsl:text>.\" -----------------------------------------------------------------
+</xsl:text>
+      <xsl:text>.\" * MAIN CONTENT STARTS HERE *
+</xsl:text>
+      <xsl:text>.\" -----------------------------------------------------------------
+</xsl:text>
       <xsl:apply-templates/>
       <!-- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
       <!-- * AUTHOR section -->

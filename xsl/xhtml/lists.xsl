@@ -6,7 +6,7 @@
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: lists.xsl 6963 2007-07-07 08:15:38Z xmldoc $
+     $Id: lists.xsl 8002 2008-04-21 16:03:57Z kosek $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -142,24 +142,36 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     <!-- Preserve order of PIs and comments -->
     <xsl:apply-templates select="*[not(self::d:listitem                   or self::d:title                   or self::d:titleabbrev)]                 |comment()[not(preceding-sibling::d:listitem)]                 |processing-instruction()[not(preceding-sibling::d:listitem)]"/>
 
-    <ol>
-      <xsl:if test="$start != '1'">
-        <xsl:attribute name="start">
-          <xsl:value-of select="$start"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:if test="$numeration != ''">
-        <xsl:attribute name="type">
-          <xsl:value-of select="$type"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:if test="@spacing='compact'">
-        <xsl:attribute name="compact">
-          <xsl:value-of select="@spacing"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:apply-templates select="d:listitem                     |comment()[preceding-sibling::d:listitem]                     |processing-instruction()[preceding-sibling::d:listitem]"/>
-    </ol>
+    <xsl:choose>
+      <xsl:when test="@inheritnum='inherit' and ancestor::d:listitem[parent::d:orderedlist]">
+	<table border="0">
+	  <col align="left" valign="top"/>
+          <tbody>
+	    <xsl:apply-templates mode="orderedlist-table" select="d:listitem    |comment()[preceding-sibling::d:listitem]    |processing-instruction()[preceding-sibling::d:listitem]"/>
+          </tbody>
+        </table>
+      </xsl:when>
+      <xsl:otherwise>
+	<ol>
+	  <xsl:if test="$start != '1'">
+	    <xsl:attribute name="start">
+	      <xsl:value-of select="$start"/>
+	    </xsl:attribute>
+	  </xsl:if>
+	  <xsl:if test="$numeration != ''">
+	    <xsl:attribute name="type">
+	      <xsl:value-of select="$type"/>
+	    </xsl:attribute>
+	  </xsl:if>
+	  <xsl:if test="@spacing='compact'">
+	    <xsl:attribute name="compact">
+	      <xsl:value-of select="@spacing"/>
+	    </xsl:attribute>
+	  </xsl:if>
+	  <xsl:apply-templates select="d:listitem    |comment()[preceding-sibling::d:listitem]    |processing-instruction()[preceding-sibling::d:listitem]"/>
+	</ol>
+      </xsl:otherwise>
+    </xsl:choose>
   </div>
 </xsl:template>
 
@@ -194,6 +206,30 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
       </xsl:otherwise>
     </xsl:choose>
   </li>
+</xsl:template>
+
+<xsl:template match="d:orderedlist/d:listitem" mode="orderedlist-table">
+  <tr>
+    <td>
+      <xsl:apply-templates select="." mode="item-number"/>
+    </td>
+    <td>
+      <xsl:if test="local-name(child::*[1]) != 'para'">
+	<xsl:call-template name="anchor"/>
+      </xsl:if>
+
+      <xsl:choose>
+	<xsl:when test="$show.revisionflag != 0 and @revisionflag">
+	  <div class="{@revisionflag}">
+	    <xsl:apply-templates/>
+	  </div>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:apply-templates/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </td>
+  </tr>
 </xsl:template>
 
 <xsl:template match="d:variablelist">

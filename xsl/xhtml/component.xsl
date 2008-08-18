@@ -6,7 +6,7 @@
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: component.xsl 7000 2007-07-10 20:41:35Z mzjn $
+     $Id: component.xsl 7656 2008-02-02 00:29:28Z nwalsh $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -222,7 +222,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   </div>
 </xsl:template>
 
-<xsl:template match="d:chapter/d:title" mode="titlepage.mode" priority="2">
+<xsl:template match="d:chapter/d:title|d:chapter/d:chapterinfo/d:title" mode="titlepage.mode" priority="2">
   <xsl:call-template name="component.title">
     <xsl:with-param name="node" select="ancestor::d:chapter[1]"/>
   </xsl:call-template>
@@ -297,7 +297,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   </div>
 </xsl:template>
 
-<xsl:template match="d:appendix/d:title" mode="titlepage.mode" priority="2">
+<xsl:template match="d:appendix/d:title|d:appendix/d:appendixinfo/d:title" mode="titlepage.mode" priority="2">
   <xsl:call-template name="component.title">
     <xsl:with-param name="node" select="ancestor::d:appendix[1]"/>
   </xsl:call-template>

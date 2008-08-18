@@ -6,7 +6,7 @@
 <!-- * do not submit an edited version of this file. Instead, submit an -->
 <!-- * edited version of the source file at the following location: -->
 <!-- * -->
-<!-- *  https://svn.sourceforge.net/svnroot/docbook/trunk/gentext/locale/id.xml -->
+<!-- *  https://docbook.svn.sourceforge.net/svnroot/docbook/trunk/gentext/locale/id.xml -->
 <!-- * -->
 <!-- * E-mail the edited id.xml source file to: -->
 <!-- * -->
@@ -32,7 +32,7 @@
 <l:gentext key="Answer" text="Jawab:"/>
 <l:gentext key="answer" text="Jawab:"/>
 <l:gentext key="Appendix" text="Lampiran"/>
-<l:gentext key="appendix" text="lampiran"/>
+<l:gentext key="appendix" text="Lampiran"/>
 <l:gentext key="Article" text="Artikel"/>
 <l:gentext key="article" text="Artikel"/>
 <l:gentext key="Author" text="Pembuat"/>
@@ -47,8 +47,8 @@
 <l:gentext key="chapter" text="bab"/>
 <l:gentext key="Colophon" text="Kolofon"/>
 <l:gentext key="colophon" text="Kolofon"/>
-<l:gentext key="Copyright" text="Hak Cipta"/>
-<l:gentext key="copyright" text="Hak Cipta"/>
+<l:gentext key="Copyright" text="Hak Cipta (Copyright)"/>
+<l:gentext key="copyright" text="Hak Cipta (Copyright)"/>
 <l:gentext key="Dedication" text="Dedikasi"/>
 <l:gentext key="dedication" text="Dedikasi"/>
 <l:gentext key="Edition" text="Edisi"/>
@@ -56,8 +56,8 @@
 <l:gentext key="Editor" text="Editor" lang="en"/>
 <l:gentext key="Equation" text="Persamaan"/>
 <l:gentext key="equation" text="Persamaan"/>
-<l:gentext key="Example" text="Teladan"/>
-<l:gentext key="example" text="Teladan"/>
+<l:gentext key="Example" text="Contoh"/>
+<l:gentext key="example" text="Contoh"/>
 <l:gentext key="Figure" text="Gambar"/>
 <l:gentext key="figure" text="Gambar"/>
 <l:gentext key="Glossary" text="Daftar Istilah"/>
@@ -90,9 +90,9 @@
 <l:gentext key="preface" text="Kata Pengantar"/>
 <l:gentext key="Procedure" text="Prosedur"/>
 <l:gentext key="procedure" text="Prosedur"/>
-<l:gentext key="ProductionSet" text="Production"/>
-<l:gentext key="PubDate" text="Publication Date" lang="en"/>
-<l:gentext key="pubdate" text="Publication date" lang="en"/>
+<l:gentext key="ProductionSet" text="Produksi"/>
+<l:gentext key="PubDate" text="Tanggal Publikasi"/>
+<l:gentext key="pubdate" text="Tanggal Publikasi"/>
 <l:gentext key="Published" text="Diterbitkan"/>
 <l:gentext key="published" text="Diterbitkan"/>
 <l:gentext key="Publisher" text="Publisher" lang="en"/>
@@ -103,9 +103,9 @@
 <l:gentext key="question" text="Tanya:"/>
 <l:gentext key="RefEntry" text=""/>
 <l:gentext key="refentry" text=""/>
-<l:gentext key="Reference" text="Referensi"/>
-<l:gentext key="reference" text="Referensi"/>
-<l:gentext key="References" text="References" lang="en"/>
+<l:gentext key="Reference" text="Rujukan"/>
+<l:gentext key="reference" text="Rujukan"/>
+<l:gentext key="References" text="Rujukan-rujukan"/>
 <l:gentext key="RefName" text="Nama"/>
 <l:gentext key="refname" text="Nama"/>
 <l:gentext key="RefSection" text=""/>
@@ -121,11 +121,11 @@
 <l:gentext key="sect3" text="Bagian"/>
 <l:gentext key="sect4" text="Bagian"/>
 <l:gentext key="sect5" text="Bagian"/>
-<l:gentext key="section" text="bagian"/>
+<l:gentext key="section" text="Bagian"/>
 <l:gentext key="Section" text="Bagian"/>
-<l:gentext key="see" text="Lihat"/>
+<l:gentext key="see" text="lihat"/>
 <l:gentext key="See" text="Lihat"/>
-<l:gentext key="seealso" text="Lihat Juga"/>
+<l:gentext key="seealso" text="lihat juga"/>
 <l:gentext key="Seealso" text="Lihat juga"/>
 <l:gentext key="SeeAlso" text="Lihat Juga"/>
 <l:gentext key="set" text="Set"/>
@@ -150,12 +150,12 @@
 <l:gentext key="by" text="oleh"/>
 <l:gentext key="Edited" text="disunting"/>
 <l:gentext key="edited" text="disunting"/>
-<l:gentext key="Editedby" text="disunting oleh"/>
-<l:gentext key="editedby" text="disunting oleh"/>
+<l:gentext key="Editedby" text="Disunting oleh"/>
+<l:gentext key="editedby" text="Disunting oleh"/>
 <l:gentext key="in" text="di"/>
 <l:gentext key="lastlistcomma" text=","/>
 <l:gentext key="listcomma" text=","/>
-<l:gentext key="nonexistantelement" text="elemen tak tampak"/>
+<l:gentext key="nonexistantelement" text="elemen tidak ada"/>
 <l:gentext key="notes" text="Catatan"/>
 <l:gentext key="Notes" text="Catatan"/>
 <l:gentext key="Pgs" text="Hal."/>
@@ -166,7 +166,7 @@
 <l:gentext key="tablenotes" text="Catatan"/>
 <l:gentext key="TableofContents" text="Daftar Isi"/>
 <l:gentext key="tableofcontents" text="Daftar Isi"/>
-<l:gentext key="unexpectedelementname" text="Nama Elemen seharusnya tidak ada"/>
+<l:gentext key="unexpectedelementname" text="Nama Elemen Tak Terduga"/>
 <l:gentext key="unsupported" text="tidak didukung"/>
 <l:gentext key="xrefto" text="xref ke"/>
 <l:gentext key="Authors" text="Authors" lang="en"/>
@@ -177,28 +177,28 @@
 <l:gentext key="translator" text="Translator" lang="en"/>
 <l:gentext key="listofequations" text="Daftar Persamaan"/>
 <l:gentext key="ListofEquations" text="Daftar Persamaan"/>
-<l:gentext key="ListofExamples" text="Daftar Teladan"/>
-<l:gentext key="listofexamples" text="Daftar Teladan"/>
+<l:gentext key="ListofExamples" text="Daftar Contoh"/>
+<l:gentext key="listofexamples" text="Daftar Contoh"/>
 <l:gentext key="ListofFigures" text="Daftar Gambar"/>
 <l:gentext key="listoffigures" text="Daftar Gambar"/>
-<l:gentext key="ListofProcedures" text="List of Procedures" lang="en"/>
-<l:gentext key="listofprocedures" text="List of Procedures" lang="en"/>
+<l:gentext key="ListofProcedures" text="Daftar Prosedur"/>
+<l:gentext key="listofprocedures" text="Daftar Prosedur"/>
 <l:gentext key="listoftables" text="Daftar Tabel"/>
 <l:gentext key="ListofTables" text="Daftar Tabel"/>
-<l:gentext key="ListofUnknown" text="Daftar Gaib"/>
-<l:gentext key="listofunknown" text="Daftar Gaib"/>
+<l:gentext key="ListofUnknown" text="Daftar Tidak Tahu"/>
+<l:gentext key="listofunknown" text="Daftar Tidak Tahu"/>
 <l:gentext key="nav-home" text="Depan"/>
 <l:gentext key="nav-next" text="Lanjut"/>
 <l:gentext key="nav-next-sibling" text="Lewati"/>
-<l:gentext key="nav-prev" text="Kembali"/>
+<l:gentext key="nav-prev" text="Balik"/>
 <l:gentext key="nav-prev-sibling" text="Sebelumnya"/>
 <l:gentext key="nav-up" text="Induk"/>
-<l:gentext key="nav-toc" text="ToC" lang="en"/>
+<l:gentext key="nav-toc" text="Daftar Isi"/>
 <l:gentext key="Draft" text="Draft"/>
-<l:gentext key="above" text="above"/>
-<l:gentext key="below" text="below"/>
-<l:gentext key="sectioncalled" text="the section called"/>
-<l:gentext key="index symbols" text="Symbols"/>
+<l:gentext key="above" text="Di Atas"/>
+<l:gentext key="below" text="Di Bawah"/>
+<l:gentext key="sectioncalled" text="bagian bernama"/>
+<l:gentext key="index symbols" text="Simbol"/>
 <l:gentext key="lowercase.alpha" text="abcdefghijklmnopqrstuvwxyz"/>
 <l:gentext key="uppercase.alpha" text="ABCDEFGHIJKLMNOPQRSTUVWXYZ"/>
 <l:gentext key="normalize.sort.input" text="AaÀàÁáÂâÃãÄäÅåĀāĂăĄąǍǎǞǟǠǡǺǻȀȁȂȃȦȧḀḁẚẠạẢảẤấẦầẨẩẪẫẬậẮắẰằẲẳẴẵẶặBbƀƁɓƂƃḂḃḄḅḆḇCcÇçĆćĈĉĊċČčƇƈɕḈḉDdĎďĐđƊɗƋƌǅǲȡɖḊḋḌḍḎḏḐḑḒḓEeÈèÉéÊêËëĒēĔĕĖėĘęĚěȄȅȆȇȨȩḔḕḖḗḘḙḚḛḜḝẸẹẺẻẼẽẾếỀềỂểỄễỆệFfƑƒḞḟGgĜĝĞğĠġĢģƓɠǤǥǦǧǴǵḠḡHhĤĥĦħȞȟɦḢḣḤḥḦḧḨḩḪḫẖIiÌìÍíÎîÏïĨĩĪīĬĭĮįİƗɨǏǐȈȉȊȋḬḭḮḯỈỉỊịJjĴĵǰʝKkĶķƘƙǨǩḰḱḲḳḴḵLlĹĺĻļĽľĿŀŁłƚǈȴɫɬɭḶḷḸḹḺḻḼḽMmɱḾḿṀṁṂṃNnÑñŃńŅņŇňƝɲƞȠǋǸǹȵɳṄṅṆṇṈṉṊṋOoÒòÓóÔôÕõÖöØøŌōŎŏŐőƟƠơǑǒǪǫǬǭǾǿȌȍȎȏȪȫȬȭȮȯȰȱṌṍṎṏṐṑṒṓỌọỎỏỐốỒồỔổỖỗỘộỚớỜờỞởỠỡỢợPpƤƥṔṕṖṗQqʠRrŔŕŖŗŘřȐȑȒȓɼɽɾṘṙṚṛṜṝṞṟSsŚśŜŝŞşŠšȘșʂṠṡṢṣṤṥṦṧṨṩTtŢţŤťŦŧƫƬƭƮʈȚțȶṪṫṬṭṮṯṰṱẗUuÙùÚúÛûÜüŨũŪūŬŭŮůŰűŲųƯưǓǔǕǖǗǘǙǚǛǜȔȕȖȗṲṳṴṵṶṷṸṹṺṻỤụỦủỨứỪừỬửỮữỰựVvƲʋṼṽṾṿWwŴŵẀẁẂẃẄẅẆẇẈẉẘXxẊẋẌẍYyÝýÿŸŶŷƳƴȲȳẎẏẙỲỳỴỵỶỷỸỹZzŹźŻżŽžƵƶȤȥʐʑẐẑẒẓẔẕẕ" lang="en"/>
@@ -207,12 +207,12 @@
 <l:dingbat key="endquote" text="”"/>
 <l:dingbat key="nestedstartquote" text="‘"/>
 <l:dingbat key="nestedendquote" text="’"/>
-<l:dingbat key="singlestartquote" text="‘" lang="en"/>
-<l:dingbat key="singleendquote" text="’" lang="en"/>
+<l:dingbat key="singlestartquote" text="‘"/>
+<l:dingbat key="singleendquote" text="’"/>
 <l:dingbat key="bullet" text="•"/>
-<l:gentext key="hyphenation-character" text="-" lang="en"/>
-<l:gentext key="hyphenation-push-character-count" text="2" lang="en"/>
-<l:gentext key="hyphenation-remain-character-count" text="2" lang="en"/>
+<l:gentext key="hyphenation-character" text="-"/>
+<l:gentext key="hyphenation-push-character-count" text="2"/>
+<l:gentext key="hyphenation-remain-character-count" text="2"/>
 <l:context name="styles"><l:template name="person-name" text="first-last"/>
 </l:context>
 <l:context name="title"><l:template name="abstract" text="%t"/>
@@ -223,7 +223,7 @@
 <l:template name="bibliodiv" text="%t"/>
 <l:template name="biblioentry" text="%t"/>
 <l:template name="bibliography" text="%t"/>
-<l:template name="bibliolist" text="%t" lang="en"/>
+<l:template name="bibliolist" text="%t"/>
 <l:template name="bibliomixed" text="%t"/>
 <l:template name="bibliomset" text="%t"/>
 <l:template name="biblioset" text="%t"/>
@@ -235,15 +235,15 @@
 <l:template name="colophon" text="%t"/>
 <l:template name="dedication" text="%t"/>
 <l:template name="equation" text="Persamaan %n. %t"/>
-<l:template name="example" text="Teladan %n. %t"/>
+<l:template name="example" text="Contoh %n. %t"/>
 <l:template name="figure" text="Gambar %n. %t"/>
-<l:template name="foil" text="%t" lang="en"/>
-<l:template name="foilgroup" text="%t" lang="en"/>
+<l:template name="foil" text="%t"/>
+<l:template name="foilgroup" text="%t"/>
 <l:template name="formalpara" text="%t"/>
 <l:template name="glossary" text="%t"/>
 <l:template name="glossdiv" text="%t"/>
-<l:template name="glosslist" text="%t" lang="en"/>
-<l:template name="glossentry" text="%t" lang="en"/>
+<l:template name="glosslist" text="%t"/>
+<l:template name="glossentry" text="%t"/>
 <l:template name="important" text="%t"/>
 <l:template name="index" text="%t"/>
 <l:template name="indexdiv" text="%t"/>
@@ -265,7 +265,7 @@
 <l:template name="procedure" text="%t"/>
 <l:template name="procedure.formal" text="Prosedur %n. %t"/>
 <l:template name="productionset" text="%t"/>
-<l:template name="productionset.formal" text="Production %n"/>
+<l:template name="productionset.formal" text="Produksi %n"/>
 <l:template name="qandadiv" text="%t"/>
 <l:template name="qandaentry" text="%t"/>
 <l:template name="qandaset" text="%t"/>
@@ -284,7 +284,7 @@
 <l:template name="sidebar" text="%t"/>
 <l:template name="step" text="%t"/>
 <l:template name="table" text="Tabel %n. %t"/>
-<l:template name="task" text="%t" lang="en"/>
+<l:template name="task" text="%t"/>
 <l:template name="tasksummary" text="%t" lang="en"/>
 <l:template name="taskprerequisites" text="%t" lang="en"/>
 <l:template name="taskrelated" text="%t" lang="en"/>
@@ -295,7 +295,7 @@
 <l:template name="warning" text="%t"/>
 </l:context>
 <l:context name="title-unnumbered"><l:template name="appendix" text="%t"/>
-<l:template name="article/appendix" text="%t" lang="en"/>
+<l:template name="article/appendix" text="%t"/>
 <l:template name="bridgehead" text="%t"/>
 <l:template name="chapter" text="%t"/>
 <l:template name="sect1" text="%t"/>
@@ -305,10 +305,10 @@
 <l:template name="sect5" text="%t"/>
 <l:template name="section" text="%t"/>
 <l:template name="simplesect" text="%t"/>
-<l:template name="part" text="%t" lang="en"/>
+<l:template name="part" text="%t"/>
 </l:context>
 <l:context name="title-numbered"><l:template name="appendix" text="Lampiran %n. %t"/>
-<l:template name="article/appendix" text="%n. %t" lang="en"/>
+<l:template name="article/appendix" text="%n. %t"/>
 <l:template name="bridgehead" text="%t"/>
 <l:template name="chapter" text="Bab %n. %t"/>
 <l:template name="part" text="Bagian %n. %t"/>
@@ -379,8 +379,8 @@
 <l:template name="equation" text="%t"/>
 <l:template name="example" text="%t"/>
 <l:template name="figure" text="%t"/>
-<l:template name="foil" text="%t" lang="en"/>
-<l:template name="foilgroup" text="%t" lang="en"/>
+<l:template name="foil" text="%t"/>
+<l:template name="foilgroup" text="%t"/>
 <l:template name="formalpara" text="%t"/>
 <l:template name="glossary" text="%t"/>
 <l:template name="glossdiv" text="%t"/>
@@ -421,37 +421,37 @@
 <l:template name="variablelist" text="%t"/>
 <l:template name="varlistentry" text="%n"/>
 <l:template name="warning" text="%t"/>
-<l:template name="olink.document.citation" text=" in %o" lang="en"/>
-<l:template name="olink.page.citation" text=" (page %p)" lang="en"/>
+<l:template name="olink.document.citation" text=" di %o"/>
+<l:template name="olink.page.citation" text=" (halaman %p)"/>
 <l:template name="page.citation" text=" [%p]"/>
-<l:template name="page" text="(page %p)" lang="en"/>
-<l:template name="docname" text=" in %o" lang="en"/>
-<l:template name="docnamelong" text=" in the document titled %o" lang="en"/>
-<l:template name="pageabbrev" text="(p. %p)" lang="en"/>
-<l:template name="Page" text="Page %p" lang="en"/>
-<l:template name="bridgehead" text="“%t”"/>
-<l:template name="refsection" text="“%t”"/>
-<l:template name="refsect1" text="“%t”"/>
-<l:template name="refsect2" text="“%t”"/>
-<l:template name="refsect3" text="“%t”"/>
-<l:template name="sect1" text="“%t”"/>
-<l:template name="sect2" text="“%t”"/>
-<l:template name="sect3" text="“%t”"/>
-<l:template name="sect4" text="“%t”"/>
-<l:template name="sect5" text="“%t”"/>
-<l:template name="section" text="“%t”"/>
-<l:template name="simplesect" text="“%t”"/>
+<l:template name="page" text="(halaman %p)"/>
+<l:template name="docname" text=" di %o"/>
+<l:template name="docnamelong" text=" pada dokumen berjudul %o"/>
+<l:template name="pageabbrev" text="(h. %p)"/>
+<l:template name="Page" text="Halaman %p"/>
+<l:template name="bridgehead" text="bagian bernama “%t”"/>
+<l:template name="refsection" text="bagian bernama “%t”"/>
+<l:template name="refsect1" text="bagian bernama “%t”"/>
+<l:template name="refsect2" text="bagian bernama “%t”"/>
+<l:template name="refsect3" text="bagian bernama “%t”"/>
+<l:template name="sect1" text="bagian bernama “%t”"/>
+<l:template name="sect2" text="bagian bernama “%t”"/>
+<l:template name="sect3" text="bagian bernama “%t”"/>
+<l:template name="sect4" text="bagian bernama “%t”"/>
+<l:template name="sect5" text="bagian bernama “%t”"/>
+<l:template name="section" text="bagian bernama “%t”"/>
+<l:template name="simplesect" text="bagian bernama “%t”"/>
 </l:context>
 <l:context name="xref-number"><l:template name="answer" text="Jawab: %n"/>
 <l:template name="appendix" text="Lampiran %n"/>
 <l:template name="bridgehead" text="Bagian %n"/>
 <l:template name="chapter" text="Bab %n"/>
 <l:template name="equation" text="Persamaan %n"/>
-<l:template name="example" text="Teladan %n"/>
+<l:template name="example" text="Contoh %n"/>
 <l:template name="figure" text="Gambar %n"/>
 <l:template name="part" text="Bagian %n"/>
 <l:template name="procedure" text="Prosedur %n"/>
-<l:template name="productionset" text="Production %n"/>
+<l:template name="productionset" text="Produksi %n"/>
 <l:template name="qandadiv" text="Tanya dan Jawab %n"/>
 <l:template name="qandaentry" text="Tanya: %n"/>
 <l:template name="question" text="Tanya: %n"/>
@@ -467,23 +467,23 @@
 <l:template name="bridgehead" text="Bagian %n, “%t”"/>
 <l:template name="chapter" text="Bab %n, %t"/>
 <l:template name="equation" text="Persamaan %n, “%t”"/>
-<l:template name="example" text="Teladan %n, “%t”"/>
+<l:template name="example" text="Contoh %n, “%t”"/>
 <l:template name="figure" text="Gambar %n, “%t”"/>
 <l:template name="part" text="Bagian %n, “%t”"/>
 <l:template name="procedure" text="Prosedur %n, “%t”"/>
-<l:template name="productionset" text="Production %n, “%t”"/>
+<l:template name="productionset" text="Produksi %n, “%t”"/>
 <l:template name="qandadiv" text="Tanya dan Jawab %n, “%t”"/>
-<l:template name="refsect1" text="the section called “%t”"/>
-<l:template name="refsect2" text="the section called “%t”"/>
-<l:template name="refsect3" text="the section called “%t”"/>
-<l:template name="refsection" text="the section called “%t”"/>
+<l:template name="refsect1" text="bagian bernama “%t”"/>
+<l:template name="refsect2" text="bagian bernama “%t”"/>
+<l:template name="refsect3" text="bagian bernama “%t”"/>
+<l:template name="refsection" text="bagian bernama “%t”"/>
 <l:template name="sect1" text="Bagian %n, “%t”"/>
 <l:template name="sect2" text="Bagian %n, “%t”"/>
 <l:template name="sect3" text="Bagian %n, “%t”"/>
 <l:template name="sect4" text="Bagian %n, “%t”"/>
 <l:template name="sect5" text="Bagian %n, “%t”"/>
 <l:template name="section" text="Bagian %n, “%t”"/>
-<l:template name="simplesect" text="the section called “%t”"/>
+<l:template name="simplesect" text="bagian bernama “%t”"/>
 <l:template name="table" text="Tabel %n, “%t”"/>
 </l:context>
 <l:context name="authorgroup"><l:template name="sep" text=", "/>
@@ -497,52 +497,52 @@
 <l:template name="MsgLevel" text="Tingkatan: "/>
 <l:template name="MsgOrig" text="Asal: "/>
 </l:context>
-<l:context name="datetime"><l:template name="format" text="m/d/Y" lang="en"/>
+<l:context name="datetime"><l:template name="format" text="m/d/Y"/>
 </l:context>
-<l:context name="termdef"><l:template name="prefix" text="[Definition: " lang="en"/>
-<l:template name="suffix" text="]" lang="en"/>
+<l:context name="termdef"><l:template name="prefix" text="[Definition: "/>
+<l:template name="suffix" text="]"/>
 </l:context>
-<l:context name="datetime-full"><l:template name="January" text="January" lang="en"/>
-<l:template name="February" text="February" lang="en"/>
-<l:template name="March" text="March" lang="en"/>
-<l:template name="April" text="April" lang="en"/>
-<l:template name="May" text="May" lang="en"/>
-<l:template name="June" text="June" lang="en"/>
-<l:template name="July" text="July" lang="en"/>
-<l:template name="August" text="August" lang="en"/>
-<l:template name="September" text="September" lang="en"/>
-<l:template name="October" text="October" lang="en"/>
-<l:template name="November" text="November" lang="en"/>
-<l:template name="December" text="December" lang="en"/>
-<l:template name="Monday" text="Monday" lang="en"/>
-<l:template name="Tuesday" text="Tuesday" lang="en"/>
-<l:template name="Wednesday" text="Wednesday" lang="en"/>
-<l:template name="Thursday" text="Thursday" lang="en"/>
-<l:template name="Friday" text="Friday" lang="en"/>
-<l:template name="Saturday" text="Saturday" lang="en"/>
-<l:template name="Sunday" text="Sunday" lang="en"/>
+<l:context name="datetime-full"><l:template name="January" text="Januari"/>
+<l:template name="February" text="Februari"/>
+<l:template name="March" text="Maret"/>
+<l:template name="April" text="April"/>
+<l:template name="May" text="Mei"/>
+<l:template name="June" text="Juni"/>
+<l:template name="July" text="Juli"/>
+<l:template name="August" text="Agustus"/>
+<l:template name="September" text="September"/>
+<l:template name="October" text="Oktober"/>
+<l:template name="November" text="November"/>
+<l:template name="December" text="Desember"/>
+<l:template name="Monday" text="Senin"/>
+<l:template name="Tuesday" text="Selasa"/>
+<l:template name="Wednesday" text="Rabu"/>
+<l:template name="Thursday" text="Kamis"/>
+<l:template name="Friday" text="Jumat"/>
+<l:template name="Saturday" text="Sabtu"/>
+<l:template name="Sunday" text="Ahad"/>
 </l:context>
-<l:context name="datetime-abbrev"><l:template name="Jan" text="Jan" lang="en"/>
-<l:template name="Feb" text="Feb" lang="en"/>
-<l:template name="Mar" text="Mar" lang="en"/>
-<l:template name="Apr" text="Apr" lang="en"/>
-<l:template name="May" text="May" lang="en"/>
-<l:template name="Jun" text="Jun" lang="en"/>
-<l:template name="Jul" text="Jul" lang="en"/>
-<l:template name="Aug" text="Aug" lang="en"/>
-<l:template name="Sep" text="Sep" lang="en"/>
-<l:template name="Oct" text="Oct" lang="en"/>
-<l:template name="Nov" text="Nov" lang="en"/>
-<l:template name="Dec" text="Dec" lang="en"/>
-<l:template name="Mon" text="Mon" lang="en"/>
-<l:template name="Tue" text="Tue" lang="en"/>
-<l:template name="Wed" text="Wed" lang="en"/>
-<l:template name="Thu" text="Thu" lang="en"/>
-<l:template name="Fri" text="Fri" lang="en"/>
-<l:template name="Sat" text="Sat" lang="en"/>
-<l:template name="Sun" text="Sun" lang="en"/>
+<l:context name="datetime-abbrev"><l:template name="Jan" text="Jan"/>
+<l:template name="Feb" text="Feb"/>
+<l:template name="Mar" text="Mar"/>
+<l:template name="Apr" text="Apr"/>
+<l:template name="May" text="Mei"/>
+<l:template name="Jun" text="Jun"/>
+<l:template name="Jul" text="Jul"/>
+<l:template name="Aug" text="Aug"/>
+<l:template name="Sep" text="Sep"/>
+<l:template name="Oct" text="Okt"/>
+<l:template name="Nov" text="Nov"/>
+<l:template name="Dec" text="Des"/>
+<l:template name="Mon" text="Sen"/>
+<l:template name="Tue" text="Sel"/>
+<l:template name="Wed" text="Rab"/>
+<l:template name="Thu" text="Kam"/>
+<l:template name="Fri" text="Jum"/>
+<l:template name="Sat" text="Sab"/>
+<l:template name="Sun" text="Aha"/>
 </l:context>
-<l:context name="htmlhelp"><l:template name="langcode" text="0x0421 Indonesian (INDONESIA)"/>
+<l:context name="htmlhelp"><l:template name="langcode" text="0x0421 Bahasa Indonesia (INDONESIA)"/>
 </l:context>
 <l:context name="index"><l:template name="term-separator" text=", " lang="en"/>
 <l:template name="number-separator" text=", " lang="en"/>
@@ -596,7 +596,7 @@
 <l:template name="pattype.sep" text=", " lang="en"/>
 <l:template name="patnum.sep" text=". " lang="en"/>
 <l:template name="patdate.sep" text=". " lang="en"/>
-</l:context><l:letters lang="en"><l:l i="-1"/>
+</l:context><l:letters><l:l i="-1"/>
 <l:l i="0">Symbols</l:l>
 <l:l i="10">A</l:l>
 <l:l i="10">a</l:l>

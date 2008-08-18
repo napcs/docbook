@@ -2,7 +2,7 @@
 
 <reference><info><title>HTML Processing Instruction Reference</title>
     <releaseinfo role="meta">
-      $Id: pi.xsl 7250 2007-08-18 10:19:00Z xmldoc $
+      $Id: pi.xsl 7684 2008-02-18 01:50:02Z xmldoc $
     </releaseinfo>
   </info>
   <partintro xml:id="partintro">
@@ -299,9 +299,9 @@
 <refsect1><title/>
     
 <para>Use the <tag class="xmlpi">dbhtml funcsynopsis-style</tag> PI as a child of
-      a <tag>funcprototype</tag> or anywhere within a funcprototype
-      control the presentation style for the <tag>funcsynopsis</tag>
-      in output.</para>
+      a <tag>funcsynopsis</tag> or anywhere within a funcsynopsis
+      to control the presentation style for output of all
+      <tag>funcprototype</tag> instances within that funcsynopsis.</para>
 
   </refsect1><refsect1><title>Parameters</title>
     
@@ -309,14 +309,14 @@
       <varlistentry><term>funcsynopsis-style="kr"</term>
         <listitem>
           
-<para>Displays the <tag>funcprototype</tag> in K&amp;R style</para>
+<para>Displays <tag>funcprototype</tag> output in K&amp;R style</para>
 
         </listitem>
       </varlistentry>
       <varlistentry><term>funcsynopsis-style="ansi"</term>
         <listitem>
           
-<para>Displays the <tag>funcprototype</tag> in ANSI style</para>
+<para>Displays <tag>funcprototype</tag> output in ANSI style</para>
 
         </listitem>
       </varlistentry>
@@ -686,6 +686,34 @@
 
   </refsect1></refentry>
 
+<refentry xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="dbhtml_stop-chunking">
+<refnamediv>
+<refname>dbhtml_stop-chunking</refname>
+<refpurpose>Do not chunk any descendents of this element.</refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+
+    <synopsis><tag class="xmlpi">dbhtml stop-chunking</tag></synopsis>
+  
+</refsynopsisdiv>
+<refsect1><title/>
+    
+<para>When generating chunked html output, adding this as the child of an element that contains elements that would normally be generated on separate pages if generating chunked output causes chunking to stop at this point. No descendants of the current element will be split into new html pages:
+<programlisting>&lt;section&gt;
+&lt;title&gt;Configuring pencil&lt;/title&gt;
+&lt;?dbhtml stop-chunking?&gt;
+
+...
+
+&lt;/section&gt;</programlisting>
+</para>
+
+  </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
+    
+<para><link role="tcg" xlink:href="Chunking.html">Chunking into multiple HTML files</link></para>
+
+  </refsect1></refentry>
+
 <refentry xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="dbhtml_table-summary">
 <refnamediv>
 <refname>dbhtml_table-summary</refname>
@@ -1038,7 +1066,7 @@
   </refsect1><refsect1 role="tcg"><title>Related Information in <link xlink:href="http://www.sagehill.net/docbookxsl/">DocBook XSL: The Complete Guide</link></title>
     
 <para><link role="tcg" xlink:href="InsertExtHtml.html">Inserting external HTML code</link>,
-      <link xlink:href="ExternalCode.html">External code files</link></para>
+      <link role="tcg" xlink:href="ExternalCode.html">External code files</link></para>
 
   </refsect1></refentry>
 

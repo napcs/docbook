@@ -6,7 +6,7 @@ version="1.0">
 <!-- This file is generated from param.xweb -->
 
 <!-- ********************************************************************
-     $Id: param.xweb 7042 2007-07-17 04:28:48Z xmldoc $
+     $Id: param.xweb 7583 2007-12-03 17:02:33Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -214,6 +214,9 @@ version="1.0">
   <xsl:attribute name="text-align"><xsl:value-of select="$alignment"/></xsl:attribute>
   <xsl:attribute name="start-indent">0pt</xsl:attribute>
   <xsl:attribute name="text-indent">0pt</xsl:attribute>
+  <xsl:attribute name="hyphenate"><xsl:value-of select="$hyphenate"/></xsl:attribute>
+  <xsl:attribute name="wrap-option">wrap</xsl:attribute>
+  <xsl:attribute name="linefeed-treatment">treat-as-space</xsl:attribute>
 </xsl:attribute-set>
 <xsl:attribute-set name="footnote.sep.leader.properties">
   <xsl:attribute name="color">black</xsl:attribute>
@@ -813,7 +816,9 @@ set       toc,title
 <xsl:param name="table.frame.border.color">black</xsl:param>
 <xsl:param name="table.frame.border.style">solid</xsl:param>
 <xsl:param name="table.frame.border.thickness">0.5pt</xsl:param>
-<xsl:attribute-set name="table.properties" use-attribute-sets="formal.object.properties"/>
+<xsl:attribute-set name="table.properties" use-attribute-sets="formal.object.properties">
+  <xsl:attribute name="keep-together.within-column">auto</xsl:attribute>
+</xsl:attribute-set>
 <xsl:param name="tablecolumns.extension" select="1"/>
 <xsl:attribute-set name="table.table.properties">
   <xsl:attribute name="border-before-width.conditionality">retain</xsl:attribute>
