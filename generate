@@ -181,7 +181,7 @@ else
   
   type = ARGV[0]
   output_path = ARGV[1]
-  sample = ARGV[2].include? "sample"
+  sample = ARGV[2].include? "sample" rescue false
 
 
   send(type, root_path, output_path, sample)
