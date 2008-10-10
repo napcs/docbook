@@ -26,16 +26,9 @@
       This goes out to you, the fans.
     </para>
   </dedication>
-  
+    
   <part>
     <title>A logical section of a book</title>
-    
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter01.xml"/>
-    
-  </part>
-
-  <part>
-    <title>Inline chapters</title>
   <chapter>
     
     <title>Test</title>
@@ -45,7 +38,8 @@
     <sect1>
       <title>A Section</title>
       
-    <para>This is a paragraph in a section.</para>
+    <para>
+      This is a paragraph in a section.</para>
     
     <para>See the source for how to mark up indexes and key words. For example, <indexterm>
         <primary>Associations</primary>
@@ -118,29 +112,22 @@
           <listitem><para>Second item</para></listitem>
         </orderedlist>
     
-    
-    <sect2>
-      <title> A Figure</title>
-      <para>This is a figure.</para>
-      
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="images/sample.png" width="4in"></imagedata>
-        </imageobject>
-        <caption><para>A sample image</para></caption>
-      </mediaobject>
-      
-    </sect2>
-    
-    
-    
-    
-    
+
     
     </sect1>
     
     
   </chapter>
   </part>
+  
+  <part>
+    <title>Chapters included in separate files</title>
+    
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter01.xml"/>
+    
+  </part>
+  
+  
+  
   <index/>
 </book>

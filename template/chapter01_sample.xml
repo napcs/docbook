@@ -10,12 +10,26 @@
       <title>Included chapter</title>
       <para>This is an included chapter that's actually in a separate file. This is a great way to modularize your book.</para>
 
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="images/sample.png" width="4in"></imagedata>
-        </imageobject>
-        <caption><para>A sample image</para></caption>
-      </mediaobject>
+      <sect1 xml:id="sec.A.cross.reference">
+        <title>A cross reference</title>
+        <para>You can easily cross reference things by referencing the XML id attribute of any element. See <xref linkend="fig.sample.image" /> to see a screenshot.</para>
+           
+      </sect1>
+
+      <figure xml:id="fig.sample.image">
+      <title>A sample figure.</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/sample.png" width="4in"></imagedata>
+          </imageobject>
+          <caption><para>A sample image</para></caption>
+        </mediaobject>    
+      </screenshot> 
+      </figure>
+  
+
+
       
       
 </chapter>

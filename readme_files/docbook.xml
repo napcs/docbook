@@ -99,6 +99,14 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
             drwxr-xr-x  11 brianhogan  brianhogan   374B Apr  3 21:05 template
             drwxr-xr-x  41 brianhogan  brianhogan   1.4K Mar 25 22:19 xsl]]>
             </screen>
+            
+            <note xml:id="note.permission.denied">
+              <title>Permission Denied</title>
+              <para>You may need to set the executable bit for the <filename>generate</filename>file so you can use it.</para>
+              <para><command>chmod +x ~/docbook/generate</command></para>
+              
+            </note>
+            
         <para>To create a new project, type</para>
         <para><command>~/docbook/generate book my_test_project with_sample</command></para>
         <para>This generates the project skeleton:</para>
