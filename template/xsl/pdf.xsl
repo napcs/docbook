@@ -13,8 +13,7 @@
 >
 
 <!-- Import the original FO stylesheet -->
-<xsl:import href="file:///Users/brianhogan/docbook/xsl/fo/docbook.xsl"/>
-
+<xsl:import href="file:///<#ROOT_PATH#>/xsl/fo/docbook.xsl"/>
 <!-- PDF bookmarking support -->
 <xsl:param name="fop1.extensions" select="1" />
 
