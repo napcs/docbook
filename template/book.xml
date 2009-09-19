@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE book [
-<!ENTITY % allent SYSTEM "./xsl/w3centities-f.ent">
+<!ENTITY % allent SYSTEM "w3centities-f.ent">
 %allent;
 ]>
 <book xmlns="http://docbook.org/ns/docbook" 

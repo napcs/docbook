@@ -107,11 +107,11 @@ end
     
     xsl_path = PLATFORM.downcase.include?("win32") ? root_path : root_path.lchop
       
-    generate "#{root_path}/template/xsl/pdf.xsl", xsl_path, "#{dest_path}/xsl/pdf.xsl"
+    FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
     puts " - #{dest_path}/xsl/pdf.xml"
     
-    FileUtils.cp "#{root_path}/template/xsl/w3centities-f.ent", "#{dest_path}/xsl/w3centities-f.ent"
-    puts " - #{dest_path}/xsl/w3centities-f.ent"
+    FileUtils.cp "#{root_path}/template/w3centities-f.ent", "#{dest_path}/w3centities-f.ent"
+    puts " - #{dest_path}/w3centities-f.ent"
     
     
     generate "#{root_path}/template/make", root_path, "#{dest_path}/make"
@@ -122,9 +122,8 @@ end
 
   
   def chapter(root_path, dest_path, sample)
-    puts dest_path  
+
     directory = dest_path.dirname
-    puts directory
     
     FileUtils.mkdir_p(directory + "/images") unless directory.empty?
     
@@ -138,6 +137,8 @@ end
         FileUtils.cp("#{root_path}/template/chapter01.xml", "#{dest_path}.xml")
 
     end
+    FileUtils.cp "#{root_path}/template/w3centities-f.ent", "#{directory}/w3centities-f.ent"
+    puts " - #{directory}/w3centities-f.ent"
     
     puts " - #{dest_path}.xml"
   end
@@ -152,8 +153,10 @@ end
       if sample
          FileUtils.cp("#{root_path}/template/images/sample.png", "#{dest_path}/images") rescue nil
          puts " - #{dest_path}/images/sample.png"
-         FileUtils.cp("#{root_path}/template/book_sample.xml", "#{dest_path}/book.xml") rescue nil
-         FileUtils.cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}/chapter01.xml") rescue nil
+         unless File.exist?("#{dest_path}/book.xml")
+           FileUtils.cp("#{root_path}/template/book_sample.xml", "#{dest_path}/book.xml") rescue nil
+           FileUtils.cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}/chapter01.xml") rescue nil
+         end
       else
          FileUtils.cp("#{root_path}/template/book.xml", "#{dest_path}/book.xml") rescue nil
          FileUtils.cp("#{root_path}/template/chapter01.xml", "#{dest_path}/chapter01.xml") rescue nil
@@ -166,14 +169,14 @@ end
       generate "#{root_path}/template/make", root_path, "#{dest_path}/make"
       puts " - #{dest_path}/make"
       
-      FileUtils.cp "#{root_path}/template/xsl/w3centities-f.ent", "#{dest_path}/xsl/w3centities-f.ent"
-      puts " - #{dest_path}/xsl/w3centities-f.ent"
+      FileUtils.cp "#{root_path}/template/w3centities-f.ent", "#{dest_path}/w3centities-f.ent"
+      puts " - #{dest_path}/w3centities-f.ent"
       
       # xsl_path is a file URL. File urls have three / (file:///) followed by the path  Windows paths don't start with a slash
       # but unix paths do. If it's windows, leave the path alone. If it's not windows, chop off the first character of the path
       xsl_path = PLATFORM.downcase.include?("win32") ? root_path : root_path.lchop
       
-      generate "#{root_path}/template/xsl/pdf.xsl", xsl_path, "#{dest_path}/xsl/pdf.xsl"
+      FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
       puts " - #{dest_path}/xsl/pdf.xml"
       puts "Done"
   end

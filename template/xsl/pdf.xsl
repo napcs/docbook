@@ -11,10 +11,7 @@
    xmlns:xslthl="http://xslthl.sf.net"
    xmlns:d="http://docbook.org/ns/docbook"
 >
-
-<!-- Import the original FO stylesheet -->
-<xsl:import href="file:///<#ROOT_PATH#>/xsl/fo/docbook.xsl"/>
-<xsl:import href="file:///<#ROOT_PATH#>/xsl/fo/highlight.xsl"/>
+<xsl:import href="fo.xml" />
 
 <!-- PDF bookmarking support -->
 <xsl:param name="fop1.extensions" select="1" />
