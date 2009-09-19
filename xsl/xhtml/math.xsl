@@ -5,7 +5,7 @@
 xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="mml d" version="1.0">
 
 <!-- ********************************************************************
-     $Id: math.xsl 6961 2007-07-07 02:05:56Z xmldoc $
+     $Id: math.xsl 8421 2009-05-04 07:49:49Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -23,7 +23,7 @@ xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns="http://www.w3.org/1999/xht
 
 <xsl:template match="d:mathphrase">
   <span>
-    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:apply-templates select="." mode="common.html.attributes"/>
     <xsl:apply-templates/>
   </span>
 </xsl:template>

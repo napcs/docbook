@@ -19,7 +19,7 @@ xmlns:i="urn:cz-kosek:functions:index"
                 version="1.0">
 
 <!-- ********************************************************************
-     $Id: autoidx-kosek.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: autoidx-kosek.xsl 8399 2009-04-08 07:37:42Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -51,8 +51,7 @@ xmlns:i="urn:cz-kosek:functions:index"
     </xsl:message>
   </xsl:if>
 
-  <xsl:if test="not(function-available('exslt:node-set') or
-                    function-available('exslt:nodeSet'))">
+  <xsl:if test="$exsl.node.set.available = 0">
     <xsl:message terminate="yes">
       <xsl:text>ERROR: the 'kosek' index method requires the </xsl:text>
       <xsl:text>exslt:node-set() function. Use a processor that </xsl:text>

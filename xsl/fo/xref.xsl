@@ -4,11 +4,11 @@
 xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 xmlns:exsl="http://exslt.org/common"
                 xmlns:xlink='http://www.w3.org/1999/xlink'
-                exclude-result-prefixes="exsl d"
+                exclude-result-prefixes="exsl xlink d"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: xref.xsl 7442 2007-09-13 07:42:22Z xmldoc $
+     $Id: xref.xsl 8398 2009-04-07 14:40:25Z dcramer $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -134,7 +134,8 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                        or contains($xrefstyle, 'Page')))
                   and ( $insert.xref.page.number = 'yes' 
                      or $insert.xref.page.number = '1')
-                  or local-name($target) = 'para'">
+                  or (local-name($target) = 'para' and
+		      $xrefstyle = '')">
       <xsl:apply-templates select="$target" mode="page.citation">
         <xsl:with-param name="id" select="$target/@id|$target/@xml:id"/>
       </xsl:apply-templates>
@@ -233,7 +234,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </xsl:variable>
 
   <xsl:choose>
-    <xsl:when test="function-available('exsl:node-set')">
+    <xsl:when test="$exsl.node.set.available != 0">
       <xsl:apply-templates select="exsl:node-set($endterm)" mode="remove-ids"/>
     </xsl:when>
     <xsl:otherwise>
@@ -396,7 +397,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   <xsl:apply-templates select="(.//d:function)[1]" mode="xref"/>
 </xsl:template>
 
-<xsl:template match="d:dedication|d:preface|d:chapter|d:appendix" mode="xref-to">
+<xsl:template match="d:dedication|d:acknowledgements|d:preface|d:chapter|d:appendix" mode="xref-to">
   <xsl:param name="referrer"/>
   <xsl:param name="xrefstyle"/>
   <xsl:param name="verbose" select="1"/>
@@ -516,7 +517,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="d:glossterm" mode="xref-to">
+<xsl:template match="d:glossterm|d:firstterm" mode="xref-to">
   <xsl:apply-templates/>
 </xsl:template>
 
@@ -607,8 +608,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   <xsl:param name="xrefstyle"/>
   <xsl:param name="verbose" select="1"/>
 
-  <xsl:apply-templates select="d:question[1]" mode="object.xref.markup">
-    <xsl:with-param name="purpose" select="'xref'"/>
+  <xsl:apply-templates select="d:question[1]" mode="xref-to">
     <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
     <xsl:with-param name="referrer" select="$referrer"/>
     <xsl:with-param name="verbose" select="$verbose"/>
@@ -620,12 +620,19 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   <xsl:param name="xrefstyle"/>
   <xsl:param name="verbose" select="1"/>
 
-  <xsl:apply-templates select="." mode="object.xref.markup">
-    <xsl:with-param name="purpose" select="'xref'"/>
-    <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
-    <xsl:with-param name="referrer" select="$referrer"/>
-    <xsl:with-param name="verbose" select="$verbose"/>
-  </xsl:apply-templates>
+  <xsl:choose>
+    <xsl:when test="string-length(d:label) != 0">
+      <xsl:apply-templates select="." mode="label.markup"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates select="." mode="object.xref.markup">
+        <xsl:with-param name="purpose" select="'xref'"/>
+        <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
+        <xsl:with-param name="referrer" select="$referrer"/>
+        <xsl:with-param name="verbose" select="$verbose"/>
+      </xsl:apply-templates>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="d:part|d:reference" mode="xref-to">
@@ -743,7 +750,10 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </xsl:apply-templates>
 </xsl:template>
 
-<xsl:template match="d:para" mode="xref-to">
+<!-- These are elements for which no link text exists, so an xref to one
+     uses the xrefstyle attribute if specified, or if not it falls back
+     to the container element's link text -->
+<xsl:template match="d:para|d:phrase|d:simpara|d:anchor|d:quote" mode="xref-to">
   <xsl:param name="referrer"/>
   <xsl:param name="xrefstyle"/>
   <xsl:param name="verbose"/>
@@ -764,6 +774,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                                        |ancestor::d:preface
                                        |ancestor::d:partintro
                                        |ancestor::d:dedication
+                                       |ancestor::d:acknowledgements
                                        |ancestor::d:colophon
                                        |ancestor::d:bibliography
                                        |ancestor::d:index
@@ -772,11 +783,30 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                                        |ancestor::d:listitem
                                        |ancestor::d:varlistentry)[last()]"/>
 
-  <xsl:apply-templates select="$context" mode="xref-to">
-    <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
-    <xsl:with-param name="referrer" select="$referrer"/>
-    <xsl:with-param name="verbose" select="$verbose"/>
-  </xsl:apply-templates>
+  <xsl:choose>
+    <xsl:when test="$xrefstyle != ''">
+      <xsl:apply-templates select="." mode="object.xref.markup">
+        <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
+        <xsl:with-param name="referrer" select="$referrer"/>
+        <xsl:with-param name="verbose" select="$verbose"/>
+      </xsl:apply-templates>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates select="$context" mode="xref-to">
+        <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
+        <xsl:with-param name="referrer" select="$referrer"/>
+        <xsl:with-param name="verbose" select="$verbose"/>
+      </xsl:apply-templates>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="d:indexterm" mode="xref-to">
+  <xsl:value-of select="d:primary"/>
+</xsl:template>
+
+<xsl:template match="d:primary|d:secondary|d:tertiary" mode="xref-to">
+  <xsl:value-of select="."/>
 </xsl:template>
 
 <!-- ==================================================================== -->
@@ -825,7 +855,9 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
         </xsl:when>
         <!-- Use the xlink:href if no other text -->
         <xsl:when test="@xlink:href">
-          <xsl:value-of select="@xlink:href"/>
+	  <xsl:call-template name="hyphenate-url">
+	    <xsl:with-param name="url" select="@xlink:href"/>
+	  </xsl:call-template>
         </xsl:when>
         <xsl:otherwise>
           <xsl:message>
@@ -1128,7 +1160,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 
       <xsl:variable name="hottext">
         <xsl:choose>
-          <xsl:when test="$content">
+          <xsl:when test="string-length($content) != 0">
             <xsl:copy-of select="$content"/>
           </xsl:when>
           <xsl:otherwise>
@@ -1240,7 +1272,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
     <xsl:variable name="candidate">
       <xsl:for-each select="$target.database" >
         <xsl:value-of 
-                  select="key('targetptr-key', $olink.key)/@lang" />
+                  select="key('targetptr-key', $olink.key)[1]/@lang" />
       </xsl:for-each>
     </xsl:variable>
     <xsl:choose>
@@ -1283,6 +1315,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                     or local-name($target) = 'equation'
                     or local-name($target) = 'table'
                     or local-name($target) = 'dedication'
+                    or local-name($target) = 'acknowledgements'
                     or local-name($target) = 'preface'
                     or local-name($target) = 'bibliography'
                     or local-name($target) = 'glossary'

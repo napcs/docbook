@@ -6,7 +6,7 @@
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: index.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: index.xsl 8421 2009-05-04 07:49:49Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -28,7 +28,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
   <xsl:if test="count(*)&gt;0 or $generate.index != '0'">
     <div>
-      <xsl:apply-templates select="." mode="class.attribute"/>
+      <xsl:apply-templates select="." mode="common.html.attributes"/>
       <xsl:if test="$generate.id.attributes != 0">
         <xsl:attribute name="id">
           <xsl:call-template name="object.id"/>
@@ -83,7 +83,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
   <xsl:if test="count(*)&gt;0 or $generate.index != '0'">
     <div>
-      <xsl:apply-templates select="." mode="class.attribute"/>
+      <xsl:apply-templates select="." mode="common.html.attributes"/>
       <xsl:if test="$generate.id.attributes != 0">
         <xsl:attribute name="id">
           <xsl:call-template name="object.id"/>
@@ -118,7 +118,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <xsl:call-template name="id.warning"/>
 
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:apply-templates select="." mode="common.html.attributes"/>
     <xsl:if test="$generate.id.attributes != 0">
       <xsl:attribute name="id">
         <xsl:call-template name="object.id"/>
@@ -135,7 +135,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <xsl:template match="d:indexdiv/d:title">
   <h3>
-    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:apply-templates select="." mode="common.html.attributes"/>
     <xsl:apply-templates/>
   </h3>
 </xsl:template>
@@ -164,63 +164,103 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <dt>
     <xsl:apply-templates/>
   </dt>
-  <xsl:choose>
-    <xsl:when test="following-sibling::d:secondaryie">
-      <dd>
-        <dl>
-          <xsl:apply-templates select="following-sibling::d:secondaryie"/>
-        </dl>
-      </dd>
-    </xsl:when>
-    <xsl:when test="following-sibling::d:seeie                     |following-sibling::d:seealsoie">
-      <dd>
-        <dl>
-          <xsl:apply-templates select="following-sibling::d:seeie                                        |following-sibling::d:seealsoie"/>
-        </dl>
-      </dd>
-    </xsl:when>
-  </xsl:choose>
+  <dd>
+    <xsl:apply-templates select="following-sibling::d:seeie                                    [not(preceding-sibling::d:secondaryie)]" mode="indexentry"/>
+    <xsl:apply-templates select="following-sibling::d:seealsoie                                    [not(preceding-sibling::d:secondaryie)]" mode="indexentry"/>
+    <xsl:apply-templates select="following-sibling::d:secondaryie" mode="indexentry"/>
+  </dd>
 </xsl:template>
 
+<!-- Handled in mode to convert flat list to structured output -->
 <xsl:template match="d:secondaryie">
-  <dt>
-    <xsl:apply-templates/>
-  </dt>
-  <xsl:choose>
-    <xsl:when test="following-sibling::d:tertiaryie">
-      <dd>
-        <dl>
-          <xsl:apply-templates select="following-sibling::d:tertiaryie"/>
-        </dl>
-      </dd>
-    </xsl:when>
-    <xsl:when test="following-sibling::d:seeie                     |following-sibling::d:seealsoie">
-      <dd>
-        <dl>
-          <xsl:apply-templates select="following-sibling::d:seeie                                        |following-sibling::d:seealsoie"/>
-        </dl>
-      </dd>
-    </xsl:when>
-  </xsl:choose>
 </xsl:template>
-
 <xsl:template match="d:tertiaryie">
-  <dt>
-    <xsl:apply-templates/>
-  </dt>
-  <xsl:if test="following-sibling::d:seeie                 |following-sibling::d:seealsoie">
-    <dd>
-      <dl>
-        <xsl:apply-templates select="following-sibling::d:seeie                                      |following-sibling::d:seealsoie"/>
-      </dl>
-    </dd>
-  </xsl:if>
+</xsl:template>
+<xsl:template match="d:seeie|d:seealsoie">
 </xsl:template>
 
-<xsl:template match="d:seeie|d:seealsoie">
+<xsl:template match="d:secondaryie" mode="indexentry">
+  <dl>
+    <dt>
+      <xsl:apply-templates/>
+    </dt>
+    <dd>
+      <!-- select following see* elements up to next secondaryie or tertiary or end -->
+      <xsl:variable name="after.this" select="following-sibling::*"/>
+      <xsl:variable name="next.entry" select="(following-sibling::d:secondaryie|following-sibling::d:tertiaryie)[1]"/>
+      <xsl:variable name="before.entry" select="$next.entry/preceding-sibling::*"/>
+      <xsl:variable name="see.intersection" select="$after.this[count(.|$before.entry) = count($before.entry)]                                 [self::d:seeie or self::d:seealsoie]"/>
+      <xsl:choose>
+        <xsl:when test="count($see.intersection) != 0">
+          <xsl:apply-templates select="$see.intersection" mode="indexentry"/>
+        </xsl:when>
+        <xsl:when test="count($next.entry) = 0">
+          <xsl:apply-templates select="following-sibling::d:seeie" mode="indexentry"/>
+          <xsl:apply-templates select="following-sibling::d:seealsoie" mode="indexentry"/>
+        </xsl:when>
+      </xsl:choose>
+
+      <!-- now process any tertiaryie before the next secondaryie -->
+      <xsl:variable name="before.next.secondary" select="following-sibling::d:secondaryie[1]/preceding-sibling::*"/>
+      <xsl:variable name="tertiary.intersection" select="$after.this[count(.|$before.next.secondary) =                                   count($before.next.secondary)]                                 [not(self::d:seeie) and not(self::d:seealsoie)]"/>
+      <xsl:choose>
+        <xsl:when test="count($tertiary.intersection) != 0">
+          <xsl:apply-templates select="$tertiary.intersection" mode="indexentry"/>
+        </xsl:when>
+        <xsl:when test="not(following-sibling::d:secondaryie)">
+          <xsl:apply-templates select="following-sibling::d:tertiaryie" mode="indexentry"/>
+        </xsl:when>
+      </xsl:choose>
+    </dd>
+  </dl>
+</xsl:template>
+
+<xsl:template match="d:tertiaryie" mode="indexentry">
+  <dl>
+    <dt>
+      <xsl:apply-templates/>
+    </dt>
+    <dd>
+      <!-- select following see* elements up to next secondaryie or tertiary or end -->
+      <xsl:variable name="after.this" select="following-sibling::*"/>
+      <xsl:variable name="next.entry" select="(following-sibling::d:secondaryie|following-sibling::d:tertiaryie)[1]"/>
+      <xsl:variable name="before.entry" select="$next.entry/preceding-sibling::*"/>
+      <xsl:variable name="see.intersection" select="$after.this[count(.|$before.entry) = count($before.entry)]                                 [self::d:seeie or self::d:seealsoie]"/>
+      <xsl:choose>
+        <xsl:when test="count($see.intersection) != 0">
+          <xsl:apply-templates select="$see.intersection" mode="indexentry"/>
+        </xsl:when>
+        <xsl:when test="count($next.entry) = 0">
+          <xsl:apply-templates select="following-sibling::d:seeie" mode="indexentry"/>
+          <xsl:apply-templates select="following-sibling::d:seealsoie" mode="indexentry"/>
+        </xsl:when>
+      </xsl:choose>
+    </dd>
+  </dl>
+</xsl:template>
+
+<xsl:template match="d:seeie" mode="indexentry">
   <dt>
+    <xsl:text>(</xsl:text>
+    <xsl:call-template name="gentext">
+      <xsl:with-param name="key" select="'see'"/>
+    </xsl:call-template>
+    <xsl:text> </xsl:text>
     <xsl:apply-templates/>
+    <xsl:text>)</xsl:text>
   </dt>
+</xsl:template>
+
+<xsl:template match="d:seealsoie" mode="indexentry">
+  <div>
+    <xsl:text>(</xsl:text>
+    <xsl:call-template name="gentext">
+      <xsl:with-param name="key" select="'seealso'"/>
+    </xsl:call-template>
+    <xsl:text> </xsl:text>
+    <xsl:apply-templates/>
+    <xsl:text>)</xsl:text>
+  </div>
 </xsl:template>
 
 </xsl:stylesheet>

@@ -6,7 +6,7 @@
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: task.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: task.xsl 8421 2009-05-04 07:49:49Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -35,7 +35,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <xsl:variable name="preamble" select="*[not(self::d:title                               or self::d:titleabbrev)]"/>
 
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:apply-templates select="." mode="common.html.attributes"/>
     <xsl:call-template name="anchor"/>
 
     <xsl:if test="d:title and $placement = 'before'">

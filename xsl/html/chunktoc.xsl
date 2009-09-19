@@ -5,7 +5,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 exclude-result-prefixes="doc d">
 
 <!-- ********************************************************************
-     $Id: chunktoc.xsl 6942 2007-07-04 04:42:17Z xmldoc $
+     $Id: chunktoc.xsl 8399 2009-04-08 07:37:42Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -209,30 +209,103 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 <!-- ==================================================================== -->
 
 <xsl:template match="/">
+  <!-- * Get a title for current doc so that we let the user -->
+  <!-- * know what document we are processing at this point. -->
+  <xsl:variable name="doc.title">
+    <xsl:call-template name="get.doc.title"/>
+  </xsl:variable>
   <xsl:choose>
     <xsl:when test="$chunk.toc = ''">
       <xsl:message terminate="yes">
         <xsl:text>The chunk.toc file is not set.</xsl:text>
       </xsl:message>
     </xsl:when>
-
-    <xsl:when test="$rootid != ''">
+    
+    <!-- include extra test for Xalan quirk -->
+    <xsl:when test="namespace-uri(*[1]) != 'http://docbook.org/ns/docbook'">
+ <xsl:call-template name="log.message">
+ <xsl:with-param name="level">Note</xsl:with-param>
+ <xsl:with-param name="source" select="$doc.title"/>
+ <xsl:with-param name="context-desc">
+ <xsl:text>namesp. add</xsl:text>
+ </xsl:with-param>
+ <xsl:with-param name="message">
+ <xsl:text>added namespace before processing</xsl:text>
+ </xsl:with-param>
+ </xsl:call-template>
+ <xsl:variable name="addns">
+    <xsl:apply-templates mode="addNS"/>
+  </xsl:variable>
+  <xsl:apply-templates select="exsl:node-set($addns)"/>
+</xsl:when>
+    <!-- Can't process unless namespace removed -->
+    <xsl:when test="namespace-uri(*[1]) != 'http://docbook.org/ns/docbook'">
+ <xsl:call-template name="log.message">
+ <xsl:with-param name="level">Note</xsl:with-param>
+ <xsl:with-param name="source" select="$doc.title"/>
+ <xsl:with-param name="context-desc">
+ <xsl:text>namesp. add</xsl:text>
+ </xsl:with-param>
+ <xsl:with-param name="message">
+ <xsl:text>added namespace before processing</xsl:text>
+ </xsl:with-param>
+ </xsl:call-template>
+ <xsl:variable name="addns">
+    <xsl:apply-templates mode="addNS"/>
+  </xsl:variable>
+  <xsl:apply-templates select="exsl:node-set($addns)"/>
+</xsl:when>
+    <xsl:otherwise>
       <xsl:choose>
-        <xsl:when test="count(key('id',$rootid)) = 0">
-          <xsl:message terminate="yes">
-            <xsl:text>ID '</xsl:text>
-            <xsl:value-of select="$rootid"/>
-            <xsl:text>' not found in document.</xsl:text>
-          </xsl:message>
+        <xsl:when test="$rootid != ''">
+          <xsl:choose>
+            <xsl:when test="count(key('id',$rootid)) = 0">
+              <xsl:message terminate="yes">
+                <xsl:text>ID '</xsl:text>
+                <xsl:value-of select="$rootid"/>
+                <xsl:text>' not found in document.</xsl:text>
+              </xsl:message>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:if test="$collect.xref.targets = 'yes' or
+                            $collect.xref.targets = 'only'">
+                <xsl:apply-templates select="key('id', $rootid)"
+                                     mode="collect.targets"/>
+              </xsl:if>
+              <xsl:if test="$collect.xref.targets != 'only'">
+                <xsl:apply-templates select="key('id',$rootid)"
+                                     mode="process.root"/>
+                <xsl:if test="$tex.math.in.alt != ''">
+                  <xsl:apply-templates select="key('id',$rootid)"
+                                       mode="collect.tex.math"/>
+                </xsl:if>
+                <xsl:if test="$generate.manifest != 0">
+                  <xsl:call-template name="generate.manifest">
+                    <xsl:with-param name="node" select="key('id',$rootid)"/>
+                  </xsl:call-template>
+                </xsl:if>
+              </xsl:if>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates select="key('id',$rootid)"/>
+          <xsl:if test="$collect.xref.targets = 'yes' or
+                        $collect.xref.targets = 'only'">
+            <xsl:apply-templates select="/" mode="collect.targets"/>
+          </xsl:if>
+          <xsl:if test="$collect.xref.targets != 'only'">
+            <xsl:apply-templates select="/" mode="process.root"/>
+            <xsl:if test="$tex.math.in.alt != ''">
+              <xsl:apply-templates select="/" mode="collect.tex.math"/>
+            </xsl:if>
+            <xsl:if test="$generate.manifest != 0">
+              <xsl:call-template name="generate.manifest">
+                <xsl:with-param name="node" select="/"/>
+              </xsl:call-template>
+            </xsl:if>
+          </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
-    </xsl:when>
-
-    <xsl:otherwise>
-      <xsl:apply-templates select="/" mode="process.root"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

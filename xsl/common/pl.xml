@@ -29,6 +29,8 @@
 
 <l:gentext key="Abstract" text="Abstrakt"/>
 <l:gentext key="abstract" text="Abstrakt"/>
+<l:gentext key="Acknowledgements" text="Acknowledgements" lang="en"/>
+<l:gentext key="acknowledgements" text="Acknowledgements" lang="en"/>
 <l:gentext key="Answer" text="Odp:"/>
 <l:gentext key="answer" text="Odp:"/>
 <l:gentext key="Appendix" text="Dodatek"/>
@@ -73,8 +75,8 @@
 <l:gentext key="index" text="Indeks"/>
 <l:gentext key="ISBN" text="ISBN"/>
 <l:gentext key="isbn" text="ISBN"/>
-<l:gentext key="LegalNotice" text=""/>
-<l:gentext key="legalnotice" text=""/>
+<l:gentext key="LegalNotice" text="Informacja Prawna"/>
+<l:gentext key="legalnotice" text="informacja prawna"/>
 <l:gentext key="MsgAud" text="Odbiorcy"/>
 <l:gentext key="msgaud" text="Odbiorcy"/>
 <l:gentext key="MsgLevel" text="Poziom"/>
@@ -199,8 +201,9 @@
 <l:gentext key="below" text="below"/>
 <l:gentext key="sectioncalled" text="the section called"/>
 <l:gentext key="index symbols" text="Symbols"/>
-<l:gentext key="lowercase.alpha" text="aąbcćdeęfghijklłmnńoòpqrsśtuvwxyzźż"/>
-<l:gentext key="uppercase.alpha" text="AĄBCĆDEĘFGHIJKLŁMNŃOÒPQRSŚTUVWXYZŹŻ"/>
+<l:gentext key="writing-mode" text="lr-tb"/>
+<l:gentext key="lowercase.alpha" text="aąbcćdeęfghijklłmnńoópqrsśtuvwxyzźż"/>
+<l:gentext key="uppercase.alpha" text="AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŹŻ"/>
 <l:gentext key="normalize.sort.input" text="AaÀàÁáÂâÃãÄäÅåĀāĂăĄąǍǎǞǟǠǡǺǻȀȁȂȃȦȧḀḁẚẠạẢảẤấẦầẨẩẪẫẬậẮắẰằẲẳẴẵẶặBbƀƁɓƂƃḂḃḄḅḆḇCcÇçĆćĈĉĊċČčƇƈɕḈḉDdĎďĐđƊɗƋƌǅǲȡɖḊḋḌḍḎḏḐḑḒḓEeÈèÉéÊêËëĒēĔĕĖėĘęĚěȄȅȆȇȨȩḔḕḖḗḘḙḚḛḜḝẸẹẺẻẼẽẾếỀềỂểỄễỆệFfƑƒḞḟGgĜĝĞğĠġĢģƓɠǤǥǦǧǴǵḠḡHhĤĥĦħȞȟɦḢḣḤḥḦḧḨḩḪḫẖIiÌìÍíÎîÏïĨĩĪīĬĭĮįİƗɨǏǐȈȉȊȋḬḭḮḯỈỉỊịJjĴĵǰʝKkĶķƘƙǨǩḰḱḲḳḴḵLlĹĺĻļĽľĿŀŁłƚǈȴɫɬɭḶḷḸḹḺḻḼḽMmɱḾḿṀṁṂṃNnÑñŃńŅņŇňƝɲƞȠǋǸǹȵɳṄṅṆṇṈṉṊṋOoÒòÓóÔôÕõÖöØøŌōŎŏŐőƟƠơǑǒǪǫǬǭǾǿȌȍȎȏȪȫȬȭȮȯȰȱṌṍṎṏṐṑṒṓỌọỎỏỐốỒồỔổỖỗỘộỚớỜờỞởỠỡỢợPpƤƥṔṕṖṗQqʠRrŔŕŖŗŘřȐȑȒȓɼɽɾṘṙṚṛṜṝṞṟSsŚśŜŝŞşŠšȘșʂṠṡṢṣṤṥṦṧṨṩTtŢţŤťŦŧƫƬƭƮʈȚțȶṪṫṬṭṮṯṰṱẗUuÙùÚúÛûÜüŨũŪūŬŭŮůŰűŲųƯưǓǔǕǖǗǘǙǚǛǜȔȕȖȗṲṳṴṵṶṷṸṹṺṻỤụỦủỨứỪừỬửỮữỰựVvƲʋṼṽṾṿWwŴŵẀẁẂẃẄẅẆẇẈẉẘXxẊẋẌẍYyÝýÿŸŶŷƳƴȲȳẎẏẙỲỳỴỵỶỷỸỹZzŹźŻżŽžƵƶȤȥʐʑẐẑẒẓẔẕẕ" lang="en"/>
 <l:gentext key="normalize.sort.output" text="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBCCCCCCCCCCCCCCCCCDDDDDDDDDDDDDDDDDDDDDDDDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEFFFFFFGGGGGGGGGGGGGGGGGGGGHHHHHHHHHHHHHHHHHHHHIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIJJJJJJKKKKKKKKKKKKKKLLLLLLLLLLLLLLLLLLLLLLLLLLMMMMMMMMMNNNNNNNNNNNNNNNNNNNNNNNNNNNOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPPPPPPPPQQQRRRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTTTTTTTTTTTUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUVVVVVVVVWWWWWWWWWWWWWWWXXXXXXYYYYYYYYYYYYYYYYYYYYYYYZZZZZZZZZZZZZZZZZZZZZ" lang="en"/>
 <l:dingbat key="startquote" text="„"/>
@@ -216,6 +219,7 @@
 <l:context name="styles"><l:template name="person-name" text="first-last"/>
 </l:context>
 <l:context name="title"><l:template name="abstract" text="%t"/>
+<l:template name="acknowledgements" text="%t" lang="en"/>
 <l:template name="answer" text="%t"/>
 <l:template name="appendix" text="Dodatek %n. %t"/>
 <l:template name="article" text="%t"/>
@@ -321,6 +325,7 @@
 <l:template name="simplesect" text="%n. %t"/>
 </l:context>
 <l:context name="subtitle"><l:template name="appendix" text="%s"/>
+<l:template name="acknowledgements" text="%s" lang="en"/>
 <l:template name="article" text="%s"/>
 <l:template name="bibliodiv" text="%s"/>
 <l:template name="biblioentry" text="%s"/>
@@ -360,6 +365,7 @@
 <l:template name="toc" text="%s"/>
 </l:context>
 <l:context name="xref"><l:template name="abstract" text="%t"/>
+<l:template name="acknowledgements" text="%t" lang="en"/>
 <l:template name="answer" text="Odp: %n"/>
 <l:template name="appendix" text="%t"/>
 <l:template name="article" text="%t"/>
@@ -490,8 +496,9 @@
 <l:template name="sep2" text=" i "/>
 <l:template name="seplast" text=", i "/>
 </l:context>
-<l:context name="glossary"><l:template name="see" text="Patrz %t"/>
-<l:template name="seealso" text="Patrz też %t"/>
+<l:context name="glossary"><l:template name="see" text="Patrz %t."/>
+<l:template name="seealso" text="Patrz też %t."/>
+<l:template name="seealso-separator" text=", "/>
 </l:context>
 <l:context name="msgset"><l:template name="MsgAud" text="Odbiorcy: "/>
 <l:template name="MsgLevel" text="Poziom: "/>

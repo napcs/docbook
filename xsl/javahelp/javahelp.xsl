@@ -13,7 +13,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 <xsl:output method="html"/>
 
 <!-- ********************************************************************
-     $Id: javahelp.xsl 7427 2007-09-02 16:20:14Z mzjn $
+     $Id: javahelp.xsl 8400 2009-04-08 07:44:54Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -32,7 +32,6 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   </xsl:variable>
   <xsl:choose>
     
-    <!-- include extra test for Xalan quirk -->
     <xsl:when test="namespace-uri(*[1]) != 'http://docbook.org/ns/docbook'">
  <xsl:call-template name="log.message">
  <xsl:with-param name="level">Note</xsl:with-param>

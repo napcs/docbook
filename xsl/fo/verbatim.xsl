@@ -10,7 +10,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: verbatim.xsl 6936 2007-07-04 01:30:15Z xmldoc $
+     $Id: verbatim.xsl 8344 2009-03-16 06:35:43Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -19,8 +19,11 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 
      ******************************************************************** -->
 
-<xsl:include href="../highlighting/common.xsl"/>
-<xsl:include href="highlight.xsl"/>
+<!-- XSLTHL highlighting is turned off by default. See highlighting/README
+     for instructions on how to turn on XSLTHL -->
+<xsl:template name="apply-highlighting">
+    <xsl:apply-templates/>
+</xsl:template>
 
 <lxslt:component prefix="xverb"
                  functions="numberLines"/>
@@ -37,44 +40,89 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                       and $linenumbering.extension != '0'">
         <xsl:call-template name="number.rtf.lines">
           <xsl:with-param name="rtf">
-	    <xsl:call-template name="apply-highlighting"/>
+            <xsl:choose>
+              <xsl:when test="$highlight.source != 0">
+                <xsl:call-template name="apply-highlighting"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates/>
+              </xsl:otherwise>
+            </xsl:choose>
           </xsl:with-param>
         </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:call-template name="apply-highlighting"/>
+        <xsl:choose>
+          <xsl:when test="$highlight.source != 0">
+            <xsl:call-template name="apply-highlighting"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="block.content">
+    <xsl:choose>
+      <xsl:when test="$shade.verbatim != 0">
+        <fo:block id="{$id}"
+             xsl:use-attribute-sets="monospace.verbatim.properties shade.verbatim.style">
+          <xsl:choose>
+            <xsl:when test="$hyphenate.verbatim != 0 and 
+                            $exsl.node.set.available != 0">
+              <xsl:apply-templates select="exsl:node-set($content)" 
+                                   mode="hyphenate.verbatim"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:copy-of select="$content"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </fo:block>
+      </xsl:when>
+      <xsl:otherwise>
+        <fo:block id="{$id}"
+                  xsl:use-attribute-sets="monospace.verbatim.properties">
+          <xsl:choose>
+            <xsl:when test="$hyphenate.verbatim != 0 and 
+                            $exsl.node.set.available != 0">
+              <xsl:apply-templates select="exsl:node-set($content)" 
+                                   mode="hyphenate.verbatim"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:copy-of select="$content"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </fo:block>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
   <xsl:choose>
-    <xsl:when test="$shade.verbatim != 0">
-      <fo:block id="{$id}"
-                xsl:use-attribute-sets="monospace.verbatim.properties shade.verbatim.style">
-        <xsl:choose>
-          <xsl:when test="$hyphenate.verbatim != 0 and function-available('exsl:node-set')">
-            <xsl:apply-templates select="exsl:node-set($content)" mode="hyphenate.verbatim"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:copy-of select="$content"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </fo:block>
+    <!-- Need a block-container for these features -->
+    <xsl:when test="@width != '' or
+                    (self::d:programlisting and
+                    starts-with($writing.mode, 'rl'))">
+      <fo:block-container start-indent="0pt" end-indent="0pt">
+        <xsl:if test="@width != ''">
+          <xsl:attribute name="width">
+            <xsl:value-of select="concat(@width, '*', $monospace.verbatim.font.width)"/>
+          </xsl:attribute>
+        </xsl:if>
+        <!-- All known program code is left-to-right -->
+        <xsl:if test="self::d:programlisting and
+                      starts-with($writing.mode, 'rl')">
+          <xsl:attribute name="writing-mode">lr-tb</xsl:attribute>
+        </xsl:if>
+        <xsl:copy-of select="$block.content"/>
+      </fo:block-container>
     </xsl:when>
     <xsl:otherwise>
-      <fo:block id="{$id}"
-                xsl:use-attribute-sets="monospace.verbatim.properties">
-        <xsl:choose>
-          <xsl:when test="$hyphenate.verbatim != 0 and function-available('exsl:node-set')">
-            <xsl:apply-templates select="exsl:node-set($content)" mode="hyphenate.verbatim"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:copy-of select="$content"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </fo:block>
+      <xsl:copy-of select="$block.content"/>
     </xsl:otherwise>
   </xsl:choose>
+
 </xsl:template>
 
 <xsl:template match="d:literallayout">

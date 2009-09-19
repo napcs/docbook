@@ -5,7 +5,7 @@
 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: lists.xsl 7843 2008-03-05 10:15:15Z xmldoc $
+     $Id: lists.xsl 8347 2009-03-16 14:35:19Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -46,6 +46,11 @@ version='1.0'>
     <!-- * merge together.                                        -->
     <xsl:text>.sp&#10;</xsl:text>
   </xsl:if>
+</xsl:template>
+
+<xsl:template match="d:bibliolist">
+  <xsl:apply-templates/>
+  <xsl:text>&#10;</xsl:text>
 </xsl:template>
 
 <xsl:template match="d:variablelist|d:glosslist">

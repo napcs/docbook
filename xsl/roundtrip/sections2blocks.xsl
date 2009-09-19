@@ -14,12 +14,12 @@
 <!--=  1.0 2005-11-08 SRB              =-->
 <!--=   Initial version.               =-->
 <!--=                                  =-->
-<!--= $Id: sections2blocks.xsl 7266 2007-08-22 11:58:42Z xmldoc $ =-->
+<!--= $Id: sections2blocks.xsl 8107 2008-08-17 22:39:58Z balls $ =-->
 <!--=                                  =-->
 <!--====================================-->
   <axsl:output indent="yes"/>
   <axsl:strip-space elements="*"/>
-  <axsl:preserve-space elements="dbk:para"/>
+  <axsl:preserve-space elements="dbk:para dbk:emphasis"/>
   <axsl:template match="dbk:appendix |&#10;  dbk:article |&#10;  dbk:book |&#10;  dbk:chapter |&#10;  dbk:part |&#10;  dbk:preface |&#10;  dbk:section |&#10;  dbk:sect1 |&#10;  dbk:sect2 |&#10;  dbk:sect3 |&#10;  dbk:sect4 |&#10;  dbk:sect5">
     <axsl:variable name="subsections" select="dbk:para[@rnd:style = &quot;d:bibliography&quot; or @rnd:style = &quot;bibliography-title&quot; or @rnd:style = &quot;d:glossary&quot; or @rnd:style = &quot;glossary-title&quot; or @rnd:style = &quot;d:qandaset&quot; or @rnd:style = &quot;qandaset-title&quot;]"/>
     <axsl:copy>

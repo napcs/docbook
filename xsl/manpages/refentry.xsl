@@ -5,7 +5,7 @@
 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: refentry.xsl 7961 2008-03-29 02:28:55Z xmldoc $
+     $Id: refentry.xsl 8235 2009-02-09 16:22:14Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -299,14 +299,23 @@ version='1.0'>
 
   <xsl:template name="process.SH.xref">
     <xsl:param name="title"/>
-    <xsl:text>\c</xsl:text>
-    <xsl:text>&#x2592;</xsl:text>
-    <xsl:text>.SH-xref </xsl:text>
-    <xsl:text>"</xsl:text>
-    <xsl:value-of select="$title"/>
-    <xsl:text>\c"</xsl:text>
-    <xsl:text>&#x2592;</xsl:text>
-    <xsl:text>\&amp;</xsl:text>
+    <xsl:choose>
+      <xsl:when test="not($man.output.better.ps.enabled = 0)">
+        <xsl:text>\c</xsl:text>
+        <xsl:text>&#x2592;</xsl:text>
+        <xsl:text>.SH-xref </xsl:text>
+        <xsl:text>"</xsl:text>
+        <xsl:value-of select="$title"/>
+        <xsl:text>\c"</xsl:text>
+        <xsl:text>&#x2592;</xsl:text>
+        <xsl:text>\&amp;</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="string.upper">
+          <xsl:with-param name="string" select="$title"/>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
 </xsl:stylesheet>

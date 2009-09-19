@@ -110,6 +110,10 @@ end
     generate "#{root_path}/template/xsl/pdf.xsl", xsl_path, "#{dest_path}/xsl/pdf.xsl"
     puts " - #{dest_path}/xsl/pdf.xml"
     
+    FileUtils.cp "#{root_path}/template/xsl/w3centities-f.ent", "#{dest_path}/xsl/w3centities-f.ent"
+    puts " - #{dest_path}/xsl/w3centities-f.ent"
+    
+    
     generate "#{root_path}/template/make", root_path, "#{dest_path}/make"
     puts " - #{dest_path}/make"
     
@@ -161,6 +165,9 @@ end
       
       generate "#{root_path}/template/make", root_path, "#{dest_path}/make"
       puts " - #{dest_path}/make"
+      
+      FileUtils.cp "#{root_path}/template/xsl/w3centities-f.ent", "#{dest_path}/xsl/w3centities-f.ent"
+      puts " - #{dest_path}/xsl/w3centities-f.ent"
       
       # xsl_path is a file URL. File urls have three / (file:///) followed by the path  Windows paths don't start with a slash
       # but unix paths do. If it's windows, leave the path alone. If it's not windows, chop off the first character of the path

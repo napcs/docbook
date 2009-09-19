@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % allent SYSTEM "./xsl/w3centities-f.ent">
+%allent;
+]>
 <chapter version="5.0" xmlns="http://docbook.org/ns/docbook"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -12,7 +16,7 @@
 
       <sect1 xml:id="sec.A.cross.reference">
         <title>A cross reference</title>
-        <para>You can easily cross reference things by referencing the XML id attribute of any element. See <xref linkend="fig.sample.image" /> to see a screenshot.</para>
+        <para>You can easily cross&ndash;reference things by referencing the XML id attribute of any element. See <xref linkend="fig.sample.image" /> to see a screenshot.</para>
            
       </sect1>
 

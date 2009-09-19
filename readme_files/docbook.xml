@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article [
+<!ENTITY % allent SYSTEM "http://www.w3.org/2003/entities/2007/w3centities-f.ent">
+%allent;
+]>
+
 <article xmlns="http://docbook.org/ns/docbook" 
   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -7,7 +12,7 @@
     xmlns:html="http://www.w3.org/1999/xhtml" 
     xmlns:db="http://docbook.org/ns/docbook" version="5.0">>
     <info>
-        <title>Short Attention Span Docbook Toolchain</title>
+        <title>Short Attention Span Docbook Toolchain &ndash; Setup Guide</title>
         <author>
             <orgname>New Auburn Personal Computer Services LLC</orgname>
             <address>
@@ -125,6 +130,7 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
         <tip>
             <para>Add the docbook folder to your path to make the new_book command available without having to specify the full path. Modify your <filename>.bash_profile</filename> to change the path.</para>
         </tip>
+
     </sect1>
 
     <sect1>

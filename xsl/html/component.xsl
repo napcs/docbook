@@ -5,7 +5,7 @@
 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: component.xsl 7656 2008-02-02 00:29:28Z nwalsh $
+     $Id: component.xsl 8421 2009-05-04 07:49:49Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -80,11 +80,9 @@ version='1.0'>
   <xsl:call-template name="id.warning"/>
 
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
-    <xsl:call-template name="dir">
+    <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
     </xsl:call-template>
-    <xsl:call-template name="language.attribute"/>
     <xsl:call-template name="dedication.titlepage"/>
     <xsl:apply-templates/>
     <xsl:call-template name="process.footnotes"/>
@@ -112,15 +110,47 @@ version='1.0'>
 
 <!-- ==================================================================== -->
 
+<xsl:template match="d:acknowledgements" mode="acknowledgements">
+  <xsl:call-template name="id.warning"/>
+
+  <div>
+    <xsl:call-template name="common.html.attributes">
+      <xsl:with-param name="inherit" select="1"/>
+    </xsl:call-template>
+    <xsl:call-template name="acknowledgements.titlepage"/>
+    <xsl:apply-templates/>
+    <xsl:call-template name="process.footnotes"/>
+  </div>
+</xsl:template>
+
+<xsl:template match="d:acknowledgements/d:title|d:acknowledgements/d:info/d:title" 
+              mode="titlepage.mode" priority="2">
+  <xsl:call-template name="component.title">
+    <xsl:with-param name="node" select="ancestor::d:acknowledgements[1]"/>
+  </xsl:call-template>
+</xsl:template>
+
+<xsl:template match="d:acknowledgements/d:subtitle|d:acknowledgements/d:info/d:subtitle" 
+              mode="titlepage.mode" priority="2">
+  <xsl:call-template name="component.subtitle">
+    <xsl:with-param name="node" select="ancestor::d:acknowledgements[1]"/>
+  </xsl:call-template>
+</xsl:template>
+
+<xsl:template match="d:acknowledgements"></xsl:template> <!-- see mode="acknowledgements" -->
+<xsl:template match="d:acknowledgements/d:title"></xsl:template>
+<xsl:template match="d:acknowledgements/d:subtitle"></xsl:template>
+<xsl:template match="d:acknowledgements/d:titleabbrev"></xsl:template>
+
+<!-- ==================================================================== -->
+
 <xsl:template match="d:colophon">
   <xsl:call-template name="id.warning"/>
 
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
-    <xsl:call-template name="dir">
+    <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
     </xsl:call-template>
-    <xsl:call-template name="language.attribute"/>
     <xsl:if test="$generate.id.attributes != 0">
       <xsl:attribute name="id">
         <xsl:call-template name="object.id"/>
@@ -146,11 +176,9 @@ version='1.0'>
   <xsl:call-template name="id.warning"/>
 
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
-    <xsl:call-template name="dir">
+    <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
     </xsl:call-template>
-    <xsl:call-template name="language.attribute"/>
     <xsl:if test="$generate.id.attributes != 0">
       <xsl:attribute name="id">
         <xsl:call-template name="object.id"/>
@@ -205,11 +233,9 @@ version='1.0'>
   <xsl:call-template name="id.warning"/>
 
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
-    <xsl:call-template name="dir">
+    <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
     </xsl:call-template>
-    <xsl:call-template name="language.attribute"/>
     <xsl:if test="$generate.id.attributes != 0">
       <xsl:attribute name="id">
         <xsl:call-template name="object.id"/>
@@ -268,11 +294,9 @@ version='1.0'>
   <xsl:call-template name="id.warning"/>
 
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
-    <xsl:call-template name="dir">
+    <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
     </xsl:call-template>
-    <xsl:call-template name="language.attribute"/>
     <xsl:if test="$generate.id.attributes != 0">
       <xsl:attribute name="id">
         <xsl:call-template name="object.id"/>
@@ -344,11 +368,9 @@ version='1.0'>
   <xsl:call-template name="id.warning"/>
 
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
-    <xsl:call-template name="dir">
+    <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
     </xsl:call-template>
-    <xsl:call-template name="language.attribute"/>
     <xsl:if test="$generate.id.attributes != 0">
       <xsl:attribute name="id">
         <xsl:call-template name="object.id"/>

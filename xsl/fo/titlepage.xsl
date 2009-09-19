@@ -6,7 +6,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: titlepage.xsl 7677 2008-02-15 19:31:59Z mzjn $
+     $Id: titlepage.xsl 8346 2009-03-16 07:09:41Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -50,6 +50,9 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 
 <xsl:attribute-set name="dedication.titlepage.recto.style"/>
 <xsl:attribute-set name="dedication.titlepage.verso.style"/>
+
+<xsl:attribute-set name="acknowledgements.titlepage.recto.style"/>
+<xsl:attribute-set name="acknowledgements.titlepage.verso.style"/>
 
 <xsl:attribute-set name="preface.titlepage.recto.style"/>
 <xsl:attribute-set name="preface.titlepage.verso.style"/>
@@ -192,13 +195,20 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 </xsl:template>
 
 <xsl:template match="d:abstract" mode="titlepage.mode">
-  <fo:block>
-    <xsl:call-template name="formal.object.heading">
-      <xsl:with-param name="title">
-        <xsl:apply-templates select="." mode="title.markup"/>
-      </xsl:with-param>
-    </xsl:call-template>
-    <xsl:apply-templates mode="titlepage.mode"/>
+  <fo:block xsl:use-attribute-sets="abstract.properties">
+    <fo:block xsl:use-attribute-sets="abstract.title.properties">
+      <xsl:choose>
+	<xsl:when test="d:title|d:info/d:title">
+	  <xsl:apply-templates select="d:title|d:info/d:title"/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:call-template name="gentext">
+	    <xsl:with-param name="key" select="'Abstract'"/>
+	  </xsl:call-template>
+	</xsl:otherwise>
+      </xsl:choose>
+    </fo:block>
+    <xsl:apply-templates select="*[not(self::d:title)]" mode="titlepage.mode"/>
   </fo:block>
 </xsl:template>
 
@@ -673,7 +683,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 
 <!-- book recto -->
 
-<xsl:template match="d:bookinfo/d:authorgroup|d:info/d:authorgroup"
+<xsl:template match="d:bookinfo/d:authorgroup|d:book/d:info/d:authorgroup"
               mode="titlepage.mode" priority="2">
   <fo:block>
     <xsl:call-template name="anchor"/>
@@ -722,25 +732,25 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   <xsl:apply-templates select="d:othercredit" mode="titlepage.mode"/>
 </xsl:template>
 
-<xsl:template match="d:bookinfo/d:author|d:info/d:author"
+<xsl:template match="d:bookinfo/d:author|d:book/d:info/d:author"
               mode="titlepage.mode" priority="2">
   <fo:block>
     <xsl:call-template name="person.name"/>
   </fo:block>
 </xsl:template>
 
-<xsl:template match="d:bookinfo/d:corpauthor|d:info/d:corpauthor"
+<xsl:template match="d:bookinfo/d:corpauthor|d:book/d:info/d:corpauthor"
               mode="titlepage.mode" priority="2">
   <fo:block>
     <xsl:apply-templates/>
   </fo:block>
 </xsl:template>
 
-<xsl:template match="d:bookinfo/d:pubdate|d:info/d:pubdate"
+<xsl:template match="d:bookinfo/d:pubdate|d:book/d:info/d:pubdate"
               mode="titlepage.mode" priority="2">
   <fo:block>
     <xsl:call-template name="gentext">
-      <xsl:with-param name="key" select="'published'"/>
+      <xsl:with-param name="key" select="'pubdate'"/>
     </xsl:call-template>
     <xsl:text> </xsl:text>
     <xsl:apply-templates mode="titlepage.mode"/>

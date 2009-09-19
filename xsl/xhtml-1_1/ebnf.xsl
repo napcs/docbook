@@ -5,7 +5,7 @@
 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="doc d" version="1.0">
 
 <!-- ********************************************************************
-     $Id: ebnf.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: ebnf.xsl 8178 2008-12-15 22:26:38Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -17,7 +17,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns="http://www.w3.org/199
 <doc:reference xmlns="">
 <referenceinfo xmlns="http://www.w3.org/1999/xhtml">
 <releaseinfo role="meta">
-$Id: ebnf.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+$Id: ebnf.xsl 8178 2008-12-15 22:26:38Z bobstayton $
 </releaseinfo>
 <author><surname>Walsh</surname>
 <firstname>Norman</firstname></author>
@@ -73,7 +73,7 @@ to be incomplete. Don't forget to read the source, too :-)</para>
 
     <xsl:if test="d:title">
       <tr>
-        <th align="left" valign="top">
+        <th align="{$direction.align.start}" valign="top">
           <xsl:apply-templates select="." mode="class.attribute"/>
           <xsl:apply-templates select="d:title"/>
         </th>
@@ -105,12 +105,12 @@ to be incomplete. Don't forget to read the source, too :-)</para>
 <xsl:template match="d:production">
   <xsl:param name="recap" select="false()"/>
   <tr>
-    <td align="left" valign="top">
+    <td align="{$direction.align.start}" valign="top">
       <xsl:text>[</xsl:text>
       <xsl:number count="d:production" level="any"/>
       <xsl:text>]</xsl:text>
     </td>
-    <td align="right" valign="top">
+    <td align="{$direction.align.end}" valign="top">
       <xsl:choose>
         <xsl:when test="$recap">
           <a>
@@ -135,7 +135,7 @@ to be incomplete. Don't forget to read the source, too :-)</para>
       <xsl:apply-templates select="d:rhs"/>
       <xsl:copy-of select="$ebnf.statement.terminator"/>
     </td>
-    <td align="left" valign="top">
+    <td align="{$direction.align.start}" valign="top">
       <xsl:choose>
         <xsl:when test="d:rhs/d:lineannotation|d:constraint">
           <xsl:apply-templates select="d:rhs/d:lineannotation" mode="rhslo"/>

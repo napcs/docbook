@@ -7,7 +7,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: division.xsl 7634 2008-01-05 16:06:30Z mzjn $
+     $Id: division.xsl 8320 2009-03-12 17:43:44Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -259,6 +259,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </xsl:if>
 
   <xsl:apply-templates select="d:dedication" mode="dedication"/>
+  <xsl:apply-templates select="d:acknowledgements" mode="acknowledgements"/>
 
   <xsl:call-template name="make.book.tocs"/>
 

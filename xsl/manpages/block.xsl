@@ -6,7 +6,7 @@ xmlns:exsl="http://exslt.org/common"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: block.xsl 7960 2008-03-29 01:37:08Z xmldoc $
+     $Id: block.xsl 8235 2009-02-09 16:22:14Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -24,7 +24,9 @@ xmlns:exsl="http://exslt.org/common"
   <xsl:text>.sp&#10;</xsl:text>
   <xsl:call-template name="roff-if-end"/>
   <xsl:text>.RS 4&#10;</xsl:text>
-  <xsl:text>.BM yellow&#10;</xsl:text>
+  <xsl:if test="not($man.output.better.ps.enabled = 0)">
+    <xsl:text>.BM yellow&#10;</xsl:text>
+  </xsl:if>
   <xsl:call-template name="pinch.together"/>
   <xsl:text>.ps +1&#10;</xsl:text>
   <xsl:call-template name="make.bold.title"/>
@@ -32,7 +34,9 @@ xmlns:exsl="http://exslt.org/common"
   <xsl:text>.br&#10;</xsl:text>
   <xsl:apply-templates/>
   <xsl:text>.sp .5v&#10;</xsl:text>
-  <xsl:text>.EM yellow&#10;</xsl:text>
+  <xsl:if test="not($man.output.better.ps.enabled = 0)">
+    <xsl:text>.EM yellow&#10;</xsl:text>
+  </xsl:if>
   <xsl:text>.RE&#10;</xsl:text>
 </xsl:template> 
 
@@ -206,9 +210,11 @@ xmlns:exsl="http://exslt.org/common"
       <xsl:choose>
         <xsl:when test="self::d:literallayout|self::d:programlisting|self::d:screen
           and not(ancestor::*[local-name() = 'refsynopsisdiv'])
+          and not($man.output.better.ps.enabled = 0)
           ">
-          <!-- * if this is a literallayout|programlisting|screen, then -->
-          <!-- * we put a background behind it in non-TTY output; except -->
+          <!-- * if this is a literallayout|programlisting|screen, -->
+          <!-- * and user has set man.output.better.ps.enabled to non-zero, -->
+          <!-- * then we put a background behind it in non-TTY output; except -->
           <!-- * if it’s a descendant of a refsynopsisdiv (as can be -->
           <!-- * found in the git docs) -->
           <xsl:choose>

@@ -15,7 +15,7 @@
   <!-- * WARNING WARNING WARNING -->
   <!-- * WARNING WARNING WARNING -->
   <title>DocBook XSL Stylesheets: Reference Documentation</title>
-  <info><releaseinfo role="meta">$Id: reference.xml 7685 2008-02-18 01:51:37Z xmldoc $ </releaseinfo>
+  <info><releaseinfo role="meta">$Id: reference.xml 8321 2009-03-12 18:20:36Z mzjn $ </releaseinfo>
     <xi:include href="./authors.xml"/>
     <xi:include href="./copyright.xml" xpointer="xpointer(//*[local-name() = 'copyright'])"/>
     <xi:include href="./license.xml"/>
@@ -37,7 +37,7 @@
                 >plain text</link></para>
           </listitem>
         </itemizedlist>
-        This is primarily documentation on the parameters you can adjust
+        This is primarily documentation on the parameters and processing instructions you can use
         to control the behavior of the stylesheets.
         <note>
           <para>This is purely reference documentation&#xa0;– not how-to

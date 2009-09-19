@@ -10,7 +10,7 @@ xmlns:ng="http://docbook.org/docbook-ng"
 <xsl:import href="../html/chunk.xsl"/>
 
 <!-- ********************************************************************
-     $Id: eclipse.xsl 7582 2007-12-03 03:22:06Z dcramer $
+     $Id: eclipse.xsl 8400 2009-04-08 07:44:54Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.

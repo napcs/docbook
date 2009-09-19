@@ -6,7 +6,7 @@
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: block.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: block.xsl 8441 2009-05-24 02:14:56Z abdelazer $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -26,7 +26,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <xsl:template name="block.object">
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:call-template name="common.html.attributes"/>
     <xsl:call-template name="anchor"/>
     <xsl:apply-templates/>
   </div>
@@ -60,12 +60,16 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
   <xsl:variable name="p">
     <p>
-      <xsl:call-template name="dir"/>
-      <xsl:if test="$class != ''">
-        <xsl:apply-templates select="." mode="class.attribute">
-          <xsl:with-param name="class" select="$class"/>
-        </xsl:apply-templates>
-      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="$class != ''">
+          <xsl:call-template name="common.html.attributes">
+            <xsl:with-param name="class" select="$class"/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:call-template name="locale.html.attributes"/>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:copy-of select="$content"/>
     </p>
   </xsl:variable>
@@ -85,6 +89,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:simpara">
   <!-- see also listitem/simpara in lists.xsl -->
   <p>
+    <xsl:call-template name="locale.html.attributes"/>
     <xsl:if test="@role and $para.propagates.style != 0">
       <xsl:apply-templates select="." mode="class.attribute">
         <xsl:with-param name="class" select="@role"/>
@@ -142,10 +147,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <xsl:template match="d:blockquote">
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
-    <xsl:if test="@lang or @xml:lang">
-      <xsl:call-template name="language.attribute"/>
-    </xsl:if>
+    <xsl:call-template name="common.html.attributes"/>
     <xsl:call-template name="anchor"/>
 
     <xsl:choose>
@@ -160,7 +162,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
           </tr>
           <tr>
             <td width="10%" valign="top">&#160;</td>
-            <td colspan="2" align="right" valign="top">
+            <td colspan="2" align="{$direction.align.end}" valign="top">
               <xsl:text>--</xsl:text>
               <xsl:apply-templates select="d:attribution"/>
             </td>
@@ -169,7 +171,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
       </xsl:when>
       <xsl:otherwise>
         <blockquote>
-          <xsl:apply-templates select="." mode="class.attribute"/>
+          <xsl:call-template name="common.html.attributes"/>
           <xsl:apply-templates/>
         </blockquote>
       </xsl:otherwise>
@@ -187,13 +189,14 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   </div>
 </xsl:template>
 
+<!-- Use an em dash per Chicago Manual of Style and https://sourceforge.net/tracker/index.php?func=detail&aid=2793878&group_id=21935&atid=373747 -->
 <xsl:template match="d:epigraph">
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:call-template name="common.html.attributes"/>
       <xsl:apply-templates select="d:para|d:simpara|d:formalpara|d:literallayout"/>
       <xsl:if test="d:attribution">
         <div class="attribution">
-          <span>--<xsl:apply-templates select="d:attribution"/></span>
+          <span>&#8212;<xsl:apply-templates select="d:attribution"/></span>
         </div>
       </xsl:if>
   </div>
@@ -201,7 +204,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <xsl:template match="d:attribution">
   <span>
-    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:call-template name="common.html.attributes"/>
     <xsl:apply-templates/>
   </span>
 </xsl:template>
@@ -210,7 +213,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <xsl:template match="d:abstract|d:sidebar">
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:call-template name="common.html.attributes"/>
     <xsl:call-template name="anchor"/>
     <xsl:call-template name="formal.object.heading">
       <xsl:with-param name="title">
@@ -326,10 +329,10 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <xsl:template match="d:revhistory">
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:call-template name="common.html.attributes"/>
     <table border="0" width="100%" summary="Revision history">
       <tr>
-        <th align="left" valign="top" colspan="3">
+        <th align="{$direction.align.start}" valign="top" colspan="3">
           <b>
             <xsl:call-template name="gentext">
               <xsl:with-param name="key" select="'RevHistory'"/>
@@ -348,7 +351,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <xsl:variable name="revauthor" select="d:authorinitials|d:author"/>
   <xsl:variable name="revremark" select="d:revremark|d:revdescription"/>
   <tr>
-    <td align="left">
+    <td align="{$direction.align.start}">
       <xsl:if test="$revnumber">
         <xsl:call-template name="gentext">
           <xsl:with-param name="key" select="'Revision'"/>
@@ -357,19 +360,19 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
         <xsl:apply-templates select="$revnumber"/>
       </xsl:if>
     </td>
-    <td align="left">
+    <td align="{$direction.align.start}">
       <xsl:apply-templates select="$revdate"/>
     </td>
     <xsl:choose>
       <xsl:when test="count($revauthor)=0">
-        <td align="left">
+        <td align="{$direction.align.start}">
           <xsl:call-template name="dingbat">
             <xsl:with-param name="dingbat">nbsp</xsl:with-param>
           </xsl:call-template>
         </td>
       </xsl:when>
       <xsl:otherwise>
-        <td align="left">
+        <td align="{$direction.align.start}">
           <xsl:for-each select="$revauthor">
             <xsl:apply-templates select="."/>
             <xsl:if test="position() != last()">
@@ -382,7 +385,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   </tr>
   <xsl:if test="$revremark">
     <tr>
-      <td align="left" colspan="3">
+      <td align="{$direction.align.start}" colspan="3">
         <xsl:apply-templates select="$revremark"/>
       </td>
     </tr>
@@ -416,9 +419,9 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ==================================================================== -->
 
-<xsl:template match="d:ackno">
+<xsl:template match="d:ackno|d:acknowledgements[parent::d:article]">
   <p>
-    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:call-template name="common.html.attributes"/>
     <xsl:apply-templates/>
   </p>
 </xsl:template>

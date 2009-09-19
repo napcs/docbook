@@ -6,7 +6,7 @@ version="1.0">
 <!-- This file is generated from param.xweb -->
 
 <!-- ********************************************************************
-     $Id: param.xweb 7885 2008-03-09 13:33:45Z xmldoc $
+     $Id: param.xweb 8235 2009-02-09 16:22:14Z xmldoc $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -86,6 +86,7 @@ or
 <xsl:param name="man.output.lang.in.name.enabled" select="0"/>
 <xsl:param name="man.output.manifest.enabled" select="0"/>
 <xsl:param name="man.output.manifest.filename">MAN.MANIFEST</xsl:param>
+<xsl:param name="man.output.better.ps.enabled">0</xsl:param>
 <xsl:param name="man.output.quietly" select="0"/>
 <xsl:param name="man.output.subdirs.enabled" select="1"/>
 <xsl:param name="man.segtitle.suppress" select="0"/>
@@ -162,7 +163,8 @@ or
 <xsl:param name="refentry.date.profile.enabled">0</xsl:param>
 <xsl:param name="refentry.date.profile">
   (($info[//d:date])[last()]/d:date)[1]|
-  (($info[//d:pubdate])[last()]/d:pubdate)[1]</xsl:param>
+  (($info[//d:pubdate])[last()]/d:pubdate)[1]
+</xsl:param>
 <xsl:param name="refentry.manual.fallback.profile">
 d:refmeta/d:refmiscinfo[not(@class = 'date')][1]/node()</xsl:param>
 <xsl:param name="refentry.manual.profile.enabled">0</xsl:param>
@@ -187,6 +189,7 @@ d:refmeta/d:refmiscinfo[not(@class = 'date')][1]/node()</xsl:param>
 <xsl:param name="refentry.version.profile">
   (($info[//d:productnumber])[last()]/d:productnumber)[1]|
   (($info[//d:edition])[last()]/d:edition)[1]|
-  (($info[//d:releaseinfo])[last()]/d:releaseinfo)[1]</xsl:param>
+  (($info[//d:releaseinfo])[last()]/d:releaseinfo)[1]
+</xsl:param>
 <xsl:param name="refentry.version.suppress">0</xsl:param>
 </xsl:stylesheet>

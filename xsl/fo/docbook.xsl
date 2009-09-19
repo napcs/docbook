@@ -14,7 +14,7 @@ xmlns:exsl="http://exslt.org/common"
 <xsl:output method="xml" indent="no"/>
 
 <!-- ********************************************************************
-     $Id: docbook.xsl 7584 2007-12-03 17:43:24Z mzjn $
+     $Id: docbook.xsl 8414 2009-04-18 22:40:23Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -130,7 +130,6 @@ xmlns:exsl="http://exslt.org/common"
   </xsl:variable>
   <xsl:choose>
     
-    <!-- include extra test for Xalan quirk -->
     <xsl:when test="namespace-uri(*[1]) != 'http://docbook.org/ns/docbook'">
  <xsl:call-template name="log.message">
  <xsl:with-param name="level">Note</xsl:with-param>
@@ -272,6 +271,7 @@ xmlns:exsl="http://exslt.org/common"
     </xsl:if>
 
     <xsl:if test="$fop1.extensions != 0">
+      <xsl:call-template name="fop1-document-information"/>
       <xsl:variable name="bookmarks">
         <xsl:apply-templates select="$document.element" 
                              mode="fop1.outline"/>

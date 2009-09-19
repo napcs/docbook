@@ -14,7 +14,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 <xsl:include href="../common/table.xsl"/>
 
 <!-- ********************************************************************
-     $Id: table.xsl 7681 2008-02-17 19:08:14Z mzjn $
+     $Id: table.xsl 8392 2009-04-01 08:47:55Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -28,7 +28,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   <info>
     <title>Formatting Object Table Reference</title>
     <releaseinfo role="meta">
-      $Id: table.xsl 7681 2008-02-17 19:08:14Z mzjn $
+      $Id: table.xsl 8392 2009-04-01 08:47:55Z bobstayton $
     </releaseinfo>
   </info>
   <partintro xml:id="partintro">
@@ -98,6 +98,11 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       </xsl:if>
       <xsl:apply-templates select="."/>
     </fo:table>
+
+    <xsl:for-each select="d:mediaobject|d:graphic">
+      <xsl:apply-templates select="."/>
+    </xsl:for-each>
+
   </xsl:for-each>
 </xsl:template>
 
@@ -144,11 +149,11 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     <xsl:when test="self::d:table">
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="table.properties">
-	<xsl:if test="$keep.together != ''">
-	  <xsl:attribute name="keep-together.within-column">
-	    <xsl:value-of select="$keep.together"/>
-	  </xsl:attribute>
-	</xsl:if>
+        <xsl:if test="$keep.together != ''">
+          <xsl:attribute name="keep-together.within-column">
+            <xsl:value-of select="$keep.together"/>
+          </xsl:attribute>
+        </xsl:if>
         <xsl:if test="$placement = 'before'">
           <xsl:call-template name="formal.object.heading">
             <xsl:with-param name="placement" select="$placement"/>
@@ -221,10 +226,12 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
   <xsl:variable name="rowsep">
     <xsl:choose>
-      <!-- If this is the last row, rowsep never applies. -->
+      <!-- If this is the last row, rowsep never applies (except when 
+           the ancestor tgroup has a following sibling tgroup) -->
       <xsl:when test="not(ancestor-or-self::d:row[1]/following-sibling::d:row
                           or ancestor-or-self::d:thead/following-sibling::d:tbody
-                          or ancestor-or-self::d:tbody/preceding-sibling::d:tfoot)">
+                          or ancestor-or-self::d:tbody/preceding-sibling::d:tfoot)
+                          and not(ancestor::d:tgroup/following-sibling::d:tgroup)">
         <xsl:value-of select="0"/>
       </xsl:when>
       <xsl:otherwise>
@@ -268,7 +275,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
     <xsl:if test="$colsep &gt; 0 and number($colnum) &lt; ancestor::d:tgroup/@cols">
       <xsl:call-template name="border">
-        <xsl:with-param name="side" select="'right'"/>
+        <xsl:with-param name="side" select="'end'"/>
       </xsl:call-template>
     </xsl:if>
 
@@ -279,7 +286,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
 <!-- ==================================================================== -->
 <xsl:template name="table.frame">
-  <xsl:variable name="frame">
+  <xsl:param name="frame">
     <xsl:choose>
       <xsl:when test="../@frame">
         <xsl:value-of select="../@frame"/>
@@ -289,14 +296,15 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       </xsl:when>
       <xsl:otherwise>all</xsl:otherwise>
     </xsl:choose>
-  </xsl:variable>
+  </xsl:param>
+
 
   <xsl:choose>
     <xsl:when test="$frame='all'">
-      <xsl:attribute name="border-left-style">
+      <xsl:attribute name="border-start-style">
         <xsl:value-of select="$table.frame.border.style"/>
       </xsl:attribute>
-      <xsl:attribute name="border-right-style">
+      <xsl:attribute name="border-end-style">
         <xsl:value-of select="$table.frame.border.style"/>
       </xsl:attribute>
       <xsl:attribute name="border-top-style">
@@ -305,10 +313,10 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       <xsl:attribute name="border-bottom-style">
         <xsl:value-of select="$table.frame.border.style"/>
       </xsl:attribute>
-      <xsl:attribute name="border-left-width">
+      <xsl:attribute name="border-start-width">
         <xsl:value-of select="$table.frame.border.thickness"/>
       </xsl:attribute>
-      <xsl:attribute name="border-right-width">
+      <xsl:attribute name="border-end-width">
         <xsl:value-of select="$table.frame.border.thickness"/>
       </xsl:attribute>
       <xsl:attribute name="border-top-width">
@@ -317,10 +325,10 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       <xsl:attribute name="border-bottom-width">
         <xsl:value-of select="$table.frame.border.thickness"/>
       </xsl:attribute>
-      <xsl:attribute name="border-left-color">
+      <xsl:attribute name="border-start-color">
         <xsl:value-of select="$table.frame.border.color"/>
       </xsl:attribute>
-      <xsl:attribute name="border-right-color">
+      <xsl:attribute name="border-end-color">
         <xsl:value-of select="$table.frame.border.color"/>
       </xsl:attribute>
       <xsl:attribute name="border-top-color">
@@ -331,8 +339,8 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       </xsl:attribute>
     </xsl:when>
     <xsl:when test="$frame='bottom'">
-      <xsl:attribute name="border-left-style">none</xsl:attribute>
-      <xsl:attribute name="border-right-style">none</xsl:attribute>
+      <xsl:attribute name="border-start-style">none</xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
       <xsl:attribute name="border-top-style">none</xsl:attribute>
       <xsl:attribute name="border-bottom-style">
         <xsl:value-of select="$table.frame.border.style"/>
@@ -345,30 +353,58 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       </xsl:attribute>
     </xsl:when>
     <xsl:when test="$frame='sides'">
-      <xsl:attribute name="border-left-style">
+      <xsl:attribute name="border-start-style">
         <xsl:value-of select="$table.frame.border.style"/>
       </xsl:attribute>
-      <xsl:attribute name="border-right-style">
+      <xsl:attribute name="border-end-style">
         <xsl:value-of select="$table.frame.border.style"/>
       </xsl:attribute>
       <xsl:attribute name="border-top-style">none</xsl:attribute>
       <xsl:attribute name="border-bottom-style">none</xsl:attribute>
-      <xsl:attribute name="border-left-width">
+      <xsl:attribute name="border-start-width">
         <xsl:value-of select="$table.frame.border.thickness"/>
       </xsl:attribute>
-      <xsl:attribute name="border-right-width">
+      <xsl:attribute name="border-end-width">
         <xsl:value-of select="$table.frame.border.thickness"/>
       </xsl:attribute>
-      <xsl:attribute name="border-left-color">
+      <xsl:attribute name="border-start-color">
         <xsl:value-of select="$table.frame.border.color"/>
       </xsl:attribute>
-      <xsl:attribute name="border-right-color">
+      <xsl:attribute name="border-end-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+    </xsl:when>
+    <xsl:when test="$frame='lhs'">
+      <xsl:attribute name="border-start-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
+      <xsl:attribute name="border-top-style">none</xsl:attribute>
+      <xsl:attribute name="border-bottom-style">none</xsl:attribute>
+      <xsl:attribute name="border-start-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-start-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+    </xsl:when>
+    <xsl:when test="$frame='rhs'">
+      <xsl:attribute name="border-end-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
+      <xsl:attribute name="border-top-style">none</xsl:attribute>
+      <xsl:attribute name="border-bottom-style">none</xsl:attribute>
+      <xsl:attribute name="border-end-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-end-color">
         <xsl:value-of select="$table.frame.border.color"/>
       </xsl:attribute>
     </xsl:when>
     <xsl:when test="$frame='top'">
-      <xsl:attribute name="border-left-style">none</xsl:attribute>
-      <xsl:attribute name="border-right-style">none</xsl:attribute>
+      <xsl:attribute name="border-start-style">none</xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
       <xsl:attribute name="border-top-style">
         <xsl:value-of select="$table.frame.border.style"/>
       </xsl:attribute>
@@ -381,8 +417,8 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       </xsl:attribute>
     </xsl:when>
     <xsl:when test="$frame='topbot'">
-      <xsl:attribute name="border-left-style">none</xsl:attribute>
-      <xsl:attribute name="border-right-style">none</xsl:attribute>
+      <xsl:attribute name="border-start-style">none</xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
       <xsl:attribute name="border-top-style">
         <xsl:value-of select="$table.frame.border.style"/>
       </xsl:attribute>
@@ -403,8 +439,8 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       </xsl:attribute>
     </xsl:when>
     <xsl:when test="$frame='none'">
-      <xsl:attribute name="border-left-style">none</xsl:attribute>
-      <xsl:attribute name="border-right-style">none</xsl:attribute>
+      <xsl:attribute name="border-start-style">none</xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
       <xsl:attribute name="border-top-style">none</xsl:attribute>
       <xsl:attribute name="border-bottom-style">none</xsl:attribute>
     </xsl:when>
@@ -413,8 +449,8 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
         <xsl:text>Impossible frame on table: </xsl:text>
         <xsl:value-of select="$frame"/>
       </xsl:message>
-      <xsl:attribute name="border-left-style">none</xsl:attribute>
-      <xsl:attribute name="border-right-style">none</xsl:attribute>
+      <xsl:attribute name="border-start-style">none</xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
       <xsl:attribute name="border-top-style">none</xsl:attribute>
       <xsl:attribute name="border-bottom-style">none</xsl:attribute>
     </xsl:otherwise>
@@ -424,7 +460,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 <!-- ==================================================================== -->
 
 <xsl:template name="border">
-  <xsl:param name="side" select="'left'"/>
+  <xsl:param name="side" select="'start'"/>
 
   <xsl:attribute name="border-{$side}-width">
     <xsl:value-of select="$table.cell.border.thickness"/>
@@ -544,21 +580,24 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   <xsl:variable name="column.sum">
     <xsl:choose>
       <!-- CALS table -->
-      <xsl:when test="@cols">
-        <xsl:if test="count(d:colspec) = @cols">
-          <xsl:for-each select="d:colspec">
-            <xsl:if test="position() != 1">
-              <xsl:text> + </xsl:text>
-            </xsl:if>
-            <xsl:choose>
-              <xsl:when test="not(@colwidth)">NOWIDTH</xsl:when>
-              <xsl:when test="contains(@colwidth, '*')">NOWIDTH</xsl:when>
-              <xsl:otherwise>
-                <xsl:value-of select="@colwidth"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:for-each>
-        </xsl:if>
+      <xsl:when test="d:tgroup/@cols">
+        <!-- change context to the first tgroup -->
+        <xsl:for-each select="d:tgroup[1]">
+          <xsl:if test="count(d:colspec) = @cols">
+            <xsl:for-each select="d:colspec">
+              <xsl:if test="position() != 1">
+                <xsl:text> + </xsl:text>
+              </xsl:if>
+              <xsl:choose>
+                <xsl:when test="not(@colwidth)">NOWIDTH</xsl:when>
+                <xsl:when test="contains(@colwidth, '*')">NOWIDTH</xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="@colwidth"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:for-each>
+          </xsl:if>
+        </xsl:for-each>
       </xsl:when>
       <xsl:otherwise>
         <!-- HTML table -->
@@ -736,9 +775,23 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
 <!-- customize this template to add row properties -->
 <xsl:template name="table.row.properties">
+
+  <xsl:variable name="row-height">
+    <xsl:if test="processing-instruction('dbfo')">
+      <xsl:call-template name="pi.dbfo_row-height"/>
+    </xsl:if>
+  </xsl:variable>
+
+  <xsl:if test="$row-height != ''">
+    <xsl:attribute name="block-progression-dimension">
+      <xsl:value-of select="$row-height"/>
+    </xsl:attribute>
+  </xsl:if>
+
   <xsl:variable name="bgcolor">
     <xsl:call-template name="pi.dbfo_bgcolor"/>
   </xsl:variable>
+
   <xsl:if test="$bgcolor != ''">
     <xsl:attribute name="background-color">
       <xsl:value-of select="$bgcolor"/>
@@ -795,19 +848,23 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
   <xsl:variable name="rowsep">
     <xsl:choose>
-      <!-- If this is the last row, rowsep never applies. -->
+      <!-- If this is the last row, rowsep never applies (except when 
+           the ancestor tgroup has a following sibling tgroup) -->
       <xsl:when test="not(ancestor-or-self::d:row[1]/following-sibling::d:row
                           or ancestor-or-self::d:thead/following-sibling::d:tbody
-                          or ancestor-or-self::d:tbody/preceding-sibling::d:tfoot)">
+                          or ancestor-or-self::d:tbody/preceding-sibling::d:tfoot)
+                          and not(ancestor::d:tgroup/following-sibling::d:tgroup)">
         <xsl:value-of select="0"/>
       </xsl:when>
       <!-- Check for morerows too -->
       <xsl:when test="(@morerows and count(ancestor-or-self::d:row[1]/
                        following-sibling::d:row) = @morerows )
                       and not (ancestor-or-self::d:thead/following-sibling::d:tbody
-                       or ancestor-or-self::d:tbody/preceding-sibling::d:tfoot)">
+                       or ancestor-or-self::d:tbody/preceding-sibling::d:tfoot)
+                       and not(ancestor::d:tgroup/following-sibling::d:tgroup)">
         <xsl:value-of select="0"/>
       </xsl:when>
+
       <xsl:otherwise>
         <xsl:call-template name="inherited.table.attribute">
           <xsl:with-param name="entry" select="."/>
@@ -1081,7 +1138,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       <xsl:if test="$colsep.inherit &gt; 0 and 
                       $col &lt; (ancestor::d:tgroup/@cols|ancestor::d:entrytbl/@cols)[last()]">
         <xsl:call-template name="border">
-          <xsl:with-param name="side" select="'right'"/>
+          <xsl:with-param name="side" select="'end'"/>
         </xsl:call-template>
       </xsl:if>
 
@@ -1119,18 +1176,38 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     </xsl:when>
     <xsl:otherwise>
       <!-- HTML table -->
-      <xsl:variable name="border" 
-                    select="(ancestor::d:table |
-                             ancestor::d:informaltable)[last()]/@border"/>
-      <xsl:if test="$border != '' and $border != 0">
-        <xsl:attribute name="border">
-          <xsl:value-of select="$table.cell.border.thickness"/>
-          <xsl:text> </xsl:text>
-          <xsl:value-of select="$table.cell.border.style"/>
-          <xsl:text> </xsl:text>
-          <xsl:value-of select="$table.cell.border.color"/>
+      <xsl:if test="$bgcolor.pi != ''">
+        <xsl:attribute name="background-color">
+          <xsl:value-of select="$bgcolor.pi"/>
         </xsl:attribute>
       </xsl:if>
+
+      <xsl:if test="$align.inherit != ''">
+        <xsl:attribute name="text-align">
+          <xsl:value-of select="$align.inherit"/>
+        </xsl:attribute>
+      </xsl:if>
+
+      <xsl:if test="$valign.inherit != ''">
+        <xsl:attribute name="display-align">
+          <xsl:choose>
+            <xsl:when test="$valign.inherit='top'">before</xsl:when>
+            <xsl:when test="$valign.inherit='middle'">center</xsl:when>
+            <xsl:when test="$valign.inherit='bottom'">after</xsl:when>
+            <xsl:otherwise>
+              <xsl:message>
+                <xsl:text>Unexpected valign value: </xsl:text>
+                <xsl:value-of select="$valign.inherit"/>
+                <xsl:text>, center used.</xsl:text>
+              </xsl:message>
+              <xsl:text>center</xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
+      </xsl:if>
+
+      <xsl:call-template name="html.table.cell.rules"/>
+
     </xsl:otherwise>
   </xsl:choose>
 
@@ -1181,8 +1258,8 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     <xsl:when test="number($entry.colnum) &gt; $col">
       <xsl:text>0:</xsl:text>
       <xsl:call-template name="sentry">
-        <xsl:with-param name="col" select="$col+$entry.colspan"/>
-        <xsl:with-param name="spans" select="$following.spans"/>
+        <xsl:with-param name="col" select="$col + 1"/>
+        <xsl:with-param name="spans" select="substring-after($spans,':')"/>
       </xsl:call-template>
     </xsl:when>
 

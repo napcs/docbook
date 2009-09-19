@@ -15,7 +15,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: graphics.xsl 7530 2007-10-13 14:32:59Z mzjn $
+     $Id: graphics.xsl 8144 2008-10-25 09:41:24Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -151,6 +151,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
       <xsl:when test="@scale">0</xsl:when>
       <xsl:when test="@scalefit"><xsl:value-of select="@scalefit"/></xsl:when>
       <xsl:when test="@width or @depth">1</xsl:when>
+      <xsl:when test="$default.image.width != ''">1</xsl:when>
       <xsl:otherwise>0</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>

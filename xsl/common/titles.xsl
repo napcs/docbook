@@ -6,7 +6,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: titles.xsl 7580 2007-11-30 17:22:54Z mzjn $
+     $Id: titles.xsl 8469 2009-07-09 21:49:16Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -36,7 +36,7 @@ title of the element. This does not include the label.
     <!-- * FIXME: this should handle other *info elements as well -->
     <!-- * but this is good enough for now. -->
     <xsl:when test="d:title|d:info/d:title">
-      <xsl:apply-templates select="d:title[1]|d:info/d:title[1]" mode="title.markup">
+      <xsl:apply-templates select="(d:title|d:info/d:title)[1]" mode="title.markup">
         <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
       </xsl:apply-templates>
     </xsl:when>
@@ -145,7 +145,7 @@ title of the element. This does not include the label.
 <xsl:template match="d:dedication" mode="title.markup">
   <xsl:param name="allow-anchors" select="0"/>
   <xsl:choose>
-    <xsl:when test="d:title">
+    <xsl:when test="d:title|d:info/d:title">
       <xsl:apply-templates select="(d:title|d:info/d:title)[1]" mode="title.markup">
         <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
       </xsl:apply-templates>
@@ -158,10 +158,26 @@ title of the element. This does not include the label.
   </xsl:choose>
 </xsl:template>
 
+<xsl:template match="d:acknowledgements" mode="title.markup">
+  <xsl:param name="allow-anchors" select="0"/>
+  <xsl:choose>
+    <xsl:when test="d:title|d:info/d:title">
+      <xsl:apply-templates select="(d:title|d:info/d:title)[1]" mode="title.markup">
+        <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
+      </xsl:apply-templates>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:call-template name="gentext">
+        <xsl:with-param name="key" select="'Acknowledgements'"/>
+      </xsl:call-template>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 <xsl:template match="d:colophon" mode="title.markup">
   <xsl:param name="allow-anchors" select="0"/>
   <xsl:choose>
-    <xsl:when test="d:title">
+    <xsl:when test="d:title|d:info/d:title">
       <xsl:apply-templates select="(d:title|d:info/d:title)[1]" mode="title.markup">
         <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
       </xsl:apply-templates>
@@ -263,8 +279,8 @@ title of the element. This does not include the label.
 <xsl:template match="d:refsynopsisdiv" mode="title.markup">
   <xsl:param name="allow-anchors" select="0"/>
   <xsl:choose>
-    <xsl:when test="d:title">
-      <xsl:apply-templates select="d:title" mode="title.markup">
+    <xsl:when test="d:title|d:info/d:title">
+      <xsl:apply-templates select="(d:title|d:info/d:title)[1]" mode="title.markup">
         <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
       </xsl:apply-templates>
     </xsl:when>
@@ -332,7 +348,7 @@ title of the element. This does not include the label.
   </xsl:apply-templates>
 </xsl:template>
 
-<xsl:template match="d:glossterm" mode="title.markup">
+<xsl:template match="d:glossterm|d:firstterm" mode="title.markup">
   <xsl:param name="allow-anchors" select="0"/>
 
   <xsl:choose>
@@ -381,28 +397,28 @@ title of the element. This does not include the label.
 
 <xsl:template match="d:figure|d:example|d:equation" mode="title.markup">
   <xsl:param name="allow-anchors" select="0"/>
-  <xsl:apply-templates select="d:title|d:info/d:title" mode="title.markup">
+  <xsl:apply-templates select="(d:title|d:info/d:title)[1]" mode="title.markup">
     <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
   </xsl:apply-templates>
 </xsl:template>
 
 <xsl:template match="d:table" mode="title.markup">
   <xsl:param name="allow-anchors" select="0"/>
-  <xsl:apply-templates select="(d:title|d:caption)[1]" mode="title.markup">
+  <xsl:apply-templates select="(d:title|d:info/d:title|d:caption)[1]" mode="title.markup">
     <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
   </xsl:apply-templates>
 </xsl:template>
 
 <xsl:template match="d:procedure" mode="title.markup">
   <xsl:param name="allow-anchors" select="0"/>
-  <xsl:apply-templates select="d:title" mode="title.markup">
+  <xsl:apply-templates select="(d:title|d:info/d:title)[1]" mode="title.markup">
     <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
   </xsl:apply-templates>
 </xsl:template>
 
 <xsl:template match="d:task" mode="title.markup">
   <xsl:param name="allow-anchors" select="0"/>
-  <xsl:apply-templates select="d:title" mode="title.markup">
+  <xsl:apply-templates select="(d:title|d:info/d:title)[1]" mode="title.markup">
     <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
   </xsl:apply-templates>
 </xsl:template>
@@ -493,8 +509,8 @@ title of the element. This does not include the label.
 <xsl:template match="d:legalnotice" mode="title.markup">
   <xsl:param name="allow-anchors" select="0"/>
   <xsl:choose>
-    <xsl:when test="d:title">
-      <xsl:apply-templates select="d:title" mode="title.markup">
+    <xsl:when test="d:title|d:info/d:title">
+      <xsl:apply-templates select="(d:title|d:info/d:title)[1]" mode="title.markup">
         <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
       </xsl:apply-templates>
     </xsl:when>
@@ -515,6 +531,11 @@ title of the element. This does not include the label.
   <xsl:choose>
     <xsl:when test="d:titleabbrev">
       <xsl:apply-templates select="d:titleabbrev[1]" mode="title.markup">
+        <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
+      </xsl:apply-templates>
+    </xsl:when>
+    <xsl:when test="d:info/d:titleabbrev">
+      <xsl:apply-templates select="d:info/d:titleabbrev[1]" mode="title.markup">
         <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
       </xsl:apply-templates>
     </xsl:when>
@@ -638,7 +659,7 @@ title of the element. This does not include the label.
                     descendant-or-self::d:olink or
                     descendant-or-self::d:xref or
                     descendant-or-self::d:indexterm or
-                    ancestor::d:title">
+		    (ancestor::d:title and (@id or @xml:id))">
 
       <xsl:apply-templates mode="no.anchor.mode"/>
     </xsl:when>
@@ -660,6 +681,36 @@ title of the element. This does not include the label.
   <xsl:apply-templates/>
 </xsl:template>
 
+<xsl:template match="d:link" mode="no.anchor.mode">
+  <xsl:choose>
+    <xsl:when test="count(child::node()) &gt; 0">
+      <!-- If it has content, use it -->
+      <xsl:apply-templates/>
+    </xsl:when>
+	<!-- look for an endterm -->
+    <xsl:when test="@endterm">
+      <xsl:variable name="etargets" select="key('id',@endterm)"/>
+      <xsl:variable name="etarget" select="$etargets[1]"/>
+      <xsl:choose>
+	<xsl:when test="count($etarget) = 0">
+          <xsl:message>
+	    <xsl:value-of select="count($etargets)"/>
+	    <xsl:text>Endterm points to nonexistent ID: </xsl:text>
+	    <xsl:value-of select="@endterm"/>
+          </xsl:message>
+	  <xsl:text>???</xsl:text>
+	</xsl:when>
+        <xsl:otherwise>
+	  <xsl:apply-templates select="$etarget" mode="endterm"/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 <xsl:template match="d:olink" mode="no.anchor.mode">
   <xsl:apply-templates/>
 </xsl:template>
@@ -668,7 +719,7 @@ title of the element. This does not include the label.
   <!-- nop, suppressed -->
 </xsl:template>
 
-<xsl:template match="d:xref|d:link" mode="no.anchor.mode">
+<xsl:template match="d:xref" mode="no.anchor.mode">
   <xsl:variable name="targets" select="key('id',@linkend)"/>
   <xsl:variable name="target" select="$targets[1]"/>
   <xsl:variable name="refelem" select="local-name($target)"/>

@@ -6,7 +6,7 @@
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: admon.xsl 7072 2007-07-17 16:14:37Z xmldoc $
+     $Id: admon.xsl 8421 2009-05-04 07:49:49Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -64,7 +64,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   </xsl:variable>
 
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:call-template name="common.html.attributes"/>
     <xsl:if test="$admon.style != ''">
       <xsl:attribute name="style">
         <xsl:value-of select="$admon.style"/>
@@ -88,7 +88,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
             </xsl:attribute>
           </img>
         </td>
-        <th align="left">
+        <th align="{$direction.align.start}">
           <xsl:call-template name="anchor"/>
           <xsl:if test="$admon.textlabel != 0 or d:title or d:info/d:title">
             <xsl:apply-templates select="." mode="object.title.markup"/>
@@ -96,7 +96,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
         </th>
       </tr>
       <tr>
-        <td align="left" valign="top">
+        <td align="{$direction.align.start}" valign="top">
           <xsl:apply-templates/>
         </td>
       </tr>
@@ -106,7 +106,9 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <xsl:template name="nongraphical.admonition">
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:call-template name="common.html.attributes">
+      <xsl:with-param name="inherit" select="1"/>
+    </xsl:call-template>
     <xsl:if test="$admon.style">
       <xsl:attribute name="style">
         <xsl:value-of select="$admon.style"/>

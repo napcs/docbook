@@ -2,7 +2,7 @@
 
 <reference><info><title>Common Processing Instruction Reference</title>
     <releaseinfo role="meta">
-      $Id: pi.xsl 7107 2007-07-22 10:22:06Z xmldoc $
+      $Id: pi.xsl 8349 2009-03-17 06:53:03Z bobstayton $
     </releaseinfo>
   </info>
   <partintro xml:id="partintro">
@@ -34,7 +34,7 @@
     <synopsis><tag class="xmlpi">dbchoice choice="and"|"or"|<replaceable>string</replaceable>"</tag></synopsis>
   
 </refsynopsisdiv>
-<refsect1><title/>
+<refsect1><title>Description</title>
     
 <para>Use the <tag class="xmlpi">dbchoice choice</tag> PI to
       generate an appropriate localized “choice” separator (for
@@ -87,7 +87,7 @@
     <synopsis><tag class="xmlpi">dbtimestamp format="<replaceable>formatstring</replaceable>" [padding="0"|"1"]</tag></synopsis>
   
 </refsynopsisdiv>
-<refsect1><title/>
+<refsect1><title>Description</title>
     
 <para>Use the <tag class="xmlpi">dbtimestamp</tag> PI at any point in a
       source document to cause a date timestamp (a formatted
@@ -133,7 +133,7 @@
     <synopsis><tag class="xmlpi">dbtex delims="no"|"yes"</tag></synopsis>
   
 </refsynopsisdiv>
-<refsect1><title/>
+<refsect1><title>Description</title>
     
 <para>Use the <tag class="xmlpi">dbtex delims</tag> PI as a
       child of a <tag>textobject</tag> containing embedded TeX

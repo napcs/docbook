@@ -5,7 +5,7 @@
 xmlns:i="urn:cz-kosek:functions:index" xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0" xmlns:func="http://exslt.org/functions" xmlns:k="http://www.isogen.com/functions/com.isogen.saxoni18n.Saxoni18nService" xmlns:exslt="http://exslt.org/common" xmlns="http://www.w3.org/1999/xhtml" extension-element-prefixes="func exslt" exclude-result-prefixes="func exslt i l k d" version="1.0">
 
 <!-- ********************************************************************
-     $Id: autoidx-kosek.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: autoidx-kosek.xsl 8399 2009-04-08 07:37:42Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -37,7 +37,7 @@ xmlns:i="urn:cz-kosek:functions:index" xmlns:l="http://docbook.sourceforge.net/x
     </xsl:message>
   </xsl:if>
 
-  <xsl:if test="not(function-available('exslt:node-set') or                     function-available('exslt:nodeSet'))">
+  <xsl:if test="$exsl.node.set.available = 0">
     <xsl:message terminate="yes">
       <xsl:text>ERROR: the 'kosek' index method requires the </xsl:text>
       <xsl:text>exslt:node-set() function. Use a processor that </xsl:text>

@@ -1,4 +1,5 @@
 #!/usr/bin/python -u
+# $Id: xslt.py 8353 2009-03-17 16:57:50Z mzjn $
 
 import sys
 import libxml2
@@ -33,10 +34,10 @@ try:
         params[name] = quote(value)
         outfile = None
 
-    count = 4;
+    count = 4
     while (sys.argv[count]):
         try:
-            name, value = sys.argv[count].split("=", 2);
+            name, value = sys.argv[count].split("=", 2)
             if params.has_key(name):
                 print "Warning: '%s' re-specified; replacing value" % name
             params[name] = quote(value)

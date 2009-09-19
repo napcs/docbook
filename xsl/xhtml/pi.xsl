@@ -5,7 +5,7 @@
 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="doc d" version="1.0">
 
 <!-- ********************************************************************
-     $Id: pi.xsl 7684 2008-02-18 01:50:02Z xmldoc $
+     $Id: pi.xsl 8394 2009-04-02 20:31:30Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -16,7 +16,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:xlink="http://www.w3.o
 
 <doc:reference xmlns=""><info xmlns="http://www.w3.org/1999/xhtml"><title>HTML Processing Instruction Reference</title>
     <releaseinfo role="meta">
-      $Id: pi.xsl 7684 2008-02-18 01:50:02Z xmldoc $
+      $Id: pi.xsl 8394 2009-04-02 20:31:30Z mzjn $
     </releaseinfo>
   </info>
   <partintro xmlns="http://www.w3.org/1999/xhtml" xml:id="partintro">
@@ -71,9 +71,9 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:xlink="http://www.w3.o
 </xsl:template>
 
 <doc:pi xmlns="" name="dbhtml_bgcolor">
-  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Sets background color on a table row or table cell</refpurpose>
+  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Sets background color on a CALS table row or table cell</refpurpose>
   <refdescription xmlns="http://www.w3.org/1999/xhtml">
-    <para>Use the <tag class="xmlpi">dbhtml bgcolor</tag> PI as child of a table row
+    <para>Use the <tag class="xmlpi">dbhtml bgcolor</tag> PI as child of a CALS table row
       or cell to set a background color for that table row or cell.</para>
   </refdescription>
   <refsynopsisdiv xmlns="http://www.w3.org/1999/xhtml">
@@ -101,10 +101,10 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:xlink="http://www.w3.o
 </xsl:template>
 
 <doc:pi xmlns="" name="dbhtml_cellpadding">
-  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Specifies cellpadding in table or qandaset output</refpurpose>
+  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Specifies cellpadding in CALS table or qandaset output</refpurpose>
   <refdescription xmlns="http://www.w3.org/1999/xhtml">
     <para>Use the <tag class="xmlpi">dbhtml cellpadding</tag> PI as a child of a
-      <tag>table</tag> or <tag>qandaset</tag> to specify the value
+      CALS <tag>table</tag> or <tag>qandaset</tag> to specify the value
       for the HTML <literal>cellpadding</literal> attribute in the
       output HTML table.</para>
   </refdescription>
@@ -137,10 +137,10 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:xlink="http://www.w3.o
 </xsl:template>
 
 <doc:pi xmlns="" name="dbhtml_cellspacing">
-  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Specifies cellspacing in table or qandaset output</refpurpose>
+  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Specifies cellspacing in CALS table or qandaset output</refpurpose>
   <refdescription xmlns="http://www.w3.org/1999/xhtml">
     <para>Use the <tag class="xmlpi">dbhtml cellspacing</tag> PI as a child of a
-      <tag>table</tag> or <tag>qandaset</tag> to specify the value
+      CALS <tag>table</tag> or <tag>qandaset</tag> to specify the value
       for the HTML <literal>cellspacing</literal> attribute in the
       output HTML table.</para>
   </refdescription>
@@ -173,7 +173,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:xlink="http://www.w3.o
 </xsl:template>
 
 <doc:pi xmlns="" name="dbhtml_class">
-  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Set value of the class attribute for a table row</refpurpose>
+  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Set value of the class attribute for a CALS table row</refpurpose>
   <refdescription xmlns="http://www.w3.org/1999/xhtml">
     <para>Use the <tag class="xmlpi">dbhtml class</tag> PI as a child of a
       <tag>row</tag> to specify a <literal>class</literal>
@@ -381,7 +381,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:xlink="http://www.w3.o
 </xsl:template> 
 
 <doc:pi xmlns="" name="dbhtml_linenumbering.everyNth">
-  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Specifies interval for lines numbers in verbatims</refpurpose>
+  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Specifies interval for line numbers in verbatims</refpurpose>
   <refdescription xmlns="http://www.w3.org/1999/xhtml">
     <para>Use the <tag class="xmlpi">dbhtml linenumbering.everyNth</tag> PI as a child
       of a &#8220;verbatim&#8221; element &#8211; <tag>programlisting</tag>,
@@ -566,7 +566,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:xlink="http://www.w3.o
 </xsl:template>
 
 <doc:pi xmlns="" name="dbhtml_row-height">
-  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Specifies the height for a table row</refpurpose>
+  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Specifies the height for a CALS table row</refpurpose>
   <refdescription xmlns="http://www.w3.org/1999/xhtml">
     <para>Use the <tag class="xmlpi">dbhtml row-height</tag> PI as a child of a
       <tag>row</tag> to specify the height of the row.</para>
@@ -578,7 +578,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:xlink="http://www.w3.o
     <variablelist>
       <varlistentry><term>row-height="<replaceable>height</replaceable>"</term>
         <listitem>
-          <para>Specifies the label height (including units)</para>
+          <para>Specifies the row height (including units)</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -632,9 +632,9 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:xlink="http://www.w3.o
 </xsl:template>
 
   <doc:pi xmlns="" name="dbhtml_stop-chunking">
-	<refpurpose xmlns="http://www.w3.org/1999/xhtml">Do not chunk any descendents of this element.</refpurpose>
+	<refpurpose xmlns="http://www.w3.org/1999/xhtml">Do not chunk any descendants of this element.</refpurpose>
 	<refdescription xmlns="http://www.w3.org/1999/xhtml">
-    <para>When generating chunked html output, adding this as the child of an element that contains elements that would normally be generated on separate pages if generating chunked output causes chunking to stop at this point. No descendants of the current element will be split into new html pages:
+    <para>When generating chunked HTML output, adding this PI as the child of an element that contains elements that would normally be generated on separate pages if generating chunked output causes chunking to stop at this point. No descendants of the current element will be split into new HTML pages:
 <programlisting>&lt;section&gt;
 &lt;title&gt;Configuring pencil&lt;/title&gt;
 &lt;?dbhtml stop-chunking?&gt;
@@ -654,10 +654,10 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:xlink="http://www.w3.o
   <!-- The code that handles the stop-chunking pi is in chunk-common.xsl -->
 
 <doc:pi xmlns="" name="dbhtml_table-summary">
-  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Specifies summary for table, variablelist, segmentedlist, or qandaset output</refpurpose>
+  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Specifies summary for CALS table, variablelist, segmentedlist, or qandaset output</refpurpose>
   <refdescription xmlns="http://www.w3.org/1999/xhtml">
     <para>Use the <tag class="xmlpi">dbhtml table-summary</tag> PI as a child of
-      a <tag>table</tag>, <tag>variablelist</tag>,
+      a CALS <tag>table</tag>, <tag>variablelist</tag>,
       <tag>segmentedlist</tag>, or <tag>qandaset</tag> to specify
       the text for the HTML <literal>summary</literal> attribute
       in the output HTML table.</para>
@@ -688,10 +688,10 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:xlink="http://www.w3.o
 </xsl:template>
 
 <doc:pi xmlns="" name="dbhtml_table-width">
-  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Specifies the width for a table</refpurpose>
+  <refpurpose xmlns="http://www.w3.org/1999/xhtml">Specifies the width for a CALS table</refpurpose>
   <refdescription xmlns="http://www.w3.org/1999/xhtml">
     <para>Use the <tag class="xmlpi">dbhtml table-width</tag> PI as a child of a
-      <tag>table</tag> to specify the width of the table in
+      CALS <tag>table</tag> to specify the width of the table in
       output.</para>
   </refdescription>
   <refsynopsisdiv xmlns="http://www.w3.org/1999/xhtml">

@@ -54,7 +54,7 @@ class Docbook
     saxon_cp = "#{self.root}/jars/xercesImpl-2.7.1.jar;"
     saxon_cp <<"#{self.root}/xsl/extensions/saxon65.jar;"
     saxon_cp <<"#{self.root}/jars/saxon.jar;"
-    saxon_cp <<"#{self.root}/jars/xslthl.jar"
+    saxon_cp <<"#{self.root}/jars/xslthl-2.0.1.jar"
     
     xml_parser_config = "-Djavax.xml.parsers.DocumentBuilderFactory=org.apache.xerces.jaxp.DocumentBuilderFactoryImpl" 
     xml_parser_config << " -Djavax.xml.parsers.SAXParserFactory=org.apache.xerces.jaxp.SAXParserFactoryImpl" 
@@ -135,7 +135,7 @@ class Fop < Docbook
     # build up the options for FOP
     def fop_options
       fop_cp      = "#{self.root}/fop/avalon-framework-4.2.0.jar;"
-      fop_cp << "#{self.root}/jars/batik-all-1.6.jar;"
+      fop_cp << "#{self.root}/jars/batik-all-1.7.jar;"
       fop_cp << "#{self.root}/jars/commons-io-1.3.1.jar;"
       fop_cp << "#{self.root}/jars/commons-logging-1.0.4.jar;"
       fop_cp << "#{self.root}/jars/fop-hyph.jar;"
@@ -143,8 +143,8 @@ class Fop < Docbook
       fop_cp << "#{self.root}/jars/serializer-2.7.0.jar;"
       fop_cp << "#{self.root}/jars/xalan-2.7.0.jar;"
       fop_cp << "#{self.root}/jars/xercesImpl-2.7.1.jar;"
-      fop_cp << "#{self.root}/jars/xml-apis-1.3.02.jar;"
-      fop_cp << "#{self.root}/jars/xmlgraphics-commons-1.2.jar;"
+      fop_cp << "#{self.root}/jars/xml-apis-1.3.04.jar;"
+      fop_cp << "#{self.root}/jars/xmlgraphics-commons-1.3.1.jar;"
       fop_cp
     end
     

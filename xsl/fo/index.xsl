@@ -12,7 +12,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: index.xsl 7902 2008-03-11 21:29:37Z bobstayton $
+     $Id: index.xsl 8317 2009-03-12 06:14:02Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -118,7 +118,8 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
         <xsl:with-param name="master-reference" select="$master-reference"/>
       </xsl:call-template>
 
-      <fo:block id="{$id}">
+      <fo:block id="{$id}"
+                xsl:use-attribute-sets="component.titlepage.properties">
         <xsl:call-template name="index.titlepage"/>
       </fo:block>
       <xsl:apply-templates/>
@@ -448,8 +449,12 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   <fo:block>
     <xsl:attribute name="start-indent">
       <xsl:choose>
-        <xsl:when test="preceding-sibling::d:tertiaryie">3pc</xsl:when>
-        <xsl:when test="preceding-sibling::d:secondaryie">2pc</xsl:when>
+        <xsl:when test="(preceding-sibling::d:tertiaryie |
+                         preceding-sibling::d:secondaryie)[last()]
+                         [self::d:tertiaryie]">3pc</xsl:when>
+        <xsl:when test="(preceding-sibling::d:tertiaryie |
+                         preceding-sibling::d:secondaryie)[last()]
+                         [self::d:secondaryie]">2pc</xsl:when>
         <xsl:otherwise>1pc</xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>

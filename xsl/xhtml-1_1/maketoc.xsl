@@ -49,7 +49,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns="http://www.w3.org/199
     <xsl:variable name="id">
       <xsl:call-template name="object.id"/>
     </xsl:variable>
-    <tocentry linkend="{$id}">
+    <d:tocentry linkend="{$id}">
       <xsl:processing-instruction name="dbhtml">
         <xsl:text>filename="</xsl:text>
         <xsl:value-of select="$filename"/>
@@ -59,7 +59,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns="http://www.w3.org/199
 </xsl:text>
       <xsl:apply-templates mode="toc" select="$nodes"/>
       <xsl:call-template name="indent-spaces"/>
-    </tocentry>
+    </d:tocentry>
     <xsl:text>
 </xsl:text>
   </xsl:if>

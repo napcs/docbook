@@ -6,7 +6,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: qandaset.xsl 6944 2007-07-04 08:41:53Z xmldoc $
+     $Id: qandaset.xsl 8421 2009-05-04 07:49:49Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -34,8 +34,14 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   </xsl:variable>
 
   <div>
-    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:apply-templates select="." mode="common.html.attributes"/>
     <xsl:apply-templates select="$title"/>
+    <xsl:if test="not($title)">
+      <!-- id is output on title if there is one -->
+      <xsl:call-template name="anchor">
+        <xsl:with-param name="conditional" select="0"/>
+      </xsl:call-template>
+    </xsl:if>
     <xsl:if test="((contains($toc.params, 'toc') and $toc != '0') or $toc = '1')
                   and not(ancestor::d:answer and not($qanda.nested.in.toc=0))">
       <xsl:call-template name="process.qanda.toc"/>
@@ -76,7 +82,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
   <xsl:if test="d:blockinfo/d:title|d:info/d:title|d:title">
     <tr class="qandadiv">
-      <td align="left" valign="top" colspan="2">
+      <td align="{$direction.align.start}" valign="top" colspan="2">
         <xsl:apply-templates select="(d:blockinfo/d:title|d:info/d:title|d:title)[1]"/>
       </td>
     </tr>
@@ -94,14 +100,14 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
   <xsl:if test="(contains($toc.params, 'toc') and $toc != '0') or $toc = '1'">
     <tr class="toc">
-      <td align="left" valign="top" colspan="2">
+      <td align="{$direction.align.start}" valign="top" colspan="2">
         <xsl:call-template name="process.qanda.toc"/>
       </td>
     </tr>
   </xsl:if>
   <xsl:if test="$preamble">
     <tr class="toc">
-      <td align="left" valign="top" colspan="2">
+      <td align="{$direction.align.start}" valign="top" colspan="2">
         <xsl:apply-templates select="$preamble"/>
       </td>
     </tr>
@@ -139,20 +145,12 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
 <xsl:template match="d:question">
   <xsl:variable name="deflabel">
-    <xsl:choose>
-      <xsl:when test="ancestor-or-self::*[@defaultlabel]">
-        <xsl:value-of select="(ancestor-or-self::*[@defaultlabel])[last()]
-                              /@defaultlabel"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$qanda.defaultlabel"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:apply-templates select="." mode="qanda.defaultlabel"/>
   </xsl:variable>
 
   <tr>
-    <xsl:apply-templates select="." mode="class.attribute"/>
-    <td align="left" valign="top">
+    <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <td align="{$direction.align.start}" valign="top">
       <xsl:call-template name="anchor">
         <xsl:with-param name="node" select=".."/>
         <xsl:with-param name="conditional" select="0"/>
@@ -162,10 +160,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       </xsl:call-template>
 
       <xsl:variable name="label.content">
-        <xsl:apply-templates select="." mode="label.markup"/>
-        <xsl:if test="$deflabel = 'number' and not(d:label)">
-          <xsl:apply-templates select="." mode="intralabel.punctuation"/>
-        </xsl:if>
+        <xsl:apply-templates select="." mode="qanda.label"/>
       </xsl:variable>
 
       <xsl:if test="string-length($label.content) &gt; 0">
@@ -174,7 +169,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
         </b></p>
       </xsl:if>
     </td>
-    <td align="left" valign="top">
+    <td align="{$direction.align.start}" valign="top">
       <xsl:choose>
         <xsl:when test="$deflabel = 'none' and not(d:label)">
           <b><xsl:apply-templates select="*[local-name(.) != 'label']"/></b>
@@ -187,21 +182,35 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   </tr>
 </xsl:template>
 
+<xsl:template match="*" mode="qanda.defaultlabel">
+  <xsl:choose>
+    <xsl:when test="ancestor-or-self::*[@defaultlabel]">
+      <xsl:value-of select="(ancestor-or-self::*[@defaultlabel])[last()]
+                            /@defaultlabel"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$qanda.defaultlabel"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="d:question" mode="qanda.label">
+  <xsl:variable name="deflabel">
+    <xsl:apply-templates select="." mode="qanda.defaultlabel"/>
+  </xsl:variable>
+  <xsl:apply-templates select="." mode="label.markup"/>
+  <xsl:if test="contains($deflabel, 'number') and not(d:label)">
+    <xsl:apply-templates select="." mode="intralabel.punctuation"/>
+  </xsl:if>
+</xsl:template>
+
 <xsl:template match="d:answer">
   <xsl:variable name="deflabel">
-    <xsl:choose>
-      <xsl:when test="ancestor-or-self::*[@defaultlabel]">
-        <xsl:value-of select="(ancestor-or-self::*[@defaultlabel])[last()]
-                              /@defaultlabel"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$qanda.defaultlabel"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:apply-templates select="." mode="qanda.defaultlabel"/>
   </xsl:variable>
 
   <tr class="{local-name(.)}">
-    <td align="left" valign="top">
+    <td align="{$direction.align.start}" valign="top">
       <xsl:call-template name="anchor"/>
       <xsl:variable name="answer.label">
         <xsl:apply-templates select="." mode="label.markup"/>
@@ -212,7 +221,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
         </b></p>
       </xsl:if>
     </td>
-    <td align="left" valign="top">
+    <td align="{$direction.align.start}" valign="top">
       <xsl:apply-templates select="*[local-name(.) != 'label'
         and local-name(.) != 'qandaentry']"/>
       <!-- * handle nested answer/qandaentry instances -->
@@ -222,6 +231,10 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       </xsl:if>
     </td>
   </tr>
+</xsl:template>
+
+<xsl:template match="d:answer" mode="qanda.label">
+  <xsl:apply-templates select="." mode="label.markup"/>
 </xsl:template>
 
 <xsl:template match="d:label">
@@ -256,8 +269,13 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     </xsl:call-template>
   </xsl:variable>
 
-  <xsl:apply-templates select="parent::d:qandadiv" mode="label.markup"/>
-  <xsl:value-of select="$autotoc.label.separator"/>
+  <xsl:variable name="div.label">
+    <xsl:apply-templates select="parent::d:qandadiv" mode="label.markup"/>
+  </xsl:variable>
+  <xsl:if test="string-length($div.label) != 0">
+    <xsl:copy-of select="$div.label"/>
+    <xsl:value-of select="$autotoc.label.separator"/>
+  </xsl:if>
   <xsl:text> </xsl:text>
   <a>
     <xsl:attribute name="href">
@@ -281,7 +299,30 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
 <xsl:template match="d:question" mode="qandatoc.mode">
   <xsl:variable name="firstch">
-    <xsl:apply-templates select="(*[local-name(.)!='label'])[1]"/>
+    <!-- Use a titleabbrev or title if available -->
+    <xsl:choose>
+      <xsl:when test="../d:blockinfo/d:titleabbrev">
+        <xsl:apply-templates select="../d:blockinfo/d:titleabbrev[1]/node()"/>
+      </xsl:when>
+      <xsl:when test="../d:blockinfo/d:title">
+        <xsl:apply-templates select="../d:blockinfo/d:title[1]/node()"/>
+      </xsl:when>
+      <xsl:when test="../d:info/d:titleabbrev">
+        <xsl:apply-templates select="../d:info/d:titleabbrev[1]/node()"/>
+      </xsl:when>
+      <xsl:when test="../d:titleabbrev">
+        <xsl:apply-templates select="../d:titleabbrev[1]/node()"/>
+      </xsl:when>
+      <xsl:when test="../d:info/d:title">
+        <xsl:apply-templates select="../d:info/d:title[1]/node()"/>
+      </xsl:when>
+      <xsl:when test="../d:title">
+        <xsl:apply-templates select="../d:title[1]/node()"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="(*[local-name(.)!='label'])[1]/node()"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:variable>
   <xsl:variable name="deflabel">
     <xsl:choose>
@@ -297,7 +338,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
   <dt>
     <xsl:apply-templates select="." mode="label.markup"/>
-    <xsl:if test="$deflabel = 'number' and not(d:label)">
+    <xsl:if test="contains($deflabel,'number') and not(d:label)">
       <xsl:apply-templates select="." mode="intralabel.punctuation"/>
     </xsl:if>
     <xsl:text> </xsl:text>
@@ -328,6 +369,10 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
 <xsl:template name="process.qandaset">
 
+  <xsl:variable name="deflabel">
+    <xsl:apply-templates select="." mode="qanda.defaultlabel"/>
+  </xsl:variable>
+
   <xsl:variable name="label-width">
     <xsl:call-template name="pi.dbhtml_label-width"/>
   </xsl:variable>
@@ -344,7 +389,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     <xsl:call-template name="pi.dbhtml_cellspacing"/>
   </xsl:variable>
 
-  <table border="0" summary="Q and A Set">
+  <table border="0" width="100%" summary="Q and A Set">
     <xsl:if test="$table-summary != ''">
       <xsl:attribute name="summary">
         <xsl:value-of select="$table-summary"/>
@@ -363,16 +408,19 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       </xsl:attribute>
     </xsl:if>
 
-    <col align="left">
+    <col align="{$direction.align.start}">
       <xsl:attribute name="width">
         <xsl:choose>
           <xsl:when test="$label-width != ''">
             <xsl:value-of select="$label-width"/>
           </xsl:when>
-          <xsl:otherwise>1%</xsl:otherwise>
+          <xsl:otherwise>
+            <xsl:text>1%</xsl:text>
+          </xsl:otherwise>
         </xsl:choose>
       </xsl:attribute>
     </col>
+    <col/>
     <tbody>
       <xsl:apply-templates select="d:qandaentry|d:qandadiv"/>
     </tbody>

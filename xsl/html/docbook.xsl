@@ -13,7 +13,7 @@ xmlns:ng="http://docbook.org/docbook-ng"
             indent="no"/>
 
 <!-- ********************************************************************
-     $Id: docbook.xsl 7939 2008-03-23 04:32:34Z xmldoc $
+     $Id: docbook.xsl 8399 2009-04-08 07:37:42Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -121,6 +121,9 @@ xmlns:ng="http://docbook.org/docbook-ng"
   <xsl:attribute name="link">#0000FF</xsl:attribute>
   <xsl:attribute name="vlink">#840084</xsl:attribute>
   <xsl:attribute name="alink">#0000FF</xsl:attribute>
+  <xsl:if test="starts-with($writing.mode, 'rl')">
+    <xsl:attribute name="dir">rtl</xsl:attribute>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template name="head.content">

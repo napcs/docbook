@@ -5,7 +5,7 @@
 xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xmlns/chunkfast/1.0" xmlns="http://www.w3.org/1999/xhtml" version="1.0" exclude-result-prefixes="cf exsl d">
 
 <!-- ********************************************************************
-     $Id: chunkfast.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: chunkfast.xsl 8345 2009-03-16 06:44:07Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -25,7 +25,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
 
 <xsl:template name="process-chunk-element">
   <xsl:choose>
-    <xsl:when test="$chunk.fast != 0 and function-available('exsl:node-set')">
+    <xsl:when test="$chunk.fast != 0 and $exsl.node.set.available != 0">
       <xsl:variable name="genid" select="generate-id()"/>
 
       <xsl:variable name="div" select="$chunks[@id=$genid or @xml:id=$genid]"/>

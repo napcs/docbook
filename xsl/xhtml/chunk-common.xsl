@@ -5,7 +5,7 @@
 xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xmlns/chunkfast/1.0" xmlns:ng="http://docbook.org/docbook-ng" xmlns:db="http://docbook.org/ns/docbook" xmlns="http://www.w3.org/1999/xhtml" version="1.0" exclude-result-prefixes="exsl cf ng db d">
 
 <!-- ********************************************************************
-     $Id: chunk-common.xsl 7833 2008-03-04 19:09:35Z nwalsh $
+     $Id: chunk-common.xsl 8420 2009-05-04 02:17:33Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -27,7 +27,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
 <xsl:variable name="chunk.hierarchy">
   <xsl:if test="$chunk.fast != 0">
     <xsl:choose>
-      <xsl:when test="function-available('exsl:node-set')">
+      <xsl:when test="$exsl.node.set.available != 0">
         <xsl:message>Computing chunks...</xsl:message>
         <xsl:apply-templates select="/*" mode="find.chunks"/>
       </xsl:when>
@@ -49,7 +49,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
   </xsl:param>
 
   <xsl:choose>
-    <xsl:when test="$chunk.fast != 0 and function-available('exsl:node-set')">
+    <xsl:when test="$chunk.fast != 0 and $exsl.node.set.available != 0">
       <xsl:variable name="chunks" select="exsl:node-set($chunk.hierarchy)//cf:div"/>
       <xsl:variable name="genid" select="generate-id()"/>
 
@@ -584,7 +584,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
   <xsl:if test="$fcount &gt; 0">
     <div class="footnotes">
       <br/>
-      <hr width="100" align="left"/>
+      <hr width="100" align="{$direction.align.start}"/>
       <xsl:call-template name="process.footnotes.in.this.chunk">
         <xsl:with-param name="node" select="."/>
         <xsl:with-param name="footnotes" select="$footnotes"/>
@@ -775,9 +775,18 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
     </xsl:call-template>
   </xsl:variable>
   <xsl:variable name="href.from.uri">
-    <xsl:call-template name="href.target.uri">
-      <xsl:with-param name="object" select="$context"/>
-    </xsl:call-template>
+    <xsl:choose>
+      <xsl:when test="not($toc-context = .)">
+        <xsl:call-template name="href.target.uri">
+          <xsl:with-param name="object" select="$toc-context"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="href.target.uri">
+          <xsl:with-param name="object" select="$context"/>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:variable>
   <!-- * <xsl:message>toc-context: <xsl:value-of select="local-name($toc-context)"/></xsl:message> -->
   <!-- * <xsl:message>node: <xsl:value-of select="local-name(.)"/></xsl:message> -->
@@ -876,7 +885,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
   <xsl:if test="$olink.key != ''">
     <xsl:variable name="target.href">
       <xsl:for-each select="$target.database">
-        <xsl:value-of select="key('targetptr-key', $olink.key)/@href"/>
+        <xsl:value-of select="key('targetptr-key', $olink.key)[1]/@href"/>
       </xsl:for-each>
     </xsl:variable>
   
@@ -1171,7 +1180,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
 
           <xsl:if test="$row2">
             <tr>
-              <td width="20%" align="left">
+              <td width="20%" align="{$direction.align.start}">
                 <xsl:if test="count($prev)&gt;0">
                   <a accesskey="p">
                     <xsl:attribute name="href">
@@ -1194,7 +1203,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
                   <xsl:otherwise>&#160;</xsl:otherwise>
                 </xsl:choose>
               </th>
-              <td width="20%" align="right">
+              <td width="20%" align="{$direction.align.end}">
                 <xsl:text>&#160;</xsl:text>
                 <xsl:if test="count($next)&gt;0">
                   <a accesskey="n">
@@ -1244,7 +1253,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
         <table width="100%" summary="Navigation footer">
           <xsl:if test="$row1">
             <tr>
-              <td width="40%" align="left">
+              <td width="40%" align="{$direction.align.start}">
                 <xsl:if test="count($prev)&gt;0">
                   <a accesskey="p">
                     <xsl:attribute name="href">
@@ -1276,7 +1285,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
                   <xsl:otherwise>&#160;</xsl:otherwise>
                 </xsl:choose>
               </td>
-              <td width="40%" align="right">
+              <td width="40%" align="{$direction.align.end}">
                 <xsl:text>&#160;</xsl:text>
                 <xsl:if test="count($next)&gt;0">
                   <a accesskey="n">
@@ -1296,7 +1305,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
 
           <xsl:if test="$row2">
             <tr>
-              <td width="40%" align="left" valign="top">
+              <td width="40%" align="{$direction.align.start}" valign="top">
                 <xsl:if test="$navig.showtitles != 0">
                   <xsl:apply-templates select="$prev" mode="object.title.markup"/>
                 </xsl:if>
@@ -1337,7 +1346,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
                   </a>
                 </xsl:if>
               </td>
-              <td width="40%" align="right" valign="top">
+              <td width="40%" align="{$direction.align.end}" valign="top">
                 <xsl:text>&#160;</xsl:text>
                 <xsl:if test="$navig.showtitles != 0">
                   <xsl:apply-templates select="$next" mode="object.title.markup"/>

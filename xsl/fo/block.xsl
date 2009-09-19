@@ -6,7 +6,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: block.xsl 6933 2007-07-03 11:48:38Z xmldoc $
+     $Id: block.xsl 8441 2009-05-24 02:14:56Z abdelazer $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -25,7 +25,14 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 <!-- ==================================================================== -->
 
 <xsl:template name="block.object">
+  <xsl:variable name="keep.together">
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+  </xsl:variable>
   <fo:block>
+    <xsl:if test="$keep.together != ''">
+      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+                      select="$keep.together"/></xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="anchor"/>
     <xsl:apply-templates/>
   </fo:block>
@@ -34,21 +41,42 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 <!-- ==================================================================== -->
 
 <xsl:template match="d:para">
+  <xsl:variable name="keep.together">
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+  </xsl:variable>
   <fo:block xsl:use-attribute-sets="normal.para.spacing">
+    <xsl:if test="$keep.together != ''">
+      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+                      select="$keep.together"/></xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="anchor"/>
     <xsl:apply-templates/>
   </fo:block>
 </xsl:template>
 
 <xsl:template match="d:simpara">
+  <xsl:variable name="keep.together">
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+  </xsl:variable>
   <fo:block xsl:use-attribute-sets="normal.para.spacing">
+    <xsl:if test="$keep.together != ''">
+      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+                      select="$keep.together"/></xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="anchor"/>
     <xsl:apply-templates/>
   </fo:block>
 </xsl:template>
 
 <xsl:template match="d:formalpara">
+  <xsl:variable name="keep.together">
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+  </xsl:variable>
   <fo:block xsl:use-attribute-sets="normal.para.spacing">
+    <xsl:if test="$keep.together != ''">
+      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+                      select="$keep.together"/></xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="anchor"/>
     <xsl:apply-templates/>
   </fo:block>
@@ -88,7 +116,14 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 <!-- ==================================================================== -->
 
 <xsl:template match="d:blockquote">
+  <xsl:variable name="keep.together">
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+  </xsl:variable>
   <fo:block xsl:use-attribute-sets="blockquote.properties">
+    <xsl:if test="$keep.together != ''">
+      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+                      select="$keep.together"/></xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="anchor"/>
     <fo:block>
       <xsl:if test="d:title|d:info/d:title">
@@ -109,13 +144,14 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </fo:block>
 </xsl:template>
 
+<!-- Use an em dash per Chicago Manual of Style and https://sourceforge.net/tracker/index.php?func=detail&aid=2793878&group_id=21935&atid=373747 -->
 <xsl:template match="d:epigraph">
   <fo:block>
     <xsl:call-template name="anchor"/>
     <xsl:apply-templates select="d:para|d:simpara|d:formalpara|d:literallayout"/>
     <xsl:if test="d:attribution">
       <fo:inline>
-        <xsl:text>--</xsl:text>
+        <xsl:text>&#x2014;</xsl:text>
         <xsl:apply-templates select="d:attribution"/>
       </fo:inline>
     </xsl:if>
@@ -388,7 +424,14 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 <!-- ==================================================================== -->
 
 <xsl:template match="d:abstract">
+  <xsl:variable name="keep.together">
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+  </xsl:variable>
   <fo:block xsl:use-attribute-sets="abstract.properties">
+    <xsl:if test="$keep.together != ''">
+      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+                      select="$keep.together"/></xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="anchor"/>
     <xsl:apply-templates/>
   </fo:block>
@@ -584,7 +627,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 
 <!-- ==================================================================== -->
 
-<xsl:template match="d:ackno">
+<xsl:template match="d:ackno|d:acknowledgements[parent::d:article]">
   <fo:block xsl:use-attribute-sets="normal.para.spacing">
     <xsl:call-template name="anchor"/>
     <xsl:apply-templates/>

@@ -14,6 +14,8 @@
 
 <!-- Import the original FO stylesheet -->
 <xsl:import href="file:///<#ROOT_PATH#>/xsl/fo/docbook.xsl"/>
+<xsl:import href="file:///<#ROOT_PATH#>/xsl/fo/highlight.xsl"/>
+
 <!-- PDF bookmarking support -->
 <xsl:param name="fop1.extensions" select="1" />
 
@@ -270,16 +272,16 @@ set       toc,title
 
 
 
-<xsl:template match='xslthl:keyword'>
-  <fo:inline font-weight="bold" color="blue"><xsl:apply-templates/></fo:inline>
+<xsl:template match='xslthl:keyword' mode="xslthl">
+  <fo:inline font-weight="bold" color="blue"><xsl:apply-templates mode="xslthl"/></fo:inline>
 </xsl:template>
 
-<xsl:template match='xslthl:comment'>
-  <fo:inline font-style="italic" color="green"><xsl:apply-templates/></fo:inline>
+<xsl:template match='xslthl:comment' mode="xslthl">
+  <fo:inline font-style="italic" color="green"><xsl:apply-templates mode="xslthl"/></fo:inline>
 </xsl:template>
 
-<xsl:template match='xslthl:string'>
-  <fo:inline color="red"><xsl:apply-templates/></fo:inline>
+<xsl:template match='xslthl:string' mode="xslthl">
+  <fo:inline color="red"><xsl:apply-templates mode="xslthl"/></fo:inline>
 </xsl:template>
 
 <xsl:template match='d:filename'>

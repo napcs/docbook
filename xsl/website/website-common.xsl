@@ -6,7 +6,7 @@
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: website-common.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: website-common.xsl 8100 2008-08-03 18:15:51Z mzjn $
      ********************************************************************
 
      This file is part of the WebSite distribution.
@@ -802,6 +802,14 @@ node.</para>
     </l:context>
   </l:l10n>
   <l:l10n language="fr">
+    <l:context name="title">
+      <l:template name="webpage" text="%t"/>
+    </l:context>
+    <l:context name="xref">
+      <l:template name="webpage" text="%t"/>
+    </l:context>
+  </l:l10n>
+  <l:l10n language="es">
     <l:context name="title">
       <l:template name="webpage" text="%t"/>
     </l:context>

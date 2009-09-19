@@ -15,7 +15,7 @@ xmlns:exsl="http://exslt.org/common"
               encoding="UTF-8"
               indent="no"/>
   <!-- ********************************************************************
-       $Id: docbook.xsl 7868 2008-03-07 11:17:29Z xmldoc $
+       $Id: docbook.xsl 8486 2009-07-14 19:33:56Z mzjn $
        ********************************************************************
 
        This file is part of the XSL DocBook Stylesheet distribution.
@@ -46,6 +46,8 @@ xmlns:exsl="http://exslt.org/common"
   <!-- * can potentially be reused for more than just man output) -->
   <xsl:param name="tbl.font.headings" select="$man.font.table.headings"/>
   <xsl:param name="tbl.font.title" select="$man.font.table.title"/>
+
+  <xsl:param name="stylesheet.result.type" select="'manpages'"/>
 
   <!-- ==================================================================== -->
 
@@ -181,6 +183,10 @@ xmlns:exsl="http://exslt.org/common"
     <!-- * Assemble the various parts into a complete page, then store into -->
     <!-- * $manpage.contents so that we can manipluate them further. -->
     <xsl:variable name="manpage.contents">
+      <!-- * preprocessor invocation (need for legacy AT&T troff use) -->
+      <!-- * this tells troff to pre-process the page through tbl(1) -->
+      <!-- * (groff can figure it out automatically, but AT&T troff can't) -->
+      <xsl:text>'\" t&#10;</xsl:text>
       <!-- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
       <!-- * top.comment = commented-out section at top of roff source -->
       <!-- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -218,7 +224,9 @@ xmlns:exsl="http://exslt.org/common"
       <!-- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
       <!-- * (re)define some macros -->
       <!-- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-      <xsl:call-template name="define.macros"/>
+      <xsl:if test="not($man.output.better.ps.enabled = 0)">
+        <xsl:call-template name="define.macros"/>
+      </xsl:if>
       <!-- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
       <!-- * Set default hyphenation, justification, indentation, and -->
       <!-- * line-breaking -->

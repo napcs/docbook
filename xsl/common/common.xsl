@@ -8,7 +8,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: common.xsl 8002 2008-04-21 16:03:57Z kosek $
+     $Id: common.xsl 8274 2009-02-27 07:02:45Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -21,7 +21,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   <info>
     <title>Common » Base Template Reference</title>
     <releaseinfo role="meta">
-      $Id: common.xsl 8002 2008-04-21 16:03:57Z kosek $
+      $Id: common.xsl 8274 2009-02-27 07:02:45Z bobstayton $
     </releaseinfo>
   </info>
   <!-- * yes, partintro is a valid child of a reference... -->
@@ -78,7 +78,8 @@ d:ooclass
 d:ooexception
 d:oointerface
 d:simplemsgentry
-d:manvolnum"/>
+d:manvolnum
+"/>
 <!-- ====================================================================== -->
 
 <doc:template name="is.component" xmlns="">
@@ -572,14 +573,6 @@ Defaults to the context node.</para>
       <xsl:text> </xsl:text>
     </xsl:if>
     <xsl:apply-templates select="$node//d:othername[1]"/>
-  </xsl:if>
-
-  <xsl:if test="$node//d:orgname">
-    <xsl:if test="$node//d:honorific or $node//d:firstname
-                  or ($node//d:othername and $author.othername.in.middle != 0)">
-      <xsl:text> </xsl:text>
-    </xsl:if>
-    <xsl:apply-templates select="$node//d:orgname[1]"/>
   </xsl:if>
 
   <xsl:if test="$node//d:surname">
@@ -1574,7 +1567,7 @@ year range is <quote>1991-1992</quote> but discretely it's
     <xsl:text>)</xsl:text>
   </xsl:message>
   -->
-
+    
   <xsl:choose>
     <xsl:when test="$print.ranges = 0 and count($years) &gt; 0">
       <xsl:choose>
@@ -1600,6 +1593,10 @@ year range is <quote>1991-1992</quote> but discretely it's
         <xsl:when test="$firstyear = 0">
           <!-- there weren't any years at all -->
         </xsl:when>
+        <!-- Just output a year with range in its text -->
+        <xsl:when test="contains($firstyear, '-') or contains($firstyear, ',')">
+          <xsl:value-of select="$firstyear"/>
+        </xsl:when>
         <xsl:when test="$firstyear = $lastyear">
           <xsl:value-of select="$firstyear"/>
         </xsl:when>
@@ -1615,6 +1612,22 @@ year range is <quote>1991-1992</quote> but discretely it's
           <xsl:value-of select="$lastyear"/>
         </xsl:otherwise>
       </xsl:choose>
+    </xsl:when>
+    <xsl:when test="contains($firstyear, '-') or contains($firstyear, ',')">
+      <!-- Just output a year with range in its text -->
+      <xsl:value-of select="$firstyear"/>
+      <xsl:if test="count($years) != 0">
+        <xsl:text>, </xsl:text>
+      </xsl:if>
+      <xsl:call-template name="copyright.years">
+        <xsl:with-param name="years"
+              select="$years[position() &gt; 1]"/>
+        <xsl:with-param name="firstyear" select="$years[1]"/>
+        <xsl:with-param name="nextyear" select="$years[1] + 1"/>
+        <xsl:with-param name="print.ranges" select="$print.ranges"/>
+        <xsl:with-param name="single.year.ranges"
+                select="$single.year.ranges"/>
+      </xsl:call-template>
     </xsl:when>
     <xsl:when test="$firstyear = 0">
       <xsl:call-template name="copyright.years">

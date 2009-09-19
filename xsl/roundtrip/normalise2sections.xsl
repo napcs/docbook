@@ -10,12 +10,12 @@
 <!--=                                  =-->
 <!--= Revision history:                =-->
 <!--=                                  =-->
-<!--= $Id: normalise2sections.xsl 7266 2007-08-22 11:58:42Z xmldoc $ =-->
+<!--= $Id: normalise2sections.xsl 8107 2008-08-17 22:39:58Z balls $ =-->
 <!--=                                  =-->
 <!--====================================-->
   <axsl:output indent="yes"/>
   <axsl:strip-space elements="*"/>
-  <axsl:preserve-space elements="dbk:para"/>
+  <axsl:preserve-space elements="dbk:para dbk:emphasis"/>
   <axsl:template match="dbk:article">
     <axsl:copy>
       <axsl:for-each select="@*">

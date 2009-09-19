@@ -9,7 +9,7 @@ xmlns:exsl="http://exslt.org/common"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: endnotes.xsl 7957 2008-03-27 13:30:42Z xmldoc $
+     $Id: endnotes.xsl 8490 2009-07-18 17:48:06Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -345,7 +345,7 @@ xmlns:exsl="http://exslt.org/common"
 
   <xsl:if test="self::d:ulink or self::*[@xlink:href]">
     <xsl:variable name="link.wrapper">
-      <xsl:value-of select="$notesource.contents"/>
+      <xsl:value-of select="normalize-space($notesource.contents)"/>
     </xsl:variable>
     <xsl:text>\m[blue]</xsl:text>
     <!-- * This is a hyperlink, so we need to determine if the user wants -->

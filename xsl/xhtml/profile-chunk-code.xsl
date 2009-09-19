@@ -7,7 +7,7 @@
 xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xmlns/chunkfast/1.0" xmlns:ng="http://docbook.org/docbook-ng" xmlns:db="http://docbook.org/ns/docbook" xmlns:exslt="http://exslt.org/common" xmlns="http://www.w3.org/1999/xhtml" exslt:dummy="dummy" ng:dummy="dummy" db:dummy="dummy" extension-element-prefixes="exslt" exclude-result-prefixes="exsl cf ng db exslt d" version="1.0">
 
 <!-- ********************************************************************
-     $Id: chunk-code.xsl 6942 2007-07-04 04:42:17Z xmldoc $
+     $Id: chunk-code.xsl 8345 2009-03-16 06:44:07Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -405,7 +405,6 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
   </xsl:variable>
   <xsl:choose>
     
-    <!-- include extra test for Xalan quirk -->
     <xsl:when test="false()"/>
     <!-- Can't process unless namespace removed -->
     <xsl:when test="false()"/>

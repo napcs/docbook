@@ -6,7 +6,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: qandaset.xsl 6933 2007-07-03 11:48:38Z xmldoc $
+     $Id: qandaset.xsl 8350 2009-03-17 07:24:29Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -22,24 +22,8 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <xsl:variable name="label-width">
-    <xsl:call-template name="pi.dbfo_label-width"/>
-  </xsl:variable>
-
   <xsl:variable name="label-length">
-    <xsl:choose>
-      <xsl:when test="$label-width != ''">
-        <xsl:value-of select="$label-width"/>
-      </xsl:when>
-      <xsl:when test="descendant::d:label">
-        <xsl:call-template name="longest.term">
-          <xsl:with-param name="terms" select="descendant::d:label"/>
-          <xsl:with-param name="maxlength" select="20"/>
-        </xsl:call-template>
-        <xsl:text>em * 0.50</xsl:text>
-      </xsl:when>
-      <xsl:otherwise>2.5em</xsl:otherwise>
-    </xsl:choose>
+    <xsl:call-template name="qandaset.label.length"/>
   </xsl:variable>
   
   <xsl:variable name="toc">
@@ -115,6 +99,43 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   
 </xsl:template>
 
+<xsl:template name="qandaset.label.length">
+  <xsl:param name="deflabel">
+    <xsl:apply-templates select="." mode="qanda.defaultlabel"/>
+  </xsl:param>
+
+  <xsl:variable name="label-width">
+    <xsl:call-template name="pi.dbfo_label-width"/>
+  </xsl:variable>
+
+  <xsl:choose>
+    <xsl:when test="$label-width != ''">
+      <xsl:value-of select="$label-width"/>
+    </xsl:when>
+    <xsl:when test="descendant::d:label">
+      <xsl:call-template name="longest.term">
+        <xsl:with-param name="terms" select="descendant::d:label"/>
+        <xsl:with-param name="maxlength" select="20"/>
+      </xsl:call-template>
+      <xsl:text>em * 0.50</xsl:text>
+    </xsl:when>
+    <xsl:when test="contains($deflabel, 'qnumber') and
+                    $qandadiv.autolabel != 0 and
+                    $qanda.inherit.numeration != 0">
+      <xsl:text>5em</xsl:text>
+    </xsl:when>
+    <xsl:when test="$deflabel ='qnumber' and
+                    $qandadiv.autolabel != 0 and
+                    $qanda.inherit.numeration != 0">
+      <xsl:text>4em</xsl:text>
+    </xsl:when>
+    <xsl:when test="$deflabel = 'number'">
+      <xsl:text>3em</xsl:text>
+    </xsl:when>
+    <xsl:otherwise>2.5em</xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 <xsl:template match="d:qandaset/d:blockinfo/d:title|d:qandset/d:info/d:title|d:qandaset/d:title">
   <xsl:variable name="enclsect" select="(ancestor::d:section
                                         | ancestor::d:simplesect
@@ -149,26 +170,11 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 <xsl:template match="d:qandadiv">
   <xsl:variable name="id"><xsl:call-template name="object.id"/></xsl:variable>
 
-  <xsl:variable name="label-width">
-    <xsl:call-template name="pi.dbfo_label-width"/>
-  </xsl:variable>
 
   <xsl:variable name="label-length">
-    <xsl:choose>
-      <xsl:when test="$label-width != ''">
-        <xsl:value-of select="$label-width"/>
-      </xsl:when>
-      <xsl:when test="descendant::d:label">
-        <xsl:call-template name="longest.term">
-          <xsl:with-param name="terms" select="descendant::d:label"/>
-          <xsl:with-param name="maxlength" select="20"/>
-        </xsl:call-template>
-        <xsl:text>*0.6em</xsl:text>
-      </xsl:when>
-      <xsl:otherwise>2.5em</xsl:otherwise>
-    </xsl:choose>
+    <xsl:call-template name="qandaset.label.length"/>
   </xsl:variable>
-
+  
   <fo:block id="{$id}">
     <xsl:apply-templates select="(d:blockinfo/d:title|d:info/d:title|d:title)[1]"/>
     <xsl:apply-templates select="*[local-name(.) != 'title'
@@ -242,24 +248,16 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </xsl:variable>
 
   <xsl:variable name="deflabel">
-    <xsl:choose>
-      <xsl:when test="ancestor-or-self::*[@defaultlabel]">
-        <xsl:value-of select="(ancestor-or-self::*[@defaultlabel])[last()]
-                              /@defaultlabel"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$qanda.defaultlabel"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:apply-templates select="." mode="qanda.defaultlabel"/>
   </xsl:variable>
 
 
-      <xsl:variable name="label.content">
-        <xsl:apply-templates select="." mode="label.markup"/>
-        <xsl:if test="$deflabel = 'number' and not(d:label)">
-          <xsl:apply-templates select="." mode="intralabel.punctuation"/>
-        </xsl:if>
-      </xsl:variable>
+  <xsl:variable name="label.content">
+    <xsl:apply-templates select="." mode="label.markup"/>
+    <xsl:if test="contains($deflabel, 'number') and not(d:label)">
+      <xsl:apply-templates select="." mode="intralabel.punctuation"/>
+    </xsl:if>
+  </xsl:variable>
 
   <fo:list-item id="{$entry.id}" xsl:use-attribute-sets="list.item.spacing">
     <fo:list-item-label id="{$id}" end-indent="label-end()">
@@ -295,15 +293,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </xsl:variable>
 
   <xsl:variable name="deflabel">
-    <xsl:choose>
-      <xsl:when test="ancestor-or-self::*[@defaultlabel]">
-        <xsl:value-of select="(ancestor-or-self::*[@defaultlabel])[last()]
-                              /@defaultlabel"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$qanda.defaultlabel"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:apply-templates select="." mode="qanda.defaultlabel"/>
   </xsl:variable>
 
       <xsl:variable name="answer.label">
@@ -332,6 +322,18 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
       </xsl:if>
     </fo:list-item-body>
   </fo:list-item>
+</xsl:template>
+
+<xsl:template match="*" mode="qanda.defaultlabel">
+  <xsl:choose>
+    <xsl:when test="ancestor-or-self::*[@defaultlabel]">
+      <xsl:value-of select="(ancestor-or-self::*[@defaultlabel])[last()]
+                            /@defaultlabel"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$qanda.defaultlabel"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="d:label">

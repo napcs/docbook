@@ -131,7 +131,7 @@ version="1.0">
                                      $targetptr.att, '/',
                                      $target.lang)"/>
         <xsl:choose>
-          <xsl:when test="key('targetptr-key', $key)/@href != ''">
+          <xsl:when test="key('targetptr-key', $key)[1]/@href != ''">
             <xsl:value-of select="$key"/>
             <xsl:if test="$olink.debug != 0">
               <xsl:message>Olink debug: CaseA matched.</xsl:message>
@@ -161,7 +161,7 @@ version="1.0">
                                      $targetptr.att, '/',
                                      $target.lang)"/>
         <xsl:choose>
-          <xsl:when test="key('targetptr-key', $key)/@href != ''">
+          <xsl:when test="key('targetptr-key', $key)[1]/@href != ''">
             <xsl:value-of select="$key"/>
             <xsl:if test="$olink.debug != 0">
               <xsl:message>Olink debug: CaseB matched.</xsl:message>
@@ -190,7 +190,7 @@ version="1.0">
                                      $targetptr.att, '/',
                                      $target.lang)"/>
         <xsl:choose>
-          <xsl:when test="key('targetptr-key', $key)/@href != ''">
+          <xsl:when test="key('targetptr-key', $key)[1]/@href != ''">
             <xsl:value-of select="$key"/>
             <xsl:if test="$olink.debug != 0">
               <xsl:message>Olink debug: CaseC matched.</xsl:message>
@@ -220,7 +220,7 @@ version="1.0">
                                      $targetptr.att, '/',
                                      $target.lang)"/>
         <xsl:choose>
-          <xsl:when test="key('targetptr-key', $key)/@href != ''">
+          <xsl:when test="key('targetptr-key', $key)[1]/@href != ''">
             <xsl:value-of select="$key"/>
             <xsl:if test="$olink.debug != 0">
               <xsl:message>Olink debug: CaseD matched.</xsl:message>
@@ -259,7 +259,7 @@ version="1.0">
                                      $rootid, '/',
                                      $target.lang)"/>
         <xsl:choose>
-          <xsl:when test="key('targetptr-key', $key)/@href != ''">
+          <xsl:when test="key('targetptr-key', $key)[1]/@href != ''">
             <xsl:value-of select="$key"/>
             <xsl:if test="$olink.debug != 0">
               <xsl:message>Olink debug: CaseE matched.</xsl:message>
@@ -301,7 +301,7 @@ version="1.0">
                                      $rootid, '/',
                                      $target.lang)"/>
         <xsl:choose>
-          <xsl:when test="key('targetptr-key', $key)/@href != ''">
+          <xsl:when test="key('targetptr-key', $key)[1]/@href != ''">
             <xsl:value-of select="$key"/>
             <xsl:if test="$olink.debug != 0">
               <xsl:message>Olink debug: CaseF matched.</xsl:message>
@@ -449,7 +449,7 @@ version="1.0">
   <xsl:if test="$olink.key != ''">
     <xsl:variable name="target.href" >
       <xsl:for-each select="$target.database" >
-        <xsl:value-of select="key('targetptr-key', $olink.key)/@href" />
+        <xsl:value-of select="key('targetptr-key', $olink.key)[1]/@href" />
       </xsl:for-each>
     </xsl:variable>
   
@@ -478,7 +478,7 @@ version="1.0">
               <xsl:variable name="currentdoc.key" >
                 <xsl:for-each select="$target.database" >
                   <xsl:value-of select="key('targetdoc-key',
-                                        $current.docid)/@targetdoc" />
+                                        $current.docid)[1]/@targetdoc" />
                 </xsl:for-each>
               </xsl:variable>
               <xsl:choose>
@@ -486,7 +486,7 @@ version="1.0">
                   <xsl:for-each select="$target.database" >
                     <xsl:call-template name="targetpath" >
                       <xsl:with-param name="dirnode" 
-                          select="key('targetdoc-key', $current.docid)/parent::dir"/>
+                          select="key('targetdoc-key', $current.docid)[1]/parent::dir"/>
                       <xsl:with-param name="targetdoc" select="$targetdoc"/>
                     </xsl:call-template>
                   </xsl:for-each >
@@ -511,7 +511,7 @@ version="1.0">
           <!-- In either case, add baseuri from its document entry-->
           <xsl:variable name="docbaseuri">
             <xsl:for-each select="$target.database" >
-              <xsl:value-of select="key('targetdoc-key', $targetdoc)/@baseuri" />
+              <xsl:value-of select="key('targetdoc-key', $targetdoc)[1]/@baseuri" />
             </xsl:for-each>
           </xsl:variable>
           <xsl:if test="$docbaseuri != ''" >
@@ -523,7 +523,7 @@ version="1.0">
           <!-- Just use any baseuri from its document entry -->
           <xsl:variable name="docbaseuri">
             <xsl:for-each select="$target.database" >
-              <xsl:value-of select="key('targetdoc-key', $targetdoc)/@baseuri" />
+              <xsl:value-of select="key('targetdoc-key', $targetdoc)[1]/@baseuri" />
             </xsl:for-each>
           </xsl:variable>
           <xsl:if test="$docbaseuri != ''" >
@@ -577,7 +577,7 @@ version="1.0">
 
   <xsl:variable name="from.olink.href">
     <xsl:for-each select="$target.database" >
-      <xsl:value-of select="key('targetptr-key', $from.key)/@href" />
+      <xsl:value-of select="key('targetptr-key', $from.key)[1]/@href" />
     </xsl:for-each>
   </xsl:variable>
 
@@ -628,20 +628,22 @@ version="1.0">
       <!-- Get the xref text for this record -->
       <xsl:variable name="xref.text" >
         <xsl:for-each select="$target.database" >
-          <xsl:copy-of 
-                  select="key('targetptr-key', $olink.key)/xreftext/node()" />
+          <xsl:call-template name="insert.targetdb.data">
+            <xsl:with-param name="data"
+                  select="key('targetptr-key', $olink.key)[1]/xreftext/node()" />
+          </xsl:call-template>
         </xsl:for-each>
       </xsl:variable>
 
       <xsl:variable name="xref.number" >
         <xsl:for-each select="$target.database" >
-          <xsl:value-of select="key('targetptr-key', $olink.key)/@number" />
+          <xsl:value-of select="key('targetptr-key', $olink.key)[1]/@number" />
         </xsl:for-each>
       </xsl:variable>
 
       <xsl:variable name="target.elem" >
         <xsl:for-each select="$target.database" >
-          <xsl:value-of select="key('targetptr-key', $olink.key)/@element" />
+          <xsl:value-of select="key('targetptr-key', $olink.key)[1]/@element" />
         </xsl:for-each>
       </xsl:variable>
 
@@ -649,7 +651,7 @@ version="1.0">
         <xsl:variable name="candidate">
           <xsl:for-each select="$target.database" >
             <xsl:value-of 
-                      select="key('targetptr-key', $olink.key)/@lang" />
+                      select="key('targetptr-key', $olink.key)[1]/@lang" />
           </xsl:for-each>
         </xsl:variable>
         <xsl:choose>
@@ -855,25 +857,30 @@ version="1.0">
             <xsl:with-param name="template" select="$template"/>
             <xsl:with-param name="title">
               <xsl:for-each select="$target.database" >
-                <xsl:value-of select="key('targetptr-key', $olink.key)/ttl" />
+                <xsl:call-template name="insert.targetdb.data">
+                  <xsl:with-param name="data"
+                                  select="key('targetptr-key', $olink.key)/ttl" />
+                </xsl:call-template>
               </xsl:for-each>
             </xsl:with-param>
             <xsl:with-param name="label">
               <xsl:for-each select="$target.database" >
                 <xsl:value-of 
-                        select="key('targetptr-key', $olink.key)/@number" />
+                        select="key('targetptr-key', $olink.key)[1]/@number" />
               </xsl:for-each>
             </xsl:with-param>
             <xsl:with-param name="pagenumber">
               <xsl:for-each select="$target.database" >
                 <xsl:value-of 
-                        select="key('targetptr-key', $olink.key)/@page" />
+                        select="key('targetptr-key', $olink.key)[1]/@page" />
               </xsl:for-each>
             </xsl:with-param>
             <xsl:with-param name="docname">
               <xsl:for-each select="$target.database" >
-                <xsl:value-of 
-                       select="key('targetdoc-key', $targetdoc)/div[1]/ttl" />
+                <xsl:call-template name="insert.targetdb.data">
+                  <xsl:with-param name="data"
+                       select="key('targetdoc-key', $targetdoc)[1]/div[1]/ttl" />
+                </xsl:call-template>
               </xsl:for-each>
             </xsl:with-param>
           </xsl:call-template>
@@ -881,9 +888,55 @@ version="1.0">
 
         <xsl:when test="$use.local.olink.style != 0">
 
+          <!-- Is autonumbering on? -->
+          <xsl:variable name="target.number">
+            <xsl:for-each select="$target.database" >
+              <xsl:value-of 
+                      select="key('targetptr-key', $olink.key)[1]/@number" />
+            </xsl:for-each>
+          </xsl:variable>
+
+          <xsl:variable name="autonumber">
+            <xsl:choose>
+              <xsl:when test="$target.number != ''">1</xsl:when>
+              <xsl:otherwise>0</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+        
+          <xsl:variable name="number-and-title-template">
+            <xsl:call-template name="gentext.template.exists">
+              <xsl:with-param name="context" select="'xref-number-and-title'"/>
+              <xsl:with-param name="name" select="$target.elem"/>
+            </xsl:call-template>
+          </xsl:variable>
+        
+          <xsl:variable name="number-template">
+            <xsl:call-template name="gentext.template.exists">
+              <xsl:with-param name="context" select="'xref-number'"/>
+              <xsl:with-param name="name" select="$target.elem"/>
+            </xsl:call-template>
+          </xsl:variable>
+        
+          <xsl:variable name="context">
+            <xsl:choose>
+              <xsl:when test="string($autonumber) != 0 
+                              and $number-and-title-template != 0
+                              and $xref.with.number.and.title != 0">
+                 <xsl:value-of select="'xref-number-and-title'"/>
+              </xsl:when>
+              <xsl:when test="string($autonumber) != 0 
+                              and $number-template != 0">
+                 <xsl:value-of select="'xref-number'"/>
+              </xsl:when>
+              <xsl:otherwise>
+                 <xsl:value-of select="'xref'"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+        
           <xsl:variable name="template">
             <xsl:call-template name="gentext.template">
-              <xsl:with-param name="context" select="'xref'"/>
+              <xsl:with-param name="context" select="$context"/>
               <xsl:with-param name="name" select="$target.elem"/>
               <xsl:with-param name="lang" select="$lang"/>
             </xsl:call-template>
@@ -893,13 +946,18 @@ version="1.0">
             <xsl:with-param name="template" select="$template"/>
             <xsl:with-param name="title">
               <xsl:for-each select="$target.database" >
-                <xsl:value-of select="key('targetptr-key', $olink.key)/ttl" />
+                <xsl:call-template name="insert.targetdb.data">
+                  <xsl:with-param name="data"
+                                  select="key('targetptr-key', $olink.key)[1]/ttl" />
+                </xsl:call-template>
               </xsl:for-each>
             </xsl:with-param>
             <xsl:with-param name="label">
               <xsl:for-each select="$target.database" >
-                <xsl:value-of 
-                          select="key('targetptr-key', $olink.key)/@number" />
+                <xsl:call-template name="insert.targetdb.data">
+                  <xsl:with-param name="data"
+                          select="key('targetptr-key', $olink.key)[1]/@number" />
+                </xsl:call-template>
               </xsl:for-each>
             </xsl:with-param>
           </xsl:call-template>
@@ -939,6 +997,12 @@ version="1.0">
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
+</xsl:template>
+
+<xsl:template name="insert.targetdb.data">
+  <xsl:param name="data"/>
+  <!-- Customize this to massage data further -->
+  <xsl:copy-of select="$data"/>
 </xsl:template>
 
 <xsl:template match="*" mode="olink.docname.markup">
@@ -1029,7 +1093,7 @@ version="1.0">
       <xsl:variable name="page-number">
         <xsl:for-each select="$target.database" >
           <xsl:value-of 
-                 select="key('targetptr-key', $olink.key)/@page" />
+                 select="key('targetptr-key', $olink.key)[1]/@page" />
         </xsl:for-each>
       </xsl:variable>
   
@@ -1069,7 +1133,7 @@ version="1.0">
   <xsl:variable name="page">
     <xsl:for-each select="$target.database" >
       <xsl:value-of 
-             select="key('targetptr-key', $olink.key)/@page" />
+             select="key('targetptr-key', $olink.key)[1]/@page" />
     </xsl:for-each>
   </xsl:variable>
 
@@ -1086,14 +1150,16 @@ version="1.0">
   <xsl:variable name="rootptr">
     <xsl:for-each select="$target.database" >
       <xsl:value-of 
-             select="key('targetdoc-key', $targetdoc)/div[1]/@targetptr" />
+             select="key('targetdoc-key', $targetdoc)[1]/div[1]/@targetptr" />
     </xsl:for-each>
   </xsl:variable>
 
   <xsl:variable name="docname">
     <xsl:for-each select="$target.database" >
-      <xsl:value-of 
-             select="key('targetdoc-key', $targetdoc)/div[1]/ttl" />
+      <xsl:call-template name="insert.targetdb.data">
+        <xsl:with-param name="data"
+             select="key('targetdoc-key', $targetdoc)[1]/div[1]/ttl" />
+      </xsl:call-template>
     </xsl:for-each>
   </xsl:variable>
 

@@ -11,7 +11,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   version='1.0'>
 
 <!-- ********************************************************************
-     $Id: pi.xsl 7107 2007-07-22 10:22:06Z xmldoc $
+     $Id: pi.xsl 8349 2009-03-17 06:53:03Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -22,7 +22,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
 <doc:reference xmlns=""><info><title>Common Processing Instruction Reference</title>
     <releaseinfo role="meta">
-      $Id: pi.xsl 7107 2007-07-22 10:22:06Z xmldoc $
+      $Id: pi.xsl 8349 2009-03-17 06:53:03Z bobstayton $
     </releaseinfo>
   </info>
   <partintro id="partintro">
@@ -247,9 +247,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       </xsl:call-template>
     </xsl:variable>
     <xsl:choose>
-      <!-- include extra test for Xalan quirk -->
-      <xsl:when test="function-available('exsl:node-set') or 
-        contains(system-property('xsl:vendor'),'Apache Software Foundation')">
+      <xsl:when test="$exsl.node.set.available != 0">
         <!-- We must preserve context node in order to get valid language -->
         <xsl:variable name="context" select="."/>
         <xsl:for-each select="exsl:node-set($tokenized-format-string)/node()">

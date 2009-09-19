@@ -12,7 +12,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 <xsl:include href="../common/table.xsl"/>
 
 <!-- ********************************************************************
-     $Id: table.xsl 8010 2008-05-21 16:17:44Z abdelazer $
+     $Id: table.xsl 8421 2009-05-04 07:49:49Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -307,11 +307,11 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
               </xsl:call-template>
             </xsl:attribute>
           </xsl:when>
-	  <xsl:when test="../@frame='none'">
-	    <xsl:attribute name="style">
-	      <xsl:text>border: none;</xsl:text>
-	    </xsl:attribute>
-	  </xsl:when>
+          <xsl:when test="../@frame='none'">
+            <xsl:attribute name="style">
+              <xsl:text>border: none;</xsl:text>
+            </xsl:attribute>
+          </xsl:when>
           <xsl:otherwise>
             <xsl:attribute name="style">
               <xsl:text>border-collapse: collapse;</xsl:text>
@@ -518,33 +518,33 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   <xsl:choose>
     <xsl:when test="contains($spans, '0')">
       <xsl:call-template name="normal-row">
-	<xsl:with-param name="spans" select="$spans"/>
+        <xsl:with-param name="spans" select="$spans"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:otherwise>
       <!--
       <xsl:message>
-	<xsl:text>Ignoring row: </xsl:text>
-	<xsl:value-of select="$spans"/>
-	<xsl:text> = </xsl:text>
-	<xsl:call-template name="consume-row">
-	  <xsl:with-param name="spans" select="$spans"/>
-	</xsl:call-template>
+        <xsl:text>Ignoring row: </xsl:text>
+        <xsl:value-of select="$spans"/>
+        <xsl:text> = </xsl:text>
+        <xsl:call-template name="consume-row">
+          <xsl:with-param name="spans" select="$spans"/>
+        </xsl:call-template>
       </xsl:message>
       -->
 
       <xsl:if test="normalize-space(.//text()) != ''">
-	<xsl:message>Warning: overlapped row contains content!</xsl:message>
+        <xsl:message>Warning: overlapped row contains content!</xsl:message>
       </xsl:if>
 
       <tr><xsl:comment> This row intentionally left blank </xsl:comment></tr>
 
       <xsl:apply-templates select="following-sibling::d:row[1]">
-	<xsl:with-param name="spans">
-	  <xsl:call-template name="consume-row">
-	    <xsl:with-param name="spans" select="$spans"/>
-	  </xsl:call-template>
-	</xsl:with-param>
+        <xsl:with-param name="spans">
+          <xsl:call-template name="consume-row">
+            <xsl:with-param name="spans" select="$spans"/>
+          </xsl:call-template>
+        </xsl:with-param>
       </xsl:apply-templates>
     </xsl:otherwise>
   </xsl:choose>
@@ -646,7 +646,15 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 </xsl:template>
 
 <xsl:template match="d:entry|d:entrytbl" name="entry">
-  <xsl:param name="col" select="1"/>
+  <xsl:param name="col">
+    <xsl:choose>
+      <xsl:when test="@revisionflag">
+        <xsl:number from="d:row"/>
+      </xsl:when>
+      <xsl:otherwise>1</xsl:otherwise>
+    </xsl:choose>
+  </xsl:param>
+
   <xsl:param name="spans"/>
 
   <xsl:variable name="cellgi">
@@ -695,7 +703,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       <!-- If this is the last row, rowsep never applies. -->
       <xsl:when test="ancestor::d:entrytbl
                       and not (ancestor-or-self::d:row[1]/following-sibling::d:row)
-		      and not (ancestor::d:thead)">
+                      and not (ancestor::d:thead)">
         <xsl:value-of select="0"/>
       </xsl:when>
       <xsl:when test="not(ancestor-or-self::d:row[1]/following-sibling::d:row
@@ -793,6 +801,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
           </xsl:attribute>
         </xsl:if>
 
+        <xsl:call-template name="locale.html.attributes"/>
         <xsl:if test="$entry.propagates.style != 0 and @role">
           <xsl:apply-templates select="." mode="class.attribute">
             <xsl:with-param name="class" select="@role"/>
@@ -934,8 +943,8 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     <xsl:when test="number($entry.colnum) &gt; $col">
       <xsl:text>0:</xsl:text>
       <xsl:call-template name="sentry">
-        <xsl:with-param name="col" select="$col+$entry.colspan"/>
-        <xsl:with-param name="spans" select="$following.spans"/>
+        <xsl:with-param name="col" select="$col + 1"/>
+        <xsl:with-param name="spans" select="substring-after($spans,':')"/>
       </xsl:call-template>
     </xsl:when>
 
@@ -1015,20 +1024,36 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       <xsl:choose>
         <xsl:when test="$colspec.colnum=$countcol">
           <col>
-            <xsl:if test="$colspec/@colwidth
-                          and $use.extensions != 0
-                          and $tablecolumns.extension != 0">
-              <xsl:attribute name="width">
-	        <xsl:choose>
-		  <xsl:when test="normalize-space($colspec/@colwidth) = '*'">
-                    <xsl:value-of select="'1*'"/>
-		  </xsl:when>
-		  <xsl:otherwise>
-                    <xsl:value-of select="$colspec/@colwidth"/>
-		  </xsl:otherwise>
-		</xsl:choose>
-              </xsl:attribute>
-            </xsl:if>
+            <xsl:choose>
+              <xsl:when test="$colspec/@colwidth
+                            and $use.extensions != 0
+                            and $tablecolumns.extension != 0">
+                <xsl:attribute name="width">
+                  <xsl:choose>
+                    <xsl:when test="normalize-space($colspec/@colwidth) = '*'">
+                      <xsl:value-of select="'1*'"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="$colspec/@colwidth"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:attribute>
+              </xsl:when>
+              <!-- pass through to HTML if no * in colspecs -->
+              <xsl:when test="$colspec/@colwidth and
+                             not($colspec/parent::*/d:colspec/@colwidth[contains(.,'*')])">
+                <xsl:attribute name="width">
+                  <xsl:choose>
+                    <xsl:when test="normalize-space($colspec/@colwidth) = '*'">
+                      <xsl:value-of select="'1*'"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="$colspec/@colwidth"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:attribute>
+              </xsl:when>
+            </xsl:choose>
 
             <xsl:choose>
               <xsl:when test="$colspec/@align">
