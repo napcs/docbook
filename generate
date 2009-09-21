@@ -114,8 +114,8 @@ end
     puts " - #{dest_path}/w3centities-f.ent"
     
     
-    generate "#{root_path}/template/make", root_path, "#{dest_path}/make"
-    puts " - #{dest_path}/make"
+    generate "#{root_path}/template/Rakefile", root_path, "#{dest_path}/Rakefile"
+    puts " - #{dest_path}/Rakefile"
     
     puts " - #{dest_path}/article.xml"
   end
@@ -166,8 +166,8 @@ end
       puts " - #{dest_path}/book.xml"
       puts " - #{dest_path}/chapter01.xml"
       
-      generate "#{root_path}/template/make", root_path, "#{dest_path}/make"
-      puts " - #{dest_path}/make"
+      generate "#{root_path}/template/Rakefile", root_path, "#{dest_path}/Rakefile"
+      puts " - #{dest_path}/Rakefile"
       
       FileUtils.cp "#{root_path}/template/w3centities-f.ent", "#{dest_path}/w3centities-f.ent"
       puts " - #{dest_path}/w3centities-f.ent"

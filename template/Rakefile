@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+#  e.g. rake pdf                 # Create a PDF
+#       rake xhtml               # Create an XHTML file
+#       rake chm                 # Create a CHM help file
+#       rake pdf VALIDATE=false  # skips validation
+
+
+#=================== Set path to DOCBOOK files =======
+
+DOCBOOK_ROOT = ENV['SHORT_ATTENTION_SPAN_DOCBOOK_PATH'] || "<#ROOT_PATH#>"
+require "#{DOCBOOK_ROOT}/make"

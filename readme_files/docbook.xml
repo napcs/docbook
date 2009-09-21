@@ -80,18 +80,19 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
  - my_test_project/images
  - my_test_project/book.xml
  - my_test_project/chapter01.xml
- - my_test_project/make
+ - my_test_project/Rakefile
  - my_test_project/template/xsl/pdf.xml
+ - my_test_project/w3centities-f.ent
  Done]]></screen>
             <para>Now you have a simple sample project with a book file and a chapter. Convert this to a PDF to make sure everything works.</para>
             <para><command>cd my_test_project</command></para>
-            <para><command>ruby make book.pdf</command></para>
+            <para><command>rake book.pdf</command></para>
             <para>You'll get a brand-new PDF of the sample book.</para>
         </sect2>
      </sect1>
     <sect1>
         <title>Mac OS X Setup</title>
-        <para>Setup on Mac OS X 10.4 or 10.5 is quite easy.  You have Java and Ruby already installed on the machine
+        <para>Setup on Mac OS X 10.4 or above is quite easy.  You have Java and Ruby already installed on the machine
             in most cases. All you need to do is download the files from <link xlink:href="http://www.napcsweb.com/files/docbook.zip">http://www.napcsweb.com/files/docbook.zip</link> 
             and extract to a <filename>docbook</filename> in your home folder. Once extracted, you should have a list of files that resembles this in your <filename>~/docbook</filename> folder:</para>
             <screen><![CDATA[
@@ -120,8 +121,9 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
  - my_test_project/images
  - my_test_project/book.xml
  - my_test_project/chapter01.xml
- - my_test_project/make
+ - my_test_project/Rakefile
  - my_test_project/xsl/pdf.xml
+ - my_test_project/w3centities-f.ent
  Done]]></screen>
         <para>Now try generating a PDF.</para>
         <para><command>cd my_test_project</command></para>
@@ -159,7 +161,8 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
             <screen><![CDATA[ - foo/images
  - foo/xsl
  - foo/xsl/pdf.xml
- - foo/make
+ - foo/Rakefile
+ - foo/w3centities-f.ent
  - foo/article.xml]]>
             </screen>
         </sect2>
@@ -172,18 +175,19 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
  - my_test_project/images
  - my_test_project/book.xml
  - my_test_project/chapter01.xml
- - my_test_project/make
+ - my_test_project/Rakefile
+ - my_test_project/w3centities-f.ent
  - my_test_project/xsl/pdf.xml
  Done]]></screen>
         <para><filename>xsl/</filename> contains <token>XSLT Customization Layers</token> for the various types of outputs. By default, 
-            the <filename>make</filename> script only uses a customization layer for the PDF output. A customization layer is simply a way for you to define your
+            the <filename>Rake task</filename>  only uses a customization layer for the PDF output. A customization layer is simply a way for you to define your
         own style properties for your output. The customization layer imports the original Docbook XSLT file, and then you redefine your own 
         transformations.</para>
         <para><filename>images/</filename> will contain any images you plan to reference in your document. It's a good idea to organize this by chapter.</para>
         <para><filename>book.xml</filename> is a sample starter template that shows you how to compose a simple book. You can build this into a PDF right away, and you can modify it and use it as the basis for your book, or just leave it around as an example.</para>
         <para><filename>chapter01.xml</filename> is an example chapter for a book. It's included within 
             <filename>book.xml</filename> so you can see how you might break apart a book into multiple files.</para>
-        <para><filename>make</filename> is the script used to transform your document into an actual publication. 
+        <para><filename>Rakefile</filename> is the script used to transform your document into an actual publication. 
             See <xref linkend="sec.content.generation"/> to see how that works.</para>
         <para><filename>xsl/pdf.xml</filename> is the aforementioned customization layer for the PDF output. This is the only supported customization layer at this time. 
             Look at the <filename>make</filename> to see how to add your own for other files. Additional defaults are coming in future releases.</para>
@@ -200,20 +204,42 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
             <para>Generating a PDF or an RTF document is a two-step process. The XML document needs to be processed and transformed into an XML-FO document which is ready for print. Then it needs to  be converted into either RTF or PDF by another process. This package uses Apache FOP to handle this step. </para>
         </sect2>
         <sect2>
-            <title>The Make script</title>
-            <para>When you generate a new project with <command>new_book</command> you get a <filename>make</filename> script written in the Ruby programming language. Ruby's a powerful language that's easy to learn and modify. That's the main reason it's used in this project. The other reason is that the script works on all platforms, whereas traditional makefiles work on Linux-based operating systems only.</para>
-            <para> By default, this script can generate HTML, PDF, and RTF outputs. Windows users can also use it to generate Windows Help (CHM) documents if they have the <filename>hhc.exe</filename> file from the HTML Help Workshop installed on their system.</para>
-            <para>The make script is easy to use. You simply specify the name of the input file you want to use and the format you want to generate. To make things simple, the script uses a file naming convention that matches your original docbook xml file. </para>
-            <para>For example, if you have a file called <filename>book.xml</filename>, you'd be able to do the following transformations:</para>
-            <para><command>ruby make book.html</command> to generate an HTML file of your book.</para>
-            <para><command>ruby make book.rtf</command> to generate an RTF file of your book.</para>
-            <para><command>ruby make book.pdf</command> to generate a PDF file of your book.</para>
+            <title>Using Rake to build a book</title>
+            <para>When you generate a new project with <command>new_book</command> you get a <filename>Rakefile</filename> script written in the Ruby programming language. Ruby's a powerful language that's easy to learn and modify. That's the main reason it's used in this project. The other reason is that the script works on all platforms, whereas traditional makefiles work on Linux-based operating systems only. A Rakefile defines a script for use with the Rake utility popular in the Ruby community.</para>
+            <para>The Rakefile doesn't include much. It actually includes another file that does all the work, and provides a variable used to locate the rest of the build chain files.</para>
+            <sect3 xml:id="sec.Path.to.the.Build.Chain">
+              <title>Path to the Build Chain</title>
+              <para>When you generate a project, the generator will put the absolute path to the docbook build chain in your Rakefile. However, you can override this by setting an environment variable. On Linux or Mac OS, this would be:</para>
+              <programlisting>
+                export SHORT_ATTENTION_SPAN_DOCBOOK_PATH=/usr/local/docbook
+              </programlisting>
+              <para>On Windows, you'd do</para>
+              <programlisting>
+                SET SHORT_ATTENTION_SPAN_DOCBOOK_PATH=c:/docbook
+              </programlisting>
+            </sect3>
+            <sect3 xml:id="sec.Building">
+              <title>Building</title>
+              <para> By default, this script can generate HTML, PDF, and RTF outputs. Windows users can also use it to generate Windows Help (CHM) documents if they have the <filename>hhc.exe</filename> file from the HTML Help Workshop installed on their system.</para>
+              <para>The build script is easy to use. You simply specify the name of the input file you want to use and the format you want to generate. To make things simple, the script uses a file naming convention that matches your original docbook xml file. </para>
+              <para>For example, if you have a file called <filename>book.xml</filename>, you'd be able to do the following transformations:</para>
+              <para><command>rake book.html</command> to generate an HTML file of your book.</para>
+              <para><command>rake book.rtf</command> to generate an RTF file of your book.</para>
+              <para><command>rake book.pdf</command> to generate a PDF file of your book.</para>
+            </sect3>
         </sect2>
         <sect2>
             <title>Validation</title>
-            <para>By default, the <filename>make</filename> script calls out to the Docbook website to validate your file against the RelaxNG schema definition file. Sometimes you may want to work offline or you just know you're that awesome and don't need to validate. The <filename>make</filename> script takes a <command>novalidate</command> option that skips the validation step.</para>
-            <para><command>ruby make book.pdf novalidate</command></para>
+            <para>By default, the script calls out to the Docbook website to validate your file against the RelaxNG schema definition file. Sometimes you may 
+              want to work offline or you just know you're that awesome and don't need to validate. The script takes a <command>VALIDATE=false</command> option
+               that skips the validation step.</para>
+            <para><command>rake pdf VALIDATE=false</command></para>
             <para>If you have problems with your document, you may get unexpected results, so use this with caution.</para>
+        </sect2>
+        <sect2 xml:id="sec.Book.filename">
+          <title>Book filename</title>
+          <para>The filename of your book is expected to be <filename>book.xml</filename>. However, sometimes it's necessary to build '</para>
+             p
         </sect2>
     </sect1>
     <sect1>
