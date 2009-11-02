@@ -21,8 +21,7 @@ class String
     a = s[0..(s.length - 2)].join("/")
     a
   end
-  
-  
+
 end
 
 # generate a file by reading in the template and spitting out the results, substituting the rootpath in the document
@@ -153,18 +152,26 @@ end
       if sample
          FileUtils.cp("#{root_path}/template/images/sample.png", "#{dest_path}/images") rescue nil
          puts " - #{dest_path}/images/sample.png"
-         unless File.exist?("#{dest_path}/book.xml")
+         if File.exist?("#{dest_path}/book.xml")
+           puts "book.xml exists - skipping"
+         else
            FileUtils.cp("#{root_path}/template/book_sample.xml", "#{dest_path}/book.xml") rescue nil
            FileUtils.cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}/chapter01.xml") rescue nil
+           puts " - #{dest_path}/book.xml"
+           puts " - #{dest_path}/chapter01.xml"
+           
          end
       else
-         FileUtils.cp("#{root_path}/template/book.xml", "#{dest_path}/book.xml") rescue nil
-         FileUtils.cp("#{root_path}/template/chapter01.xml", "#{dest_path}/chapter01.xml") rescue nil
-
+        if File.exist?("#{dest_path}/book.xml")
+          puts "book.xml exists - skipping"
+        else
+          FileUtils.cp("#{root_path}/template/book.xml", "#{dest_path}/book.xml") rescue nil
+          FileUtils.cp("#{root_path}/template/chapter01.xml", "#{dest_path}/chapter01.xml") rescue nil
+          puts " - #{dest_path}/book.xml"
+          puts " - #{dest_path}/chapter01.xml"
+        end
       end
       
-      puts " - #{dest_path}/book.xml"
-      puts " - #{dest_path}/chapter01.xml"
       
       generate "#{root_path}/template/Rakefile", root_path, "#{dest_path}/Rakefile"
       puts " - #{dest_path}/Rakefile"
@@ -176,8 +183,15 @@ end
       # but unix paths do. If it's windows, leave the path alone. If it's not windows, chop off the first character of the path
       xsl_path = PLATFORM.downcase.include?("win32") ? root_path : root_path.lchop
       
-      FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
+      if File.exist?("#{dest_path}/xsl/pdf.xsl")
+        puts 'found old customization layer ... moving it'
+        FileUtils.mv "#{dest_path}/xsl/pdf.xsl","#{dest_path}/xsl/pdf.xsl.old"
+        FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
+      else
+        FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
+      end
       puts " - #{dest_path}/xsl/pdf.xml"
+      
       puts "Done"
   end
 

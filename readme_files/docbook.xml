@@ -24,7 +24,7 @@
             <email>info@napcs.com</email>
         </author>
         <copyright>
-          <year>2008</year>
+          <year>2009</year>
           <holder>Brian P. Hogan</holder>
         </copyright>
     </info>
@@ -53,7 +53,7 @@
             <title>Manual installation </title>
         
         <para>The easiest way to use this package is to use the application installer, but if you need to do a manual install, you can download the docbook zip file from <uri>http://www.napcsweb.com/files/docbook/docbook.zip</uri> and extract it to <filename>c:\docbook</filename>. 
-            Next, you'll want to add this folder to your PATH. To do that, press <keycombo><keycap>Windows</keycap><keycap>Pause</keycap></keycombo> to bring up the <application>System Properties</application> window. Select the <guibutton>Advanced</guibutton> tab and then select the <guibutton>Environmenb Variables</guibutton> button. In the <guilabel>User variables</guilabel> section, locate the Path variable and edit its contents. Append <code><![CDATA[;c:\docbook]]></code> to the end of the value. If there currently is no Path variable, create a new one called <emphasis>PATH</emphasis> and use <code><![CDATA[c:\docbook]]></code> for the value.  Press <guibutton>OK</guibutton> to commit these changes. Press <guibutton>OK</guibutton> on the <application>System Properties</application> window to finish up.</para>
+            Next, you'll want to add this folder to your PATH. To do that, press <keycombo><keycap>Windows</keycap><keycap>Pause</keycap></keycombo> to bring up the <application>System Properties</application> window. Select the <guibutton>Advanced</guibutton> tab and then select the <guibutton>Environmen Variables</guibutton> button. In the <guilabel>User variables</guilabel> section, locate the Path variable and edit its contents. Append <code><![CDATA[;c:\docbook]]></code> to the end of the value. If there currently is no Path variable, create a new one called <emphasis>PATH</emphasis> and use <code><![CDATA[c:\docbook]]></code> for the value.  Press <guibutton>OK</guibutton> to commit these changes. Press <guibutton>OK</guibutton> on the <application>System Properties</application> window to finish up.</para>
         <para>Open a new command prompt and type <command>SET</command>. The PATH variable now reflects the changes you made.</para>
         </sidebar>
         

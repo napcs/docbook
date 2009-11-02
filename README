@@ -15,23 +15,21 @@ This uses the dookbook-xsl-ns stylesheets.
 
 See the readme_files/docbook.pdf for more information.
 
-On Windows...
-
-  SET SHORT_ATTENTION_SPAN_DOCBOOK_PATH=/usr/local/docbook
-
-On Mac or Linux
-
-  export SHORT_ATTENTION_SPAN_DOCBOOK_PATH=/usr/local/docbook
 
 == Upgrading from previous versions
 
-Due to changes in the way things worked, your best bet is to generate a new project for your book and move your xml files and images into this new project, then add your customizations into the pdf.xsl file manually. Code highlighting customizations are different now. If you're not getting code highlighting to work, generate a new book and review the new makefile and the new pdf.xsl file. Also note that entities are included in the projects and the new templates use them. 
+Due to changes in the way things worked, your best bet is to generate a new project for your book and move your xml files and images into this new project, then add your customizations into the pdf.xsl file manually. Code highlighting customizations are different now. If you're not getting code highlighting to work, generate a new book and review the new Rakefile and the new pdf.xsl file. Also note that entities are included in the projects and the new templates use them. 
+
+Remember - to build your books, you now use
+
+  rake book.pdf
+  rake book.pdf VALIOATE=false
 
 == Changes
 
 2009-09-18 - v1.1
 
-* Highlighting support works differently which changes a lot of the process. You now have to include two stylesheets instead of one in your customization layer, and the highlighting customizations needed to be changed as well. This forced me to change how stylesheets are included. This will break your existing projects, but just generate a new book and move your xml files into the new project. If you've made customizations, manually move those into the pdf.xsl file
+* Highlighting support works differently which changes a lot of the process.The highlighting customizations needed to be changed, and an additional layer needed to be placed inbetween your customization layer and the base styles. Unfortunately, this breaks your existing projects. However, just generate a new book and move your xml files into the new project. If you've made customizations, manually move those into the pdf.xsl file. 
 * The stylesheets now take the path parameter via an external XML property, which is set in the make file. You need the new make file to make things work on your projects.
 * Added support for entitites
 * Updated FOP to 0.9.5
