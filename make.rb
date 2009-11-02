@@ -1,4 +1,10 @@
-puts "Path is #{DOCBOOK_ROOT}"
+puts "Short Attention Span Docbook v1.1"
+puts "(c) 2009 Brian P. Hogan"
+puts "---------------------------------"
+puts "Path:     #{DOCBOOK_ROOT}"
+
+puts "Reminder: Nothing builds unless you've made changes to the Docbook file you're building."
+
 require 'fileutils'
 
 # =========== Classes ==================
@@ -261,23 +267,9 @@ end
 # process the doc.
 
 
-#TARGETS= ["pdf","html","rtf","epub", "xhtml", "chm"]
-
-# class Rake::FileTask
-#   alias_method :original_needed?, :needed?
-#   def needed?
-#    result = original_needed?
-#    if File.extname(name) == (".xml") && !result
-#      puts "There's nothing to build, as #{name} has not been changed since the last build." 
-#    end
-#    result
-#   end
-# end
-
 rule /.pdf|.html|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
   
   file_and_target = t.name.split(".")
-  
 
   validate = ENV["VALIDATE"] != "false"
   file = file_and_target[0]
