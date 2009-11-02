@@ -30,7 +30,18 @@
       This goes out to you, the fans.
     </para>
   </dedication>
-    
+  <preface>
+    <title>Preface</title>
+    <para>Your preface would go here.</para>
+  </preface>
+  <preface>
+    <title>Forward</title>
+    <para>This book is awesome.</para>
+  </preface>
+  <acknowledgements>
+    <title>Acknowledgements</title>
+    <para>I'd like to thank Homer Simpson and Barney Stinson for being awesome.</para>
+  </acknowledgements>
   <part>
     <title>A logical section of a book</title>
   <chapter>

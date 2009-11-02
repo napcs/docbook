@@ -1,9 +1,10 @@
 puts "Short Attention Span Docbook v1.1"
 puts "(c) 2009 Brian P. Hogan"
-puts "---------------------------------"
-puts "Path:     #{DOCBOOK_ROOT}"
-
+puts "-" * 40
+puts "Using buildchain located at: #{DOCBOOK_ROOT}"
 puts "Reminder: Nothing builds unless you've made changes to the Docbook file you're building."
+puts "-" * 40
+puts ""
 
 require 'fileutils'
 
@@ -282,5 +283,18 @@ rule /.pdf|.html|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
   else
     puts  "Book not rendered."
   end
+end
+
+task :default => [:info]
+
+desc "Shows instructions for building."
+task :info do
+  puts "Build books with 'rake filename.pdf' or 'rake filename.html'"
+end
+
+desc "Grabs callout images from #{DOCBOOK_ROOT}/xsl/images. You should really not use these for production, as they are terrible quality."
+task :callout_images do
+  FileUtils.cp_r(DOCBOOK_ROOT + "/xsl/images/", ".")
+  puts "Images copied. They're awful though, so you're probably better off replacing each one with your own."
 end
 

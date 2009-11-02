@@ -13,8 +13,9 @@
 >
 <xsl:import href="fo.xml" />
 
-<!-- PDF bookmarking support -->
-<xsl:param name="fop1.extensions" select="1" />
+<!-- graphics for the alerts, tips, cautions, warnings, notes, etc. Build your own or turn this off! -->
+<xsl:param name="admon.graphics" select="1" />
+
 
 <!--programlisting stuff -->
 <xsl:param name="use.extensions" select="1"/>
