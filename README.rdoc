@@ -6,8 +6,7 @@ with the open-source Docbook toolchain.
 Contained in this package are the Docbook XSLT stylesheets, a validation package, XML-FO to PDF translation, and
 a project generator with build scripts.
 
-This package is intended for developers who want to integrate this into their existing programs, want to be on the bleeding edge, and who wish to do a manual installation.
- Authors and other end users can download the re-distributable packages available at http://www.napcs.com/products/docbook which are more stable.
+This package is intended for developers who want to integrate this into their existing programs, want to be on the bleeding edge, and who wish to do a manual installation. Authors and other end users can download the re-distributable packages available at http://www.napcs.com/products/docbook which are more stable.
 
 This uses the dookbook-xsl-ns stylesheets.
 
@@ -28,7 +27,8 @@ Remember - to build your books, you now use
 == Changes
 
 2009-12-03 - v1.1rc2
- * added DRAFT option
+
+* added DRAFT option
  
 2009-09-18 - v1.1rc1
 
