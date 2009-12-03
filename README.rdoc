@@ -6,8 +6,8 @@ with the open-source Docbook toolchain.
 Contained in this package are the Docbook XSLT stylesheets, a validation package, XML-FO to PDF translation, and
 a project generator with build scripts.
 
-This package is designed for developers who want to integrate this into their existing programs. End users should
-download the re-distributable packages available at http://www.napcs.com/products/docbook.
+This package is intended for developers who want to integrate this into their existing programs, want to be on the bleeding edge, and who wish to do a manual installation.
+ Authors and other end users can download the re-distributable packages available at http://www.napcs.com/products/docbook which are more stable.
 
 This uses the dookbook-xsl-ns stylesheets.
 
@@ -27,7 +27,10 @@ Remember - to build your books, you now use
 
 == Changes
 
-2009-09-18 - v1.1
+2009-12-03 - v1.1rc2
+ * added DRAFT option
+ 
+2009-09-18 - v1.1rc1
 
 * Highlighting support works differently which changes a lot of the process.The highlighting customizations needed to be changed, and an additional layer needed to be placed inbetween your customization layer and the base styles. Unfortunately, this breaks your existing projects. However, just generate a new book and move your xml files into the new project. If you've made customizations, manually move those into the pdf.xsl file. 
 * The stylesheets now take the path parameter via an external XML property, which is set in the make file. You need the new make file to make things work on your projects.

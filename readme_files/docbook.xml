@@ -236,6 +236,13 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
             <para><command>rake pdf VALIDATE=false</command></para>
             <para>If you have problems with your document, you may get unexpected results, so use this with caution.</para>
         </sect2>
+        <sect2 xml:id="sec.Drafts">
+          <title>Drafts</title>
+          <para>As you're writing, you may want to inform your readers and reviewers that you are in Draft mode. </para>
+          <para><command>rake pdf DRAFT=true</command></para>
+          <para>This turns on a background overlay and enables display of any remark tags in your document.</para>
+          
+        </sect2>
         <sect2 xml:id="sec.Book.filename">
           <title>Book filename</title>
           <para>The filename of your book is expected to be <filename>book.xml</filename>. However, sometimes it's necessary to build '</para>

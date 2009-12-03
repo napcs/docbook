@@ -36,7 +36,7 @@ class Docbook
   @xsl_extension = ""
   @xsl_stylesheet = ""
   
-  attr_accessor :root, :file, :validate
+  attr_accessor :root, :file, :validate, :draft
   attr_reader :windows
   
   # Init and cnfigure the class
@@ -45,7 +45,7 @@ class Docbook
      self.root = args[:root]
      self.file = args[:file]
      self.validate = args[:validate]
-     
+     self.draft = args[:draft]
      @windows = PLATFORM.downcase.include?("win32")
      
   end
@@ -179,8 +179,15 @@ class Fo < Docbook
         <!-- FOP -->
         <!-- PDF bookmarking support -->
         <xsl:param name="fop1.extensions" select="1" />
-      </xsl:stylesheet>
       }
+      
+      fo_xml << %Q{
+        <xsl:param name="show.comments" select="1"></xsl:param>
+        <xsl:param name="draft.watermark.image">http://docbook.sourceforge.net/release/images/draft.png</xsl:param>
+        <xsl:param name="draft.mode">yes</xsl:param>
+      } if @draft
+      
+      fo_xml << "</xsl:stylesheet>"
       
       File.open("xsl/fo.xml", "w") do |f|
         f << fo_xml
@@ -273,11 +280,13 @@ rule /.pdf|.html|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
   file_and_target = t.name.split(".")
 
   validate = ENV["VALIDATE"] != "false"
+  draft = ENV["DRAFT"] == "true"
+  
   file = file_and_target[0]
   target = file_and_target[1]
 
   klass = target.constantize
-  book = klass.new(:root => DOCBOOK_ROOT, :file => file, :validate => validate)
+  book = klass.new(:root => DOCBOOK_ROOT, :file => file, :validate => validate, :draft => draft)
   if book.render
     puts "Done"
   else

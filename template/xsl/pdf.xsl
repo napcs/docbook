@@ -55,12 +55,6 @@ set       toc,title
 <!-- fonts -->
 
 
-
-<!-- draft_settings -->
-
-<xsl:param name="show.comments" select="0"></xsl:param>
-
-
 <!-- page layout -->
 
 <xsl:param name="page.height.portrait">11in</xsl:param>
