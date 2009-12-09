@@ -69,7 +69,6 @@ Remember - to build your books, you now use
 == Changes
 2009-12-08 - v1.1rc3
  * Added Rake tasks for building, testing, and installing
- * Added a cover PDF
  * Updated stylesheet
  
 2009-12-03 - v1.1rc2
