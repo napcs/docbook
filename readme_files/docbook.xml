@@ -94,7 +94,7 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
         <title>Mac OS X Setup</title>
         <para>Setup on Mac OS X 10.4 or above is quite easy.  You have Java and Ruby already installed on the machine
             in most cases. All you need to do is download the files from <link xlink:href="http://www.napcs.com/products/docbook/">http://www.napcs.com/products/docbook/</link> 
-            and extract to <dirname>docbook</dirname> in your home folder. Once extracted, you should have a list of files that resembles this in your <filename>~/docbook</filename> folder:</para>
+            and extract to <filename>docbook</filename> in your home folder. Once extracted, you should have a list of files that resembles this in your <filename>~/docbook</filename> folder:</para>
             <screen><![CDATA[
             drwxr-xr-x  18 brianhogan  brianhogan   612B Apr  2 11:56 .
             drwx------+ 63 brianhogan  brianhogan   2.1K Apr  2 10:12 ..
@@ -130,7 +130,7 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
         <para><command>rake book.pdf</command></para>
         <para>You'll get a brand-new PDF of the sample book.</para>
         <tip>
-            <para>Add the <dirname>docbook</dirname> folder to your path to make the <command>generate</command> command available without having to specify the full path. Modify your <filename>.bash_profile</filename> to change the path.</para>
+            <para>Add the <filename>docbook</filename> folder to your path to make the <command>generate</command> command available without having to specify the full path. Modify your <filename>.bash_profile</filename> to change the path.</para>
         </tip>
 
     </sect1>
@@ -209,7 +209,7 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
             <para>The Rakefile doesn't include much. It actually includes another file that does all the work, and provides a variable used to locate the rest of the build chain files.</para>
             <sect3 xml:id="sec.Path.to.the.Build.Chain">
               <title>Path to the Build Chain</title>
-              <para>When you generate a project, the generator will put the absolute path to the docbook build chain in your Rakefile. However, you can override this by setting an environment variable. On Linux or Mac OS, this would be:</para>
+              <para>When you generate a project, the generator will put the absolute path to the Docbook build chain in your Rakefile. However, you can override this by setting an environment variable. On Linux or Mac OS, this would be:</para>
               <programlisting>
                 export SHORT_ATTENTION_SPAN_DOCBOOK_PATH=/usr/local/docbook
               </programlisting>
@@ -217,6 +217,7 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
               <programlisting>
                 SET SHORT_ATTENTION_SPAN_DOCBOOK_PATH=c:/docbook
               </programlisting>
+              <para>Or you would add the Environment variable permanently through the the Control Panel, or alternatively, use the Windows installer for the Short Attention Span Docbook.</para>
             </sect3>
             <sect3 xml:id="sec.Building">
               <title>Building</title>

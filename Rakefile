@@ -1,12 +1,11 @@
 require 'fileutils'
 
-files = %w{make.rb README.txt hhc.exe jars xsl docbook.pdf generate generate.bat template}
+files = %w{make.rb README.txt hhc.exe jars xsl readme_files Rakefile generate generate.bat template}
 
 
 desc "create documentation"
 task :doc do    
   `cd readme_files && rake docbook.pdf && cd ..`
-  FileUtils.cp "readme_files/docbook.pdf", "./docbook.pdf"
   FileUtils.cp "README.rdoc","README.txt"
 end
 
@@ -16,10 +15,12 @@ task :test do
   `cd mytestbook && rm book.pdf && rake callout_images && rake book.pdf && open book.pdf && cd .. && rm -rf mytestbook`
 end
 
+desc "Create the zip file of the distribution, building docs if needed"
 task :create_zip => :doc do  
   `zip -r output/docbook-1_1_0.zip #{files.join(" ")}`
 end
 
+desc "Install build chain, using c:/docbook on win or ~/docbook - Pass DIR=/your/path to customize."
 task :install do
   dest = ENV["DIR"] || (RUBY_PLATFORM =~ /(win|w)32$/ ? "c:/docbook" : ENV["HOME"] + "/docbook")
   files.each do |file|

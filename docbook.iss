@@ -29,8 +29,9 @@ Source: "template\*"; DestDir: "{app}\template"; Flags: ignoreversion recursesub
 Source: "xsl\*"; DestDir: "{app}\xsl"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "generate"; DestDir: "{app}"; Flags: ignoreversion
 Source: "make.rb"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Rakefile"; DestDir: "{app}"; Flags: ignoreversion
 Source: "generate.bat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "readme_files/docbook.pdf"; DestDir: "{app}"; Flags: ignoreversion
+Source: "readme_files\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "hhc.exe"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "xsltproc\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
@@ -38,7 +39,7 @@ Source: "hhc.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{cm:UninstallProgram,Short Attention Span Docbook}"; Filename: "{uninstallexe}"
-Name: "{group}\Readme"; Filename: "{app}\docbook.pdf"
+Name: "{group}\Readme"; Filename: "{app}\readme_filesdocbook.pdf"
 
 [Registry]
 
