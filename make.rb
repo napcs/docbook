@@ -46,7 +46,7 @@ class Docbook
      self.file = args[:file]
      self.validate = args[:validate]
      self.draft = args[:draft]
-     @windows = PLATFORM.downcase.include?("win32")
+     @windows = PLATFORM.downcase.include?("win32") || PLATFORM.downcase.include?("mingw") 
      
   end
   
@@ -54,9 +54,7 @@ class Docbook
   # Override this in your own models to specify another command.
   def xml_cmd
     hcp_temp = @windows ? self.root : self.root.lchop
-    
     highlighter_config_path ="file:///#{hcp_temp}/xsl/highlighting/xslthl-config.xml"
-
     saxon_cp = "#{self.root}/jars/xercesImpl-2.7.1.jar;"
     saxon_cp <<"#{self.root}/xsl/extensions/saxon65.jar;"
     saxon_cp <<"#{self.root}/jars/saxon.jar;"
@@ -160,7 +158,7 @@ class Fo < Docbook
     end
     
     def before_render
-      xsl_path = PLATFORM.downcase.include?("win32") ? self.root : self.root.lchop
+      xsl_path = @windows ? self.root : self.root.lchop
       
       fo_xml = %Q{<?xml version='1.0'?>
 
