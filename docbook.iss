@@ -15,7 +15,7 @@ AppUpdatesURL=http://www.napcs.com/products/docbooks
 DefaultDirName=c:\docbook
 DefaultGroupName=Short Attention Span Docbook
 AllowNoIcons=yes
-OutputBaseFilename=docbook_setup
+OutputBaseFilename=docbook_setup-1_1_0
 Compression=lzma
 SolidCompression=yes
 ChangesEnvironment=yes
@@ -32,7 +32,7 @@ Source: "make.rb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "generate.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "readme_files/docbook.pdf"; DestDir: "{app}"; Flags: ignoreversion
 Source: "hhc.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "xsltproc\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+;Source: "xsltproc\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

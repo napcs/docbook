@@ -93,8 +93,8 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
     <sect1>
         <title>Mac OS X Setup</title>
         <para>Setup on Mac OS X 10.4 or above is quite easy.  You have Java and Ruby already installed on the machine
-            in most cases. All you need to do is download the files from <link xlink:href="http://www.napcsweb.com/files/docbook.zip">http://www.napcsweb.com/files/docbook.zip</link> 
-            and extract to a <filename>docbook</filename> in your home folder. Once extracted, you should have a list of files that resembles this in your <filename>~/docbook</filename> folder:</para>
+            in most cases. All you need to do is download the files from <link xlink:href="http://www.napcs.com/products/docbook/">http://www.napcs.com/products/docbook/</link> 
+            and extract to <dirname>docbook</dirname> in your home folder. Once extracted, you should have a list of files that resembles this in your <filename>~/docbook</filename> folder:</para>
             <screen><![CDATA[
             drwxr-xr-x  18 brianhogan  brianhogan   612B Apr  2 11:56 .
             drwx------+ 63 brianhogan  brianhogan   2.1K Apr  2 10:12 ..
@@ -127,10 +127,10 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
  Done]]></screen>
         <para>Now try generating a PDF.</para>
         <para><command>cd my_test_project</command></para>
-        <para><command>ruby make book.pdf</command></para>
+        <para><command>rake book.pdf</command></para>
         <para>You'll get a brand-new PDF of the sample book.</para>
         <tip>
-            <para>Add the docbook folder to your path to make the new_book command available without having to specify the full path. Modify your <filename>.bash_profile</filename> to change the path.</para>
+            <para>Add the <dirname>docbook</dirname> folder to your path to make the <command>generate</command> command available without having to specify the full path. Modify your <filename>.bash_profile</filename> to change the path.</para>
         </tip>
 
     </sect1>

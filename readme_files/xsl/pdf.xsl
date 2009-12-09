@@ -11,16 +11,13 @@
    xmlns:xslthl="http://xslthl.sf.net"
    xmlns:d="http://docbook.org/ns/docbook"
 >
+<xsl:import href="fo.xml" />
 
-<!-- Import the original FO stylesheet -->
-<xsl:import href="file:///Users/brianhogan/git/docbook/xsl/fo/docbook.xsl"/>
+<!-- graphics for the alerts, tips, cautions, warnings, notes, etc. Build your own or turn this off! -->
+<xsl:param name="admon.graphics" select="1" />
 
-<!-- PDF bookmarking support -->
-<xsl:param name="fop1.extensions" select="1" />
 
 <!--programlisting stuff -->
-
-
 <xsl:param name="use.extensions" select="1"/>
 <xsl:param name="linenumbering.extension" select="1"/>
 <xsl:param name="linenumbering.everyNth" select="1"/>
@@ -28,7 +25,7 @@
 
 <!-- section numbering and depth -->
 <xsl:param name="section.autolabel" select="1"></xsl:param>
-<xsl:param name="section.autolabel.max.depth">2</xsl:param>
+<xsl:param name="section.autolabel.max.depth">1</xsl:param>
 
 
 <!-- xref -->
@@ -58,12 +55,6 @@ set       toc,title
 <!-- fonts -->
 
 
-
-<!-- draft_settings -->
-
-<xsl:param name="show.comments" select="0"></xsl:param>
-
-
 <!-- page layout -->
 
 <xsl:param name="page.height.portrait">11in</xsl:param>
@@ -77,39 +68,51 @@ set       toc,title
 <xsl:param name="page.margin.bottom">0.50in</xsl:param>
 <xsl:param name="body.margin.bottom">0.65in</xsl:param>
 <xsl:param name="double.sided">0</xsl:param>
-<xsl:param name="body.start.indent">2pc</xsl:param>
-<xsl:param name="body.end.indent">2pc</xsl:param>
+<xsl:param name="body.start.indent">1pc</xsl:param>
+<xsl:param name="body.end.indent">1pc</xsl:param>
+
+
+<!-- Border and shading for section titles -->
+<xsl:attribute-set name="section.title.properties">
+  <xsl:attribute name="padding">4pt</xsl:attribute>
+  <xsl:attribute name="color">#000000</xsl:attribute>
+</xsl:attribute-set>
+
 
 <xsl:attribute-set name="section.title.level1.properties">
-  <xsl:attribute name="start-indent">2pc</xsl:attribute>
+  <xsl:attribute name="start-indent">1pc</xsl:attribute>
 </xsl:attribute-set>
 <xsl:attribute-set name="section.level1.properties">
-  <xsl:attribute name="start-indent">4pc</xsl:attribute>
+  <xsl:attribute name="start-indent">3pc</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="section.title.level2.properties">
-  <xsl:attribute name="start-indent">4pc</xsl:attribute>
+  <xsl:attribute name="start-indent">3pc</xsl:attribute>
+    <xsl:attribute name="font-size">16pt</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="section.level2.properties">
-  <xsl:attribute name="start-indent">6pc</xsl:attribute>
+  <xsl:attribute name="start-indent">3pc</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="section.title.level3.properties">
-  <xsl:attribute name="start-indent">6pc</xsl:attribute>
+  <xsl:attribute name="start-indent">3pc</xsl:attribute>
+    <xsl:attribute name="font-size">14pt</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="section.level3.properties">
-  <xsl:attribute name="start-indent">8pc</xsl:attribute>
+  <xsl:attribute name="start-indent">3pc</xsl:attribute>
+  
 </xsl:attribute-set>
 
 
 <xsl:attribute-set name="section.title.level4.properties">
-  <xsl:attribute name="start-indent">8pc</xsl:attribute>
+  <xsl:attribute name="start-indent">3pc</xsl:attribute>
+    <xsl:attribute name="font-size">14pt</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="section.level4.properties">
-  <xsl:attribute name="start-indent">8pc</xsl:attribute>
+  <xsl:attribute name="start-indent">3pc</xsl:attribute>
 </xsl:attribute-set>
 
 
@@ -123,40 +126,36 @@ set       toc,title
     <xsl:attribute name="wrap-option">wrap</xsl:attribute>
     <xsl:attribute name="hyphenation-character">\</xsl:attribute>
     <xsl:attribute name="font-size">8pt</xsl:attribute>
+    
 </xsl:attribute-set>
 
 
-<!-- borders and shading to note, tip, sidebar, warning, caution -->
 <xsl:attribute-set name="admonition.properties">
-  <xsl:attribute name="border">0.5pt #54514A</xsl:attribute>
-  <xsl:attribute name="background-color">#F2F2FF</xsl:attribute>
+  <xsl:attribute name="border">0.5pt solid black</xsl:attribute>
+  <xsl:attribute name="background-color">#ffffee</xsl:attribute>
   <xsl:attribute name="padding">0.1in</xsl:attribute>
 </xsl:attribute-set>
+
+
 
 
 <!-- border and shade to screen and programlisting -->
-<xsl:attribute-set name="verbatim.properties">
-  <xsl:attribute name="border">0.5pt #A9A394</xsl:attribute>
-  <xsl:attribute name="background-color">#FFF7E6</xsl:attribute>
-  <xsl:attribute name="padding">0.1in</xsl:attribute>
-</xsl:attribute-set>
 
+<xsl:param name="shade.verbatim" select="1"/>
 
-
-
-<!-- Border and shading for section  titles -->
-<xsl:attribute-set name="section.title.properties">
-  <xsl:attribute name="padding">4pt</xsl:attribute>
-  <xsl:attribute name="color">#3856A9</xsl:attribute>
+<xsl:attribute-set name="shade.verbatim.style">
+  <xsl:attribute name="background-color">#eeeeee</xsl:attribute>
+  <xsl:attribute name="border-width">0.5pt</xsl:attribute>
+  <xsl:attribute name="border-style">solid</xsl:attribute>
+  <xsl:attribute name="border-color">#575757</xsl:attribute>
+  <xsl:attribute name="padding">3pt</xsl:attribute>
+  <xsl:attribute name="margin-left">2pt</xsl:attribute>
   
 </xsl:attribute-set>
 
 
-<!-- Border and shading for section 1 titles -->
-<xsl:attribute-set name="chapter.title.properties">
-  <xsl:attribute name="padding">8pt</xsl:attribute>
-  <xsl:attribute name="color">#AF944C</xsl:attribute>
-</xsl:attribute-set>
+
+
 
 
 
@@ -243,9 +242,9 @@ set       toc,title
       <xsl:when test="$position = 'left'">
           <xsl:text>Copyright </xsl:text>
           <!-- use xpath to grab the year - remember to prefix each node with d: -->
-          <xsl:value-of select="ancestor-or-self::d:book/d:info/d:copyright/d:year"/>
+          <xsl:value-of select="ancestor-or-self::d:article/d:info/d:copyright/d:year"/>
           <xsl:text> </xsl:text>
-          <xsl:value-of select="ancestor-or-self::d:book/d:info/d:copyright/d:holder"/>
+          <xsl:value-of select="ancestor-or-self::d:article/d:info/d:copyright/d:holder"/>
       </xsl:when>
       <!--
               <xsl:when test="$position = 'center'">
@@ -273,16 +272,16 @@ set       toc,title
 
 
 
-<xsl:template match='xslthl:keyword'>
-  <fo:inline font-weight="bold" color="blue"><xsl:apply-templates/></fo:inline>
+<xsl:template match='xslthl:keyword' mode="xslthl">
+  <fo:inline font-weight="bold" color="blue"><xsl:apply-templates mode="xslthl"/></fo:inline>
 </xsl:template>
 
-<xsl:template match='xslthl:comment'>
-  <fo:inline font-style="italic" color="green"><xsl:apply-templates/></fo:inline>
+<xsl:template match='xslthl:comment' mode="xslthl">
+  <fo:inline font-style="italic" color="green"><xsl:apply-templates mode="xslthl"/></fo:inline>
 </xsl:template>
 
-<xsl:template match='xslthl:string'>
-  <fo:inline color="red"><xsl:apply-templates/></fo:inline>
+<xsl:template match='xslthl:string' mode="xslthl">
+  <fo:inline color="red"><xsl:apply-templates mode="xslthl"/></fo:inline>
 </xsl:template>
 
 <xsl:template match='d:filename'>
@@ -301,33 +300,33 @@ set       toc,title
 
 
 <xsl:template match='d:command'>
-  <fo:inline color="#384FA9">
+  <fo:inline color="#A2000C">
     <xsl:call-template name="inline.monoseq"/>
   </fo:inline>
 </xsl:template>
   
   <xsl:template match='d:userinput'>
-    <fo:inline color="#384FA9">
-      <xsl:call-template name="inline.boldmonoseq" />
+    <fo:inline color="#138900">
+      <xsl:call-template name="inline.monoseq" />
       
     </fo:inline>
   </xsl:template>
 
   <xsl:template match='d:classname'>
-    <fo:inline color="#6D38A9">
-      <xsl:call-template name="inline.boldmonoseq" />
+    <fo:inline color="#161672">
+      <xsl:call-template name="inline.monoseq" />
     </fo:inline>
   </xsl:template>
 
   <xsl:template match='d:methodname'>
-    <fo:inline color="#6D38A9">
-      <xsl:call-template name="inline.boldmonoseq" />
+    <fo:inline color="#161672">
+      <xsl:call-template name="inline.monoseq" />
     </fo:inline>
   </xsl:template>
   
   <xsl:template match='d:literal'>
     <fo:inline color="#2B541C">
-      <xsl:call-template name="inline.boldmonoseq" />
+      <xsl:call-template name="inline.monoseq" />
     </fo:inline>
   </xsl:template>
   

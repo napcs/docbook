@@ -1,3 +1,6 @@
 output/*
 Output/*
 .DS_Store
+README.txt
+docbook.pdf
+tmp/*
