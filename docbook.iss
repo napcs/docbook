@@ -31,6 +31,7 @@ Source: "generate"; DestDir: "{app}"; Flags: ignoreversion
 Source: "make.rb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Rakefile"; DestDir: "{app}"; Flags: ignoreversion
 Source: "generate.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "version.rb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "readme_files\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "hhc.exe"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "xsltproc\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs

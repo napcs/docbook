@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-
+require 'version'
 
 # add lchop to string class via a monkey patch
 class String
@@ -199,6 +199,8 @@ end
   
 if ARGV[0].nil?
   show_instructions
+elsif ARGV[0] = "-v" || ARGV[0] == "--version"
+  puts "#{DocbookVersion.to_s}"
 else
   require 'fileutils'
   root_path =  File.dirname(__FILE__)

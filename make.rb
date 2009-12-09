@@ -1,10 +1,15 @@
-puts "Short Attention Span Docbook v1.1"
-puts "(c) 2009 Brian P. Hogan"
-puts "-" * 40
-puts "Using buildchain located at: #{DOCBOOK_ROOT}"
-puts "Reminder: Nothing builds unless you've made changes to the Docbook file you're building."
-puts "-" * 40
-puts ""
+require File.expand_path(File.join(File.dirname(__FILE__), "version"))
+
+def header
+  puts DocbookVersion.to_s
+  puts "(c) 2009 Brian P. Hogan"
+  puts "-" * 40
+  puts "Using buildchain located at: #{DOCBOOK_ROOT}"
+  puts "Reminder: Nothing builds unless you've made changes to the Docbook file you're building."
+  puts "-" * 40
+  puts ""
+
+end
 
 require 'fileutils'
 
@@ -272,6 +277,12 @@ end
 # =========== Actual script starts here ==============
 # process the doc.
 
+header
+
+desc "Display version"
+task :version do
+ 
+end
 
 rule /.pdf|.html|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
   

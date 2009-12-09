@@ -1,6 +1,6 @@
 require 'fileutils'
 
-files = %w{make.rb README.txt hhc.exe jars xsl readme_files Rakefile generate generate.bat template}
+files = %w{make.rb version.rb README.txt hhc.exe jars xsl readme_files Rakefile generate generate.bat template}
 
 
 desc "create documentation"
