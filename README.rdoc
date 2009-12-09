@@ -18,6 +18,33 @@ This copies only the necessary files to c:/docbook on windows or ~/docbook on Li
 
   sudo rake install DIR=/opt/docbook
 
+You'll be prompted to add the install directory to your path. Also add the SHORT_ATTENTION_SPAN_DOCBOOK environment variable to the installation directory.
+
+Create a new book with sample info using the Generate script.
+
+  generate book foobook with_sample
+  
+That creates
+
+  Creating docbook project...
+   - foobook/xsl
+   - foobook/images
+   - foobook/images/sample.png
+   - foobook/book.xml
+   - foobook/chapter01.xml
+   - foobook/Rakefile
+   - foobook/w3centities-f.ent
+   - foobook/xsl/pdf.xml
+
+Build the book like this:
+
+  cd foobook
+  rake book.pdf
+  
+Edit book.xml to add your own info.
+Edit xsl/pdf.xml to change how things look.
+
+=== More Usage
 
 See the readme_files/docbook.pdf for more information on installation and usage for end users.
 
