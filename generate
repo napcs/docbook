@@ -104,10 +104,24 @@ end
         FileUtils.cp("#{root_path}/template/article.xml", "#{dest_path}/article.xml")
     end
     
+    # TODO: Deprecated?
     xsl_path = PLATFORM.downcase.include?("win32") ? root_path : root_path.lchop
-      
-    FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
+    
+    if File.exist?("#{dest_path}/xsl/pdf.xsl")
+      puts 'found old customization layer ... moving it'
+      FileUtils.mv "#{dest_path}/xsl/pdf.xsl","#{dest_path}/xsl/pdf.xsl.old"
+      FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
+      FileUtils.mv "#{dest_path}/xsl/html.xsl","#{dest_path}/xsl/html.xsl.old"
+      FileUtils.cp  "#{root_path}/template/xsl/html.xsl", "#{dest_path}/xsl/html.xsl"
+    else
+      FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
+      FileUtils.cp  "#{root_path}/template/xsl/html.xsl", "#{dest_path}/xsl/html.xsl" 
+    end
+    
     puts " - #{dest_path}/xsl/pdf.xml"
+    puts " - #{dest_path}/xsl/html.xml"
+    
+    
     
     FileUtils.cp "#{root_path}/template/w3centities-f.ent", "#{dest_path}/w3centities-f.ent"
     puts " - #{dest_path}/w3centities-f.ent"
@@ -117,6 +131,8 @@ end
     puts " - #{dest_path}/Rakefile"
     
     puts " - #{dest_path}/article.xml"
+    version_stamp("#{dest_path}/VERSION.txt")
+    puts "Done"
   end
 
   
@@ -181,25 +197,35 @@ end
       
       # xsl_path is a file URL. File urls have three / (file:///) followed by the path  Windows paths don't start with a slash
       # but unix paths do. If it's windows, leave the path alone. If it's not windows, chop off the first character of the path
+      # TODO: Deprecated?
       xsl_path = PLATFORM.downcase.include?("win32") ? root_path : root_path.lchop
       
       if File.exist?("#{dest_path}/xsl/pdf.xsl")
         puts 'found old customization layer ... moving it'
         FileUtils.mv "#{dest_path}/xsl/pdf.xsl","#{dest_path}/xsl/pdf.xsl.old"
         FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
+        FileUtils.mv "#{dest_path}/xsl/html.xsl","#{dest_path}/xsl/html.xsl.old"
+        FileUtils.cp  "#{root_path}/template/xsl/html.xsl", "#{dest_path}/xsl/html.xsl"
       else
         FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
+        FileUtils.cp  "#{root_path}/template/xsl/html.xsl", "#{dest_path}/xsl/html.xsl"
+        
       end
       puts " - #{dest_path}/xsl/pdf.xml"
-      
+      puts " - #{dest_path}/xsl/html.xml"
+      version_stamp("#{dest_path}/VERSION.txt")
       puts "Done"
   end
 
-  
+  def version_stamp(path)
+    File.open(path, "w") do |file|
+      file << "Generated with #{DocbookVersion.to_s}"
+    end
+  end
   
 if ARGV[0].nil?
   show_instructions
-elsif ARGV[0] = "-v" || ARGV[0] == "--version"
+elsif ARGV[0] == "-v" || ARGV[0] == "--version"
   puts "#{DocbookVersion.to_s}"
 else
   require 'fileutils'

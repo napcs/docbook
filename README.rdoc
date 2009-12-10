@@ -67,6 +67,14 @@ Remember - to build your books, you now use
   rake book.pdf VALIOATE=false
 
 == Changes
+2009-12-09 - v1.1.01
+ * HTML stylesheet customization layer
+ * added version flag for generator and for rakefiles
+ * added VERSION file containing the version of the buildchain used by the generator.
+ 
+2009-12-09 - v1.1.0
+ * Installation tasks, fixed Windows issues
+
 2009-12-08 - v1.1rc3
  * Added Rake tasks for building, testing, and installing
  * Updated stylesheet
