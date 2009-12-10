@@ -9,6 +9,11 @@ This package is intended for developers who want to integrate this into their ex
 This uses the dookbook-xsl-ns stylesheets.
 
 == Installation and Usage
+In order to use this, you'll need a Java Runtime Environment. JRE 1.6 is fine.
+
+You also need Ruby 1.8.6 or 1.8.7. 1.9 is *not* supported yet though it will be very soon.
+
+Finally, you need Rake.
 
 The easiest way to set this up on your machine is to do
 

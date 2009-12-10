@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'version'
+require File.expand_path(File.join(File.dirname(__FILE__), "version"))
 
 # add lchop to string class via a monkey patch
 class String

@@ -19,6 +19,8 @@ OutputBaseFilename=docbook_setup-1_1_0
 Compression=lzma
 SolidCompression=yes
 ChangesEnvironment=yes
+InfoBeforeFile=requirements.txt
+
         
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -31,6 +33,7 @@ Source: "generate"; DestDir: "{app}"; Flags: ignoreversion
 Source: "make.rb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Rakefile"; DestDir: "{app}"; Flags: ignoreversion
 Source: "generate.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "requirements.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "version.rb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "readme_files\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "hhc.exe"; DestDir: "{app}"; Flags: ignoreversion
