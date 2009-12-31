@@ -244,10 +244,16 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
           <para>This turns on a background overlay and enables display of any remark tags in your document.</para>
           
         </sect2>
-        <sect2 xml:id="sec.Book.filename">
-          <title>Book filename</title>
-          <para>The filename of your book is expected to be <filename>book.xml</filename>. However, sometimes it's necessary to build '</para>
-             p
+        <sect2 xml:id="sec.Covers">
+          <title>Covers</title>
+          <para>Create a book cover in your favorite graphics program, export it as a PDF called <filename>cover.pdf</filename> and place it in your project folder. Run the command</para>
+            <para><command>rake add_cover</command></para>
+          <para>This will create the file <filename>book_with_cover.pdf</filename>. </para>
+          <tip xml:id="tip.this.task.will.build.the.pdf.of.the.book.if.it.doesn't.exist.">
+            <title>Automatic Building</title>
+            <para>This task will build the PDF of the book if it doesn't exist.</para>
+          </tip>
+            
         </sect2>
     </sect1>
     <sect1>

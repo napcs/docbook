@@ -328,10 +328,21 @@ end
 # process the doc.
 
 header
+desc "Prepend a cover to your PDF. Cover should be called cover.pdf"
+task :add_cover => ["book.pdf"] do
+  cmd = "java -Xss1024K -Xmx512m -cp #{DOCBOOK_ROOT}/jars/Multivalent*.jar tool.pdf.Merge -samedoc cover.pdf book.pdf"
+  `#{cmd}`
+  FileUtils.mv("cover-m.pdf", "book_with_cover.pdf")
+  puts "Created 'book_with_cover.pdf'"
+end
 
-desc "Display version"
-task :version do
- 
+desc "clean temporary files"
+task :clean do
+  puts "Removing temporary files"
+  FileUtils.rm_rf("book.pdf")
+  FileUtils.rm_rf("article.pdf")
+  FileUtils.rm_rf("book.html")
+  FileUtils.rm_rf("article.html")
 end
 
 rule /.pdf|.html|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
@@ -353,10 +364,20 @@ rule /.pdf|.html|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
   end
 end
 
-task :default => [:info]
+task :default => [:build]
+
+task :build do
+  if File.exists?("book.xml")
+    FileUtils.touch "book.xml"
+    Rake::Task["book.pdf"].invoke
+  elsif File.exists?("article.xml")
+    `touch article.xml`
+    Rake::Task["article.pdf"].invoke
+  end
+end
 
 desc "Shows instructions for building."
-task :info do
+task :help do
   puts "Build books with 'rake filename.pdf' or 'rake filename.html'"
 end
 

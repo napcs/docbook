@@ -1,6 +1,6 @@
 
 class DocbookVersion
-  @@version = "1.1.01"
+  @@version = "1.1.1"
   
   def self.to_s
     "Short Attention Span Docbook v#{@@version}"

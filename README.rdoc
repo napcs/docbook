@@ -41,15 +41,20 @@ That creates
    - foobook/w3centities-f.ent
    - foobook/xsl/pdf.xml
 
-Build the book like this:
+Create a PDF of the book:
 
   cd foobook
   rake book.pdf
   
-Edit book.xml to add your own info.
+or simply
+
+  rake
+  
+Edit book.xml to add your own information, chapters, images, and more.
 Edit xsl/pdf.xml to change how things look.
 
 === More Usage
+This package can create HTML files too. And while RTF and EPUB files will build, the support here is pretty weak.
 
 See the readme_files/docbook.pdf for more information on installation and usage for end users.
 
@@ -72,6 +77,15 @@ Remember - to build your books, you now use
   rake book.pdf VALIOATE=false
 
 == Changes
+2009-12-31 - v1.1.1
+ * Added multivalent library for merging
+ * New "add cover" support - slap a nice cover on your books
+ * Minor documentation updates
+ * Added "clean" task
+ * Made buiding "book.pdf" or "article.pdf" default tasks
+ * Default task "touches" the book or article file to force a rebuild even if nothing changed
+ 
+ 
 2009-12-09 - v1.1.01
  * HTML stylesheet customization layer
  * added version flag for generator and for rakefiles
