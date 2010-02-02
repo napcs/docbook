@@ -328,9 +328,9 @@ end
 # process the doc.
 
 header
-desc "Prepend a cover to your PDF. Cover should be called cover.pdf"
+desc "Prepend a cover to your PDF. Cover should be called cover.pdf and stored in the cover/ folder"
 task :add_cover => ["book.pdf"] do
-  cmd = "java -Xss1024K -Xmx512m -cp #{DOCBOOK_ROOT}/jars/Multivalent*.jar tool.pdf.Merge -samedoc cover.pdf book.pdf"
+  cmd = "java -Xss1024K -Xmx512m -cp #{DOCBOOK_ROOT}/jars/Multivalent*.jar tool.pdf.Merge -samedoc conver/cover.pdf book.pdf"
   `#{cmd}`
   FileUtils.mv("cover-m.pdf", "book_with_cover.pdf")
   puts "Created 'book_with_cover.pdf'"

@@ -60,6 +60,8 @@ def show_instructions
    
     Example:  generate book my_book
             - my_book/images
+            - my_book/images/src
+            - my_book/cover
             - my_book/xsl
             - my_book/xsl/pdf.xsl
             - my_book/book.xml
@@ -95,9 +97,15 @@ end
 
     FileUtils.mkdir_p("#{dest_path}/images") rescue nil
       puts " - #{dest_path}/images"
+    FileUtils.mkdir("#{dest_path}/images/src") rescue nil
+      puts " - #{dest_path}/images/src"
+    FileUtils.mkdir("#{dest_path}/cover") rescue nil
+      puts " - #{dest_path}/cover/"
     FileUtils.mkdir("#{dest_path}/xsl") rescue nil
       puts " - #{dest_path}/xsl"
 
+
+    
     if sample
         FileUtils.cp("#{root_path}/template/article.xml", "#{dest_path}/article.xml")
     else
@@ -163,8 +171,14 @@ end
       FileUtils.mkdir(dest_path) rescue nil
       FileUtils.mkdir("#{dest_path}/images") rescue nil
       FileUtils.mkdir("#{dest_path}/xsl") rescue nil
-      puts " - #{dest_path}/xsl"
+      FileUtils.mkdir("#{dest_path}/images/src") rescue nil
+      FileUtils.mkdir("#{dest_path}/cover") rescue nil
+      
       puts " - #{dest_path}/images"
+      puts " - #{dest_path}/images/src"
+      puts " - #{dest_path}/cover"
+      puts " - #{dest_path}/xsl"
+      
       if sample
          FileUtils.cp("#{root_path}/template/images/sample.png", "#{dest_path}/images") rescue nil
          puts " - #{dest_path}/images/sample.png"
@@ -204,8 +218,12 @@ end
         puts 'found old customization layer ... moving it'
         FileUtils.mv "#{dest_path}/xsl/pdf.xsl","#{dest_path}/xsl/pdf.xsl.old"
         FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
-        FileUtils.mv "#{dest_path}/xsl/html.xsl","#{dest_path}/xsl/html.xsl.old"
-        FileUtils.cp  "#{root_path}/template/xsl/html.xsl", "#{dest_path}/xsl/html.xsl"
+        if File.exist?("#{dest_path}/xsl/html.xsl")
+          FileUtils.mv "#{dest_path}/xsl/html.xsl","#{dest_path}/xsl/html.xsl.old"
+          FileUtils.cp  "#{root_path}/template/xsl/html.xsl", "#{dest_path}/xsl/html.xsl"
+          
+        end
+
       else
         FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
         FileUtils.cp  "#{root_path}/template/xsl/html.xsl", "#{dest_path}/xsl/html.xsl"

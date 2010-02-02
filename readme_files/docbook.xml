@@ -78,6 +78,8 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
             <screen><![CDATA[Creating docbook project...
  - my_test_project/xsl
  - my_test_project/images
+ - my_test_project/images/src
+ - my_test_project/cover
  - my_test_project/book.xml
  - my_test_project/chapter01.xml
  - my_test_project/Rakefile
@@ -119,6 +121,8 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
         <screen><![CDATA[Creating docbook project...
  - my_test_project/xsl
  - my_test_project/images
+ - my_test_project/images/src
+ - my_test_project/cover
  - my_test_project/book.xml
  - my_test_project/chapter01.xml
  - my_test_project/Rakefile
@@ -173,6 +177,8 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
         <screen><![CDATA[Creating docbook project...
  - my_test_project/xsl
  - my_test_project/images
+ - my_test_project/images/src
+ - my_test_project/cover
  - my_test_project/book.xml
  - my_test_project/chapter01.xml
  - my_test_project/Rakefile
