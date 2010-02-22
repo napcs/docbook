@@ -77,6 +77,8 @@ Remember - to build your books, you now use
   rake book.pdf VALIOATE=false
 
 == Changes
+2009-02-22 - v1.1.3
+ * Added style rule to template pdf.xsl to keep code listings together.
 2009-02-02 - v1.1.2
  * Changed where the cover script looks for covers. Covers should be in the covers/subfolder of your project
 2009-12-31 - v1.1.1

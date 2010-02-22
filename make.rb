@@ -2,7 +2,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), "version"))
 
 def header
   puts DocbookVersion.to_s
-  puts "(c) 2009 Brian P. Hogan"
+  puts "(c) 2010 Brian P. Hogan"
   puts "-" * 40
   puts "Using buildchain located at: #{DOCBOOK_ROOT}"
   puts "Reminder: Nothing builds unless you've made changes to the Docbook file you're building."
@@ -330,9 +330,9 @@ end
 header
 desc "Prepend a cover to your PDF. Cover should be called cover.pdf and stored in the cover/ folder"
 task :add_cover => ["book.pdf"] do
-  cmd = "java -Xss1024K -Xmx512m -cp #{DOCBOOK_ROOT}/jars/Multivalent*.jar tool.pdf.Merge -samedoc conver/cover.pdf book.pdf"
+  cmd = "java -Xss1024K -Xmx512m -cp #{DOCBOOK_ROOT}/jars/Multivalent*.jar tool.pdf.Merge -samedoc cover/cover.pdf book.pdf"
   `#{cmd}`
-  FileUtils.mv("cover-m.pdf", "book_with_cover.pdf")
+  FileUtils.mv("cover/cover-m.pdf", "book_with_cover.pdf")
   puts "Created 'book_with_cover.pdf'"
 end
 
