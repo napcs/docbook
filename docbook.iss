@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{0A22D345-DFA9-45B8-AC92-57F2E933BA7D})
 AppName=Short Attention Span Docbook
-AppVerName=Short Attention Span Docbook 1.1.3
+AppVerName=Short Attention Span Docbook 1.1.4
 AppPublisher=New Auburn Personal Computer Services LLC
 AppPublisherURL=http://www.napcs.com
 AppSupportURL=http://www.napcs.com
@@ -15,7 +15,7 @@ AppUpdatesURL=http://www.napcs.com/products/docbook
 DefaultDirName=c:\docbook
 DefaultGroupName=Short Attention Span Docbook
 AllowNoIcons=yes
-OutputBaseFilename=docbook_setup-1_1_3
+OutputBaseFilename=docbook_setup-1_1_4
 Compression=lzma
 SolidCompression=yes
 ChangesEnvironment=yes
@@ -27,15 +27,18 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 Source: "jars\*"; DestDir: "{app}\jars"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "lib\*"; DestDir: "{app}\lib"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "template\*"; DestDir: "{app}\template"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "xsl\*"; DestDir: "{app}\xsl"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "generate"; DestDir: "{app}"; Flags: ignoreversion
 Source: "make.rb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Rakefile"; DestDir: "{app}"; Flags: ignoreversion
+Source: "README.txt"; DestDir: "{app}"; Flags: ignoreversion
+
 Source: "generate.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "requirements.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "version.rb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "readme_files\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "readme_files\docbook.pdf"; DestDir: "{app}"; Flags: ignoreversion
 Source: "hhc.exe"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "xsltproc\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
@@ -43,7 +46,7 @@ Source: "hhc.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{cm:UninstallProgram,Short Attention Span Docbook}"; Filename: "{uninstallexe}"
-Name: "{group}\Readme"; Filename: "{app}\readme_filesdocbook.pdf"
+Name: "{group}\Getting Started"; Filename: "{app}\docbook.pdf"
 
 [Registry]
 

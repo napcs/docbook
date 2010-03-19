@@ -1,6 +1,6 @@
 require 'fileutils'
 
-files = %w{make.rb version.rb README.txt hhc.exe jars xsl readme_files Rakefile generate generate.bat template}
+files = %w{make.rb version.rb README.txt hhc.exe jars lib xsl readme_files Rakefile generate generate.bat template}
 
 
 desc "create documentation"
@@ -21,7 +21,7 @@ task :create_zip => :doc do
 end
 
 desc "Install build chain, using c:/docbook on win or ~/docbook - Pass DIR=/your/path to customize."
-task :install do
+task :install => :doc do
   dest = ENV["DIR"] || (RUBY_PLATFORM =~ /(win|w)32$/ ? "c:/docbook" : ENV["HOME"] + "/docbook")
   files.each do |file|
     target_file = File.join(dest, file)
@@ -33,12 +33,14 @@ task :install do
     puts "Be sure to add #{dest} to your path. See"
     puts "http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/path.mspx?mfr=true"
     puts "for more information."
+    puts " You'll also want to create the environment variable SHORT_ATTENTION_SPAN_DOCBOOK_PATH"
+    puts " and set it to #{dest}"
   else
     `chmod +x #{dest}/generate`
     puts "Be sure to add"
-    puts "   EXPORT PATH=$PATH:#{dest}"
+    puts "   export PATH=$PATH:#{dest}"
     puts " and optionally,"
-    puts "   EXPORT SHORT_ATTENTION_SPAN_DOCBOOK_PATH=\"#{dest}\""
+    puts "   export SHORT_ATTENTION_SPAN_DOCBOOK_PATH=\"#{dest}\""
     puts "to your .bashrc or .bash_login or .bash_profile"
   
   end
