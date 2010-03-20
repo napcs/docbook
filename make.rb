@@ -38,6 +38,8 @@ task :clean do
 end
 
 rule /.pdf|.html|.txt|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
+
+  
   
   file_and_target = t.name.split(".")
 
@@ -46,13 +48,35 @@ rule /.pdf|.html|.txt|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
   
   file = file_and_target[0]
   target = file_and_target[1]
+  
+  ENV["SOURCE_FILENAME"] = file + ".xml"
+  ENV["TEMP_FILE"] = file + ".tmp"
+  ENV["TEMP_FILENAME"] = ENV["TEMP_FILE"] + ".xml"
+  
+  FileUtils.cp ENV["SOURCE_FILENAME"], ENV["TEMP_FILENAME"]
+  
+  Rake::Task["preprocess"].invoke
+  
   klass = "Docbook/#{target}".constantize
-  book = klass.new(:root => DOCBOOK_ROOT, :file => file, :validate => validate, :draft => draft)
+  book = klass.new(:root => DOCBOOK_ROOT, :file => ENV["TEMP_FILE"], :validate => validate, :draft => draft)
   if book.render
     puts "Completed building #{t.name}"
+    Rake::Task["preprocess"].invoke
+    FileUtils.mv ENV["TEMP_FILE"] + ".#{target}", t.name
+    
   else
     puts  "#{t.name} not rendered."
   end
+  
+  FileUtils.rm ENV["TEMP_FILENAME"]
+end
+
+task :preprocess do
+  puts "Running preprocessing tasks"
+end
+
+task :postprocess do
+  puts "Running postprocessing tasks"
 end
 
 task :default => [:build]
