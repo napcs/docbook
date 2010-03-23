@@ -52,6 +52,8 @@ rule /.pdf|.html|.txt|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
   ENV["SOURCE_FILENAME"] = file + ".xml"
   ENV["TEMP_FILE"] = file + ".tmp"
   ENV["TEMP_FILENAME"] = ENV["TEMP_FILE"] + ".xml"
+  ENV["OUTPUT_FILENAME"] = t.name
+  ENV["FORMAT"] = target
   
   FileUtils.cp ENV["SOURCE_FILENAME"], ENV["TEMP_FILENAME"]
   
@@ -68,7 +70,7 @@ rule /.pdf|.html|.txt|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
     puts  "#{t.name} not rendered."
   end
   
-  FileUtils.rm ENV["TEMP_FILENAME"]
+  FileUtils.rm ENV["TEMP_FILENAME"] if File.exist?(ENV["TEMP_FILENAME"])
 end
 
 task :preprocess do

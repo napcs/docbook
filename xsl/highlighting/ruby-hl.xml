@@ -106,6 +106,12 @@ Michiel Hendriks <elmuerte at users.sourceforge.net>
     <keyword>while</keyword>
     <keyword>yield</keyword>
     <keyword>:through</keyword>
+    <keyword>:as</keyword>
+    <keyword>:order</keyword>
+    <keyword>:conditions</keyword>
+    <keyword>:limit</keyword>
+    <keyword>named_scope</keyword>
+    
     <keyword>belongs_to</keyword>
     <keyword>has_many</keyword>
     <keyword>has_one</keyword>
@@ -125,6 +131,11 @@ Michiel Hendriks <elmuerte at users.sourceforge.net>
     <keyword>validates_numericality_of</keyword>
     <keyword>validates_acceptance_of</keyword>
     <keyword>validates_length_of</keyword>
+    <keyword>validates_format_of</keyword>
+    <keyword>validates_uniqueness_of</keyword>
+    <keyword>validates_inclusion_of</keyword>
+    <keyword>validates_exclusion_of</keyword>
+    <keyword>lambda</keyword>
     <keyword>before_save</keyword>
     <keyword>before_create</keyword>
     <keyword>before_update</keyword>
@@ -140,7 +151,21 @@ Michiel Hendriks <elmuerte at users.sourceforge.net>
     <keyword>assert_equal</keyword>
     <keyword>assert_nil</keyword>
     <keyword>assert_not_nil</keyword>
+		<keyword>stubs</keyword>
+		<keyword>returns</keyword>
+		<keyword>define_method</keyword>
+		<keyword>class_eval</keyword>
+		<keyword>respond_to</keyword>
+		<keyword>namespace</keyword>
+		<keyword>task</keyword>
+		<keyword>rule</keyword>
 		
-		
+	</highlighter>
+	<highlighter type="word">
+		<!-- highlight the ERB open and close tags as directives -->
+		<word>&amp;&gt;</word>
+		<word>&lt;&amp;</word>
+		<word>&lt;&amp;=</word>
+		<style>directive</style>
 	</highlighter>
 </highlighters>
