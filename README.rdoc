@@ -15,7 +15,11 @@ You also need Ruby 1.8.6 or 1.8.7. 1.9 is *not* supported yet though it will be 
 
 Finally, you need Rake.
 
-The easiest way to set this up on your machine is to do
+The easiest way to set this up on your machine is to clone the repository
+
+  git clone git://github.com/napcs/docbook
+  
+Then run
 
   rake install
 
@@ -24,6 +28,20 @@ This copies only the necessary files to c:/docbook on windows or ~/docbook on Li
   sudo rake install DIR=/opt/docbook
 
 You'll be prompted to add the install directory to your path. Also add the SHORT_ATTENTION_SPAN_DOCBOOK environment variable to the installation directory.
+
+=== Staying on the Bleeding Edge
+
+Clone the repo 
+
+  git clone git://github.com/napcs/docbook ~/docbook_edge
+  
+And set your ENV variable for SHORT_ATTENTION_SPAN_DOCBOOK to point there.
+
+Fetch updates with
+
+  git pull origin master
+
+== Creating a book
 
 Create a new book with sample info using the Generate script.
 
@@ -76,7 +94,15 @@ Remember - to build your books, you now use
   rake book.pdf
   rake book.pdf VALIOATE=false
 
+== Patches
+
+Please fork and pull. Don't update the changelog. Make small patches I can pull in.
+
+
+
 == Changes
+2010-03-21 - v1.1.4.1
+ * PDF XSLT improvements for TOC and xrefs. Fixed rake task
 2010-03-18 - v1.1.4
  * Refactored code in the makefile into much more organized modules so that the build chain can be expanded better. Much more to do.
  * Fixed erroneous installation messages for exporting environment vars on linux
