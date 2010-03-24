@@ -11,8 +11,9 @@ end
 
 desc "test build chain"
 task :test do
+  FileUtils.rm_rf "mytestbook/"
   `#{File.expand_path(".")}/generate book mytestbook with_sample`
-  `cd mytestbook && rm book.pdf && rake callout_images && rake book.pdf && open book.pdf && cd .. && rm -rf mytestbook`
+  `cd mytestbook && rake callout_images && rake book.pdf && open book.pdf && cd ..`
 end
 
 desc "Create the zip file of the distribution, building docs if needed"
