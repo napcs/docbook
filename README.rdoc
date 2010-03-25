@@ -74,7 +74,7 @@ Edit xsl/pdf.xml to change how things look.
 === More Usage
 This package can create HTML files too. And while RTF and EPUB files will build, the support here is pretty weak. I'm working on that.
 
-See readme_files/docbook.pdf for more information on installation and usage for end users.
+See readme_files/docbook.pdf for more information, like how to use Draft mode, pre-and-postprocessing hooks, and adding covers. There's also more on installation and usage for end users there, and it serves as documentation, as the PDF's docbook source is available there as well.
 
 == Paths
 The build system works best when you have an environment variable set. On Linux, you would add this to your .bash_profile or other profile scripts.
@@ -101,6 +101,8 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2010-03-24 - v1.2.0
+ * Added preprocess and postprocess hooks. Detailed information is in the readme_files/docbook.pdf file.
 2010-03-21 - v1.1.4.1
  * PDF XSLT improvements for TOC and xrefs. Fixed rake task
 2010-03-18 - v1.1.4

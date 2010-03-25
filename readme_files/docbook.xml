@@ -4,14 +4,10 @@
 %allent;
 ]>
 
-<article xmlns="http://docbook.org/ns/docbook" 
-  xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:svg="http://www.w3.org/2000/svg" 
-    xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-    xmlns:html="http://www.w3.org/1999/xhtml" 
-    xmlns:db="http://docbook.org/ns/docbook" version="5.0">>
-    <info>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:db="http://docbook.org/ns/docbook" version="5.0">> <info>
         <title>Short Attention Span Docbook Toolchain &ndash; Setup Guide</title>
         <author>
             <orgname>New Auburn Personal Computer Services LLC</orgname>
@@ -24,56 +20,94 @@
             <email>info@napcs.com</email>
         </author>
         <copyright>
-          <year>2009</year>
-          <holder>Brian P. Hogan</holder>
+            <year>2010</year>
+            <holder>Brian P. Hogan</holder>
         </copyright>
     </info>
     <sect1>
         <title>Overview</title>
         <para>This short guide will walk you through everything you need to use this toolchain to
             author your own Docbook documents.</para>
-        <sect2><title>Package Contents</title>
-            <para>This package contains all of the tools you need to
-            start working with Docbook, including</para>
+        <sect2>
+            <title>Package Contents</title>
+            <para>This package contains all of the tools you need to start working with Docbook,
+                including</para>
             <itemizedlist>
-                <listitem><para>The Docbook stylesheets</para></listitem>
-                <listitem><para>An XML validation tool</para></listitem>
-                <listitem><para>The Saxon XSLT processor (version 6.5.3)</para></listitem>
-                <listitem><para>The Apache FOP FO processor for making PDFs</para></listitem>
-                <listitem><para>A copy of the Microsoft HHC program for building HTML Help files</para></listitem>
-                <listitem><para>A sample project with an easy-to-use Ruby script to transform your document into various formats</para></listitem>
-                
-             </itemizedlist>
+                <listitem>
+                    <para>The Docbook stylesheets</para>
+                </listitem>
+                <listitem>
+                    <para>An XML validation tool</para>
+                </listitem>
+                <listitem>
+                    <para>The Saxon XSLT processor (version 6.5.3)</para>
+                </listitem>
+                <listitem>
+                    <para>The Apache FOP FO processor for making PDFs</para>
+                </listitem>
+                <listitem>
+                    <para>A copy of the Microsoft HHC program for building HTML Help files</para>
+                </listitem>
+                <listitem>
+                    <para>A sample project with an easy-to-use Ruby script to transform your
+                        document into various formats</para>
+                </listitem>
+            </itemizedlist>
         </sect2>
     </sect1>
     <sect1>
         <title>Windows setup</title>
-        <para>Windows users should use the installer <footnote><para>Docbook setup for Windows: <uri>http://www.napcsweb.com/files/docbook/docbook-setup.exe</uri></para></footnote>which sets up the necessary files and also sets up the path.</para>
+        <para>Windows users should use the installer <footnote>
+                <para>Docbook setup for Windows:
+                        <uri>http://www.napcsweb.com/files/docbook/docbook-setup.exe</uri></para>
+            </footnote>which sets up the necessary files and also sets up the path.</para>
         <sidebar>
             <title>Manual installation </title>
-        
-        <para>The easiest way to use this package is to use the application installer, but if you need to do a manual install, you can download the docbook zip file from <uri>http://www.napcsweb.com/files/docbook/docbook.zip</uri> and extract it to <filename>c:\docbook</filename>. 
-            Next, you'll want to add this folder to your PATH. To do that, press <keycombo><keycap>Windows</keycap><keycap>Pause</keycap></keycombo> to bring up the <application>System Properties</application> window. Select the <guibutton>Advanced</guibutton> tab and then select the <guibutton>Environmen Variables</guibutton> button. In the <guilabel>User variables</guilabel> section, locate the Path variable and edit its contents. Append <code><![CDATA[;c:\docbook]]></code> to the end of the value. If there currently is no Path variable, create a new one called <emphasis>PATH</emphasis> and use <code><![CDATA[c:\docbook]]></code> for the value.  Press <guibutton>OK</guibutton> to commit these changes. Press <guibutton>OK</guibutton> on the <application>System Properties</application> window to finish up.</para>
-        <para>Open a new command prompt and type <command>SET</command>. The PATH variable now reflects the changes you made.</para>
+            <para>The easiest way to use this package is to use the application installer, but if
+                you need to do a manual install, you can download the docbook zip file from
+                    <uri>http://www.napcsweb.com/files/docbook/docbook.zip</uri> and extract it to
+                    <filename>c:\docbook</filename>. Next, you'll want to add this folder to your
+                PATH. To do that, press <keycombo>
+                    <keycap>Windows</keycap>
+                    <keycap>Pause</keycap>
+                </keycombo> to bring up the <application>System Properties</application> window.
+                Select the <guibutton>Advanced</guibutton> tab and then select the
+                    <guibutton>Environmen Variables</guibutton> button. In the <guilabel>User
+                    variables</guilabel> section, locate the Path variable and edit its contents.
+                Append <code><![CDATA[;c:\docbook]]></code> to the end of the value. If there
+                currently is no Path variable, create a new one called <emphasis>PATH</emphasis> and
+                use <code><![CDATA[c:\docbook]]></code> for the value. Press
+                    <guibutton>OK</guibutton> to commit these changes. Press
+                    <guibutton>OK</guibutton> on the <application>System Properties</application>
+                window to finish up.</para>
+            <para>Open a new command prompt and type <command>SET</command>. The PATH variable now
+                reflects the changes you made.</para>
         </sidebar>
-        
         <sect2>
             <title>Installing a Java Runtime Environment</title>
-            <para>Download the Java Runtime Environment from Sun <footnote><para>Java Runtime: <uri>http://java.sun.com/javase/downloads/index.jsp</uri></para></footnote> and get it installed on your system if you don't already have it. Once installed, open a new command prompt and type </para>
+            <para>Download the Java Runtime Environment from Sun <footnote>
+                    <para>Java Runtime:
+                        <uri>http://java.sun.com/javase/downloads/index.jsp</uri></para>
+                </footnote> and get it installed on your system if you don't already have it. Once
+                installed, open a new command prompt and type </para>
             <para><command>java -version</command></para>
             <para>You'll see something similar to this:</para>
             <screen><![CDATA[Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_13-b05-237)
 Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
-        </sect2>  
+        </sect2>
         <sect2>
             <title>Installing Ruby</title>
-            <para>Download and install the One Click Ruby Installer<footnote><para>Ruby: <uri><![CDATA[http://rubyforge.org/frs/?group_id=167&release_id=17128]]></uri></para></footnote> and install it, accepting the defaults. To verify the installation, open a new command prompt and type</para>
+            <para>Download and install the One Click Ruby Installer<footnote>
+                    <para>Ruby:
+                            <uri><![CDATA[http://rubyforge.org/frs/?group_id=167&release_id=17128]]></uri></para>
+                </footnote> and install it, accepting the defaults. To verify the installation, open
+                a new command prompt and type</para>
             <para><command>ruby -v</command></para>
             <para>You'll see something like this:</para>
-            <screen><![CDATA[ruby 1.8.6 (2007-03-13 patchlevel 0) [i386-mswin32]
-                ]]>
+            <screen><![CDATA[ruby 1.8.6 (2007-03-13 patchlevel 0) [i386-mswin32]]]>
             </screen>
-            <para>At this point, everything is installed and you're ready to begin. Test it out by creating a new project:</para>
+            <para>At this point, everything is installed and you're ready to begin. Test it out by
+                creating a new project:</para>
             <para><command>generate book my_test_project with_sample</command></para>
             <screen><![CDATA[Creating docbook project...
  - my_test_project/xsl
@@ -86,18 +120,22 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
  - my_test_project/template/xsl/pdf.xml
  - my_test_project/w3centities-f.ent
  Done]]></screen>
-            <para>Now you have a simple sample project with a book file and a chapter. Convert this to a PDF to make sure everything works.</para>
+            <para>Now you have a simple sample project with a book file and a chapter. Convert this
+                to a PDF to make sure everything works.</para>
             <para><command>cd my_test_project</command></para>
             <para><command>rake book.pdf</command></para>
             <para>You'll get a brand-new PDF of the sample book.</para>
         </sect2>
-     </sect1>
+    </sect1>
     <sect1>
         <title>Mac OS X Setup</title>
-        <para>Setup on Mac OS X 10.4 or above is quite easy.  You have Java and Ruby already installed on the machine
-            in most cases. All you need to do is download the files from <link xlink:href="http://www.napcs.com/products/docbook/">http://www.napcs.com/products/docbook/</link> 
-            and extract to <filename>docbook</filename> in your home folder. Once extracted, you should have a list of files that resembles this in your <filename>~/docbook</filename> folder:</para>
-            <screen><![CDATA[
+        <para>Setup on Mac OS X 10.4 or above is quite easy. You have Java and Ruby already
+            installed on the machine in most cases. All you need to do is download the files from
+                <link xlink:href="http://www.napcs.com/products/docbook/"
+                >http://www.napcs.com/products/docbook/</link> and extract to
+                <filename>docbook</filename> in your home folder. Once extracted, you should have a
+            list of files that resembles this in your <filename>~/docbook</filename> folder:</para>
+        <screen><![CDATA[
             drwxr-xr-x  18 brianhogan  brianhogan   612B Apr  2 11:56 .
             drwx------+ 63 brianhogan  brianhogan   2.1K Apr  2 10:12 ..
             -rwxr-----   1 brianhogan  brianhogan    53K Apr  2 10:23 docbook.pdf
@@ -107,14 +145,12 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
             drwxr-xr-x  11 brianhogan  brianhogan   374B Apr  3 21:05 template
             drwxr-xr-x  41 brianhogan  brianhogan   1.4K Mar 25 22:19 xsl]]>
             </screen>
-            
-            <note xml:id="note.permission.denied">
-              <title>Permission Denied</title>
-              <para>You may need to set the executable bit for the <filename>generate</filename>file so you can use it.</para>
-              <para><command>chmod +x ~/docbook/generate</command></para>
-              
-            </note>
-            
+        <note xml:id="note.permission.denied">
+            <title>Permission Denied</title>
+            <para>You may need to set the executable bit for the <filename>generate</filename>file
+                so you can use it.</para>
+            <para><command>chmod +x ~/docbook/generate</command></para>
+        </note>
         <para>To create a new project, type</para>
         <para><command>~/docbook/generate book my_test_project with_sample</command></para>
         <para>This generates the project skeleton:</para>
@@ -134,34 +170,44 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
         <para><command>rake book.pdf</command></para>
         <para>You'll get a brand-new PDF of the sample book.</para>
         <tip>
-            <para>Add the <filename>docbook</filename> folder to your path to make the <command>generate</command> command available without having to specify the full path. Modify your <filename>.bash_profile</filename> to change the path.</para>
+            <para>Add the <filename>docbook</filename> folder to your path to make the
+                    <command>generate</command> command available without having to specify the full
+                path. Modify your <filename>.bash_profile</filename> to change the path.</para>
         </tip>
-
     </sect1>
-
     <sect1>
         <title>The Project Generator</title>
-        <para>You've already seen how to generate a new book, but the generator is a bit more flexible.</para>
-        
+        <para>You've already seen how to generate a new book, but the generator is a bit more
+            flexible.</para>
         <sect2>
             <title>Creating books</title>
-            <para><command><![CDATA[generate book my_book with_sample]]></command> generates a new book with some sample content so you can see how you might 
-            construct your book. It also generates a sample external chapter file as an example of how you would split your book into multiple files.</para>
-            <para><command><![CDATA[generate book my_book]]></command> generates a <filename>book.xml</filename> file, 
-                a <filename>chapter01.xml</filename> file, and a PDF XSLT customization layer file, as well as the directory structure.
-            This sets you up to start your book from scratch.</para>
+            <para><command><![CDATA[generate book my_book sample]]></command> generates a new book
+                with some sample content so you can see how you might construct your book. It also
+                generates a sample external chapter file as an example of how you would split your
+                book into multiple files.</para>
+            <para><command><![CDATA[generate book my_book]]></command> generates a
+                    <filename>book.xml</filename> file, a <filename>chapter01.xml</filename> file,
+                and a PDF XSLT customization layer file, as well as the directory structure. This
+                sets you up to start your book from scratch.</para>
         </sect2>
         <sect2>
             <title>Chapters</title>
-            <para>You can generate chapters as well so you don't have to remember what exactly goes into the chapter template.</para>
-            <para><command><![CDATA[generate chapter chapter02]]></command> generates a <filename>chapter02.xml</filename> file in your current directory.</para>
-            <para><command><![CDATA[generate chapter chapter2/some_stuff]]></command> generates a <filename>some_stuff.xml</filename> file in a <filename>chapter2</filename> folder within your current directory.</para>
+            <para>You can generate chapters as well so you don't have to remember what exactly goes
+                into the chapter template.</para>
+            <para><command><![CDATA[generate chapter chapter02]]></command> generates a
+                    <filename>chapter02.xml</filename> file in your current directory.</para>
+            <para><command><![CDATA[generate chapter chapter2/some_stuff]]></command> generates a
+                    <filename>some_stuff.xml</filename> file in a <filename>chapter2</filename>
+                folder within your current directory.</para>
         </sect2>
         <sect2>
             <title>Articles</title>
-            <para>An article is just like a book, except it doesn't have chapters. It's ideal for simple projects where you don't need the complex structure of a book. The document you're reading is marked up as a Docbook article.</para>
-            <para><command><![CDATA[generate article foo]]></command> creates a new article called <filename>article.xml</filename> in the 
-                <filename>foo</filename> subfolder of your current folder.</para>
+            <para>An article is just like a book, except it doesn't have chapters. It's ideal for
+                simple projects where you don't need the complex structure of a book. The document
+                you're reading is marked up as a Docbook article.</para>
+            <para><command><![CDATA[generate article foo]]></command> creates a new article called
+                    <filename>article.xml</filename> in the <filename>foo</filename> subfolder of
+                your current folder.</para>
             <screen><![CDATA[ - foo/images
  - foo/xsl
  - foo/xsl/pdf.xml
@@ -185,81 +231,178 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
  - my_test_project/w3centities-f.ent
  - my_test_project/xsl/pdf.xml
  Done]]></screen>
-        <para><filename>xsl/</filename> contains <token>XSLT Customization Layers</token> for the various types of outputs. By default, 
-            the <filename>Rake task</filename>  only uses a customization layer for the PDF output. A customization layer is simply a way for you to define your
-        own style properties for your output. The customization layer imports the original Docbook XSLT file, and then you redefine your own 
-        transformations.</para>
-        <para><filename>images/</filename> will contain any images you plan to reference in your document. It's a good idea to organize this by chapter.</para>
-        <para><filename>book.xml</filename> is a sample starter template that shows you how to compose a simple book. You can build this into a PDF right away, and you can modify it and use it as the basis for your book, or just leave it around as an example.</para>
-        <para><filename>chapter01.xml</filename> is an example chapter for a book. It's included within 
-            <filename>book.xml</filename> so you can see how you might break apart a book into multiple files.</para>
-        <para><filename>Rakefile</filename> is the script used to transform your document into an actual publication. 
-            See <xref linkend="sec.content.generation"/> to see how that works.</para>
-        <para><filename>xsl/pdf.xml</filename> is the aforementioned customization layer for the PDF output. This is the only supported customization layer at this time. 
-            Look at the <filename>make</filename> to see how to add your own for other files. Additional defaults are coming in future releases.</para>
-        <para>Open up the <filename>book.xml</filename> file and modify its
-        contents to write your book. Then render a new output, 
-        as discussed in <xref linkend="sec.content.generation" />.</para>
+        <para><filename>xsl/</filename> contains <token>XSLT Customization Layers</token> for the
+            various types of outputs. By default, the <filename>Rake task</filename> only uses a
+            customization layer for the PDF output. A customization layer is simply a way for you to
+            define your own style properties for your output. The customization layer imports the
+            original Docbook XSLT file, and then you redefine your own transformations.</para>
+        <para><filename>images/</filename> will contain any images you plan to reference in your
+            document. It's a good idea to organize this by chapter.</para>
+        <para><filename>cover/</filename> holds the cover for your book. Put a file called <filename>cover.pdf</filename> file there and you can use a special task to prepend the cover file to your book.</para>
+        <para><filename>book.xml</filename> is a sample starter template that shows you how to
+            compose a simple book. You can build this into a PDF right away, and you can modify it
+            and use it as the basis for your book, or just leave it around as an example.</para>
+        <para><filename>chapter01.xml</filename> is an example chapter for a book. It's included
+            within <filename>book.xml</filename> so you can see how you might break apart a book
+            into multiple files.</para>
+        <para><filename>Rakefile</filename> is the script used to transform your document into an
+            actual publication. See <xref linkend="sec.content.generation"/> to see how that
+            works.</para>
+        <para><filename>xsl/pdf.xml</filename> is the aforementioned customization layer for the PDF
+            output. This is the only supported customization layer at this time. Look at the
+                <filename>make</filename> to see how to add your own for other files. Additional
+            defaults are coming in future releases.</para>
+        <para>Open up the <filename>book.xml</filename> file and modify its contents to write your
+            book. Then render a new output, as discussed in <xref linkend="sec.content.generation"
+            />.</para>
     </sect1>
-    
     <sect1 xml:id="sec.content.generation">
         <title>Generating Output from Docbook</title>
-        <para>There are several output options available with Docbook. This package provides easy access to the most popular transformation methods</para>
+        <para>There are several output options available with Docbook. This package provides easy
+            access to the most popular transformation methods</para>
         <sect2>
             <title>PDF and RTF documents</title>
-            <para>Generating a PDF or an RTF document is a two-step process. The XML document needs to be processed and transformed into an XML-FO document which is ready for print. Then it needs to  be converted into either RTF or PDF by another process. This package uses Apache FOP to handle this step. </para>
+            <para>Generating a PDF or an RTF document is a two-step process. The XML document needs
+                to be processed and transformed into an XML-FO document which is ready for print.
+                Then it needs to be converted into either RTF or PDF by another process. This
+                package uses Apache FOP to handle this step. </para>
         </sect2>
         <sect2>
             <title>Using Rake to build a book</title>
-            <para>When you generate a new project with <command>new_book</command> you get a <filename>Rakefile</filename> script written in the Ruby programming language. Ruby's a powerful language that's easy to learn and modify. That's the main reason it's used in this project. The other reason is that the script works on all platforms, whereas traditional makefiles work on Linux-based operating systems only. A Rakefile defines a script for use with the Rake utility popular in the Ruby community.</para>
-            <para>The Rakefile doesn't include much. It actually includes another file that does all the work, and provides a variable used to locate the rest of the build chain files.</para>
+            <para>When you generate a new project with <command>new_book</command> you get a
+                    <filename>Rakefile</filename> script written in the Ruby programming language.
+                Ruby's a powerful language that's easy to learn and modify. That's the main reason
+                it's used in this project. The other reason is that the script works on all
+                platforms, whereas traditional makefiles work on Linux-based operating systems only.
+                A Rakefile defines a script for use with the Rake utility popular in the Ruby
+                community.</para>
+            <para>The Rakefile doesn't include much. It actually includes another file that does all
+                the work, and provides a variable used to locate the rest of the build chain
+                files.</para>
             <sect3 xml:id="sec.Path.to.the.Build.Chain">
-              <title>Path to the Build Chain</title>
-              <para>When you generate a project, the generator will put the absolute path to the Docbook build chain in your Rakefile. However, you can override this by setting an environment variable. On Linux or Mac OS, this would be:</para>
-              <programlisting>
-                export SHORT_ATTENTION_SPAN_DOCBOOK_PATH=/usr/local/docbook
-              </programlisting>
-              <para>On Windows, you'd do</para>
-              <programlisting>
-                SET SHORT_ATTENTION_SPAN_DOCBOOK_PATH=c:/docbook
-              </programlisting>
-              <para>Or you would add the Environment variable permanently through the the Control Panel, or alternatively, use the Windows installer for the Short Attention Span Docbook.</para>
+                <title>Path to the Build Chain</title>
+                <para>When you generate a project, the generator will put the absolute path to the
+                    Docbook build chain in your Rakefile. However, you can override this by setting
+                    an environment variable. On Linux or Mac OS, this would be:</para>
+                <programlisting>export SHORT_ATTENTION_SPAN_DOCBOOK_PATH=/usr/local/docbook             </programlisting>
+                <para>On Windows, you'd do</para>
+                <programlisting>SET SHORT_ATTENTION_SPAN_DOCBOOK_PATH=c:/docbook</programlisting>
+                <para>Or you would add the Environment variable permanently through the the Control
+                    Panel, or alternatively, use the Windows installer for the Short Attention Span
+                    Docbook.</para>
             </sect3>
             <sect3 xml:id="sec.Building">
-              <title>Building</title>
-              <para> By default, this script can generate HTML, PDF, and RTF outputs. Windows users can also use it to generate Windows Help (CHM) documents if they have the <filename>hhc.exe</filename> file from the HTML Help Workshop installed on their system.</para>
-              <para>The build script is easy to use. You simply specify the name of the input file you want to use and the format you want to generate. To make things simple, the script uses a file naming convention that matches your original docbook xml file. </para>
-              <para>For example, if you have a file called <filename>book.xml</filename>, you'd be able to do the following transformations:</para>
-              <para><command>rake book.html</command> to generate an HTML file of your book.</para>
-              <para><command>rake book.rtf</command> to generate an RTF file of your book.</para>
-              <para><command>rake book.pdf</command> to generate a PDF file of your book.</para>
+                <title>Building</title>
+                <para> By default, this script can generate HTML, PDF, and RTF outputs. Windows
+                    users can also use it to generate Windows Help (CHM) documents if they have the
+                        <filename>hhc.exe</filename> file from the HTML Help Workshop installed on
+                    their system.</para>
+                <para>The build script is easy to use. You simply specify the name of the input file
+                    you want to use and the format you want to generate. To make things simple, the
+                    script uses a file naming convention that matches your original docbook xml
+                    file. </para>
+                <para>For example, if you have a file called <filename>book.xml</filename>, you'd be
+                    able to do the following transformations:</para>
+                <para><command>rake book.html</command> to generate an HTML file of your
+                    book.</para>
+                <para><command>rake book.rtf</command> to generate an RTF file of your book.</para>
+                <para><command>rake book.pdf</command> to generate a PDF file of your book.</para>
             </sect3>
         </sect2>
         <sect2>
             <title>Validation</title>
-            <para>By default, the script calls out to the Docbook website to validate your file against the RelaxNG schema definition file. Sometimes you may 
-              want to work offline or you just know you're that awesome and don't need to validate. The script takes a <command>VALIDATE=false</command> option
-               that skips the validation step.</para>
+            <para>By default, the script calls out to the Docbook website to validate your file
+                against the RelaxNG schema definition file. Sometimes you may want to work offline
+                or you just know you're that awesome and don't need to validate. The script takes a
+                    <command>VALIDATE=false</command> option that skips the validation step.</para>
             <para><command>rake pdf VALIDATE=false</command></para>
-            <para>If you have problems with your document, you may get unexpected results, so use this with caution.</para>
+            <para>If you have problems with your document, you may get unexpected results, so use
+                this with caution.</para>
         </sect2>
+    </sect1>
+    <sect1 xml:id="sec.Additional.Customizations">
+        <title>Additional Customizations</title>
+        <para>I'm constantly updating the build chain to add additional features that I and others
+            need to publish content.</para>
         <sect2 xml:id="sec.Drafts">
-          <title>Drafts</title>
-          <para>As you're writing, you may want to inform your readers and reviewers that you are in Draft mode. </para>
-          <para><command>rake pdf DRAFT=true</command></para>
-          <para>This turns on a background overlay and enables display of any remark tags in your document.</para>
-          
+            <title>Drafts</title>
+            <para>As you're writing, you may want to inform your readers and reviewers that you are
+                in Draft mode. </para>
+            <para><command>rake pdf DRAFT=true</command></para>
+            <para>This turns on a background overlay and enables display of any remark tags in your
+                document.</para>
         </sect2>
         <sect2 xml:id="sec.Covers">
-          <title>Covers</title>
-          <para>Create a book cover in your favorite graphics program, export it as a PDF called <filename>cover.pdf</filename> and place it in your project folder. Run the command</para>
+            <title>Covers</title>
+            <para>Create a book cover in your favorite graphics program, export it as a PDF called
+                    <filename>cover.pdf</filename> and place it in your project folder. Run the
+                command</para>
             <para><command>rake add_cover</command></para>
-          <para>This will create the file <filename>book_with_cover.pdf</filename>. </para>
-          <tip xml:id="tip.this.task.will.build.the.pdf.of.the.book.if.it.doesn't.exist.">
-            <title>Automatic Building</title>
-            <para>This task will build the PDF of the book if it doesn't exist.</para>
-          </tip>
-            
+            <para>This will create the file <filename>book_with_cover.pdf</filename>. </para>
+            <tip xml:id="tip.this.task.will.build.the.pdf.of.the.book.if.it.doesn't.exist.">
+                <title>Automatic Building</title>
+                <para>This task will build the PDF of the book if it doesn't exist.</para>
+            </tip>
+        </sect2>
+        <sect2 xml:id="sec.Preprocessing">
+            <title>Preprocessing</title>
+            <para>If you need to perform some work before building your book, you can define a
+                    <methodname>:preprocess</methodname> task in your project's
+                    <filename>Rakefile</filename>.</para>
+            <para>To make things easier, several environment variables are available to you in your
+                task.</para>
+            <para>
+                <table frame="none">
+                    <title>Preprocessor variables</title>
+                    <tgroup cols="2">
+                        <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+                        <colspec colname="c2" colnum="2" colwidth="1.0*"/>
+                        <thead>
+                            <row>
+                                <entry>Variable</entry>
+                                <entry>Description</entry>
+                            </row>
+                        </thead>
+                        <tbody>
+                            <row>
+                                <entry>ENV["SOURCE_FILENAME"]</entry>
+                                <entry>The name of the source XML document (book.xml)</entry>
+                            </row>
+                            <row>
+                                <entry>ENV["TEMP_FILENAME"]</entry>
+                                <entry>The temporary XML file created by the build chain. It's
+                                    copied from the source file so you can preprocess it and not
+                                    alter your original file.</entry>
+                            </row>
+                            <row>
+                                <entry>ENV["OUTPUT_FILENAME"]</entry>
+                                <entry>The name of the output file. (book.pdf)</entry>
+                            </row>
+                            <row>
+                                <entry>ENV["FORMAT"]</entry>
+                                <entry>The format. "pdf", "html", "rtf", "epub"</entry>
+                            </row>
+                        </tbody>
+                    </tgroup>
+                </table>
+            </para>
+            <para>So, you can preprocess your document easily.</para>
+            <programlisting language="ruby"><![CDATA[task :preprocess do
+  `xmllint #{ENV["TEMP_FILENAME"]}`
+end]]></programlisting>
+        </sect2>
+        <sect2 xml:id="sec.Postprocessing">
+          <title>Postprocessing</title>
+          <para>Postprocessing works exactly the same way. You have access to the same environment variables as the preprocessor task. You can use this to automatically add the cover to the book, for example, by calling the <methodname>add_cover</methodname> task.</para>
+          <programlisting language="ruby" linenumbering="none"><![CDATA[task :postprocess do
+  Rake::Task["add_cover"].invoke if ENV["FORMAT"] == "pdf"
+end]]></programlisting>
+        <para>When you run <command>rake book.pdf</command>, you'll automatically get the cover attached to the book.</para>
+        </sect2>
+        <sect2 xml:id="sec.Forcing.a.Build">
+          <title>Forcing a Build</title>
+          <para>If you change a chapter file but not the book.xml file, the Rake task may not work as it hasn't detected a change in the file. This is just how Rake works, but you can force things to work by either deleting your existing PDF file or "touching" the <filename>book.xml</filename>file. If you're making a book called <filename>book.pdf</filename> you can use the command <command>rake build</command> which will <emphasis>always</emphasis> build, no matter what.</para>
+             
         </sect2>
     </sect1>
     <sect1>
@@ -333,7 +476,6 @@ Michael H. Kay
 Saxonica Limited
 22 June 2005]]></screen>
         </sect2>
-        
         <sect2>
             <title>Apache FOP</title>
             <screen><![CDATA[                                 Apache License
@@ -770,8 +912,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.]]>
             </screen>
         </sect2>
-        
-    </sect1>   
-
-    
+    </sect1>
 </article>

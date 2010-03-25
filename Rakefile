@@ -1,5 +1,5 @@
 require 'fileutils'
-
+require 'version'
 files = %w{make.rb version.rb README.txt hhc.exe jars lib xsl readme_files Rakefile generate generate.bat template}
 
 
@@ -18,7 +18,8 @@ end
 
 desc "Create the zip file of the distribution, building docs if needed"
 task :create_zip => :doc do  
-  `zip -r output/docbook-1_1_0.zip #{files.join(" ")}`
+  
+  `zip -r output/docbook-#{DocbookVersion.version}.zip #{files.join(" ")}`
 end
 
 desc "Install build chain, using c:/docbook on win or ~/docbook - Pass DIR=/your/path to customize."
