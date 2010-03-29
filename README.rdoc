@@ -101,6 +101,10 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2010-03-29 - v1.2.1
+ * MUCH improved cleanup routine now finds any pdf with the same name as one of your xml files.
+ * rake book.pdf now builds if you change any xml file in the project. Useful for rebuilding a book after changing a chapter.
+ * Created a method to share rake tasks between projects. Put tasks in $HOME/.docbook_rakefile. It's loaded after all other tasks, so yo ucan use this to extend existing tasks, or provide common pre/postprocess hooks for all of your book projects.
 2010-03-24 - v1.2.0
  * Added preprocess and postprocess hooks. Detailed information is in the readme_files/docbook.pdf file.
 2010-03-21 - v1.1.4.1

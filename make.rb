@@ -31,10 +31,12 @@ end
 desc "clean temporary files"
 task :clean do
   puts "Removing temporary files"
-  FileUtils.rm_rf("book.pdf")
-  FileUtils.rm_rf("article.pdf")
-  FileUtils.rm_rf("book.html")
-  FileUtils.rm_rf("article.html")
+  xml_files = Dir.glob("./**/*.xml")
+  %w{pdf html txt rtf epub xhtml chm}.each do |ext|
+    f = xml_files.collect{|a| a.gsub(".xml", ".#{ext}")}
+    f.each{|item| puts "Removing #{item}" if File.exist?(item)}
+    FileUtils.rm_rf(f)
+  end
 end
 
 rule /.pdf|.html|.txt|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
@@ -104,3 +106,7 @@ task :callout_images do
   puts "Images copied. They're awful though, so you're probably better off replacing each one with your own."
 end
 
+file "book.pdf" => FileList['**/*.xml'] - ["book.xml"] 
+
+# load user extensions *after* our own
+load ENV["HOME"] + "/.docbook_rakefile" if File.exists?(ENV["HOME"] + "/.docbook_rakefile")
