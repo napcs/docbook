@@ -47,6 +47,7 @@ rule /.pdf|.html|.txt|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
 
   validate = ENV["VALIDATE"] != "false"
   draft = ENV["DRAFT"] == "true"
+  debug = ENV["DEBUG"] == "true"
   
   file = file_and_target[0]
   target = file_and_target[1]
@@ -62,7 +63,7 @@ rule /.pdf|.html|.txt|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
   Rake::Task["preprocess"].invoke
   
   klass = "Docbook/#{target}".constantize
-  book = klass.new(:root => DOCBOOK_ROOT, :file => ENV["TEMP_FILE"], :validate => validate, :draft => draft)
+  book = klass.new(:root => DOCBOOK_ROOT, :file => ENV["TEMP_FILE"], :validate => validate, :draft => draft, :debug => debug)
   if book.render
     puts "Completed building #{t.name}"
     Rake::Task["preprocess"].invoke

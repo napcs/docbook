@@ -5,7 +5,7 @@ module Docbook
     @xsl_extension = ""
     @xsl_stylesheet = ""
 
-    attr_accessor :root, :file, :validate, :draft
+    attr_accessor :root, :file, :validate, :draft, :debug
     attr_reader :windows
 
     # Init and cnfigure the class
@@ -15,6 +15,7 @@ module Docbook
        self.file = args[:file]
        self.validate = args[:validate]
        self.draft = args[:draft]
+       self.debug = args[:debug]
        @windows = PLATFORM.downcase.include?("win32") || PLATFORM.downcase.include?("mingw") 
 
     end
@@ -54,6 +55,7 @@ module Docbook
       validator_cmd = "java -jar -Xmx512m -Xss1024K #{self.root}/jars/relames.jar http://www.docbook.org/xml/5.0/rng/docbookxi.rng #{self.file}.xml"
       if validate
         puts "Validating your document..."
+        print_debug(validator_cmd)
         output = `#{validator_cmd}`
         sucess = ! output.include?("NOT valid") || ! output.include?("Exception")
 
@@ -61,6 +63,15 @@ module Docbook
         puts "Skipping validation..."
       end
       success
+    end
+    
+    def print_debug(string)
+      if self.debug
+        puts "-------------------------"
+        puts "Running command: "
+        puts string
+        puts "-------------------------"
+      end
     end
 
     # Render the book
@@ -71,6 +82,7 @@ module Docbook
             # call before_render if defined.
             self.before_render if self.respond_to?("before_render")
             puts "Transforming XML..."
+            print_debug(xml_cmd)
             output = `#{xml_cmd}`
 
             if output.include?("Exception")

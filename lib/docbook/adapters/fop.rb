@@ -75,6 +75,7 @@ module Docbook
         def after_render
           if File.exists?("#{self.file}.fo")
             puts "Building #{@output}"
+            print_debug(self.fop_command)
             `#{self.fop_command}`
     
             puts "Cleaning up"
