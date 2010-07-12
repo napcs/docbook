@@ -1,17 +1,14 @@
 module Docbook
   class Epub < Docbook::Base
-
-    def initialize(args = {})
+   
+    include Docbook::Adapters::Epub::Dbtoepub
+    
+    def initialize(args={})
       super
-      @output = "epub"
-      @xsl_stylesheet = "#{self.root}/xsl/epub/docbook.xsl"
-
-
+      @output = 'epub'
+      @xsl_stylesheet = "xsl/epub.xsl"
     end
 
-    def xml_cmd
-       cmd = "ruby #{self.root}/xsl/epub/bin/dbtoepub -s #{@xsl_stylesheet} #{self.file}.xml"
-    end
 
   end
 end

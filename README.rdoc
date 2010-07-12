@@ -9,12 +9,16 @@ This package is intended for developers who want to integrate this into their ex
 This uses the dookbook-xsl-ns stylesheets.
 
 == Installation and Usage
+
+=== Prerequisites
 In order to use this, you'll need a Java Runtime Environment. JRE 1.6 is fine.
 
 You also need Ruby 1.8.6 or 1.8.7. 1.9 is *not* supported yet though it will be very soon.
 
-Finally, you need Rake.
+Finally, you need Rubygems and Rake.  
 
+
+===Basic installation
 The easiest way to set this up on your machine is to clone the repository
 
   git clone git://github.com/napcs/docbook
@@ -27,7 +31,7 @@ This copies only the necessary files to c:/docbook on windows or ~/docbook on Li
 
   sudo rake install DIR=/opt/docbook
 
-You'll be prompted to add the install directory to your path. Also add the SHORT_ATTENTION_SPAN_DOCBOOK environment variable to the installation directory.
+You'll be prompted to add the install directory to your path. Also add the SHORT_ATTENTION_SPAN_DOCBOOK environment variable to the installation directory to make it easier to run the generators and find everything.
 
 === Staying on the Bleeding Edge
 
@@ -43,7 +47,7 @@ Fetch updates with
 
 == Creating a book
 
-Create a new book with sample info using the Generate script.
+Create a new book with sample info using the <tt>generate</tt> script.
 
   generate book foobook with_sample
   
@@ -83,7 +87,7 @@ The build system works best when you have an environment variable set. On Linux,
 
 On Windows, add this to your environment variables in Control Panel.
 
-This step is not necessary, but can ease collaboration between multiple authors, as Docbook may be installed in different locations on each person's machine.
+This step is not necessary, but can ease collaboration between multiple authors, as this buildchain may be installed in different locations on each person's machine.
 
 == Upgrading from previous versions
 
@@ -101,12 +105,15 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2010-06-30 - v1.3
+ * Refactoring of libraries to lay the groundwork for alternate adapters like Prince, PDFKit, XEP, and others.
+ * Minor work on epub output. Looks decent in Stanza and iBooks now.
 2010-04-20 - v1.2.1.1
  * Added a DEBUG=true flag to help troubleshoot setup errors. 
 2010-03-29 - v1.2.1
  * MUCH improved cleanup routine now finds any pdf with the same name as one of your xml files.
  * rake book.pdf now builds if you change any xml file in the project. Useful for rebuilding a book after changing a chapter.
- * Created a method to share rake tasks between projects. Put tasks in $HOME/.docbook_rakefile. It's loaded after all other tasks, so yo ucan use this to extend existing tasks, or provide common pre/postprocess hooks for all of your book projects.
+ * Created a method to share rake tasks between projects. Put tasks in $HOME/.docbook_rakefile. It's loaded after all other tasks, so you can use this to extend existing tasks, or provide common pre/postprocess hooks for all of your book projects.
 2010-03-24 - v1.2.0
  * Added preprocess and postprocess hooks. Detailed information is in the readme_files/docbook.pdf file.
 2010-03-21 - v1.1.4.1
