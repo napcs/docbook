@@ -121,14 +121,21 @@ end
       FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
       FileUtils.mv "#{dest_path}/xsl/html.xsl","#{dest_path}/xsl/html.xsl.old"
       FileUtils.cp  "#{root_path}/template/xsl/html.xsl", "#{dest_path}/xsl/html.xsl"
+      FileUtils.mv "#{dest_path}/xsl/epub.xsl","#{dest_path}/xsl/epub.xsl.old"
+      FileUtils.cp  "#{root_path}/template/xsl/epub.xsl", "#{dest_path}/xsl/epub.xsl"
+      
     else
       FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
-      FileUtils.cp  "#{root_path}/template/xsl/html.xsl", "#{dest_path}/xsl/html.xsl" 
+      FileUtils.cp  "#{root_path}/template/xsl/html.xsl", "#{dest_path}/xsl/html.xsl"
+      FileUtils.cp  "#{root_path}/template/xsl/epub.xsl", "#{dest_path}/xsl/epub.xsl" 
+       FileUtils.cp  "#{root_path}/template/xsl/epub.css", "#{dest_path}/xsl/epub.css" 
+       
     end
     
-    puts " - #{dest_path}/xsl/pdf.xml"
-    puts " - #{dest_path}/xsl/html.xml"
-    
+    puts " - #{dest_path}/xsl/pdf.xsl"
+    puts " - #{dest_path}/xsl/html.xsl"
+    puts " - #{dest_path}/xsl/epub.xsl"
+    puts " - #{dest_path}/xsl/epub.css"
     
     
     FileUtils.cp "#{root_path}/template/w3centities-f.ent", "#{dest_path}/w3centities-f.ent"
@@ -221,16 +228,23 @@ end
         if File.exist?("#{dest_path}/xsl/html.xsl")
           FileUtils.mv "#{dest_path}/xsl/html.xsl","#{dest_path}/xsl/html.xsl.old"
           FileUtils.cp  "#{root_path}/template/xsl/html.xsl", "#{dest_path}/xsl/html.xsl"
-          
+          FileUtils.mv "#{dest_path}/xsl/epub.xsl","#{dest_path}/xsl/epub.xsl.old"
+          FileUtils.cp  "#{root_path}/template/xsl/epub.xsl", "#{dest_path}/xsl/epub.xsl"
         end
 
       else
         FileUtils.cp  "#{root_path}/template/xsl/pdf.xsl", "#{dest_path}/xsl/pdf.xsl"
         FileUtils.cp  "#{root_path}/template/xsl/html.xsl", "#{dest_path}/xsl/html.xsl"
+        FileUtils.cp  "#{root_path}/template/xsl/epub.xsl", "#{dest_path}/xsl/epub.xsl"
+        FileUtils.cp  "#{root_path}/template/xsl/epub.css", "#{dest_path}/xsl/epub.css" 
         
       end
-      puts " - #{dest_path}/xsl/pdf.xml"
-      puts " - #{dest_path}/xsl/html.xml"
+      puts " - #{dest_path}/xsl/pdf.xsl"
+      puts " - #{dest_path}/xsl/html.xsl"
+      puts " - #{dest_path}/xsl/epub.xsl"
+      puts " - #{dest_path}/xsl/epub.css"
+      
+      
       version_stamp("#{dest_path}/VERSION.txt")
       puts "Done"
   end

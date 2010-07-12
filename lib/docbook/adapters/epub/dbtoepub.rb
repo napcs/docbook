@@ -11,6 +11,14 @@ module Docbook
           @css_stylesheet = "xsl/epub.css"
           
         end
+        
+        def render
+          if RUBY_PLATFORM =~ /(win|w)32$/
+            puts "ePub conversion doesn't work on Windows. We're working on a fix."
+          else
+            super
+          end
+        end
     
         def xml_cmd
            cmd = "ruby #{self.root}/xsl/epub/bin/dbtoepub -c #{@css_stylesheet} -s #{@xsl_stylesheet} #{self.file}.xml"
