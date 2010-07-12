@@ -39,7 +39,7 @@ task :clean do
   end
 end
 
-rule /.pdf|.html|.txt|.rtf|.epub|.xhtml|.chm/ => ".xml" do |t|
+rule /.pdf$|.html$|.txt$|.rtf$|.epub$|.xhtml$|.chm$/ => [".xml"] do |t|
 
   
   

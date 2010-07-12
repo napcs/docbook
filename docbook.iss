@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{0A22D345-DFA9-45B8-AC92-57F2E933BA7D})
 AppName=Short Attention Span Docbook
-AppVerName=Short Attention Span Docbook 1.3.0
+AppVerName=Short Attention Span Docbook 1.3.0.1
 AppPublisher=New Auburn Personal Computer Services LLC
 AppPublisherURL=http://www.napcs.com
 AppSupportURL=http://www.napcs.com
@@ -15,7 +15,7 @@ AppUpdatesURL=http://www.napcs.com/products/docbook
 DefaultDirName=c:\docbook
 DefaultGroupName=Short Attention Span Docbook
 AllowNoIcons=yes
-OutputBaseFilename=docbook_setup-1_3_0
+OutputBaseFilename=docbook_setup-1_3_0_1
 Compression=lzma
 SolidCompression=yes
 ChangesEnvironment=yes

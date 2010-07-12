@@ -105,7 +105,10 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2010-07-12 - v1.3.0.1
+ * Fixed issue with epub interfering with PDF and other file creation - bad regex.
 2010-06-30 - v1.3
+ * Disabled ePub support for Windows for now.
  * Refactoring of libraries to lay the groundwork for alternate adapters like Prince, PDFKit, XEP, and others.
  * Minor work on epub output. Looks decent in Stanza and iBooks now.
 2010-04-20 - v1.2.1.1
