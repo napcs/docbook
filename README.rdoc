@@ -105,6 +105,9 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2010-08-08 -v1.3.0.2
+ * Fixed issue where book.pdf could not be rebuilt unless the pdf was removed
+ * Fixed chapter generation to not create a useless folder when not using chapter subfolders.
 2010-07-12 - v1.3.0.1
  * Fixed issue with epub interfering with PDF and other file creation - bad regex.
 2010-06-30 - v1.3

@@ -11,7 +11,7 @@
    xmlns:xslthl="http://xslthl.sf.net"
    xmlns:d="http://docbook.org/ns/docbook"
 >
-<xsl:import href="epub_base.xml" />
+<xsl:import href="epub_base.xsl" />
 
 <!-- graphics for the alerts, tips, cautions, warnings, notes, etc. Build your own or turn this off! -->
 <xsl:param name="admon.graphics" select="1" />

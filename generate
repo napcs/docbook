@@ -17,9 +17,7 @@ class String
   
   # parses the dirname from the string by chopping off the last node of the path.
   def dirname
-    s = self.split("/")
-    a = s[0..(s.length - 2)].join("/")
-    a
+    File.dirname(self)
   end
 
 end
@@ -155,22 +153,27 @@ end
 
     directory = dest_path.dirname
     
-    FileUtils.mkdir_p(directory + "/images") unless directory.empty?
-    
-    puts "Creating chapter..."
-
-    if sample
-        FileUtils.cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}.xml")
-        FileUtils.cp("#{root_path}/template/images/sample.png", "#{directory}/images") rescue nil
-        puts " - #{directory}/images/sample.png"
-    else
-        FileUtils.cp("#{root_path}/template/chapter01.xml", "#{dest_path}.xml")
-
-    end
-    FileUtils.cp "#{root_path}/template/w3centities-f.ent", "#{directory}/w3centities-f.ent"
-    puts " - #{directory}/w3centities-f.ent"
-    
-    puts " - #{dest_path}.xml"
+     unless directory == "."
+       FileUtils.mkdir_p(directory + "/images")
+     end
+     
+     puts "Creating chapter..."
+     
+     if sample
+         FileUtils.cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}.xml")
+         FileUtils.cp("#{root_path}/template/images/sample.png", "#{directory}/images") rescue nil
+         puts " - #{directory}/images/sample.png"
+     else
+         FileUtils.cp("#{root_path}/template/chapter01.xml", "#{dest_path}.xml")
+     end
+     
+     puts " - #{dest_path}.xml"
+     
+     unless File.exist?("#{directory}/w3centities-f.ent")
+       FileUtils.cp "#{root_path}/template/w3centities-f.ent", "#{directory}/w3centities-f.ent" 
+       puts " - #{directory}/w3centities-f.ent"
+     end
+     
   end
   
   def book(root_path, dest_path, sample)

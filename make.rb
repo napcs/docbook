@@ -39,10 +39,8 @@ task :clean do
   end
 end
 
-rule /.pdf$|.html$|.txt$|.rtf$|.epub$|.xhtml$|.chm$/ => [".xml"] do |t|
+rule /\.pdf$|\.html$|\.txt$|\.rtf$|\.epub$|\.xhtml$|\.chm$/ => FileList["**/*.xml"] do |t|
 
-  
-  
   file_and_target = t.name.split(".")
 
   validate = ENV["VALIDATE"] != "false"
@@ -107,7 +105,7 @@ task :callout_images do
   puts "Images copied. They're awful though, so you're probably better off replacing each one with your own."
 end
 
-file "book.pdf" => FileList['**/*.xml'] - ["book.xml"] 
+#file "book.pdf" => FileList['**/*.xml'] - ["book.xml"] 
 
 # load user extensions *after* our own
 load ENV["HOME"] + "/.docbook_rakefile" if File.exists?(ENV["HOME"] + "/.docbook_rakefile")
