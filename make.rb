@@ -64,7 +64,7 @@ rule /\.pdf$|\.html$|\.txt$|\.rtf$|\.epub$|\.xhtml$|\.chm$/ => FileList["**/*.xm
   book = klass.new(:root => DOCBOOK_ROOT, :file => ENV["TEMP_FILE"], :validate => validate, :draft => draft, :debug => debug)
   if book.render
     puts "Completed building #{t.name}"
-    Rake::Task["preprocess"].invoke
+    Rake::Task["postprocess"].invoke
     FileUtils.mv ENV["TEMP_FILE"] + ".#{target}", t.name
     
   else
