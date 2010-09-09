@@ -16,7 +16,7 @@ module Docbook
        self.validate = args[:validate]
        self.draft = args[:draft]
        self.debug = args[:debug]
-       @windows = PLATFORM.downcase.include?("win32") || PLATFORM.downcase.include?("mingw") 
+       @windows = RUBY_PLATFORM.downcase.include?("win32") || RUBY_PLATFORM.downcase.include?("mingw") 
 
     end
     def xml_parser_options

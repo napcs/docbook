@@ -111,7 +111,7 @@ end
     end
     
     # TODO: Deprecated?
-    xsl_path = PLATFORM.downcase.include?("win32") ? root_path : root_path.lchop
+    xsl_path = RUBY_PLATFORM.downcase.include?("win32") ? root_path : root_path.lchop
     
     if File.exist?("#{dest_path}/xsl/pdf.xsl")
       puts 'found old customization layer ... moving it'
@@ -222,7 +222,7 @@ end
       # xsl_path is a file URL. File urls have three / (file:///) followed by the path  Windows paths don't start with a slash
       # but unix paths do. If it's windows, leave the path alone. If it's not windows, chop off the first character of the path
       # TODO: Deprecated?
-      xsl_path = PLATFORM.downcase.include?("win32") ? root_path : root_path.lchop
+      xsl_path = RUBY_PLATFORM.downcase.include?("win32") ? root_path : root_path.lchop
       
       if File.exist?("#{dest_path}/xsl/pdf.xsl")
         puts 'found old customization layer ... moving it'

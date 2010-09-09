@@ -13,10 +13,8 @@ This uses the dookbook-xsl-ns stylesheets.
 === Prerequisites
 In order to use this, you'll need a Java Runtime Environment. JRE 1.6 is fine.
 
-You also need Ruby 1.8.6 or 1.8.7. 1.9 is *not* supported yet though it will be very soon.
-
+You also need Ruby 1.8.6, 1.8.7, or 1.9.2.  The 1.9.2 interpreter is not completely supported yet; though books do build successfully, I haven't had enough of a chance to really test things.
 Finally, you need Rubygems and Rake.  
-
 
 ===Basic installation
 The easiest way to set this up on your machine is to clone the repository
@@ -105,6 +103,8 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2010-09-00 -v1.3.0.3
+ * Builds PDFs under Ruby 1.9.2
 2010-08-08 -v1.3.0.2
  * Fixed issue where book.pdf could not be rebuilt unless the pdf was removed
  * Fixed chapter generation to not create a useless folder when not using chapter subfolders.
