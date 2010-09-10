@@ -53,7 +53,7 @@ module Docbook
       
           xml << "</xsl:stylesheet>"
       
-          File.open("xsl/epub_base.xml", "w") do |f|
+          File.open("xsl/epub_base.xsl", "w") do |f|
             f << xml
           end
         end
