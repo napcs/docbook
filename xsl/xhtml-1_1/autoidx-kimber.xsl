@@ -5,7 +5,7 @@
 xmlns:k="http://www.isogen.com/functions/com.isogen.saxoni18n.Saxoni18nService" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="k d" version="1.0">
 
 <!-- ********************************************************************
-     $Id: autoidx-kimber.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: autoidx-kimber.xsl 8729 2010-07-15 16:43:56Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -76,11 +76,11 @@ Install those </xsl:text>
     </xsl:if>
   </xsl:variable>
 
-  <xsl:variable name="terms" select="//d:indexterm[count(.|key('k-group', k:getIndexGroupKey(concat(/*/@lang, /*/@xml:lang), normalize-space(concat(d:primary/@sortas, d:primary[not(@sortas) or @sortas = &quot;&quot;]))))[count(ancestor::node()|$scope) = count(ancestor::node()) and ($role = @role or $type = @type or (string-length($role) = 0 and string-length($type) = 0))][1]) = 1 and not(@class = 'endofrange')]"/>
+  <xsl:variable name="terms" select="//d:indexterm[count(.|key('k-group', k:getIndexGroupKey(concat(/*/@lang, /*/@xml:lang), normalize-space(concat(d:primary/@sortas, &quot; &quot;, d:primary))))[count(ancestor::node()|$scope) = count(ancestor::node()) and ($role = @role or $type = @type or (string-length($role) = 0 and string-length($type) = 0))][1]) = 1 and not(@class = 'endofrange')]"/>
 
-  <xsl:variable name="alphabetical" select="$terms[not(starts-with(                 k:getIndexGroupKey(concat(/*/@lang, /*/@xml:lang), normalize-space(concat(d:primary/@sortas, d:primary[not(@sortas) or @sortas = &quot;&quot;]))),                 '#NUMERIC'                 ))]"/>
+  <xsl:variable name="alphabetical" select="$terms[not(starts-with(                 k:getIndexGroupKey(concat(/*/@lang, /*/@xml:lang), normalize-space(concat(d:primary/@sortas, &quot; &quot;, d:primary))),                 '#NUMERIC'                 ))]"/>
 
-  <xsl:variable name="others" select="$terms[starts-with(                 k:getIndexGroupKey(concat(/*/@lang, /*/@xml:lang), normalize-space(concat(d:primary/@sortas, d:primary[not(@sortas) or @sortas = &quot;&quot;]))),                 '#NUMERIC'                 )]"/>
+  <xsl:variable name="others" select="$terms[starts-with(                 k:getIndexGroupKey(concat(/*/@lang, /*/@xml:lang), normalize-space(concat(d:primary/@sortas, &quot; &quot;, d:primary))),                 '#NUMERIC'                 )]"/>
 
   <div class="index">
     <xsl:if test="$others">
@@ -95,7 +95,7 @@ Install those </xsl:text>
             <xsl:with-param name="scope" select="$scope"/>
             <xsl:with-param name="role" select="$role"/>
             <xsl:with-param name="type" select="$type"/>
-            <xsl:sort lang="{$sort.lang}" select="k:getIndexGroupSortKey(concat(/*/@lang, /*/@xml:lang),                         k:getIndexGroupKey(concat(/*/@lang, /*/@xml:lang), normalize-space(concat(d:primary/@sortas, d:primary[not(@sortas) or @sortas = &quot;&quot;]))))"/>
+            <xsl:sort lang="{$sort.lang}" select="k:getIndexGroupSortKey(concat(/*/@lang, /*/@xml:lang),                         k:getIndexGroupKey(concat(/*/@lang, /*/@xml:lang), normalize-space(concat(d:primary/@sortas, &quot; &quot;, d:primary))))"/>
           </xsl:apply-templates>
         </dl>
       </div>
@@ -105,7 +105,7 @@ Install those </xsl:text>
       <xsl:with-param name="scope" select="$scope"/>
       <xsl:with-param name="role" select="$role"/>
       <xsl:with-param name="type" select="$type"/>
-      <xsl:sort lang="{$sort.lang}" select="k:getIndexGroupSortKey(concat(/*/@lang, /*/@xml:lang),                      k:getIndexGroupKey(concat(/*/@lang, /*/@xml:lang), normalize-space(concat(d:primary/@sortas, d:primary[not(@sortas) or @sortas = &quot;&quot;]))))"/>
+      <xsl:sort lang="{$sort.lang}" select="k:getIndexGroupSortKey(concat(/*/@lang, /*/@xml:lang),                      k:getIndexGroupKey(concat(/*/@lang, /*/@xml:lang), normalize-space(concat(d:primary/@sortas, &quot; &quot;, d:primary))))"/>
     </xsl:apply-templates>
   </div>
 
@@ -116,18 +116,18 @@ Install those </xsl:text>
   <xsl:param name="role" select="''"/>
   <xsl:param name="type" select="''"/>
 
-  <xsl:variable name="key" select="k:getIndexGroupKey(concat(/*/@lang, /*/@xml:lang), normalize-space(concat(d:primary/@sortas, d:primary[not(@sortas) or @sortas = &quot;&quot;])))"/>
+  <xsl:variable name="key" select="k:getIndexGroupKey(concat(/*/@lang, /*/@xml:lang), normalize-space(concat(d:primary/@sortas, &quot; &quot;, d:primary)))"/>
 
   <xsl:variable name="label" select="k:getIndexGroupLabel(concat(/*/@lang, /*/@xml:lang), $key)"/>
 
-  <xsl:if test="key('k-group', $label)[count(ancestor::node()|$scope) = count(ancestor::node()) and ($role = @role or $type = @type or (string-length($role) = 0 and string-length($type) = 0))][count(.|key('primary', normalize-space(concat(d:primary/@sortas, d:primary[not(@sortas) or @sortas = &quot;&quot;])))[count(ancestor::node()|$scope) = count(ancestor::node()) and ($role = @role or $type = @type or (string-length($role) = 0 and string-length($type) = 0))][1]) = 1]">
+  <xsl:if test="key('k-group', $label)[count(ancestor::node()|$scope) = count(ancestor::node()) and ($role = @role or $type = @type or (string-length($role) = 0 and string-length($type) = 0))][count(.|key('primary', normalize-space(concat(d:primary/@sortas, &quot; &quot;, d:primary)))[count(ancestor::node()|$scope) = count(ancestor::node()) and ($role = @role or $type = @type or (string-length($role) = 0 and string-length($type) = 0))][1]) = 1]">
     <div class="indexdiv">
       <h3>
         <xsl:value-of select="$label"/>
       </h3>
       <dl>
-        <xsl:apply-templates select="key('k-group', $key)[count(ancestor::node()|$scope) = count(ancestor::node()) and ($role = @role or $type = @type or (string-length($role) = 0 and string-length($type) = 0))]                             [count(.|key('primary', normalize-space(concat(d:primary/@sortas, d:primary[not(@sortas) or @sortas = &quot;&quot;])))[count(ancestor::node()|$scope) = count(ancestor::node()) and ($role = @role or $type = @type or (string-length($role) = 0 and string-length($type) = 0))]                             [1])=1]" mode="index-primary">
-          <xsl:sort select="normalize-space(concat(d:primary/@sortas, d:primary[not(@sortas) or @sortas = &quot;&quot;]))" lang="{$sort.lang}"/>
+        <xsl:apply-templates select="key('k-group', $key)[count(ancestor::node()|$scope) = count(ancestor::node()) and ($role = @role or $type = @type or (string-length($role) = 0 and string-length($type) = 0))]                             [count(.|key('primary', normalize-space(concat(d:primary/@sortas, &quot; &quot;, d:primary)))[count(ancestor::node()|$scope) = count(ancestor::node()) and ($role = @role or $type = @type or (string-length($role) = 0 and string-length($type) = 0))]                             [1])=1]" mode="index-primary">
+          <xsl:sort select="normalize-space(concat(d:primary/@sortas, &quot; &quot;, d:primary))" lang="{$sort.lang}"/>
           <xsl:with-param name="scope" select="$scope"/>
           <xsl:with-param name="role" select="$role"/>
           <xsl:with-param name="type" select="$type"/>

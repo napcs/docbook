@@ -4,7 +4,9 @@ require File.expand_path(File.join(File.dirname(__FILE__), "lib/extensions"))
 
 def header
   puts DocbookVersion.to_s
-  puts "(c) 2010 Brian P. Hogan"
+  puts "(c) 2011 Brian P. Hogan"
+  puts "Using #{DocbookVersion.xslt_to_s}"
+  
   puts "-" * 40
   puts "Using buildchain located at: #{DOCBOOK_ROOT}"
   puts "Reminder: Nothing builds unless you've made changes to the Docbook file you're building."
@@ -21,22 +23,22 @@ require 'fileutils'
 
 header
 desc "Prepend a cover to your PDF. Cover should be called cover.pdf and stored in the cover/ folder"
-task :add_cover => ["book.pdf"] do
-  cmd = "java -Xss1024K -Xmx512m -cp #{DOCBOOK_ROOT}/jars/Multivalent*.jar tool.pdf.Merge -samedoc cover/cover.pdf book.pdf"
-  `#{cmd}`
-  FileUtils.mv("cover/cover-m.pdf", "book_with_cover.pdf")
-  puts "Created 'book_with_cover.pdf'"
+task :add_cover do
+  puts "This task is deprecated. Use 'rake book.pdf COVER=true' instead"
+  
 end
 
 desc "clean temporary files"
 task :clean do
   puts "Removing temporary files"
   xml_files = Dir.glob("./**/*.xml")
-  %w{pdf html txt rtf epub xhtml chm}.each do |ext|
+  %w{pdf html txt rtf epub xhtml chm fo}.each do |ext|
     f = xml_files.collect{|a| a.gsub(".xml", ".#{ext}")}
     f.each{|item| puts "Removing #{item}" if File.exist?(item)}
     FileUtils.rm_rf(f)
   end
+
+  
 end
 
 rule /\.pdf$|\.html$|\.txt$|\.rtf$|\.epub$|\.xhtml$|\.chm$/ => FileList["**/*.xml"] do |t|
@@ -46,6 +48,7 @@ rule /\.pdf$|\.html$|\.txt$|\.rtf$|\.epub$|\.xhtml$|\.chm$/ => FileList["**/*.xm
   validate = ENV["VALIDATE"] != "false"
   draft = ENV["DRAFT"] == "true"
   debug = ENV["DEBUG"] == "true"
+  cover = ENV["COVER"] == "true"
   
   file = file_and_target[0]
   target = file_and_target[1]
@@ -61,7 +64,7 @@ rule /\.pdf$|\.html$|\.txt$|\.rtf$|\.epub$|\.xhtml$|\.chm$/ => FileList["**/*.xm
   Rake::Task["preprocess"].invoke
   
   klass = "Docbook/#{target}".constantize
-  book = klass.new(:root => DOCBOOK_ROOT, :file => ENV["TEMP_FILE"], :validate => validate, :draft => draft, :debug => debug)
+  book = klass.new(:root => DOCBOOK_ROOT, :file => ENV["TEMP_FILE"], :validate => validate, :draft => draft, :debug => debug, :cover => cover)
   if book.render
     puts "Completed building #{t.name}"
     Rake::Task["postprocess"].invoke
@@ -108,4 +111,9 @@ end
 #file "book.pdf" => FileList['**/*.xml'] - ["book.xml"] 
 
 # load user extensions *after* our own
-load ENV["HOME"] + "/.docbook_rakefile" if File.exists?(ENV["HOME"] + "/.docbook_rakefile")
+if File.exists?(ENV["HOME"] + "/.docbook_rakefile")
+  puts "Loading custom user extensions at #{ENV["HOME"] + "/.docbook_rakefile"}\n"
+  load ENV["HOME"] + "/.docbook_rakefile" 
+else
+  puts "No custom user extensions found at #{ENV["HOME"] + "/.docbook_rakefile"}\n"
+end

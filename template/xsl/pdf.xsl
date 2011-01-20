@@ -31,16 +31,43 @@
 <!-- xref -->
 <xsl:param name="insert.xref.page.number">yes</xsl:param>
 
-<!-- xref generated text -->
+<!-- Generated Text changes -->
+ <xsl:param name="collect.xref.targets">no</xsl:param>
 
-<xsl:param name="local.l10n.xml" select="document('')"/> 
-<l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"> 
-  <l:l10n language="en"> 
-    <l:context name="xref">
-      <l:template name="page.citation" text=" on page %p"/>
-    </l:context>    
-  </l:l10n>
-</l:i18n>
+ <!-- making "Exercises" from "procedures" -->
+ <xsl:param name="local.l10n.xml" select="document('')"/> 
+ <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"> 
+   <l:l10n language="en"> 
+   <l:gentext key="Procedure" text="Exercise"/>
+   <l:gentext key="procedure" text="exercise"/>
+   <l:gentext key="ListofProcedures" text="List of Exercises"/>
+   <l:gentext key="listofprocedures" text="List of Exercises"/>
+
+
+     <l:context name="title">
+       <l:template name="procedure" text="%t"/>
+       <l:template name="procedure.formal" text="Exercise %n. %t"/>
+     </l:context>
+
+     <l:context name="xref-number-and-title">
+       <l:template name="procedure" text="Exercise %n, “%t”"/>
+     </l:context>
+     
+   </l:l10n>
+ </l:i18n>
+ 
+ <!-- change how cross-references look -->
+ 
+ <xsl:param name="local.l10n.xml" select="document('')"/> 
+ <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"> 
+   <l:l10n language="en">
+     
+     <l:context name="xref">
+       <l:template name="page.citation" text=" on page %p"/>
+     </l:context>
+     
+   </l:l10n>
+ </l:i18n>
 
 
 <!-- TOC settings -->
@@ -282,6 +309,7 @@ set       toc,title
   <xsl:template match='xslthl:string' mode="xslthl">
     <fo:inline color="red"><xsl:apply-templates mode="xslthl"/></fo:inline>
   </xsl:template>
+  
   
   
   <!-- Inline element styling -->

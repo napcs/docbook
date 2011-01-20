@@ -7,7 +7,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: refentry.xsl 7564 2007-11-19 18:38:43Z mzjn $
+     $Id: refentry.xsl 8598 2010-03-20 09:59:03Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -270,6 +270,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 </xsl:template>
 
 <xsl:template match="d:refmeta">
+  <xsl:apply-templates select=".//d:indexterm"/>
 </xsl:template>
 
 <xsl:template match="d:manvolnum">

@@ -6,7 +6,7 @@ xmlns:exsl="http://exslt.org/common"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: block.xsl 8235 2009-02-09 16:22:14Z xmldoc $
+     $Id: block.xsl 8703 2010-07-06 20:57:06Z nwalsh $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -102,12 +102,24 @@ xmlns:exsl="http://exslt.org/common"
 </xsl:template>
 
 <xsl:template match="d:simpara">
-  <xsl:if test="not(ancestor::d:authorblurb)
-    and not(ancestor::d:personblurb)
-    and not(ancestor::d:callout)"
-    >
-    <xsl:text>.sp&#10;</xsl:text>
-  </xsl:if>
+  <xsl:choose>
+    <xsl:when test="ancestor::d:footnote or
+                    ancestor::d:annotation or
+                    ancestor::d:authorblurb or
+                    ancestor::d:personblurb or
+                    ancestor::d:callout">
+      <xsl:if test="preceding-sibling::*[not(name() ='')]">
+        <xsl:text>.sp</xsl:text>
+        <xsl:text>&#10;</xsl:text>
+        <xsl:text>.RS 4n</xsl:text>
+        <xsl:text>&#10;</xsl:text>
+      </xsl:if>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:text>.sp</xsl:text>
+      <xsl:text>&#10;</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
   <xsl:variable name="content">
     <xsl:apply-templates/>
   </xsl:variable>

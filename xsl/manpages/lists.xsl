@@ -5,7 +5,7 @@
 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: lists.xsl 8347 2009-03-16 14:35:19Z mzjn $
+     $Id: lists.xsl 8530 2009-11-02 02:38:47Z dleidert $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -261,8 +261,8 @@ version='1.0'>
   <!-- * it, within the same para, then add a blank line and move -->
   <!-- * the left margin back to where it was -->
   <xsl:if test="parent::d:para and following-sibling::node()">
-    <xsl:text>.sp&#10;</xsl:text>
-    <xsl:text>.RE&#10;</xsl:text>
+    <xsl:text>.sp</xsl:text>
+    <xsl:text>&#10;</xsl:text>
   </xsl:if>
 </xsl:template>
 
@@ -282,11 +282,7 @@ version='1.0'>
     parent::d:para[following-sibling::node()] or
     parent::d:simpara[following-sibling::node()] or
     parent::d:remark[following-sibling::node()]">
-    <xsl:text>.RS</xsl:text> 
-    <xsl:if test="not($list-indent = '')">
-      <xsl:text> </xsl:text>
-      <xsl:value-of select="$list-indent"/>
-    </xsl:if>
+    <xsl:text>.sp</xsl:text> 
     <xsl:text>&#10;</xsl:text>
   </xsl:if>
 </xsl:template>

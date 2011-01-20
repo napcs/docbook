@@ -131,7 +131,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <xsl:variable name="snum">
     <xsl:apply-templates select="$target" mode="synopfragment.number"/>
   </xsl:variable>
-  <i>
+  <em xmlns:xslo="http://www.w3.org/1999/XSL/Transform">
     <a href="#{@linkend}">
       <xsl:text>(</xsl:text>
       <xsl:value-of select="$snum"/>
@@ -139,7 +139,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     </a>
     <xsl:text>&#160;</xsl:text>
     <xsl:apply-templates/>
-  </i>
+  </em>
 </xsl:template>
 
 <xsl:template match="d:synopfragment" mode="synopfragment.number">
@@ -270,7 +270,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:funcdef/d:function" mode="kr-nontabular">
   <xsl:choose>
     <xsl:when test="$funcsynopsis.decoration != 0">
-      <b class="fsfunc"><xsl:apply-templates mode="kr-nontabular"/></b>
+      <strong xmlns:xslo="http://www.w3.org/1999/XSL/Transform">fsfunc<xsl:apply-templates mode="kr-nontabular"/></strong>
     </xsl:when>
     <xsl:otherwise>
       <xsl:apply-templates mode="kr-nontabular"/>
@@ -383,7 +383,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:funcdef/d:function" mode="kr-tabular">
   <xsl:choose>
     <xsl:when test="$funcsynopsis.decoration != 0">
-      <b class="fsfunc"><xsl:apply-templates mode="kr-nontabular"/></b>
+      <strong xmlns:xslo="http://www.w3.org/1999/XSL/Transform">fsfunc<xsl:apply-templates mode="kr-nontabular"/></strong>
     </xsl:when>
     <xsl:otherwise>
       <xsl:apply-templates mode="kr-tabular"/>
@@ -543,7 +543,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:funcdef/d:function" mode="ansi-nontabular">
   <xsl:choose>
     <xsl:when test="$funcsynopsis.decoration != 0">
-      <b class="fsfunc"><xsl:apply-templates mode="ansi-nontabular"/></b>
+      <strong xmlns:xslo="http://www.w3.org/1999/XSL/Transform">fsfunc<xsl:apply-templates mode="ansi-nontabular"/></strong>
     </xsl:when>
     <xsl:otherwise>
       <xsl:apply-templates mode="ansi-nontabular"/>
@@ -628,7 +628,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:funcdef/d:function" mode="ansi-tabular">
   <xsl:choose>
     <xsl:when test="$funcsynopsis.decoration != 0">
-      <b class="fsfunc"><xsl:apply-templates mode="ansi-nontabular"/></b>
+      <strong xmlns:xslo="http://www.w3.org/1999/XSL/Transform">fsfunc<xsl:apply-templates mode="ansi-nontabular"/></strong>
     </xsl:when>
     <xsl:otherwise>
       <xsl:apply-templates mode="kr-tabular"/>

@@ -1,11 +1,11 @@
 module Docbook
   class Epub < Docbook::Base
    
-    include Docbook::Adapters::Epub::Dbtoepub
+    include Docbook::Adapters::Epub::Epubber
     
     def initialize(args={})
       super
-      @output = 'epub'
+      @xsl_extension = "epub"
       @xsl_stylesheet = "xsl/epub.xsl"
     end
 

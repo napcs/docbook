@@ -10,7 +10,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:fo="http://www.w3.org/1999/XSL/Format
 <xsl:output method="xml" indent="no"/>
 
 <!-- ********************************************************************
-     $Id: docbook.xsl 8414 2009-04-18 22:40:23Z bobstayton $
+     $Id: docbook.xsl 8913 2010-10-01 04:44:57Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -238,6 +238,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:fo="http://www.w3.org/1999/XSL/Format
           <xsl:copy-of select="$bookmarks"/>
         </fo:bookmark-tree>
       </xsl:if>
+      <xsl:apply-templates select="$document.element" mode="fop1.foxdest"/>
     </xsl:if>
 
     <xsl:if test="$xep.extensions != 0">

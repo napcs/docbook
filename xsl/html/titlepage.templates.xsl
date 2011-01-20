@@ -3707,5 +3707,112 @@ xmlns:exsl="http://exslt.org/common" version="1.0" exclude-result-prefixes="exsl
 </div>
 </xsl:template>
 
+<xsl:template name="sidebar.titlepage.recto">
+  <xsl:choose>
+    <xsl:when test="d:sidebarinfo/d:title">
+      <xsl:apply-templates mode="sidebar.titlepage.recto.auto.mode" select="d:sidebarinfo/d:title"/>
+    </xsl:when>
+    <xsl:when test="d:docinfo/d:title">
+      <xsl:apply-templates mode="sidebar.titlepage.recto.auto.mode" select="d:docinfo/d:title"/>
+    </xsl:when>
+    <xsl:when test="d:info/d:title">
+      <xsl:apply-templates mode="sidebar.titlepage.recto.auto.mode" select="d:info/d:title"/>
+    </xsl:when>
+    <xsl:when test="d:title">
+      <xsl:apply-templates mode="sidebar.titlepage.recto.auto.mode" select="d:title"/>
+    </xsl:when>
+  </xsl:choose>
+
+  <xsl:choose>
+    <xsl:when test="d:sidebarinfo/d:subtitle">
+      <xsl:apply-templates mode="sidebar.titlepage.recto.auto.mode" select="d:sidebarinfo/d:subtitle"/>
+    </xsl:when>
+    <xsl:when test="d:docinfo/d:subtitle">
+      <xsl:apply-templates mode="sidebar.titlepage.recto.auto.mode" select="d:docinfo/d:subtitle"/>
+    </xsl:when>
+    <xsl:when test="d:info/d:subtitle">
+      <xsl:apply-templates mode="sidebar.titlepage.recto.auto.mode" select="d:info/d:subtitle"/>
+    </xsl:when>
+    <xsl:when test="d:subtitle">
+      <xsl:apply-templates mode="sidebar.titlepage.recto.auto.mode" select="d:subtitle"/>
+    </xsl:when>
+  </xsl:choose>
+
+</xsl:template>
+
+<xsl:template name="sidebar.titlepage.verso">
+</xsl:template>
+
+<xsl:template name="sidebar.titlepage.separator">
+</xsl:template>
+
+<xsl:template name="sidebar.titlepage.before.recto">
+</xsl:template>
+
+<xsl:template name="sidebar.titlepage.before.verso">
+</xsl:template>
+
+<xsl:template name="sidebar.titlepage">
+  <div class="titlepage">
+    <xsl:variable name="recto.content">
+      <xsl:call-template name="sidebar.titlepage.before.recto"/>
+      <xsl:call-template name="sidebar.titlepage.recto"/>
+    </xsl:variable>
+    <xsl:variable name="recto.elements.count">
+      <xsl:choose>
+        <xsl:when test="function-available('exsl:node-set')"><xsl:value-of select="count(exsl:node-set($recto.content)/*)"/></xsl:when>
+        <xsl:when test="contains(system-property('xsl:vendor'), 'Apache Software Foundation')">
+          <!--Xalan quirk--><xsl:value-of select="count(exsl:node-set($recto.content)/*)"/></xsl:when>
+        <xsl:otherwise>1</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="(normalize-space($recto.content) != '') or ($recto.elements.count &gt; 0)">
+      <div><xsl:copy-of select="$recto.content"/></div>
+    </xsl:if>
+    <xsl:variable name="verso.content">
+      <xsl:call-template name="sidebar.titlepage.before.verso"/>
+      <xsl:call-template name="sidebar.titlepage.verso"/>
+    </xsl:variable>
+    <xsl:variable name="verso.elements.count">
+      <xsl:choose>
+        <xsl:when test="function-available('exsl:node-set')"><xsl:value-of select="count(exsl:node-set($verso.content)/*)"/></xsl:when>
+        <xsl:when test="contains(system-property('xsl:vendor'), 'Apache Software Foundation')">
+          <!--Xalan quirk--><xsl:value-of select="count(exsl:node-set($verso.content)/*)"/></xsl:when>
+        <xsl:otherwise>1</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="(normalize-space($verso.content) != '') or ($verso.elements.count &gt; 0)">
+      <div><xsl:copy-of select="$verso.content"/></div>
+    </xsl:if>
+    <xsl:call-template name="sidebar.titlepage.separator"/>
+  </div>
+</xsl:template>
+
+<xsl:template match="*" mode="sidebar.titlepage.recto.mode">
+  <!-- if an element isn't found in this mode, -->
+  <!-- try the generic titlepage.mode -->
+  <xsl:apply-templates select="." mode="titlepage.mode"/>
+</xsl:template>
+
+<xsl:template match="*" mode="sidebar.titlepage.verso.mode">
+  <!-- if an element isn't found in this mode, -->
+  <!-- try the generic titlepage.mode -->
+  <xsl:apply-templates select="." mode="titlepage.mode"/>
+</xsl:template>
+
+<xsl:template match="d:title" mode="sidebar.titlepage.recto.auto.mode">
+<div xsl:use-attribute-sets="sidebar.titlepage.recto.style">
+<xsl:call-template name="formal.object.heading">
+<xsl:with-param name="object" select="ancestor-or-self::d:sidebar[1]"/>
+</xsl:call-template>
+</div>
+</xsl:template>
+
+<xsl:template match="d:subtitle" mode="sidebar.titlepage.recto.auto.mode">
+<div xsl:use-attribute-sets="sidebar.titlepage.recto.style">
+<xsl:apply-templates select="." mode="sidebar.titlepage.recto.mode"/>
+</div>
+</xsl:template>
+
 </xsl:stylesheet>
 

@@ -5,7 +5,7 @@ module Docbook
     @xsl_extension = ""
     @xsl_stylesheet = ""
 
-    attr_accessor :root, :file, :validate, :draft, :debug
+    attr_accessor :root, :file, :validate, :draft, :debug, :cover
     attr_reader :windows
 
     # Init and cnfigure the class
@@ -16,9 +16,14 @@ module Docbook
        self.validate = args[:validate]
        self.draft = args[:draft]
        self.debug = args[:debug]
+       self.cover = args[:cover]
        @windows = RUBY_PLATFORM.downcase.include?("win32") || RUBY_PLATFORM.downcase.include?("mingw") 
-
     end
+    
+    def output_path
+      "#{self.file}.#{@xsl_extension}"
+    end
+    
     def xml_parser_options
       opts = "use.extensions=1"
     end
@@ -32,20 +37,21 @@ module Docbook
       xml_parser_config << " -Dxslthl.config=#{highlighter_config_path}"
       xml_parser_config
     end
-
-    # Generates the xml xslt processor command.
-    # Override this in your own models to specify another command.
-    def xml_cmd
-
+    
+    def xml_parser_java_paths
       saxon_cp = "#{self.root}/jars/xercesImpl-2.7.1.jar;"
       saxon_cp <<"#{self.root}/xsl/extensions/saxon65.jar;"
       saxon_cp <<"#{self.root}/jars/saxon.jar;"
       saxon_cp <<"#{self.root}/jars/xslthl-2.0.1.jar"
+      saxon_cp
+    end
 
-      xml_parser_config = xml_parser_settings
-      opts = xml_parser_options
-      cmd = "java -Xss1024K -Xmx512m -cp \"#{saxon_cp}\" #{xml_parser_config} com.icl.saxon.StyleSheet -o #{self.file}.#{@xsl_extension} #{self.file}.xml #{@xsl_stylesheet} #{opts}"
+    # Generates the xml xslt processor command.
+    # Override this in your own models to specify another command.
+    def xml_cmd
+      cmd = "java -Xss1024K -Xmx512m -cp \"#{xml_parser_java_paths}\" #{xml_parser_settings} com.icl.saxon.StyleSheet -o #{self.output_path} #{self.file}.xml #{@xsl_stylesheet} #{xml_parser_options}"
       cmd.gsub!(";",":") unless @windows
+      print_debug(cmd)
       cmd    
     end
 

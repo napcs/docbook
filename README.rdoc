@@ -1,12 +1,8 @@
 = Short Attention Span Docbook
 
-This package makes it easy for you to set up all of the tools you need to start authoring books and articles with the open-source Docbook toolchain. 
-
-Contained in this package are the Docbook XSLT stylesheets, a validation package, XML-FO to PDF translation, and a project generator with build scripts.
-
-This package is intended for developers who want to integrate this into their existing programs, want to be on the bleeding edge, and who wish to do a manual installation. Authors and other end users can download the re-distributable packages available at http://www.napcs.com/products/docbook which are more stable.
-
-This uses the dookbook-xsl-ns stylesheets.
+This package gives you all the tools you need to author books and articles with the open-source Docbook toolchain. 
+ 
+Contained in this package are the Docbook XSLT stylesheets, a validation package, XML-FO to PDF translation, and a project generator with build scripts. This uses the dookbook-xsl-ns stylesheets.
 
 == Installation and Usage
 
@@ -16,8 +12,12 @@ In order to use this, you'll need a Java Runtime Environment. JRE 1.6 is fine.
 You also need Ruby 1.8.6, 1.8.7, or 1.9.2.  The 1.9.2 interpreter is not completely supported yet; though books do build successfully, I haven't had enough of a chance to really test things.
 Finally, you need Rubygems and Rake.  
 
-===Basic installation
-The easiest way to set this up on your machine is to clone the repository
+=== Basic installation for (Potential) Authors and Writers
+
+Authors and other end users should download the re-distributable packages available at http://www.napcs.com/products/docbook which are more stable.
+
+=== Developers and Integrators
+If you're interested in creating a more customized toolchain as part of a continous build process, etc, you should clone the repository
 
   git clone git://github.com/napcs/docbook
   
@@ -33,15 +33,17 @@ You'll be prompted to add the install directory to your path. Also add the SHORT
 
 === Staying on the Bleeding Edge
 
-Clone the repo 
+If you really want to keep current, you can clone the repo 
 
   git clone git://github.com/napcs/docbook ~/docbook_edge
   
-And set your ENV variable for SHORT_ATTENTION_SPAN_DOCBOOK to point there.
+And set your ENV variable for SHORT_ATTENTION_SPAN_DOCBOOK to point there. You may also wish to add ~/docbook_edge to your path.
 
-Fetch updates with
+Then you can fetch updates with
 
   git pull origin master
+
+This way you can write against the most current files.
 
 == Creating a book
 
@@ -73,8 +75,14 @@ or simply
 Edit book.xml to add your own information, chapters, images, and more.
 Edit xsl/pdf.xml to change how things look.
 
+Create an HTML version the same way
+
+  rake book.html
+  
+You'll see the output at html/index.html
+
 === More Usage
-This package can create HTML files too. And while RTF and EPUB files will build, the support here is pretty weak. I'm working on that.
+This package can create EPUB files too. And while RTF files will build, the support here is pretty weak. I'm working on that.
 
 See readme_files/docbook.pdf for more information, like how to use Draft mode, pre-and-postprocessing hooks, and adding covers. There's also more on installation and usage for end users there, and it serves as documentation, as the PDF's docbook source is available there as well.
 
@@ -103,6 +111,13 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2011-01-17 -v1.4.0
+ * Updated Docbook XSL-NS to 1.76.1. See xsl/RELEASE-NOTES.txt for more details.
+ * Improved HTML output. HTML output is now copied to the html/ directory and all images are collected and copied there as well.
+ * Added an HTML stylesheet.
+ * Added examples to the default stylesheet that show how to customize the generated text for cross references.
+ * Added entries to the ePub stylesheet.
+ * Tested ePub output on iBooks 1.2 and Stanza on the iPad.
 2010-09-00 -v1.3.0.3
  * Builds PDFs under Ruby 1.9.2
  * Postprocess callbacks work (Thanks Eric Davis)

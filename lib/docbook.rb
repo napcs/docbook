@@ -3,6 +3,7 @@ unless $LOAD_PATH.include?(File.expand_path(File.dirname(__FILE__)))
 end
 require 'docbook/adapters/fo/fop'
 require 'docbook/adapters/epub/dbtoepub'
+require 'docbook/adapters/epub/epubber'
 
 require 'docbook/base'
 require 'docbook/chm'

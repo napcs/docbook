@@ -11,7 +11,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: inline.xsl 8363 2009-03-21 07:46:57Z bobstayton $
+     $Id: inline.xsl 8811 2010-08-09 20:24:45Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -19,6 +19,9 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
      copyright and other information.
 
      ******************************************************************** -->
+
+<xsl:key name="glossentries" match="d:glossentry" use="normalize-space(d:glossterm)"/>
+<xsl:key name="glossentries" match="d:glossentry" use="normalize-space(d:glossterm/@baseform)"/>
 
 <xsl:template name="simple.xlink">
   <xsl:param name="node" select="."/>
@@ -180,6 +183,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </xsl:param>
 
   <fo:inline xsl:use-attribute-sets="monospace.properties">
+    <xsl:call-template name="anchor"/>
     <xsl:if test="@dir">
       <xsl:attribute name="direction">
         <xsl:choose>
@@ -842,9 +846,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
       </xsl:variable>
 
       <xsl:variable name="targets"
-                    select="//d:glossentry[normalize-space(d:glossterm)=$term
-                            or normalize-space(d:glossterm/@baseform)=$term]"/>
-
+                    select="key('glossentries', $term)"/>
       <xsl:variable name="target" select="$targets[1]"/>
 
       <xsl:choose>

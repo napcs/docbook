@@ -6,7 +6,7 @@
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: titlepage.xsl 8491 2009-07-19 10:02:57Z mzjn $
+     $Id: titlepage.xsl 8816 2010-08-10 11:56:35Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -64,6 +64,9 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <xsl:attribute-set name="setindex.titlepage.recto.style"/>
 <xsl:attribute-set name="setindex.titlepage.verso.style"/>
+
+<xsl:attribute-set name="sidebar.titlepage.recto.style"/>
+<xsl:attribute-set name="sidebar.titlepage.verso.style"/>
 
 <xsl:attribute-set name="section.titlepage.recto.style"/>
 <xsl:attribute-set name="section.titlepage.verso.style"/>
@@ -583,7 +586,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 </xsl:template>
 
 <xsl:template match="d:legalnotice/d:title" mode="titlepage.mode">
-  <p class="legalnotice-title"><b><xsl:apply-templates/></b></p>
+  <p class="legalnotice-title"><strong xmlns:xslo="http://www.w3.org/1999/XSL/Transform"><xsl:apply-templates/></strong></p>
 </xsl:template>
 
 <xsl:template match="d:lineage" mode="titlepage.mode">
@@ -761,11 +764,11 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
       <table border="1" width="100%" summary="Revision history">
         <tr>
           <th align="{$direction.align.start}" valign="top" colspan="{$numcols}">
-            <b>
+            <strong xmlns:xslo="http://www.w3.org/1999/XSL/Transform">
               <xsl:call-template name="gentext">
                 <xsl:with-param name="key" select="'RevHistory'"/>
               </xsl:call-template>
-            </b>
+            </strong>
           </th>
         </tr>
         <xsl:apply-templates mode="titlepage.mode">

@@ -6,7 +6,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: formal.xsl 8417 2009-04-24 16:20:18Z bobstayton $
+     $Id: formal.xsl 8544 2009-12-02 06:06:53Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -165,7 +165,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
               <xsl:attribute name="keep-together.within-column"><xsl:value-of
                               select="$keep.together"/></xsl:attribute>
             </xsl:if>
-            <xsl:apply-templates/>
+            <xsl:call-template name="equation.without.title"/>
           </fo:block>
         </xsl:when>
         <xsl:otherwise>
@@ -175,7 +175,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
               <xsl:attribute name="keep-together.within-column"><xsl:value-of
                               select="$keep.together"/></xsl:attribute>
             </xsl:if>
-            <xsl:apply-templates/>
+            <xsl:call-template name="equation.without.title"/>
           </fo:block>
         </xsl:otherwise>
       </xsl:choose>
@@ -278,10 +278,34 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </xsl:choose>
 </xsl:template>
 
+<xsl:template name="equation.without.title">
+  <!-- Lay out equation and number next to equation using a table -->
+  <fo:table table-layout="fixed" width="100%">
+    <fo:table-column column-width="proportional-column-width(15)"/>
+    <fo:table-column column-width="proportional-column-width(1)"/>
+    <fo:table-body start-indent="0pt" end-indent="0pt">
+      <fo:table-row>
+        <fo:table-cell padding-end="6pt">
+          <fo:block>
+            <xsl:apply-templates/>
+          </fo:block>
+        </fo:table-cell>
+        <fo:table-cell xsl:use-attribute-sets="equation.number.properties">
+          <fo:block>
+            <xsl:text>(</xsl:text>
+            <xsl:apply-templates select="." mode="label.markup"/>
+            <xsl:text>)</xsl:text>
+          </fo:block>
+        </fo:table-cell>
+      </fo:table-row>
+    </fo:table-body>
+  </fo:table>
+</xsl:template>
+
 <xsl:template name="semiformal.object">
   <xsl:param name="placement" select="'before'"/>
   <xsl:choose>
-    <xsl:when test="./d:title">
+    <xsl:when test="d:title or d:info/d:title">
       <xsl:call-template name="formal.object">
         <xsl:with-param name="placement" select="$placement"/>
       </xsl:call-template>

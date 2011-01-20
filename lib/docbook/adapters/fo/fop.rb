@@ -72,6 +72,18 @@ module Docbook
           end
         end
     
+        def add_cover
+          if File.exist?("cover/cover.pdf")
+            puts "Cover found - applying cover to the front of PDF"
+            cmd = "java -Xss1024K -Xmx512m -cp #{DOCBOOK_ROOT}/jars/Multivalent*.jar tool.pdf.Merge -samedoc cover/cover.pdf #{self.file}.pdf"
+            `#{cmd}`
+            FileUtils.rm "#{self.file}.pdf"
+            FileUtils.mv("cover/cover-m.pdf", "#{self.file}.pdf")
+          else
+            "No cover found. Ensure cover/cover.pdf exists"
+          end
+        end
+     
         # Callback to build the final file after the XML-FO rendering occurs
         def after_render
           if File.exists?("#{self.file}.fo")
@@ -81,6 +93,9 @@ module Docbook
     
             puts "Cleaning up"
             FileUtils.rm "#{file}.fo"
+            
+            add_cover if self.cover
+            
           else
             puts "FO processing halted - missing #{self.file}.fo file."
           end

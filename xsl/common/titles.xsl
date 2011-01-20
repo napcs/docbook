@@ -2,11 +2,12 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:d="http://docbook.org/ns/docbook"
 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
                 exclude-result-prefixes="doc d"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: titles.xsl 8469 2009-07-09 21:49:16Z bobstayton $
+     $Id: titles.xsl 8599 2010-03-20 10:47:36Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -720,7 +721,7 @@ title of the element. This does not include the label.
 </xsl:template>
 
 <xsl:template match="d:xref" mode="no.anchor.mode">
-  <xsl:variable name="targets" select="key('id',@linkend)"/>
+  <xsl:variable name="targets" select="key('id',@linkend)|key('id',substring-after(@xlink:href,'#'))"/>
   <xsl:variable name="target" select="$targets[1]"/>
   <xsl:variable name="refelem" select="local-name($target)"/>
   
@@ -732,7 +733,8 @@ title of the element. This does not include the label.
     <xsl:when test="count($target) = 0">
       <xsl:message>
         <xsl:text>XRef to nonexistent id: </xsl:text>
-        <xsl:value-of select="@linkend"/>
+        <xsl:value-of select="@linkend"/> 
+        <xsl:value-of select="@xlink:href"/>
       </xsl:message>
       <xsl:text>???</xsl:text>
     </xsl:when>

@@ -37,9 +37,9 @@ module Docbook
              xmlns:xslthl="http://xslthl.sf.net"
              xmlns:d="http://docbook.org/ns/docbook"
           >
-            <!-- Import the original FO stylesheet -->
+            <!-- Import the original EPUB stylesheets -->
             <xsl:import href="file:///#{xsl_path}/xsl/epub/docbook.xsl"/>
-            <xsl:import href="file:///#{xsl_path}/xsl/fo/highlight.xsl"/>
+            <xsl:import href="file:///#{xsl_path}/xsl/xhtml-1_1/highlight.xsl"/>
       
             <!-- FOP -->
    

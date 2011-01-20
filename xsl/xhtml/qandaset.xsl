@@ -152,15 +152,15 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns="http://www.w3.org/199
       </xsl:variable>
 
       <xsl:if test="string-length($label.content) &gt; 0">
-        <p><b>
+        <p><strong xmlns:xslo="http://www.w3.org/1999/XSL/Transform">
           <xsl:copy-of select="$label.content"/>
-        </b></p>
+        </strong></p>
       </xsl:if>
     </td>
     <td align="{$direction.align.start}" valign="top">
       <xsl:choose>
         <xsl:when test="$deflabel = 'none' and not(d:label)">
-          <b><xsl:apply-templates select="*[local-name(.) != 'label']"/></b>
+          <strong xmlns:xslo="http://www.w3.org/1999/XSL/Transform"><xsl:apply-templates select="*[local-name(.) != 'label']"/></strong>
         </xsl:when>
         <xsl:otherwise>
           <xsl:apply-templates select="*[local-name(.) != 'label']"/>
@@ -203,9 +203,9 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns="http://www.w3.org/199
         <xsl:apply-templates select="." mode="label.markup"/>
       </xsl:variable>
       <xsl:if test="string-length($answer.label) &gt; 0">
-        <p><b>
+        <p><strong xmlns:xslo="http://www.w3.org/1999/XSL/Transform">
           <xsl:copy-of select="$answer.label"/>
-        </b></p>
+        </strong></p>
       </xsl:if>
     </td>
     <td align="{$direction.align.start}" valign="top">

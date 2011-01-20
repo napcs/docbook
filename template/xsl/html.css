@@ -1,0 +1,23 @@
+/* Stylesheet for HTML format */
+
+body{
+  line-height: 20px;
+  font-size: 16px;
+  font-family :Arial, Helvetica, sans-serif;
+}
+
+pre.programlisting { background-color: #E0E0E0; }
+pre.screen { background-color: #E0E0E0; }
+
+/* source code highlighting */
+.hl-comment {color: #059900;}
+.hl-keyword {font-weight: bolder; color: #153799;}
+.hl-string {color: red;}
+
+/* Special keyword highlighting */
+.filename{color: #000066;}
+.command{color: #A2000C;}
+.userinput{color: #138900;}
+.classname{color: #161672;}
+.methodname{color: #161672;}
+.literal{color: #2B541C;}

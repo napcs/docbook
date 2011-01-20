@@ -5,7 +5,7 @@
 xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xmlns/chunkfast/1.0" xmlns:ng="http://docbook.org/docbook-ng" xmlns:db="http://docbook.org/ns/docbook" xmlns:exslt="http://exslt.org/common" exslt:dummy="dummy" ng:dummy="dummy" db:dummy="dummy" extension-element-prefixes="exslt" exclude-result-prefixes="exsl cf ng db exslt d" version="1.0">
 
 <!-- ********************************************************************
-     $Id: chunk-code.xsl 8345 2009-03-16 06:44:07Z bobstayton $
+     $Id: chunk-code.xsl 8596 2010-03-20 04:36:45Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -250,6 +250,12 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
           </xsl:apply-templates>
         </xsl:when>
         <xsl:otherwise>
+          <xsl:if test="/d:set">
+            <!-- in a set, make sure we inherit the right book info... -->
+            <xsl:apply-templates mode="recursive-chunk-filename" select="parent::*">
+              <xsl:with-param name="recursive" select="true()"/>
+            </xsl:apply-templates>
+          </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
 
@@ -458,6 +464,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:cf="http://docbook.sourceforge.net/xm
 
 <xsl:template match="*" mode="process.root">
   <xsl:apply-templates select="."/>
+  <xsl:call-template name="generate.css"/>
 </xsl:template>
 
 <!-- ====================================================================== -->

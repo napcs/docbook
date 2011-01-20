@@ -6,7 +6,7 @@
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: component.xsl 8421 2009-05-04 07:49:49Z bobstayton $
+     $Id: component.xsl 8568 2010-01-11 03:16:56Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -57,9 +57,9 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
   <xsl:if test="$subtitle">
     <h3 class="subtitle">
-      <i>
+      <em xmlns:xslo="http://www.w3.org/1999/XSL/Transform">
         <xsl:apply-templates select="$node" mode="object.subtitle.markup"/>
-      </i>
+      </em>
     </h3>
   </xsl:if>
 </xsl:template>
@@ -246,7 +246,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   </div>
 </xsl:template>
 
-<xsl:template match="d:chapter/d:title|d:chapter/d:chapterinfo/d:title" mode="titlepage.mode" priority="2">
+<xsl:template match="d:chapter/d:title|d:chapter/d:chapterinfo/d:title|d:chapter/d:info/d:title" mode="titlepage.mode" priority="2">
   <xsl:call-template name="component.title">
     <xsl:with-param name="node" select="ancestor::d:chapter[1]"/>
   </xsl:call-template>

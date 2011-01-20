@@ -10,7 +10,7 @@
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: titlepage.xsl 6558 2007-01-25 20:30:53Z bobstayton $
+     $Id: titlepage.xsl 8898 2010-08-29 19:32:59Z dleidert $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -30,7 +30,7 @@
 <doc:reference xmlns="">
 <referenceinfo>
 <releaseinfo role="meta">
-$Id: titlepage.xsl 6558 2007-01-25 20:30:53Z bobstayton $
+$Id: titlepage.xsl 8898 2010-08-29 19:32:59Z dleidert $
 </releaseinfo>
 <author><surname>Walsh</surname>
 <firstname>Norman</firstname></author>
@@ -91,7 +91,7 @@ set of templates. This template creates an appropriate
     </xsl:for-each>
 
     <xsl:attribute name="version">1.0</xsl:attribute>
-    <xsl:attribute name="exclude-result-prefixes">exsl</xsl:attribute>
+    <xsl:attribute name="exclude-result-prefixes">exsl d</xsl:attribute>
 
     <xsl:text>&#xA;&#xA;</xsl:text>
     <xsl:comment>
@@ -1309,7 +1309,7 @@ text of the select attribute.</para>
         <xsl:with-param name="orlist">
           <xsl:value-of select="$orlist"/>
           <xsl:if test="not($orlist='')">|</xsl:if>
-          <xsl:value-of select="name($elements[position()=$count])"/>
+          <xsl:value-of select="concat('d:', name($elements[position()=$count]))"/>
         </xsl:with-param>
       </xsl:call-template>
     </xsl:otherwise>

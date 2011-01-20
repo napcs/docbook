@@ -6,7 +6,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: labels.xsl 8350 2009-03-17 07:24:29Z bobstayton $
+     $Id: labels.xsl 8540 2009-12-02 05:28:09Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -743,11 +743,11 @@ element label.</para>
             <xsl:apply-templates select="$pchap" mode="label.markup"/>
             <xsl:apply-templates select="$pchap" mode="intralabel.punctuation"/>
           </xsl:if>
-          <xsl:number format="1" count="d:equation[d:title or d:info/d:title]" 
+          <xsl:number format="1" count="d:equation" 
                       from="d:chapter|d:appendix" level="any"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:number format="1" count="d:equation[d:title or d:info/d:title]" 
+          <xsl:number format="1" count="d:equation" 
                       from="d:book|d:article" level="any"/>
         </xsl:otherwise>
       </xsl:choose>

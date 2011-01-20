@@ -43,7 +43,11 @@ module Docbook
     end
   
     def after_render
-      puts "HTML requires no postprocessing"
+      puts "Collecting HTML and resources..."
+      FileUtils.mkdir_p "html"
+      FileUtils.cp "#{self.file}.html", "html/index.html"
+      FileUtils.cp "xsl/html.css", "html/style.css"
+      FileUtils.cp_r "images", "html/images"
     end
 
   end

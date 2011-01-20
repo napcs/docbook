@@ -11,7 +11,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   version='1.0'>
 
 <!-- ********************************************************************
-     $Id: pi.xsl 8349 2009-03-17 06:53:03Z bobstayton $
+     $Id: pi.xsl 8782 2010-07-27 21:15:17Z mzjn $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -22,7 +22,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
 <doc:reference xmlns=""><info><title>Common Processing Instruction Reference</title>
     <releaseinfo role="meta">
-      $Id: pi.xsl 8349 2009-03-17 06:53:03Z bobstayton $
+      $Id: pi.xsl 8782 2010-07-27 21:15:17Z mzjn $
     </releaseinfo>
   </info>
   <partintro id="partintro">
@@ -189,6 +189,11 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       child of a <tag>textobject</tag> containing embedded TeX
       markup, to cause that markup to be surrounded by
       <literal>$</literal> delimiter characters in output.</para>
+      <warning>
+       <para>This feature is useful for print/PDF output only if you
+       use the obsolete and now unsupported PassiveTeX XSL-FO
+       engine.</para>
+      </warning>
   </refdescription>
   <refsynopsisdiv>
     <synopsis><tag class="xmlpi">dbtex delims="no"|"yes"</tag></synopsis>
@@ -202,14 +207,11 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       </varlistentry>
     </variablelist>
   </refparameter>
+
   <refsee role="params">
     <para><parameter>tex.math.delims</parameter></para>
   </refsee>
-  <refsee role="tcg">
-    <para><link role="tcg"
-        xlink:href="TexMath.html"
-        >DBTeXMath</link></para>
-  </refsee>
+ 
 </doc:pi>
 <xsl:template name="pi.dbtex_delims">
   <xsl:param name="node" select="."/>

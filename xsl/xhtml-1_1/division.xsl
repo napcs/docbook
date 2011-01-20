@@ -183,7 +183,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <xsl:template match="d:partintro/d:subtitle" mode="partintro.title.mode">
   <h3>
-    <i><xsl:apply-templates/></i>
+    <em xmlns:xslo="http://www.w3.org/1999/XSL/Transform"><xsl:apply-templates/></em>
   </h3>
 </xsl:template>
 

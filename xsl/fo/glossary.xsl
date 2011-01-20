@@ -11,7 +11,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: glossary.xsl 8393 2009-04-02 14:20:44Z dcramer $
+     $Id: glossary.xsl 8591 2010-02-27 20:42:27Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -584,12 +584,18 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 
   &setup-language-variable;
 
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id"/>
+  </xsl:variable>
+
   <xsl:variable name="preamble"
                 select="*[not(self::d:title
                             or self::d:subtitle
                             or self::d:glossentry)]"/>
 
-  <xsl:call-template name="glossdiv.titlepage"/>
+  <fo:block id="{$id}">
+    <xsl:call-template name="glossdiv.titlepage"/>
+  </fo:block>
 
   <xsl:apply-templates select="$preamble"/>
 
@@ -627,12 +633,18 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 
   &setup-language-variable;
 
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id"/>
+  </xsl:variable>
+
   <xsl:variable name="preamble"
                 select="*[not(self::d:title
                             or self::d:subtitle
                             or self::d:glossentry)]"/>
 
-  <xsl:call-template name="glossdiv.titlepage"/>
+  <fo:block id="{$id}">
+    <xsl:call-template name="glossdiv.titlepage"/>
+  </fo:block>
 
   <xsl:apply-templates select="$preamble"/>
 
@@ -670,6 +682,10 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 
   &setup-language-variable;
 
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id"/>
+  </xsl:variable>
+
   <xsl:variable name="entries" select="d:glossentry"/>
 
   <xsl:variable name="preamble"
@@ -677,7 +693,9 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                             or self::d:subtitle
                             or self::d:glossentry)]"/>
 
-  <xsl:call-template name="glossdiv.titlepage"/>
+  <fo:block id="{$id}">
+    <xsl:call-template name="glossdiv.titlepage"/>
+  </fo:block>
 
   <xsl:apply-templates select="$preamble"/>
 
@@ -914,13 +932,20 @@ GlossEntry ::=
 
 <xsl:template match="d:glossdiv" mode="glossary.as.blocks">
   &setup-language-variable;
+
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id"/>
+  </xsl:variable>
+
   <xsl:variable name="entries" select="d:glossentry"/>
   <xsl:variable name="preamble"
                 select="*[not(self::d:title
                             or self::d:subtitle
                             or self::d:glossentry)]"/>
 
-  <xsl:call-template name="glossdiv.titlepage"/>
+  <fo:block id="{$id}">
+    <xsl:call-template name="glossdiv.titlepage"/>
+  </fo:block>
 
   <xsl:apply-templates select="$preamble"/>
 

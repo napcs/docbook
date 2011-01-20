@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xsl:stylesheet [
-
-<!ENTITY primary   'normalize-space(concat(d:primary/@sortas, d:primary[not(@sortas) or @sortas = ""]))'>
-<!ENTITY secondary 'normalize-space(concat(d:secondary/@sortas, d:secondary[not(@sortas) or @sortas = ""]))'>
-<!ENTITY tertiary  'normalize-space(concat(d:tertiary/@sortas, d:tertiary[not(@sortas) or @sortas = ""]))'>
-
-<!ENTITY scope 'count(ancestor::node()|$scope) = count(ancestor::node()) and ($role = @role or $type = @type or (string-length($role) = 0 and string-length($type) = 0))'>
+<!ENTITY % common.entities SYSTEM "../common/entities.ent">
+%common.entities;
 ]>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:d="http://docbook.org/ns/docbook"
@@ -19,7 +15,7 @@ xmlns:i="urn:cz-kosek:functions:index"
                 version="1.0">
 
 <!-- ********************************************************************
-     $Id: autoidx-kosek.xsl 8399 2009-04-08 07:37:42Z bobstayton $
+     $Id: autoidx-kosek.xsl 8725 2010-07-15 08:08:04Z kosek $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.

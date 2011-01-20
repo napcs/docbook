@@ -1,8 +1,7 @@
 <?xml version='1.0'?>
 <!DOCTYPE xsl:stylesheet [
-<!ENTITY primary   'normalize-space(concat(d:primary/@sortas, d:primary[not(@sortas)]))'>
-<!ENTITY secondary 'normalize-space(concat(d:secondary/@sortas, d:secondary[not(@sortas)]))'>
-<!ENTITY tertiary  'normalize-space(concat(d:tertiary/@sortas, d:tertiary[not(@sortas)]))'>
+<!ENTITY % common.entities SYSTEM "../common/entities.ent">
+%common.entities;
 ]>
 <xsl:stylesheet exclude-result-prefixes="d"
                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -12,7 +11,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: index.xsl 8317 2009-03-12 06:14:02Z bobstayton $
+     $Id: index.xsl 8724 2010-07-15 07:53:27Z kosek $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
