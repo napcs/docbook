@@ -143,13 +143,11 @@ set       toc,title
     </span>
   </xsl:template>
 
-
-
-<xsl:template match='d:command'>
-  <span class="command">
-    <xsl:call-template name="inline.monoseq"/>
-  </span>
-</xsl:template>
+  <xsl:template match='d:command'>
+    <span class="command">
+      <xsl:call-template name="inline.monoseq"/>
+    </span>
+  </xsl:template>
   
   <xsl:template match='d:userinput'>
     <span class="userinput">

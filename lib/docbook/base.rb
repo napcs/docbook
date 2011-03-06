@@ -16,7 +16,6 @@ module Docbook
        self.validate = args[:validate]
        self.draft = args[:draft]
        self.debug = args[:debug]
-       self.cover = args[:cover]
        @windows = RUBY_PLATFORM.downcase.include?("win32") || RUBY_PLATFORM.downcase.include?("mingw") 
     end
     

@@ -112,12 +112,15 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 == Changes
 2011-01-17 -v1.4.0
+ * Cover support for ePub is done. It requires the use of the <tt>cover</tt> element though, so it's different than PDF covers.
+ * PDF cover support is now the default. No need for an extra task. If the cover.pdf file exists, it will be used.
  * Updated Docbook XSL-NS to 1.76.1. See xsl/RELEASE-NOTES.txt for more details.
+   * Downgraded Docbook XSL-NS ePub XSLT to 1.76.0 due to regression bug with epub ToC.
  * Improved HTML output. HTML output is now copied to the html/ directory and all images are collected and copied there as well.
  * Added an HTML stylesheet.
  * Added examples to the default stylesheet that show how to customize the generated text for cross references.
- * Added entries to the ePub stylesheet.
- * Tested ePub output on iBooks 1.2 and Stanza on the iPad.
+ * Added entries to the ePub stylesheet
+ * Tested ePub output on Adobe Digital Editions, iBooks 1.2 and Stanza on the iPad.
 2010-09-00 -v1.3.0.3
  * Builds PDFs under Ruby 1.9.2
  * Postprocess callbacks work (Thanks Eric Davis)

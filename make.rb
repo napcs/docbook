@@ -23,9 +23,8 @@ require 'fileutils'
 
 header
 desc "Prepend a cover to your PDF. Cover should be called cover.pdf and stored in the cover/ folder"
-task :add_cover do
-  puts "This task is deprecated. Use 'rake book.pdf COVER=true' instead"
-  
+task :add_cover => ["book.pdf"] do
+  puts "This task is deprecated. The book is built with a cover if the cover file exists."
 end
 
 desc "clean temporary files"

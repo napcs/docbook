@@ -80,7 +80,8 @@ module Docbook
             FileUtils.rm "#{self.file}.pdf"
             FileUtils.mv("cover/cover-m.pdf", "#{self.file}.pdf")
           else
-            "No cover found. Ensure cover/cover.pdf exists"
+            puts "No cover found. PDF styles don't currently use the <cover> element."
+            puts "Ensure cover/cover.pdf exists if you want a cover appended."
           end
         end
      
@@ -94,7 +95,7 @@ module Docbook
             puts "Cleaning up"
             FileUtils.rm "#{file}.fo"
             
-            add_cover if self.cover
+            add_cover
             
           else
             puts "FO processing halted - missing #{self.file}.fo file."

@@ -5,19 +5,16 @@ module Docbook
       # should be extended to control the various formats.
       module Epubber
     
-          OUTPUT_DIR = ".epubtmp#{Time.now.to_f.to_s}"
-          MIMETYPE = "application/epub+zip"
-          META_DIR = "META-INF"
-          OEBPS_DIR = "OEBPS"
-  
-
+        OUTPUT_DIR = ".epubtmp#{Time.now.to_f.to_s}"
+        MIMETYPE = "application/epub+zip"
+        META_DIR = "META-INF"
+        OEBPS_DIR = "OEBPS"
       
         def collect_images
           FileUtils.cp_r "images", "#{OUTPUT_DIR}/#{OEBPS_DIR}/images"
         end
         
         def collect_cover
-          
           if File.exist?("cover/cover.jpg")
             FileUtils.cp "cover/cover.jpg", "#{OUTPUT_DIR}/#{OEBPS_DIR}/images/cover.jpg"
           else
@@ -36,8 +33,7 @@ module Docbook
           FileUtils.cp "xsl/epub.css", "#{OUTPUT_DIR}/#{OEBPS_DIR}/style.css"
           
           collect_images
-          collect_cover if self.cover
-
+          collect_cover
 
           Dir.chdir(OUTPUT_DIR) do
             File.open("mimetype", "w") {|f| f.print MIMETYPE}
