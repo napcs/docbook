@@ -1,8 +1,7 @@
 module Docbook
   module Adapters
     module Epub
-      # Interface for FO-PDF processors, for taking FO output created by the XML processor and converting it to various formats. This class
-      # should be extended to control the various formats.
+
       module Dbtoepub
     
         # initialize the object and set the extensions and output type. Defaults to PDF

@@ -38,11 +38,12 @@
  <xsl:param name="local.l10n.xml" select="document('')"/> 
  <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"> 
    <l:l10n language="en"> 
-   <l:gentext key="Procedure" text="Exercise"/>
-   <l:gentext key="procedure" text="exercise"/>
-   <l:gentext key="ListofProcedures" text="List of Exercises"/>
-   <l:gentext key="listofprocedures" text="List of Exercises"/>
-
+     
+     <!-- Change "Procedure" into "Excercise" -->
+     <l:gentext key="Procedure" text="Exercise"/>
+     <l:gentext key="procedure" text="exercise"/>
+     <l:gentext key="ListofProcedures" text="List of Exercises"/>
+     <l:gentext key="listofprocedures" text="List of Exercises"/>
 
      <l:context name="title">
        <l:template name="procedure" text="%t"/>
@@ -53,23 +54,14 @@
        <l:template name="procedure" text="Exercise %n, “%t”"/>
      </l:context>
      
-   </l:l10n>
- </l:i18n>
- 
- <!-- change how cross-references look -->
- 
- <xsl:param name="local.l10n.xml" select="document('')"/> 
- <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"> 
-   <l:l10n language="en">
-     
+     <!-- change how cross-references look -->
      <l:context name="xref">
        <l:template name="page.citation" text=" on page %p"/>
      </l:context>
      
    </l:l10n>
  </l:i18n>
-
-
+ 
 <!-- TOC settings -->
 
 <xsl:param name="generate.toc">
@@ -276,9 +268,9 @@ set       toc,title
       <xsl:when test="$position = 'left'">
           <xsl:text>Copyright </xsl:text>
           <!-- use xpath to grab the year - remember to prefix each node with d: -->
-          <xsl:value-of select="ancestor-or-self::d:book/d:info/d:copyright/d:year"/>
+          <xsl:value-of select="ancestor-or-self::d:article/d:info/d:copyright/d:year"/>
           <xsl:text> </xsl:text>
-          <xsl:value-of select="ancestor-or-self::d:book/d:info/d:copyright/d:holder"/>
+          <xsl:value-of select="ancestor-or-self::d:article/d:info/d:copyright/d:holder"/>
       </xsl:when>
       <!--
               <xsl:when test="$position = 'center'">

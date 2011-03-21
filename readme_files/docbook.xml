@@ -20,14 +20,14 @@
             <email>info@napcs.com</email>
         </author>
         <copyright>
-            <year>2010</year>
+            <year>2011</year>
             <holder>Brian P. Hogan</holder>
         </copyright>
     </info>
     <sect1>
         <title>Overview</title>
         <para>This short guide will walk you through everything you need to use this toolchain to
-            author your own Docbook documents.</para>
+            author your own books, articles, and other documents using the open-source Docbook markup language.</para>
         <sect2>
             <title>Package Contents</title>
             <para>This package contains all of the tools you need to start working with Docbook,
@@ -46,90 +46,91 @@
                     <para>The Apache FOP FO processor for making PDFs</para>
                 </listitem>
                 <listitem>
-                    <para>A copy of the Microsoft HHC program for building HTML Help files</para>
-                </listitem>
-                <listitem>
-                    <para>A sample project with an easy-to-use Ruby script to transform your
-                        document into various formats</para>
+                    <para>Scripts that generate new book and article projects, complete with the option to create samples so you have a good starting point.</para>
                 </listitem>
             </itemizedlist>
         </sect2>
     </sect1>
     <sect1>
-        <title>Windows setup</title>
-        <para>Windows users should use the installer <footnote>
-                <para>Docbook setup for Windows:
-                        <uri>http://www.napcsweb.com/files/docbook/docbook-setup.exe</uri></para>
-            </footnote>which sets up the necessary files and also sets up the path.</para>
-        <sidebar>
-            <title>Manual installation </title>
-            <para>The easiest way to use this package is to use the application installer, but if
-                you need to do a manual install, you can download the docbook zip file from
-                    <uri>http://www.napcsweb.com/files/docbook/docbook.zip</uri> and extract it to
-                    <filename>c:\docbook</filename>. Next, you'll want to add this folder to your
-                PATH. To do that, press <keycombo>
-                    <keycap>Windows</keycap>
-                    <keycap>Pause</keycap>
-                </keycombo> to bring up the <application>System Properties</application> window.
-                Select the <guibutton>Advanced</guibutton> tab and then select the
-                    <guibutton>Environmen Variables</guibutton> button. In the <guilabel>User
-                    variables</guilabel> section, locate the Path variable and edit its contents.
-                Append <code><![CDATA[;c:\docbook]]></code> to the end of the value. If there
-                currently is no Path variable, create a new one called <emphasis>PATH</emphasis> and
-                use <code><![CDATA[c:\docbook]]></code> for the value. Press
-                    <guibutton>OK</guibutton> to commit these changes. Press
-                    <guibutton>OK</guibutton> on the <application>System Properties</application>
-                window to finish up.</para>
-            <para>Open a new command prompt and type <command>SET</command>. The PATH variable now
-                reflects the changes you made.</para>
-        </sidebar>
-        <sect2>
-            <title>Installing a Java Runtime Environment</title>
-            <para>Download the Java Runtime Environment from Sun <footnote>
-                    <para>Java Runtime:
-                        <uri>http://java.sun.com/javase/downloads/index.jsp</uri></para>
-                </footnote> and get it installed on your system if you don't already have it. Once
-                installed, open a new command prompt and type </para>
-            <para><command>java -version</command></para>
-            <para>You'll see something similar to this:</para>
-            <screen><![CDATA[Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_13-b05-237)
-Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
+        <title>Installation</title>
+        <para>In order to build books with this toolchain, you need to get it installed on your platform.
+          </para>
+        <sect2 xml:id="sec.Windows.setup">
+          <title>Windows setup</title>
+                  <para>Windows users should use the installer <footnote>
+                          <para>Docbook setup for Windows:
+                                  <uri>http://www.napcsweb.com/files/docbook/docbook-setup.exe</uri></para>
+                      </footnote>which sets up the necessary files and also sets up the path.</para>
+                  <sidebar>
+                      <title>Manual installation on Windows</title>
+                      <para>The easiest way to use this package is to use the application installer, but if
+                          you need to do a manual install, you can download the docbook zip file from
+                              <uri>http://www.napcsweb.com/files/docbook/docbook.zip</uri> and extract it to
+                              <filename>c:\docbook</filename>. Next, you'll want to add this folder to your
+                          PATH. To do that, press <keycombo>
+                              <keycap>Windows</keycap>
+                              <keycap>Pause</keycap>
+                          </keycombo> to bring up the <application>System Properties</application> window.
+                          Select the <guibutton>Advanced</guibutton> tab and then select the
+                              <guibutton>Environmen Variables</guibutton> button. In the <guilabel>User
+                              variables</guilabel> section, locate the Path variable and edit its contents.
+                          Append <code><![CDATA[;c:\docbook]]></code> to the end of the value. If there
+                          currently is no Path variable, create a new one called <emphasis>PATH</emphasis> and
+                          use <code><![CDATA[c:\docbook]]></code> for the value. Press
+                              <guibutton>OK</guibutton> to commit these changes. Press
+                              <guibutton>OK</guibutton> on the <application>System Properties</application>
+                          window to finish up.</para>
+                      <para>Open a new command prompt and type <command>SET</command>. The PATH variable now
+                          reflects the changes you made.</para>
+                  </sidebar>
+                  <sect3>
+                      <title>Installing a Java Runtime Environment</title>
+                      <para>Download the Java Runtime Environment from Sun <footnote>
+                              <para>Java Runtime:
+                                  <uri>http://java.sun.com/javase/downloads/index.jsp</uri></para>
+                          </footnote> and get it installed on your system if you don't already have it. Once
+                          installed, open a new command prompt and type </para>
+                      <para><command>java -version</command></para>
+                      <para>You'll see something similar to this:</para>
+                      <screen><![CDATA[Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_13-b05-237)
+          Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
+                  </sect3>
+                  <sect3>
+                      <title>Installing Ruby</title>
+                      <para>Download and install the Ruby Installer for Windows<footnote>
+                              <para>Ruby:
+                                      <uri><![CDATA[http://www.rubyinstaller.org]]></uri></para>
+                          </footnote> and install it, accepting the defaults. To verify the installation, open
+                          a new command prompt and type</para>
+                      <para><command>ruby -v</command></para>
+                      <para>You'll see something like this:</para>
+                      <screen><![CDATA[ruby 1.8.6 (2007-03-13 patchlevel 0) [i386-mswin32]]]>
+                      </screen>
+                      <para>At this point, everything is installed and you're ready to begin. Test it out by
+                          creating a new project:</para>
+                      <para><command>generate book my_test_project with_sample</command></para>
+                      <screen><![CDATA[Creating docbook project...
+           - my_test_project/xsl
+           - my_test_project/images
+           - my_test_project/images/src
+           - my_test_project/cover
+           - my_test_project/book.xml
+           - my_test_project/chapter01.xml
+           - my_test_project/Rakefile
+           - my_test_project/template/xsl/pdf.xml
+           - my_test_project/w3centities-f.ent
+           Done]]></screen>
+                      <para>Now you have a simple sample project with a book file and a chapter. Convert this
+                          to a PDF to make sure everything works.</para>
+                      <para><command>cd my_test_project</command></para>
+                      <para><command>rake book.pdf</command></para>
+                      <para>You'll get a brand-new PDF of the sample book.</para>
+                  </sect3>
+
         </sect2>
-        <sect2>
-            <title>Installing Ruby</title>
-            <para>Download and install the One Click Ruby Installer<footnote>
-                    <para>Ruby:
-                            <uri><![CDATA[http://rubyforge.org/frs/?group_id=167&release_id=17128]]></uri></para>
-                </footnote> and install it, accepting the defaults. To verify the installation, open
-                a new command prompt and type</para>
-            <para><command>ruby -v</command></para>
-            <para>You'll see something like this:</para>
-            <screen><![CDATA[ruby 1.8.6 (2007-03-13 patchlevel 0) [i386-mswin32]]]>
-            </screen>
-            <para>At this point, everything is installed and you're ready to begin. Test it out by
-                creating a new project:</para>
-            <para><command>generate book my_test_project with_sample</command></para>
-            <screen><![CDATA[Creating docbook project...
- - my_test_project/xsl
- - my_test_project/images
- - my_test_project/images/src
- - my_test_project/cover
- - my_test_project/book.xml
- - my_test_project/chapter01.xml
- - my_test_project/Rakefile
- - my_test_project/template/xsl/pdf.xml
- - my_test_project/w3centities-f.ent
- Done]]></screen>
-            <para>Now you have a simple sample project with a book file and a chapter. Convert this
-                to a PDF to make sure everything works.</para>
-            <para><command>cd my_test_project</command></para>
-            <para><command>rake book.pdf</command></para>
-            <para>You'll get a brand-new PDF of the sample book.</para>
-        </sect2>
-    </sect1>
-    <sect1>
+    <sect2>
         <title>Mac OS X Setup</title>
-        <para>Setup on Mac OS X 10.4 or above is quite easy. You have Java and Ruby already
+        <para>Setup on Mac OS X 10.5 or above is quite easy. You have Java and Ruby already
             installed on the machine in most cases. All you need to do is download the files from
                 <link xlink:href="http://www.napcs.com/products/docbook/"
                 >http://www.napcs.com/products/docbook/</link> and extract to
@@ -174,11 +175,11 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
                     <command>generate</command> command available without having to specify the full
                 path. Modify your <filename>.bash_profile</filename> to change the path.</para>
         </tip>
+        </sect2>
     </sect1>
     <sect1>
-        <title>The Project Generator</title>
-        <para>You've already seen how to generate a new book, but the generator is a bit more
-            flexible.</para>
+        <title>Creating Books and Articles</title>
+        <para>You've already seen how to generate a sample book, but the generator can create empty books and can also create articles, which are designed to be shorter and more like individual documents.</para>
         <sect2>
             <title>Creating books</title>
             <para><command><![CDATA[generate book my_book sample]]></command> generates a new book
@@ -216,10 +217,10 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
  - foo/article.xml]]>
             </screen>
         </sect2>
-    </sect1>
-    <sect1>
-        <title>Writing your First Book</title>
-        <para>Your sample project contains the following files:</para>
+    <sect2>
+        <title>Exploring the Project structure</title>
+        
+        <para>The sample project contains the following files:</para>
         <screen><![CDATA[Creating docbook project...
  - my_test_project/xsl
  - my_test_project/images
@@ -255,10 +256,13 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
         <para>Open up the <filename>book.xml</filename> file and modify its contents to write your
             book. Then render a new output, as discussed in <xref linkend="sec.content.generation"
             />.</para>
+        </sect2>
     </sect1>
     <sect1 xml:id="sec.content.generation">
         <title>Generating Output from Docbook</title>
-        <para>There are several output options available with Docbook. This package provides easy
+        <para>Docbook lets you separate the content from the presentation. Using XSLT, we can
+          transform any Docbook document into a PDF file, an ePub file for ebook readers, or even
+          HTML files for use on a web site. This package provides easy
             access to the most popular transformation methods</para>
         <sect2>
             <title>PDF and RTF documents</title>
@@ -270,15 +274,9 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
         <sect2>
             <title>Using Rake to build a book</title>
             <para>When you generate a new project with <command>new_book</command> you get a
-                    <filename>Rakefile</filename> script written in the Ruby programming language.
-                Ruby's a powerful language that's easy to learn and modify. That's the main reason
-                it's used in this project. The other reason is that the script works on all
-                platforms, whereas traditional makefiles work on Linux-based operating systems only.
-                A Rakefile defines a script for use with the Rake utility popular in the Ruby
-                community.</para>
-            <para>The Rakefile doesn't include much. It actually includes another file that does all
-                the work, and provides a variable used to locate the rest of the build chain
-                files.</para>
+                    <filename>Rakefile</filename> script written in the Ruby programming language. This file
+                    includes a bunch of recipes that we can use to build books.</para>
+
             <sect3 xml:id="sec.Path.to.the.Build.Chain">
                 <title>Path to the Build Chain</title>
                 <para>When you generate a project, the generator will put the absolute path to the
@@ -322,8 +320,7 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
     </sect1>
     <sect1 xml:id="sec.Additional.Customizations">
         <title>Additional Customizations</title>
-        <para>I'm constantly updating the build chain to add additional features that I and others
-            need to publish content.</para>
+        <para>There are some additional customizations you can take advantage of in this build chain as your needs change.</para>
         <sect2 xml:id="sec.Drafts">
             <title>Drafts</title>
             <para>As you're writing, you may want to inform your readers and reviewers that you are
@@ -334,15 +331,31 @@ Java HotSpot(TM) Client VM (build 1.5.0_13-119, mixed mode, sharing)]]></screen>
         </sect2>
         <sect2 xml:id="sec.Covers">
             <title>Covers</title>
-            <para>Create a book cover in your favorite graphics program, export it as a PDF called
-                    <filename>cover.pdf</filename> and place it in your project folder. Run the
-                command</para>
-            <para><command>rake add_cover</command></para>
-            <para>This will create the file <filename>book_with_cover.pdf</filename>. </para>
-            <tip xml:id="tip.this.task.will.build.the.pdf.of.the.book.if.it.doesn't.exist.">
-                <title>Automatic Building</title>
-                <para>This task will build the PDF of the book if it doesn't exist.</para>
-            </tip>
+            <para>Covers are supported for PDFs and ePubs. Unfortunately, the process is slightly different for each.</para>
+            <sect3 xml:id="sec.PDF.covers">
+              <title>PDF covers</title>
+                        <para>Create a book cover in your favorite graphics program, export it as a PDF called
+                                <filename>cover.pdf</filename>. Place this file in your project's
+                                <filename>covers/</filename> folder and it will be used when you build the book as a PDF.</para>
+
+            </sect3>
+            <sect3 xml:id="sec.ePub.Covers">
+              <title>ePub Covers</title>
+              <para>
+                   To add a cover to an ePub book, you'll need to add a JPG version of your book 
+                   cover to <filename>covers/cover.jpg</filename>, and then you'll add this markup
+                   to your book's front matter:
+                 </para>
+                 <programlisting language="xml" linenumbering="numbered"><![CDATA[<cover>   
+ <mediaobject>
+   <imageobject>
+     <imagedata fileref="cover/cover.jpg"/>
+   </imageobject>
+ </mediaobject>
+</cover>]]></programlisting>
+              <para>The processor will pick up the cover file and build it into the book.</para>
+            </sect3>
+
         </sect2>
         <sect2 xml:id="sec.Preprocessing">
             <title>Preprocessing</title>
@@ -393,9 +406,14 @@ end]]></programlisting>
         </sect2>
         <sect2 xml:id="sec.Postprocessing">
           <title>Postprocessing</title>
-          <para>Postprocessing works exactly the same way. You have access to the same environment variables as the preprocessor task. You can use this to automatically add the cover to the book, for example, by calling the <methodname>add_cover</methodname> task.</para>
+          <para>Postprocessing works exactly the same way. You have access to the same environment variables as the preprocessor task.
+             You could use this to automatically publish the book to a web site, for example.</para>
           <programlisting language="ruby" linenumbering="none"><![CDATA[task :postprocess do
-  Rake::Task["add_cover"].invoke if ENV["FORMAT"] == "pdf"
+  Net::SCP.start("remote.host", "username", :password => "passwd") do |scp|
+    # synchronous (blocking) upload; call blocks until upload completes
+    scp.upload! "book.pdf", "files/my_awesome_book/awesome.pdf"
+    scp.upload! "book.epub", "files/my_awesome_book/awesome.epub"
+  end
 end]]></programlisting>
         <para>When you run <command>rake book.pdf</command>, you'll automatically get the cover attached to the book.</para>
         </sect2>

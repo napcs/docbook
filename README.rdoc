@@ -9,12 +9,15 @@ Contained in this package are the Docbook XSLT stylesheets, a validation package
 === Prerequisites
 In order to use this, you'll need a Java Runtime Environment. JRE 1.6 is fine.
 
-You also need Ruby 1.8.6, 1.8.7, or 1.9.2.  The 1.9.2 interpreter is not completely supported yet; though books do build successfully, I haven't had enough of a chance to really test things.
+You also need Ruby 1.8.6, 1.8.7, or 1.9.2.  The 1.9.2 interpreter is not completely supported yet; 
+though books do build successfully, I haven't had enough of a chance to really test things.
 Finally, you need Rubygems and Rake.  
 
 === Basic installation for (Potential) Authors and Writers
 
-Authors and other end users should download the re-distributable packages available at http://www.napcs.com/products/docbook which are more stable.
+This repository is for technical people who want to get the latest bleeding-edge version of this toolchain so they can
+customize it to fit their neeeds. Authors and other end users should download the re-distributable packages available at http://www.napcs.com/products/docbook 
+which are more stable. 
 
 === Developers and Integrators
 If you're interested in creating a more customized toolchain as part of a continous build process, etc, you should clone the repository
