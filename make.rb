@@ -1,6 +1,9 @@
 require File.expand_path(File.join(File.dirname(__FILE__), "version"))
 require File.expand_path(File.join(File.dirname(__FILE__), "lib/docbook"))
 require File.expand_path(File.join(File.dirname(__FILE__), "lib/extensions"))
+require File.expand_path(File.join(File.dirname(__FILE__), "lib/shared"))
+
+
 
 def header
   puts DocbookVersion.to_s
@@ -107,6 +110,11 @@ task :callout_images do
   puts "Images copied. They're awful though, so you're probably better off replacing each one with your own."
 end
 
+desc "Grab new versions of the XSLT stylesheets - yours will be backed up"
+task :update_xslt do
+  copy_xslt_files DOCBOOK_ROOT, "."
+end
+
 #file "book.pdf" => FileList['**/*.xml'] - ["book.xml"] 
 
 # load user extensions *after* our own
@@ -116,3 +124,4 @@ if File.exists?(ENV["HOME"] + "/.docbook_rakefile")
 else
   puts "No custom user extensions found at #{ENV["HOME"] + "/.docbook_rakefile"}\n"
 end
+

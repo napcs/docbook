@@ -6,6 +6,8 @@ module Docbook
     def initialize(args={})
       super
       @output = "txt"
+      @xsl_stylesheet = "xsl/txt.xsl"
+      
     end  
   end
   

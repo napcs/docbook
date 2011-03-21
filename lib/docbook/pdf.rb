@@ -1,5 +1,7 @@
 # Renders a PDF from a docbook file
 module Docbook
+  
+  # Creates PDF files
   class Pdf < Docbook::Base
   
     include Docbook::Adapters::Fo::Fop
@@ -10,6 +12,8 @@ module Docbook
       @xsl_stylesheet = "xsl/pdf.xsl"
     end
     
+    
+    # Add a cover to the PDF.
     def add_cover
       if File.exist?("cover/cover.pdf")
         puts "Cover found - applying cover to the front of PDF"

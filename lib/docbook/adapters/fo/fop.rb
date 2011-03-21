@@ -25,7 +25,7 @@ module Docbook
           fop_cp << "#{self.root}/jars/xalan-2.7.0.jar;"
           fop_cp << "#{self.root}/jars/xercesImpl-2.7.1.jar;"
           fop_cp << "#{self.root}/jars/xml-apis-1.3.04.jar;"
-          fop_cp << "#{self.root}/jars/xmlgraphics-commons-1.3.1.jar;"
+          fop_cp << "#{self.root}/jars/xmlgraphics-commons-1.4.jar;"
           fop_cp
         end
     
@@ -82,7 +82,7 @@ module Docbook
             puts "Cleaning up"
             FileUtils.rm "#{file}.fo"
             
-            add_cover
+            add_cover if self.respond_to?(:add_cover)
             
           else
             puts "FO processing halted - missing #{self.file}.fo file."
