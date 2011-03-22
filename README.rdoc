@@ -64,7 +64,12 @@ That creates
    - foobook/chapter01.xml
    - foobook/Rakefile
    - foobook/w3centities-f.ent
-   - foobook/xsl/pdf.xml
+   - foobook/xsl/pdf.xsl
+   - foobook/xsl/epub.xsl
+   - foobook/xsl/epub.css
+   - foobook/xsl/html.xsl
+   - foobook/xsl/html.css
+   - foobook/xsl/rtf.xsl
 
 Create a PDF of the book:
 
@@ -85,7 +90,8 @@ Create an HTML version the same way
 You'll see the output at html/index.html
 
 === More Usage
-This package can create EPUB files too. And while RTF files will build, the support here is pretty weak. I'm working on that.
+This package can create EPUB files too. And while RTF files will build, the support here is relatively weak and 
+is a limitation of Apache FOP's RTF support.
 
 See readme_files/docbook.pdf for more information, like how to use Draft mode, pre-and-postprocessing hooks, and adding covers. There's also more on installation and usage for end users there, and it serves as documentation, as the PDF's docbook source is available there as well.
 
@@ -114,7 +120,9 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
-2011-01-17 -v1.4.0
+2011-03-22 -v1.4.0
+ * Updated FOP to 1.0.
+ * Improved RTF output
  * Cover support for ePub is done. It requires the use of the <tt>cover</tt> element though, so it's different than PDF covers.
  * PDF cover support is now the default. No need for an extra task. If the cover.pdf file exists, it will be used.
  * Updated Docbook XSL-NS to 1.76.1. See xsl/RELEASE-NOTES.txt for more details.
