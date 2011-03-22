@@ -28,7 +28,6 @@ def copy_xslt_files(root_path, dest_path)
   FileUtils.cp  "#{root_path}/template/xsl/epub.css", "#{dest_path}/xsl/epub.css" 
   FileUtils.cp  "#{root_path}/template/xsl/html.css", "#{dest_path}/xsl/html.css" 
   FileUtils.cp  "#{root_path}/template/xsl/rtf.xsl", "#{dest_path}/xsl/rtf.xsl"
-  FileUtils.cp  "#{root_path}/template/xsl/txt.xsl", "#{dest_path}/xsl/txt.xsl"
   
   puts " - #{dest_path}/xsl/pdf.xsl"
   puts " - #{dest_path}/xsl/html.xsl"
@@ -36,6 +35,5 @@ def copy_xslt_files(root_path, dest_path)
   puts " - #{dest_path}/xsl/epub.css"
   puts " - #{dest_path}/xsl/html.css"   
   puts " - #{dest_path}/xsl/rtf.xsl"    
-   puts " - #{dest_path}/xsl/txt.xsl"    
    
 end
