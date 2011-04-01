@@ -92,21 +92,29 @@ module Docbook
             # call before_render if defined.
             self.before_render if self.respond_to?("before_render")
             puts "Transforming XML..."
-            print_debug(xml_cmd)
-            output = `#{xml_cmd}`
-
-            if output.include?("Exception")
-              success = false
-            else
-              success = true
+            
+            success = self.build
+            
+            if success
               puts 'Finished XML transformation'
               self.after_render if self.respond_to?("after_render")
+            else
+              puts "The build process failed."
             end
+            
         else
           success = false      
         end
       success
     end
+    
+    def build
+      print_debug(self.xml_cmd)
+      output = `#{self.xml_cmd}`
+      print_debug(output)
+      !output.include?("Exception")
+    end
+    
 
   end
 end

@@ -80,7 +80,7 @@ module Docbook
             `#{self.fop_command}`
     
             puts "Cleaning up"
-            FileUtils.rm "#{file}.fo"
+            FileUtils.rm "#{self.file}.fo"
             
             add_cover if self.respond_to?(:add_cover)
             
