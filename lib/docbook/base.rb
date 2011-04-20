@@ -62,8 +62,13 @@ module Docbook
         puts "Validating your document..."
         print_debug(validator_cmd)
         output = `#{validator_cmd}`
-        sucess = ! output.include?("NOT valid") || ! output.include?("Exception")
-
+        if output.include?("NOT valid") || output.include?("Exception")
+          puts "==================================="
+          puts " There are errors in your document"
+          puts output
+          puts "==================================="
+          success = false
+        end
       else
         puts "Skipping validation..."
       end
