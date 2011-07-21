@@ -4,6 +4,7 @@ end
 require 'docbook/adapters/fo/fop'
 require 'docbook/adapters/epub/dbtoepub'
 require 'docbook/adapters/epub/epubber'
+require 'docbook/adapters/html/html'
 
 require 'docbook/base'
 require 'docbook/chm'
