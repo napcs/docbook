@@ -5,7 +5,7 @@ files = %w{make.rb version.rb README.txt hhc.exe jars lib xsl readme_files Rakef
 
 desc "create documentation"
 task :doc do    
-  `cd readme_files && rake docbook.pdf && cd ..`
+  `cd readme_files && rake docbook.pdf SHORT_ATTENTION_SPAN_DOCBOOK_PATH="../" && cd ..`
   FileUtils.cp "README.rdoc","README.txt"
 end
 

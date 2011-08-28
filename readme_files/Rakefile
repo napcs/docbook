@@ -7,6 +7,6 @@
 
 
 #=================== Set path to DOCBOOK files =======
-DOCBOOK_ROOT = ENV['SHORT_ATTENTION_SPAN_DOCBOOK_PATH'] ||  "/Users/brianhogan/git/docbook"
+DOCBOOK_ROOT = ENV['SHORT_ATTENTION_SPAN_DOCBOOK_PATH']
 require "#{DOCBOOK_ROOT}/make"
 
