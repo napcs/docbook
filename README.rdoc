@@ -2,7 +2,9 @@
 
 This package gives you all the tools you need to author books and articles with the open-source Docbook toolchain. 
  
-Contained in this package are the Docbook XSLT stylesheets, a validation package, XML-FO to PDF translation, and a project generator with build scripts. This uses the dookbook-xsl-ns stylesheets.
+Contained in this package are the Docbook XSLT stylesheets,
+ a validation package, XML-FO to PDF translation, and a project 
+ generator with build scripts. This uses the dookbook-xsl-ns stylesheets.
 
 == Installation and Usage
 
@@ -15,9 +17,10 @@ Finally, you need Rubygems and Rake.
 
 === Basic installation for (Potential) Authors and Writers
 
-This repository is for technical people who want to get the latest bleeding-edge version of this toolchain so they can
-customize it to fit their neeeds. Authors and other end users should download the re-distributable packages available at http://www.napcs.com/products/docbook 
-which are more stable. 
+This repository is for technical people who want to get the latest bleeding-edge version of 
+this toolchain so they can customize it to fit their neeeds. Authors and other end 
+users should download the re-distributable packages available at 
+http://www.napcs.com/products/docbook which are more stable. 
 
 === Developers and Integrators
 If you're interested in creating a more customized toolchain as part of a continous build process, etc, you should clone the repository
@@ -28,11 +31,14 @@ Then run
 
   rake install
 
-This copies only the necessary files to c:/docbook on windows or ~/docbook on Linux and Mac OS. If you want to install elsewhere, specify a path
+This copies only the necessary files to c:/docbook on windows 
+or ~/docbook on Linux and Mac OS. If you want to install elsewhere, 
+specify a path
 
   sudo rake install DIR=/opt/docbook
 
-You'll be prompted to add the install directory to your path. Also add the SHORT_ATTENTION_SPAN_DOCBOOK environment variable to the installation directory to make it easier to run the generators and find everything.
+You'll be prompted to add the install directory to your path. 
+Also add the SHORT_ATTENTION_SPAN_DOCBOOK environment variable to the installation directory to make it easier to run the generators and find everything.
 
 === Staying on the Bleeding Edge
 
@@ -111,7 +117,7 @@ Due to changes in the way things worked, your best bet is to generate a new proj
 Remember - to build your books, you now use
 
   rake book.pdf
-  rake book.pdf VALIOATE=false
+  rake book.pdf VALIDATE=false
 
 == Patches
 
@@ -120,6 +126,8 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2011-08-28 - v1.4.1.1
+ * Fixed install script's documentation rake task that was aborting improperly.
 2011-04-19 -v1.4.1
  * Fixed the validation code. You'll find out if you have a bad doc much quicker now.
 2011-03-22 -v1.4.0
