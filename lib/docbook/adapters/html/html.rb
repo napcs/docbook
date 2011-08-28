@@ -45,8 +45,8 @@ module Docbook
        def after_render
          puts "Collecting HTML and resources..."
          FileUtils.mkdir_p "html"
-         FileUtils.cp "#{self.file}.html", "html/index.html"
-         FileUtils.cp "xsl/html.css", "html/style.css"
+         FileUtils.cp "#{self.file}.html", "html/index.html", :verbose => true
+         FileUtils.cp "xsl/html.css", "html/style.css", :verbose => true
          FileUtils.cp_r "images", "html/images"
        end
     end

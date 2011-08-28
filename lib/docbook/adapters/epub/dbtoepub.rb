@@ -1,3 +1,5 @@
+# This is a mod of the dbtoepub program that doesn't work. Using
+# epubber instead is smarter.
 module Docbook
   module Adapters
     module Epub

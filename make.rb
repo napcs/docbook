@@ -39,6 +39,7 @@ task :clean do
     f.each{|item| puts "Removing #{item}" if File.exist?(item)}
     FileUtils.rm_rf(f)
   end
+  FileUtils.rm_rf("html") if File.exist?("html")
 
   
 end
@@ -70,12 +71,12 @@ rule /\.pdf$|\.html$|\.txt$|\.rtf$|\.epub$|\.xhtml$|\.chm$/ => FileList["**/*.xm
   if book.render
     puts "Completed building #{t.name}"
     Rake::Task["postprocess"].invoke
-    FileUtils.mv ENV["TEMP_FILE"] + ".#{target}", t.name
-    
+    puts "Renaming #{ ENV["TEMP_FILE"]} to #{t.name} if necessary"
+    FileUtils.mv ENV["TEMP_FILE"] + ".#{target}", t.name rescue nil
   else
     puts  "#{t.name} not rendered."
   end
-  
+  puts "Cleaning up temporary file #{ENV["TEMP_FILENAME"] }"
   FileUtils.rm ENV["TEMP_FILENAME"] if File.exist?(ENV["TEMP_FILENAME"])
 end
 
