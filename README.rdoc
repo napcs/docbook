@@ -127,7 +127,7 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 == Changes
 2011-08-28 - v1.4.1.1
- * Fixed 
+ * Fixed install script's documentation rake task that was aborting improperly.
 2011-04-19 -v1.4.1
  * Fixed the validation code. You'll find out if you have a bad doc much quicker now.
 2011-03-22 -v1.4.0
