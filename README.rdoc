@@ -126,6 +126,8 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2011-08-28 - v1.4.2
+ * Changed HTML generation slightly. Cleans up after itself much better, and html files are also removed by the cleanup task.
 2011-08-28 - v1.4.1.1
  * Fixed install script's documentation rake task that was aborting improperly.
 2011-04-19 -v1.4.1
