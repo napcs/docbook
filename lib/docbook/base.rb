@@ -57,7 +57,7 @@ module Docbook
     # Checks to see if the doc is valid.
     def valid?
       success = true
-      validator_cmd = "java -jar -Xmx512m -Xss1024K #{self.root}/jars/relames.jar http://www.docbook.org/xml/5.0/rng/docbookxi.rng #{self.file}.xml"
+      validator_cmd = "java -jar -Xmx512m -Xss1024K #{self.root}/jars/relames.jar #{self.root}/xsl/docbookxi.rng #{self.file}.xml"
       if validate
         puts "Validating your document..."
         print_debug(validator_cmd)
