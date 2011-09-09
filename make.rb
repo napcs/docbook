@@ -18,13 +18,24 @@ def header
 
 end
 
+# Turn off printing extra info if verbose='anything but y[es]'
+def verbose?
+  return true if ENV['verbose'].nil? || ENV['verbose'].strip == "" # Default
+
+  if ENV['verbose'].match(/^[yt]/i)
+    true
+  else
+    false
+  end
+end
+
 require 'fileutils'
 
 
 # =========== Actual script starts here ==============
 # process the doc.
 
-header
+header if verbose?
 desc "Prepend a cover to your PDF. Cover should be called cover.pdf and stored in the cover/ folder"
 task :add_cover => ["book.pdf"] do
   puts "This task is deprecated. The book is built with a cover if the cover file exists."
@@ -69,23 +80,23 @@ rule /\.pdf$|\.html$|\.txt$|\.rtf$|\.epub$|\.xhtml$|\.chm$/ => FileList["**/*.xm
   klass = "Docbook/#{target}".constantize
   book = klass.new(:root => DOCBOOK_ROOT, :file => ENV["TEMP_FILE"], :validate => validate, :draft => draft, :debug => debug, :cover => cover)
   if book.render
-    puts "Completed building #{t.name}"
+    puts "Completed building #{t.name}" if verbose?
     Rake::Task["postprocess"].invoke
-    puts "Renaming #{ ENV["TEMP_FILE"]} to #{t.name} if necessary"
+    puts "Renaming #{ ENV["TEMP_FILE"]} to #{t.name} if necessary" if verbose?
     FileUtils.mv ENV["TEMP_FILE"] + ".#{target}", t.name rescue nil
   else
-    puts  "#{t.name} not rendered."
+    puts  "#{t.name} not rendered." # TODO: should be an error on STDERR
   end
-  puts "Cleaning up temporary file #{ENV["TEMP_FILENAME"] }"
+  puts "Cleaning up temporary file #{ENV["TEMP_FILENAME"] }" if verbose?
   FileUtils.rm ENV["TEMP_FILENAME"] if File.exist?(ENV["TEMP_FILENAME"])
 end
 
 task :preprocess do
-  puts "Running preprocessing tasks"
+  puts "Running preprocessing tasks" if verbose?
 end
 
 task :postprocess do
-  puts "Running postprocessing tasks"
+  puts "Running postprocessing tasks" if verbose?
 end
 
 task :default => [:build]
@@ -120,9 +131,9 @@ end
 
 # load user extensions *after* our own
 if File.exists?(ENV["HOME"] + "/.docbook_rakefile")
-  puts "Loading custom user extensions at #{ENV["HOME"] + "/.docbook_rakefile"}\n"
+  puts "Loading custom user extensions at #{ENV["HOME"] + "/.docbook_rakefile"}\n" if verbose?
   load ENV["HOME"] + "/.docbook_rakefile" 
 else
-  puts "No custom user extensions found at #{ENV["HOME"] + "/.docbook_rakefile"}\n"
+  puts "No custom user extensions found at #{ENV["HOME"] + "/.docbook_rakefile"}\n" if verbose?
 end
 
