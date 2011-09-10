@@ -10,18 +10,13 @@ def generate(file, substring, destination)
   s = get_file_as_string(file)
   s.gsub!(match, substring)
   put_file_from_string(destination, s)
+  puts " - #{destination}"
 end
 
 
 # load a file into a string
 def get_file_as_string(filename)
-  data = ''
-
-  File.open(filename, "r") { |f|
-      data = f.read
-  }
-  
-  return data
+  File.read(filename)
 end
 
 # write the file from a string
@@ -68,45 +63,39 @@ def show_instructions
     puts text
 end
 
-
-  def article(root_path, dest_path, sample)
-
-    
+  def mkdir_p(src)
+    FileUtils.mkdir_p(src)
+    puts " - #{src}"
+  end
   
+  def cp(src, dest)
+    FileUtils.cp src, dest
+    puts " - #{dest}"
+  end
+
+  def common_files(root_path, dest_path, sample)
+    mkdir_p(dest_path)
+    mkdir_p("#{dest_path}/images")
+    mkdir_p("#{dest_path}/images/src")
+    mkdir_p("#{dest_path}/cover")
+    mkdir_p("#{dest_path}/xsl")
+    cp "#{root_path}/template/w3centities-f.ent", "#{dest_path}/w3centities-f.ent"
+    copy_xslt_files(root_path, dest_path)
+    generate "#{root_path}/template/Rakefile", root_path, "#{dest_path}/Rakefile"
+    version_stamp("#{dest_path}/VERSION.txt")
+  end
+  
+  def article(root_path, dest_path, sample)
     puts "Creating article..."
+    common_files(root_path, dest_path, sample)
 
-    FileUtils.mkdir_p("#{dest_path}/images") rescue nil
-      puts " - #{dest_path}/images"
-    FileUtils.mkdir("#{dest_path}/images/src") rescue nil
-      puts " - #{dest_path}/images/src"
-    FileUtils.mkdir("#{dest_path}/cover") rescue nil
-      puts " - #{dest_path}/cover/"
-    FileUtils.mkdir("#{dest_path}/xsl") rescue nil
-      puts " - #{dest_path}/xsl"
-
-
-    
     if sample
-        FileUtils.cp("#{root_path}/template/article.xml", "#{dest_path}/article.xml")
+      cp("#{root_path}/template/article.xml", "#{dest_path}/article.xml")
     else
-        FileUtils.cp("#{root_path}/template/article.xml", "#{dest_path}/article.xml")
+      cp("#{root_path}/template/article.xml", "#{dest_path}/article.xml")
     end
     
-    # TODO: Deprecated?
-    xsl_path = RUBY_PLATFORM.downcase.include?("win32") ? root_path : root_path.lchop
-    
-    copy_xslt_files(root_path, dest_path)
-    
-    
-    FileUtils.cp "#{root_path}/template/w3centities-f.ent", "#{dest_path}/w3centities-f.ent"
-    puts " - #{dest_path}/w3centities-f.ent"
-    
-    
-    generate "#{root_path}/template/Rakefile", root_path, "#{dest_path}/Rakefile"
-    puts " - #{dest_path}/Rakefile"
-    
     puts " - #{dest_path}/article.xml"
-    version_stamp("#{dest_path}/VERSION.txt")
     puts "Done"
   end
 
@@ -116,23 +105,20 @@ end
     directory = dest_path.dirname
     
      unless directory == "."
-       FileUtils.mkdir_p(directory + "/images")
+       mkdir_p(directory + "/images")
      end
      
      puts "Creating chapter..."
      
      if sample
-         FileUtils.cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}.xml")
-         FileUtils.cp("#{root_path}/template/images/sample.png", "#{directory}/images") rescue nil
-         puts " - #{directory}/images/sample.png"
-     else
-         FileUtils.cp("#{root_path}/template/chapter01.xml", "#{dest_path}.xml")
+       cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}.xml")
+       cp("#{root_path}/template/images/sample.png", "#{directory}/images") rescue nil
+     elsw
+       cp("#{root_path}/template/chapter01.xml", "#{dest_path}.xml")
      end
-     
-     puts " - #{dest_path}.xml"
-     
+          
      unless File.exist?("#{directory}/w3centities-f.ent")
-       FileUtils.cp "#{root_path}/template/w3centities-f.ent", "#{directory}/w3centities-f.ent" 
+       cp "#{root_path}/template/w3centities-f.ent", "#{directory}/w3centities-f.ent" 
        puts " - #{directory}/w3centities-f.ent"
      end
      
@@ -140,54 +126,30 @@ end
   
   def book(root_path, dest_path, sample)
       puts "Creating docbook project..."
-      FileUtils.mkdir(dest_path) rescue nil
-      FileUtils.mkdir("#{dest_path}/images") rescue nil
-      FileUtils.mkdir("#{dest_path}/xsl") rescue nil
-      FileUtils.mkdir("#{dest_path}/images/src") rescue nil
-      FileUtils.mkdir("#{dest_path}/cover") rescue nil
-      
-      puts " - #{dest_path}/images"
-      puts " - #{dest_path}/images/src"
-      puts " - #{dest_path}/cover"
+
+      common_files(root_path, dest_path, sample)
+
       
       if sample
-         FileUtils.cp("#{root_path}/template/images/sample.png", "#{dest_path}/images") rescue nil
-         puts " - #{dest_path}/images/sample.png"
+         cp("#{root_path}/template/images/sample.png", "#{dest_path}/images")
+
          if File.exist?("#{dest_path}/book.xml")
            puts "book.xml exists - skipping"
          else
-           FileUtils.cp("#{root_path}/template/book_sample.xml", "#{dest_path}/book.xml") rescue nil
-           FileUtils.cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}/chapter01.xml") rescue nil
-           puts " - #{dest_path}/book.xml"
-           puts " - #{dest_path}/chapter01.xml"
-           
+           cp("#{root_path}/template/book_sample.xml", "#{dest_path}/book.xml")
+           cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}/chapter01.xml")
          end
       else
         if File.exist?("#{dest_path}/book.xml")
           puts "book.xml exists - skipping"
         else
-          FileUtils.cp("#{root_path}/template/book.xml", "#{dest_path}/book.xml") rescue nil
-          FileUtils.cp("#{root_path}/template/chapter01.xml", "#{dest_path}/chapter01.xml") rescue nil
-        puts " - #{dest_path}/book.xml"
-        puts " - #{dest_path}/chapter01.xml"
+          cp("#{root_path}/template/book.xml", "#{dest_path}/book.xml")
+          cp("#{root_path}/template/chapter01.xml", "#{dest_path}/chapter01.xml")
+        end
       end
-    end
-    
-    
-    generate "#{root_path}/template/Rakefile", root_path, "#{dest_path}/Rakefile"
-    puts " - #{dest_path}/Rakefile"
-    
-    FileUtils.cp "#{root_path}/template/w3centities-f.ent", "#{dest_path}/w3centities-f.ent"
-    puts " - #{dest_path}/w3centities-f.ent"
-    
-    # xsl_path is a file URL. File urls have three / (file:///) followed by the path  Windows paths don't start with a slash
-    # but unix paths do. If it's windows, leave the path alone. If it's not windows, chop off the first character of the path
-    # TODO: Deprecated?
-    xsl_path = RUBY_PLATFORM.downcase.include?("win32") ? root_path : root_path.lchop
+      
+      generate "#{root_path}/template/Rakefile", root_path, "#{dest_path}/Rakefile"
           
-    copy_xslt_files(root_path, dest_path)
-    
-    version_stamp("#{dest_path}/VERSION.txt")
     puts "Done"
 end
 

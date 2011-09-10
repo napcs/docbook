@@ -1,4 +1,5 @@
 def copy_xslt_files(root_path, dest_path)
+  
   if File.exist?("#{dest_path}/xsl/pdf.xsl")
     FileUtils.mv "#{dest_path}/xsl/pdf.xsl","#{dest_path}/xsl/pdf.xsl.old"
   end  
