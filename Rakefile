@@ -1,5 +1,15 @@
+require 'rubygems'
+require 'minitest/unit'
 require 'fileutils'
 require 'version'
+require 'rake/testtask' 
+
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList['test/*_test.rb']
+  t.verbose = true
+end
+
 files = %w{make.rb version.rb README.txt hhc.exe jars lib xsl readme_files Rakefile generate generate.bat template}
 
 
@@ -10,7 +20,7 @@ task :doc do
 end
 
 desc "test build chain"
-task :test do
+task :acceptance_test do
   FileUtils.rm_rf "mytestbook/"
   `#{File.expand_path(".")}/generate book mytestbook with_sample`
   `cd mytestbook && rake callout_images && rake book.pdf && open book.pdf && cd ..`

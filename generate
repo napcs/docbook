@@ -1,30 +1,6 @@
 #!/usr/bin/env ruby
 
-require File.expand_path(File.join(File.dirname(__FILE__), "version"))
-require File.expand_path(File.join(File.dirname(__FILE__), "lib/extensions"))
-require File.expand_path(File.join(File.dirname(__FILE__), "lib/shared"))
-
-# generate a file by reading in the template and spitting out the results, substituting the rootpath in the document
-def generate(file, substring, destination)
-  match = "<#ROOT_PATH#>"
-  s = get_file_as_string(file)
-  s.gsub!(match, substring)
-  put_file_from_string(destination, s)
-  puts " - #{destination}"
-end
-
-
-# load a file into a string
-def get_file_as_string(filename)
-  File.read(filename)
-end
-
-# write the file from a string
-def put_file_from_string(f, s)
-  File.open(f , 'w') do |file|
-      file.puts(s)
-  end
-end
+require File.expand_path(File.join(File.dirname(__FILE__), "lib/generator"))
 
 def show_instructions
   text = %Q{Docbook Generator (C) 2008 Brian Hogan
@@ -62,128 +38,18 @@ def show_instructions
     }
     puts text
 end
-
-  def mkdir_p(src)
-    FileUtils.mkdir_p(src)
-    puts " - #{src}"
-  end
-  
-  def cp(src, dest)
-    FileUtils.cp src, dest
-    puts " - #{dest}"
-  end
-
-  # Reads a template from the file system,
-   # evaluates it with ERB
-   # places it in the output folder specified.
-   # Takes the binding context as the last parameter
-   # so that ERb has access to instance variables, etc.
-   # This works similar to how Rails and Sinatra templates
-   # work.
-   def render_template_to_file(template, file, context)
-     t = File.read(File.join(self.template_root, template))
-     File.open(file, "w") do |f|
-       f << ERB.new(t, nil, "-").result(context)
-     end
-   end
-
-
-  def common_files(root_path, dest_path, sample)
-    mkdir_p(dest_path)
-    mkdir_p("#{dest_path}/images")
-    mkdir_p("#{dest_path}/images/src")
-    mkdir_p("#{dest_path}/cover")
-    mkdir_p("#{dest_path}/xsl")
-    cp "#{root_path}/template/w3centities-f.ent", "#{dest_path}/w3centities-f.ent"
-    copy_xslt_files(root_path, dest_path)
-    generate "#{root_path}/template/Rakefile", root_path, "#{dest_path}/Rakefile"
-    version_stamp("#{dest_path}/VERSION.txt")
-  end
-  
-  def article(root_path, dest_path, sample)
-    puts "Creating article..."
-    common_files(root_path, dest_path, sample)
-
-    if sample
-      cp("#{root_path}/template/article.xml", "#{dest_path}/article.xml")
-    else
-      cp("#{root_path}/template/article.xml", "#{dest_path}/article.xml")
-    end
-    
-    puts " - #{dest_path}/article.xml"
-    puts "Done"
-  end
-
-  
-  def chapter(root_path, dest_path, sample)
-
-    directory = dest_path.dirname
-    
-     unless directory == "."
-       mkdir_p(directory + "/images")
-     end
-     
-     puts "Creating chapter..."
-     
-     if sample
-       cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}.xml")
-       cp("#{root_path}/template/images/sample.png", "#{directory}/images") rescue nil
-     elsw
-       cp("#{root_path}/template/chapter01.xml", "#{dest_path}.xml")
-     end
-          
-     unless File.exist?("#{directory}/w3centities-f.ent")
-       cp "#{root_path}/template/w3centities-f.ent", "#{directory}/w3centities-f.ent" 
-       puts " - #{directory}/w3centities-f.ent"
-     end
-     
-  end
-  
-  def book(root_path, dest_path, sample)
-      puts "Creating docbook project..."
-
-      common_files(root_path, dest_path, sample)
-
-      
-      if sample
-         cp("#{root_path}/template/images/sample.png", "#{dest_path}/images")
-
-         if File.exist?("#{dest_path}/book.xml")
-           puts "book.xml exists - skipping"
-         else
-           cp("#{root_path}/template/book_sample.xml", "#{dest_path}/book.xml")
-           cp("#{root_path}/template/chapter01_sample.xml", "#{dest_path}/chapter01.xml")
-         end
-      else
-        if File.exist?("#{dest_path}/book.xml")
-          puts "book.xml exists - skipping"
-        else
-          cp("#{root_path}/template/book.xml", "#{dest_path}/book.xml")
-          cp("#{root_path}/template/chapter01.xml", "#{dest_path}/chapter01.xml")
-        end
-      end
-                
-    puts "Done"
-end
-
-def version_stamp(path)
-  File.open(path, "w") do |file|
-    file << "Generated with #{DocbookVersion.to_s}"
-  end
-end
   
 if ARGV[0].nil?
   show_instructions
 elsif ARGV[0] == "-v" || ARGV[0] == "--version"
   puts "#{DocbookVersion.to_s}"
 else
-  require 'fileutils'
   root_path =  File.dirname(__FILE__)
   
+  puts root_path
   type = ARGV[0]
   output_path = ARGV[1]
   sample = ARGV[2].include? "sample" rescue false
 
-
-  send(type, root_path, output_path, sample)
+  Docbook::Generator.new(type, root_path, output_path, :sample => sample, :verbose => true).generate
 end

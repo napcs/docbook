@@ -1,7 +1,9 @@
 require File.expand_path(File.join(File.dirname(__FILE__), "version"))
 require File.expand_path(File.join(File.dirname(__FILE__), "lib/docbook"))
+require File.expand_path(File.join(File.dirname(__FILE__), "lib/generator"))
+
 require File.expand_path(File.join(File.dirname(__FILE__), "lib/extensions"))
-require File.expand_path(File.join(File.dirname(__FILE__), "lib/shared"))
+require File.expand_path(File.join(File.dirname(__FILE__), "lib/helpers"))
 
 
 
@@ -113,7 +115,8 @@ end
 
 desc "Grab new versions of the XSLT stylesheets - yours will be backed up"
 task :update_xslt do
-  copy_xslt_files DOCBOOK_ROOT, "."
+  g = Docbook::Generator.new("book", DOCBOOK_ROOT, ".")
+  g.copy_xslt_files
 end
 
 #file "book.pdf" => FileList['**/*.xml'] - ["book.xml"] 
