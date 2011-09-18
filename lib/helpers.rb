@@ -1,18 +1,42 @@
 module Helpers
   require 'erb'
+  require 'open3'
+
+  def windows?
+    RUBY_PLATFORM.downcase.include?("win32") || RUBY_PLATFORM.downcase.include?("mingw") 
+  end
   
-  def say(message, options= {})
-    puts message if options[:verbose]
+  def run_command(command)
+    OUTPUT.say_debug "-------------------------"
+    OUTPUT.say_debug "Running command: "
+    OUTPUT.say_debug command
+    OUTPUT.say_debug "-------------------------"
+    
+    stdin, stdout, stderr = Open3.popen3(command)
+    out = stdout.readlines.join
+    err = stderr.readlines.join
+    stdin.close
+    stderr.close
+    stdout.close
+    OUTPUT.say out
+    OUTPUT.error err
+    
+    out
   end
   
   def mkdir_p(src, options = {})
     FileUtils.mkdir_p(src)
-    puts " - #{src}" if options[:verbose]
+    OUTPUT.say " - #{src}"
+  end
+  
+  def cp_r(src, dest, options = {})
+    FileUtils.cp_r src, dest
+    OUTPUT.say " - #{dest}"
   end
   
   def cp(src, dest, options = {})
     FileUtils.cp src, dest
-    puts " - #{dest}" if options[:verbose]
+    OUTPUT.say " - #{dest}"
   end
   
   

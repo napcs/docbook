@@ -1,11 +1,14 @@
 module Docbook
-  # Base clase for rendering a book. Generally you'd have your own class that inherits from this
+  # Base class for rendering a book. Generally you'd have your own 
+  # class that inherits from this
+  # such as Docbook::PDF
   class Base
-
+    include Helpers
+    
     @xsl_extension = ""
     @xsl_stylesheet = ""
 
-    attr_accessor :root, :file, :validate, :draft, :debug, :cover
+    attr_accessor :root, :file, :validate, :draft
     attr_reader :windows
 
     # Init and cnfigure the class
@@ -13,9 +16,8 @@ module Docbook
     def initialize(args ={})
        self.root = args[:root]
        self.file = args[:file]
-       self.validate = args[:validate]
+       self.validate = args[:validate].nil? ? true : args[:validate]
        self.draft = args[:draft]
-       self.debug = args[:debug]
        @windows = RUBY_PLATFORM.downcase.include?("win32") || RUBY_PLATFORM.downcase.include?("mingw") 
     end
     
@@ -27,6 +29,9 @@ module Docbook
       opts = "use.extensions=1"
     end
 
+    # Sets up the default settings for the XML parser.
+    # including the highlighting settings and other
+    # basic parameters.
     def xml_parser_settings
       hcp_temp = @windows ? self.root : self.root.lchop
       highlighter_config_path ="file:///#{hcp_temp}/xsl/highlighting/xslthl-config.xml"
@@ -37,6 +42,7 @@ module Docbook
       xml_parser_config
     end
     
+    # Builds the classpath for the XML parser.
     def xml_parser_java_paths
       saxon_cp = "#{self.root}/jars/xercesImpl-2.7.1.jar;"
       saxon_cp <<"#{self.root}/xsl/extensions/saxon65.jar;"
@@ -50,56 +56,44 @@ module Docbook
     def xml_cmd
       cmd = "java -Xss1024K -Xmx512m -cp \"#{xml_parser_java_paths}\" #{xml_parser_settings} com.icl.saxon.StyleSheet -o #{self.output_path} #{self.file}.xml #{@xsl_stylesheet} #{xml_parser_options}"
       cmd.gsub!(";",":") unless @windows
-      print_debug(cmd)
       cmd    
     end
 
     # Checks to see if the doc is valid.
     def valid?
-      success = true
-      validator_cmd = "java -jar -Xmx512m -Xss1024K #{self.root}/jars/relames.jar #{self.root}/xsl/docbookxi.rng #{self.file}.xml"
       if validate
-        puts "Validating your document..."
-        print_debug(validator_cmd)
-        output = `#{validator_cmd}`
-        if output.include?("NOT valid") || output.include?("Exception")
-          puts "==================================="
-          puts " There are errors in your document"
-          puts output
-          puts "==================================="
-          success = false
+        validator = Docbook::Validator.new("#{self.file}.xml", self.root)
+        if validator.valid?
+          true
+        else
+          OUTPUT.error "Validation errors occurred."
+          OUTPUT.error validator.error_messages
+          false
         end
       else
-        puts "Skipping validation..."
+        true
       end
-      success
+      
     end
     
-    def print_debug(string)
-      if self.debug
-        puts "-------------------------"
-        puts "Running command: "
-        puts string
-        puts "-------------------------"
-      end
-    end
-
+   
+    
     # Render the book
     def render
       success = true
-       if valid?
+       if self.valid?
 
             # call before_render if defined.
             self.before_render if self.respond_to?("before_render")
-            puts "Transforming XML..."
+            OUTPUT.say "Transforming XML..."
             
             success = self.build
             
             if success
-              puts 'Finished XML transformation'
+              OUTPUT.say 'Finished XML transformation'
               self.after_render if self.respond_to?("after_render")
             else
-              puts "The build process failed."
+              OUTPUT.say "The build process failed."
             end
             
         else
@@ -109,9 +103,7 @@ module Docbook
     end
     
     def build
-      print_debug(self.xml_cmd)
-      output = `#{self.xml_cmd}`
-      print_debug(output)
+      output = run_command self.xml_cmd
       !output.include?("Exception")
     end
     

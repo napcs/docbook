@@ -1,7 +1,5 @@
-require 'rubygems'
-require 'lib/helpers'
-require 'test/unit'
-require 'stringio'
+require 'test_helper'
+
 class HelpersTest < Test::Unit::TestCase
   include Helpers
   def setup
@@ -25,12 +23,14 @@ class HelpersTest < Test::Unit::TestCase
   
   def test_makes_folder_and_puts_something_out_with_verbose
     dest = File.join @folder, "dest"
-    mkdir_p dest, :verbose => true
+    OUTPUT.verbose = true
+    mkdir_p dest
     assert $stdout.string.include?(" - #{dest}")
   end
   
   def test_makes_folder_silently
     dest = File.join @folder, "dest"
+    OUTPUT.verbose = false
     mkdir_p dest
     assert !$stdout.string.include?(" - #{dest}")
   end

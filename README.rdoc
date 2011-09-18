@@ -11,9 +11,7 @@ Contained in this package are the Docbook XSLT stylesheets,
 === Prerequisites
 In order to use this, you'll need a Java Runtime Environment. JRE 1.6 is fine.
 
-You also need Ruby 1.8.6, 1.8.7, or 1.9.2.  The 1.9.2 interpreter is not completely supported yet; 
-though books do build successfully, I haven't had enough of a chance to really test things.
-Finally, you need Rubygems and Rake.  
+You also need Ruby 1.8.6, 1.8.7, or 1.9.2 with Rubygems and Rake.  Most standard installations of Ruby will include these dependencies.
 
 === Basic installation for (Potential) Authors and Writers
 
@@ -126,6 +124,12 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2012-09-19 - v1.5.0
+  * Changed to local validation (Eric Davis)
+  * Refactored generators for projects and added tests
+  * Refactored validation and added tests
+  * Created quieter output by default and added VERBOSE=true option
+  * Colored output on OSX and Linux. (Win32console was too buggy with STDERR so it's not enabled.)
 2011-08-28 - v1.4.2
  * Changed HTML generation slightly. Cleans up after itself much better, and html files are also removed by the cleanup task.
 2011-08-28 - v1.4.1.1

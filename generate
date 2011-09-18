@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
-
-require File.expand_path(File.join(File.dirname(__FILE__), "lib/generator"))
+require File.expand_path(File.join(File.dirname(__FILE__), "version"))
+require File.expand_path(File.join(File.dirname(__FILE__), "lib/docbook"))
 
 def show_instructions
-  text = %Q{Docbook Generator (C) 2008 Brian Hogan
+  text = %Q{Docbook Generator (C) 2011 Brian Hogan
     =================================================
     Creates a docbook project, chapter, or article skeleton.
    
@@ -44,12 +44,10 @@ if ARGV[0].nil?
 elsif ARGV[0] == "-v" || ARGV[0] == "--version"
   puts "#{DocbookVersion.to_s}"
 else
-  root_path =  File.dirname(__FILE__)
-  
-  puts root_path
+  root_path =  File.dirname(__FILE__)  
   type = ARGV[0]
   output_path = ARGV[1]
   sample = ARGV[2].include? "sample" rescue false
-
-  Docbook::Generator.new(type, root_path, output_path, :sample => sample, :verbose => true).generate
+  OUTPUT = Docbook::Output.new(:verbose => true)
+  Docbook::Generator.new(type, root_path, output_path, :sample => sample).generate
 end

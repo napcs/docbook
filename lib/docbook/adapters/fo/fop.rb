@@ -2,15 +2,17 @@ module Docbook
   module Adapters
       
     module Fo
-      # Interface for FO-PDF processors, for taking FO output created by the XML processor and converting it to various formats. This class
-      # should be extended to control the various formats.
+      # Interface for FO-PDF processors, for taking FO output 
+      # created by the XML processor and converting it to various formats.
+      # The methods in this module
+
       module Fop
     
         # initialize the object and set the extensions and output type. Defaults to PDF
         def initialize(args = {})
           super
           @xsl_extension = "fo"
-
+        
         end
     
         # build up the options for FOP
@@ -75,17 +77,16 @@ module Docbook
         # Callback to build the final file after the XML-FO rendering occurs
         def after_render
           if File.exists?("#{self.file}.fo")
-            puts "Building #{@output}"
-            print_debug(self.fop_command)
-            `#{self.fop_command}`
+            OUTPUT.say "Building #{@output}"
+            run_command self.fop_command
     
-            puts "Cleaning up"
+            OUTPUT.say "Cleaning up"
             FileUtils.rm "#{self.file}.fo"
             
             add_cover if self.respond_to?(:add_cover)
             
           else
-            puts "FO processing halted - missing #{self.file}.fo file."
+            OUTPUT.say "FO processing halted - missing #{self.file}.fo file."
           end
         end
         

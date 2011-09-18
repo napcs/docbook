@@ -1,6 +1,4 @@
-require 'rubygems'
-require 'lib/generator'
-require 'test/unit'
+require 'test_helper'
 
 class GeneratorTest < Test::Unit::TestCase
   def setup

@@ -1,6 +1,8 @@
 You must have Ruby installed in order to use this build chain.
 
-Download Ruby for Windows from http://www.rubyinstaller.org/ and install it. Be sure to add it to your path and then run the following command from the Command Prompt:
+Download Ruby for Windows from http://www.rubyinstaller.org/ and install it.
+Be sure to let it add Ruby interpreters to your path and then run the following command from the Command Prompt:
 
   gem install rake
-  
+
+This will ensure you have everything installed correctly. Once you've done that, you can continue with this installation. 

@@ -10,9 +10,9 @@ module Docbook
       end
 
       def after_render
-        puts "Building the Help file"
+        OUTPUT.say "Building the Help file"
         `#{self.root}/hhc.exe #{self.file}.hhp"`
-        puts "Cleaning up"
+        OUTPUT.say "Cleaning up"
         FileUtils.rm "*.hh*"
         FileUtils.rm "*.html"
       end

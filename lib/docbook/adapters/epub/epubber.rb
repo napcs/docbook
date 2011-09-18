@@ -16,7 +16,7 @@ module Docbook
           if File.exist?("cover/cover.jpg")
             FileUtils.cp "cover/cover.jpg", "#{OUTPUT_DIR}/#{OEBPS_DIR}/images/cover.jpg"
           else
-            puts "Could not find a cover. Ensure cover/epub_cover.html and cover/cover.jpg exist"
+            OUTPUT.say "Could not find a cover. Ensure cover/epub_cover.html and cover/cover.jpg exist"
           end
         end
         
@@ -24,7 +24,7 @@ module Docbook
           
           FileUtils.rm self.output_path # Saxon creates this stupid empty file. Let's nuke it
           
-          puts "Collecting epub resources..."
+          OUTPUT.say "Collecting epub resources..."
           FileUtils.mv META_DIR,  "#{OUTPUT_DIR}/#{META_DIR}"
           
           FileUtils.mv OEBPS_DIR,  "#{OUTPUT_DIR}/#{OEBPS_DIR}"
@@ -37,16 +37,14 @@ module Docbook
             File.open("mimetype", "w") {|f| f.print MIMETYPE}
             
             zip_cmd = %Q(zip -X -r  "../#{self.output_path}" mimetype "#{META_DIR}" "#{OEBPS_DIR}")
-            puts zip_cmd
-            `ls -alh`
-            `#{zip_cmd}`
+            OUTPUT.say zip_cmd
+            run_command zip_cmd
           end
           
           if self.validate
             cmd = "java -jar #{self.root}/jars/epubcheck/epubcheck.jar #{self.output_path}"
-            print_debug(cmd)
-            puts "Validating generated epub"
-            `#{cmd}`
+            OUTPUT.say "Validating generated epub"
+            run_command cmd
           end
           FileUtils.rm_rf OUTPUT_DIR
         end

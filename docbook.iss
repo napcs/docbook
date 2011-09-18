@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{0A22D345-DFA9-45B8-AC92-57F2E933BA7D})
 AppName=Short Attention Span Docbook
-AppVerName=Short Attention Span Docbook 1.4.2
+AppVerName=Short Attention Span Docbook 1.5.0
 AppPublisher=New Auburn Personal Computer Services LLC
 AppPublisherURL=http://www.napcs.com
 AppSupportURL=http://www.napcs.com
@@ -15,7 +15,7 @@ AppUpdatesURL=http://www.napcs.com/products/docbook
 DefaultDirName=c:\docbook
 DefaultGroupName=Short Attention Span Docbook
 AllowNoIcons=yes
-OutputBaseFilename=docbook_setup-1_4_2
+OutputBaseFilename=docbook_setup-1_5_0
 Compression=lzma
 SolidCompression=yes
 ChangesEnvironment=yes
@@ -46,7 +46,7 @@ Source: "hhc.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{cm:UninstallProgram,Short Attention Span Docbook}"; Filename: "{uninstallexe}"
-Name: "{group}\Getting Started"; Filename: "{app}\docbook.pdf"
+Name: "{group}\Manual"; Filename: "{app}\docbook.pdf"
 
 [Registry]
 

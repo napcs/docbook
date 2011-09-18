@@ -12,18 +12,31 @@ end
 
 files = %w{make.rb version.rb README.txt hhc.exe jars lib xsl readme_files Rakefile generate generate.bat template}
 
-
 desc "create documentation"
-task :doc do    
-  `cd readme_files && rake docbook.pdf SHORT_ATTENTION_SPAN_DOCBOOK_PATH="../" && cd ..`
+task :doc do
+  root = File.dirname(__FILE__)    
+  `cd readme_files && rake docbook.pdf SHORT_ATTENTION_SPAN_DOCBOOK_PATH="#{root}" && cd ..`
   FileUtils.cp "README.rdoc","README.txt"
 end
 
 desc "test build chain"
 task :acceptance_test do
-  FileUtils.rm_rf "mytestbook/"
+  FileUtils.rm_rf "mytestbook/" rescue nil
   `#{File.expand_path(".")}/generate book mytestbook with_sample`
-  `cd mytestbook && rake callout_images && rake book.pdf && open book.pdf && cd ..`
+  Dir.chdir "mytestbook" do
+    `rake callout_images`
+    `rake book.pdf` 
+    `rake book.html`
+    `rake book.epub`  
+  end 
+  FileUtils.rm_rf "mytestbook/" rescue nil
+  `#{File.expand_path(".")}/generate article mytestbook with_sample`
+  Dir.chdir "mytestbook" do
+    `rake callout_images`
+    `rake article.pdf` 
+  end   
+  FileUtils.rm_rf "mytestbook/" rescue nil
+  
 end
 
 desc "Create the zip file of the distribution, building docs if needed"
