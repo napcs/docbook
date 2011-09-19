@@ -12,15 +12,19 @@ module Helpers
     OUTPUT.say_debug command
     OUTPUT.say_debug "-------------------------"
     
-    stdin, stdout, stderr = Open3.popen3(command)
-    out = stdout.readlines.join
-    err = stderr.readlines.join
-    stdin.close
-    stderr.close
-    stdout.close
-    OUTPUT.say out
-    OUTPUT.error err
+    # FIXME: This blocks hard on large books. I don't know how to fix this so I am discarding STDERR
+    # out = ""
+    # err = ""
+    # 
+    # Open3.popen3(command) do |stdin, stdout, stderr|
+    #   out = stdout.readlines.join
+    #   err = stderr.readlines.join
+    # end
+    # OUTPUT.say out
+    # OUTPUT.error err
     
+    out = `#{command} 2>&1`
+    OUTPUT.say out
     out
   end
   

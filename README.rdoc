@@ -124,6 +124,8 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2012-09-19 - v1.5.1
+  * Changed how external commands are run to prevent blocking on larger books.
 2012-09-19 - v1.5.0
   * Changed to local validation (Eric Davis)
   * Refactored generators for projects and added tests
