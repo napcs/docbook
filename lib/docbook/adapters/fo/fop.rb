@@ -78,12 +78,16 @@ module Docbook
         def after_render
           if File.exists?("#{self.file}.fo")
             OUTPUT.say "Building #{@output}"
-            run_command self.fop_command
-    
+            output = run_command self.fop_command
+            if output.include?("Exception")
+              OUTPUT.error "There was a problem converting your book. See fop_error.txt"
+              File.open("fop_error.txt", "w"){|f| f << output}
+            else
+              add_cover if self.respond_to?(:add_cover)
+            end
             OUTPUT.say "Cleaning up"
             FileUtils.rm "#{self.file}.fo"
             
-            add_cover if self.respond_to?(:add_cover)
             
           else
             OUTPUT.say "FO processing halted - missing #{self.file}.fo file."
