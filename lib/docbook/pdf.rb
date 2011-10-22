@@ -10,9 +10,13 @@ module Docbook
   # which contains the specific stuff for that particular
   # postprocessor.
   class Pdf < Docbook::Base
-  
-    include Docbook::Adapters::Fo::Fop
-  
+    
+    if ENV["FOP_ADAPTER"] && ENV["FOP_ADAPTER"] == "xep"
+      include Docbook::Adapters::Fo::Xep
+    else
+      include Docbook::Adapters::Fo::Fop
+    end
+    
     def initialize(args={})
       super
       @output = 'pdf'

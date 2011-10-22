@@ -9,6 +9,8 @@ require 'extensions'
 require 'docbook/generator'
 require 'docbook/output'
 require 'docbook/adapters/fo/fop'
+require 'docbook/adapters/fo/xep'
+
 require 'docbook/adapters/epub/dbtoepub'
 require 'docbook/adapters/epub/epubber'
 require 'docbook/adapters/html/html'
