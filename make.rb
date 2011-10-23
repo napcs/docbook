@@ -46,7 +46,6 @@ task :clean do
   end
   FileUtils.rm_rf("html") if File.exist?("html")
 
-  
 end
 
 rule /\.pdf$|\.html$|\.txt$|\.rtf$|\.epub$|\.xhtml$|\.chm$/ => FileList["**/*.xml"] do |t|
@@ -84,6 +83,21 @@ rule /\.pdf$|\.html$|\.txt$|\.rtf$|\.epub$|\.xhtml$|\.chm$/ => FileList["**/*.xm
   
   FileUtils.cp ENV["SOURCE_FILENAME"], ENV["TEMP_FILENAME"]
   
+  if validate
+    
+    OUTPUT.say_debug "Initial validation of files before preprocessor"
+    validator = Docbook::Validator.new(ENV["SOURCE_FILENAME"], DOCBOOK_ROOT)
+
+    if validator.valid?
+      OUTPUT.say "Preliminary validation complete. "
+    else
+      OUTPUT.error "Validation errors occurred."
+      OUTPUT.error validator.error_messages
+      exit
+    end
+
+  end
+  OUTPUT.say "Running custom preprocessors, if any"
   Rake::Task["preprocess"].invoke
   
   klass = "Docbook/#{target}".constantize

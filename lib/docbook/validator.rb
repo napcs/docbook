@@ -19,8 +19,12 @@ module Docbook
     end
     
     # Command for the validator
-    def validator_cmd
+    def validator_cmd_old
       "java -jar -Xmx512m -Xss1024K #{self.root}/jars/relames.jar #{schema} #{self.file}"
+    end
+    
+    def validator_cmd
+      "java -jar -Xmx512m -Xss1024K  -Dorg.apache.xerces.xni.parser.XMLParserConfiguration=org.apache.xerces.parsers.XIncludeParserConfiguration #{self.root}/jars/jing.jar #{schema} #{self.file}"
     end
     
     def initialize(file, root)
@@ -34,7 +38,7 @@ module Docbook
       self.errors = []
       output = run_command validator_cmd
       OUTPUT.say_debug output
-      if output.include?("NOT valid") || output.include?("Exception")
+      if output.include?("error:") || output.include?("Exception")
         self.errors << output
       end
       self.errors.empty?

@@ -124,6 +124,10 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2011-10-22 - v1.5.3
+  * Removed Relames validation and replaced with Jing so that validation actually validates included files.
+  * Added validation before preprocessor. This will result in validation running twice, but this now handles cases where you are transforming book.tmp.xml in your own preprocessor.
+  
 2011-10-20 - v1.5.2
   * Now properly catching issues where FO to PDF conversion encounters errors.
 2011-09-19 - v1.5.1
