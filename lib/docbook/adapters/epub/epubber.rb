@@ -14,9 +14,10 @@ module Docbook
         
         def collect_cover
           if File.exist?("cover/cover.jpg")
-            FileUtils.cp "cover/cover.jpg", "#{OUTPUT_DIR}/#{OEBPS_DIR}/images/cover.jpg"
+            FileUtils.mkdir "#{OUTPUT_DIR}/#{OEBPS_DIR}/cover"
+            FileUtils.cp "cover/cover.jpg", "#{OUTPUT_DIR}/#{OEBPS_DIR}/cover/cover.jpg"
           else
-            OUTPUT.say "Could not find a cover. Ensure cover/epub_cover.html and cover/cover.jpg exist"
+            OUTPUT.say "Could not find a cover. Ensure cover/cover.jpg exists"
           end
         end
         
