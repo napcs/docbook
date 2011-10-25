@@ -21,15 +21,14 @@ module Docbook
           end
         end
         
-        def after_render
-          
+        def build_epub
           FileUtils.rm self.output_path # Saxon creates this stupid empty file. Let's nuke it
           
-          OUTPUT.say "Collecting epub resources..."
+          OUTPUT.say "Collecting resources..."
           FileUtils.mv META_DIR,  "#{OUTPUT_DIR}/#{META_DIR}"
           
           FileUtils.mv OEBPS_DIR,  "#{OUTPUT_DIR}/#{OEBPS_DIR}"
-          FileUtils.cp "xsl/epub.css", "#{OUTPUT_DIR}/#{OEBPS_DIR}/style.css"
+          FileUtils.cp "xsl/#{@xsl_extension}.css", "#{OUTPUT_DIR}/#{OEBPS_DIR}/style.css"
           
           collect_images
           collect_cover
@@ -49,6 +48,7 @@ module Docbook
           end
           FileUtils.rm_rf OUTPUT_DIR
         end
+        
         
         def xml_parser_options
           opts = super 

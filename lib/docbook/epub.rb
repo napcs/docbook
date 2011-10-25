@@ -9,6 +9,9 @@ module Docbook
       @xsl_stylesheet = "xsl/epub.xsl"
     end
 
+    def after_render
+      build_epub
+    end
 
   end
 end

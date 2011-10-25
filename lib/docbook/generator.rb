@@ -76,12 +76,20 @@ module Docbook
         FileUtils.mv "#{self.output_path}/xsl/epub.xsl","#{self.output_path}/xsl/epub.xsl.old"
       end
 
-      if File.exist?("#{self.output_path}/xsl/epub.xsl")
+      if File.exist?("#{self.output_path}/xsl/epub.css")
         FileUtils.mv "#{self.output_path}/xsl/epub.css","#{self.output_path}/xsl/epub.css.old"
       end      
 
       if File.exist?("#{self.output_path}/xsl/rtf.xsl")
         FileUtils.mv "#{self.output_path}/xsl/rtf.xsl","#{self.output_path}/xsl/rtf.xsl.old"
+      end
+      
+      if File.exist?("#{self.output_path}/xsl/mobi.xsl")
+        FileUtils.mv "#{self.output_path}/xsl/mobi.xsl","#{self.output_path}/xsl/mobi.xsl.old"
+      end
+
+      if File.exist?("#{self.output_path}/xsl/mobi.css")
+        FileUtils.mv "#{self.output_path}/xsl/mobi.css","#{self.output_path}/xsl/mobi.css.old"
       end
 
       cp  "#{self.root_path}/template/xsl/pdf.xsl", "#{self.output_path}/xsl/pdf.xsl"
@@ -90,6 +98,8 @@ module Docbook
       cp  "#{self.root_path}/template/xsl/epub.css", "#{self.output_path}/xsl/epub.css" 
       cp  "#{self.root_path}/template/xsl/html.css", "#{self.output_path}/xsl/html.css"
       cp  "#{self.root_path}/template/xsl/rtf.xsl", "#{self.output_path}/xsl/rtf.xsl"
+      cp  "#{self.root_path}/template/xsl/mobi.xsl", "#{self.output_path}/xsl/mobi.xsl" 
+      cp  "#{self.root_path}/template/xsl/mobi.css", "#{self.output_path}/xsl/mobi.css" 
 
     end
     
