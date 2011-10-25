@@ -72,6 +72,8 @@ That creates
    - foobook/xsl/pdf.xsl
    - foobook/xsl/epub.xsl
    - foobook/xsl/epub.css
+   - foobook/xsl/mobi.xsl
+   - foobook/xsl/mobi.css
    - foobook/xsl/html.xsl
    - foobook/xsl/html.css
    - foobook/xsl/rtf.xsl

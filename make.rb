@@ -39,7 +39,7 @@ desc "clean temporary files"
 task :clean do
   OUTPUT.say "Removing temporary files"
   xml_files = Dir.glob("./**/*.xml")
-  %w{pdf html txt rtf epub xhtml chm fo}.each do |ext|
+  %w{pdf html txt rtf epub xhtml mobi chm fo}.each do |ext|
     f = xml_files.collect{|a| a.gsub(".xml", ".#{ext}")}
     f.each{|item| OUTPUT.say "Removing #{item}" if File.exist?(item)}
     FileUtils.rm_rf(f)
@@ -48,7 +48,7 @@ task :clean do
 
 end
 
-rule /\.pdf$|\.html$|\.txt$|\.rtf$|\.epub$|\.xhtml$|\.chm$/ => FileList["**/*.xml"] do |t|
+rule /\.pdf$|\.html$|\.mobi$|\.txt$|\.rtf$|\.epub$|\.xhtml$|\.chm$/ => FileList["**/*.xml"] do |t|
 
   file_and_target = t.name.split(".")
 
