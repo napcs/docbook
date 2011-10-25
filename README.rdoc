@@ -11,17 +11,18 @@ Contained in this package are the Docbook XSLT stylesheets,
 === Prerequisites
 In order to use this, you'll need a Java Runtime Environment. JRE 1.6 is fine.
 
-You also need Ruby 1.8.6, 1.8.7, or 1.9.2 with Rubygems and Rake.  Most standard installations of Ruby will include these dependencies.
+You also need Ruby 1.8.6, 1.8.7, or 1.9.2 with RubyGems and Rake.  Most standard installations of Ruby will include these dependencies.
 
 === Basic installation for (Potential) Authors and Writers
 
 This repository is for technical people who want to get the latest bleeding-edge version of 
-this toolchain so they can customize it to fit their neeeds. Authors and other end 
+this toolchain so they can customize it to fit their needs. Authors and other end 
 users should download the re-distributable packages available at 
 http://www.napcs.com/products/docbook which are more stable. 
 
 === Developers and Integrators
-If you're interested in creating a more customized toolchain as part of a continous build process, etc, you should clone the repository
+If you're interested in creating a more customized toolchain as part of a continuous 
+build process, etc, you should clone the repository
 
   git clone git://github.com/napcs/docbook
   
@@ -36,7 +37,7 @@ specify a path
   sudo rake install DIR=/opt/docbook
 
 You'll be prompted to add the install directory to your path. 
-Also add the SHORT_ATTENTION_SPAN_DOCBOOK environment variable to the installation directory to make it easier to run the generators and find everything.
+Also add the SHORT_ATTENTION_SPAN_DOCBOOK_PATH environment variable to the installation directory to make it easier to run the generators and find everything.
 
 === Staying on the Bleeding Edge
 
@@ -44,7 +45,7 @@ If you really want to keep current, you can clone the repo
 
   git clone git://github.com/napcs/docbook ~/docbook_edge
   
-And set your ENV variable for SHORT_ATTENTION_SPAN_DOCBOOK to point there. You may also wish to add ~/docbook_edge to your path.
+And set your ENV variable for SHORT_ATTENTION_SPAN_DOCBOOK_PATH to point there. You may also wish to add ~/docbook_edge to your path.
 
 Then you can fetch updates with
 
@@ -106,27 +107,17 @@ The build system works best when you have an environment variable set. On Linux,
 
 On Windows, add this to your environment variables in Control Panel.
 
-This step is not necessary, but can ease collaboration between multiple authors, as this buildchain may be installed in different locations on each person's machine.
-
-== Upgrading from previous versions
-
-Due to changes in the way things worked, your best bet is to generate a new project for your book and move your xml files and images into this new project, then add your customizations into the pdf.xsl file manually. Code highlighting customizations are different now. If you're not getting code highlighting to work, generate a new book and review the new Rakefile and the new pdf.xsl file. Also note that entities are included in the projects and the new templates use them. 
-
-Remember - to build your books, you now use
-
-  rake book.pdf
-  rake book.pdf VALIDATE=false
-
 == Patches
 
 Please fork and pull. Don't update the changelog. Make small patches I can pull in.
 
 
-
 == Changes
-2011-10-22 - v1.5.3
+2011-10-24 - v1.5.3
   * Removed Relames validation and replaced with Jing so that validation actually validates included files.
   * Added validation before preprocessor. This will result in validation running twice, but this now handles cases where you are transforming book.tmp.xml in your own preprocessor.
+  * Fixed issue where epubs were not getting the right cover file added.
+  * Removed sections of the README that are now out of date.
   
 2011-10-20 - v1.5.2
   * Now properly catching issues where FO to PDF conversion encounters errors.
