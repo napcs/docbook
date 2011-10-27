@@ -349,7 +349,7 @@ Done]]></screen>
         </sect2>
         <sect2 xml:id="sec.Covers">
             <title>Covers</title>
-            <para>Covers are supported for PDFs and ePubs. Unfortunately, the process is slightly different for each.</para>
+            <para>Covers are supported for PDFs, ePubs, and mobi formats. Unfortunately, the process is slightly different for each.</para>
             <sect3 xml:id="sec.PDF.covers">
               <title>PDF covers</title>
                         <para>Create a book cover in your favorite graphics program, export it as a PDF called
@@ -358,9 +358,9 @@ Done]]></screen>
 
             </sect3>
             <sect3 xml:id="sec.ePub.Covers">
-              <title>ePub Covers</title>
+              <title>ePub and mobi Covers</title>
               <para>
-                   To add a cover to an ePub book, you'll need to add a JPG version of your book 
+                   To add a cover to an ePub or mobi book, you'll need to add a JPG version of your book 
                    cover to <filename>covers/cover.jpg</filename>, and then you'll add this markup
                    to your book's front matter:
                  </para>
