@@ -116,6 +116,7 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 == Changes
 2011-10-25 - v1.6.0
+  * Fixed sample template issues
   * Added basic support for .mobi format for Amazon Kindle. You'll need kindlegen on your path though.
   * Removed Relames validation and replaced with Jing so that validation actually validates included files.
   * Added validation before preprocessor. This will result in validation running twice, but this now handles cases where you are transforming book.tmp.xml in your own preprocessor.
