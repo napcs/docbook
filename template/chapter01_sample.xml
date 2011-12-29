@@ -18,8 +18,6 @@
         <title>A cross reference</title>
         <para>You can easily cross&ndash;reference things by referencing the XML id attribute of any element. See <xref linkend="fig.sample.image" /> to see a screenshot.</para>
            
-      </sect1>
-
       <figure xml:id="fig.sample.image">
       <title>A sample figure.</title>
       <screenshot>
@@ -32,8 +30,6 @@
       </screenshot> 
       </figure>
   
-
-
-      
-      
+   </sect1>
+         
 </chapter>
