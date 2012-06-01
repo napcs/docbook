@@ -1,4 +1,6 @@
-You must have Ruby installed in order to use this build chain.
+You must have both Java and Ruby installed in order to use this build chain.
+
+Download a Java Runtime from http://www.oracle.com/java if you don't have it already.
 
 Download Ruby for Windows from http://www.rubyinstaller.org/ and install it.
 Be sure to let it add Ruby interpreters to your path and then run the following command from the Command Prompt:
