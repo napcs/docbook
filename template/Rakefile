@@ -19,13 +19,13 @@ task :preprocess do
   # Given you called "rake book.pdf" the following environment variables are available to you:
   #
   # ENV["SOURCE_FILENAME"] : book.xml
-  # ENV["TEMP_FILE"] = book.tmp  - The file without the .xml extension, useful 
+  # ENV["TEMP_FILE"] = book.tmp  - The file without the .xml extension 
   # ENV["TEMP_FILENAME"] = book.tmp.xml  - This is the file we process as the source file
   # ENV["OUTPUT_FILENAME"] = book.pdf    - what you requested on the commandline
   # ENV["FORMAT"] = pdf                  - the format we used
   
   # Create your own preprocessor and invoke it here. Operate on ENV["TEMP_FILENAME"] if you
-  # plan to manipulate the Docbook XML.
+  # plan to manipulate the Docbook XML that gets assembled.
   
 end
 

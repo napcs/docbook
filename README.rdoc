@@ -103,7 +103,7 @@ is a limitation of Apache FOP's RTF support.
 See readme_files/docbook.pdf for more information, like how to use Draft mode, pre-and-postprocessing hooks, and adding covers. There's also more on installation and usage for end users there, and it serves as documentation, as the PDF's docbook source is available there as well.
 
 == Paths
-The build system works best when you have an environment variable set. On Linux, you would add this to your .bash_profile or other profile scripts.
+The build system works best when you have an environment variable set. On Linux, you would add this to your .bashrc or other profile scripts.
 
   export SHORT_ATTENTION_SPAN_DOCBOOK_PATH="~/docbook"
 
@@ -115,6 +115,8 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2012-06-01 - v1.6.1
+  *
 2011-10-25 - v1.6.0
   * Fixed sample template issues
   * Added basic support for .mobi format for Amazon Kindle. You'll need kindlegen on your path though.

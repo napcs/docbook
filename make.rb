@@ -93,7 +93,7 @@ rule /\.pdf$|\.html$|\.mobi$|\.txt$|\.rtf$|\.epub$|\.xhtml$|\.chm$/ => FileList[
     else
       OUTPUT.error "Validation errors occurred."
       OUTPUT.error validator.error_messages
-      exit
+      
     end
 
   end
