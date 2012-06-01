@@ -22,7 +22,7 @@ module Docbook
         if convert_to_mobi
           OUTPUT.say "mobi file created."
         else
-          OUTPUT.error "mobi file not created. Ensure kindlegen is on your path or the KINDLEGEN_PATH environment variable is set."
+          OUTPUT.error "mobi file not created. Ensure kindlegen is on your path or the KINDLEGEN_PATH environment variable is set to point to the complete path to kindlegen, including the filename."
         end
         FileUtils.rm_rf "#{self.output_path}.epub"
       else
