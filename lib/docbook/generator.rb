@@ -104,9 +104,14 @@ module Docbook
     end
     
     def article
-       OUTPUT.say "Creating article..."
+      OUTPUT.say "Creating article..."
       common_files
-
+      
+      # replace book with article in the pdf template
+      pdf_template = get_file_as_string("#{output_path}/xsl/pdf.xsl")
+      pdf_template.gsub!("d:book", "d:article")
+      put_file_from_string("#{output_path}/xsl/pdf.xsl", pdf_template)
+      
       if sample
         cp("#{self.root_path}/template/article.xml", "#{self.output_path}/article.xml")
       else
