@@ -115,8 +115,12 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
-2012-06-01 - v1.6.1
-  *
+2012-07-20 - v1.6.1
+  * Added highlighting for CoffeeScript
+  * fixed incorrect xpath which was always using article instead of book. Closes #11
+  * readme fixes, minor comment changes in template Rakefile
+  * changed error message to make kindlegen path clearer. Closes #17
+  * Fixed load paths so installation works.
 2011-10-25 - v1.6.0
   * Fixed sample template issues
   * Added basic support for .mobi format for Amazon Kindle. You'll need kindlegen on your path though.
