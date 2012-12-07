@@ -21,19 +21,20 @@ module Docbook
           fop_cp << "#{self.root}/jars/batik-all-1.7.jar;"
           fop_cp << "#{self.root}/jars/commons-io-1.3.1.jar;"
           fop_cp << "#{self.root}/jars/commons-logging-1.0.4.jar;"
-          fop_cp << "#{self.root}/jars/fop-hyph.jar;"
-          fop_cp << "#{self.root}/jars/fop.jar;"
           fop_cp << "#{self.root}/jars/serializer-2.7.0.jar;"
           fop_cp << "#{self.root}/jars/xalan-2.7.0.jar;"
           fop_cp << "#{self.root}/jars/xercesImpl-2.7.1.jar;"
           fop_cp << "#{self.root}/jars/xml-apis-1.3.04.jar;"
-          fop_cp << "#{self.root}/jars/xmlgraphics-commons-1.4.jar;"
+          fop_cp << "#{self.root}/jars/xmlgraphics-commons-1.5.jar;"
+          fop_cp << "#{self.root}/jars/fop.jar;"
+          fop_cp << "#{self.root}/jars/fop-hyph.jar;"
+          
           fop_cp
         end
     
         # Create the command to launch FOP
         def fop_command  
-          cmd = "java -Xmx512m -Xss1024K -cp #{fop_options} org.apache.fop.cli.Main -fo #{self.file}.fo -#{@output} #{self.file}.#{@output}"
+          cmd = "java -Xmx512m -Xss1024K  -Djava.awt.headless=true -cp #{fop_options} org.apache.fop.cli.Main -fo #{self.file}.fo -#{@output} #{self.file}.#{@output}"
 
           cmd.gsub!(";",":") unless @windows
           cmd
