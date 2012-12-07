@@ -1,7 +1,6 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'rubygems'
-require 'minitest/unit'
 require 'fileutils'
 require 'version'
 require 'rake/testtask' 
@@ -27,9 +26,9 @@ task :acceptance_test do
   `#{File.expand_path(".")}/generate book mytestbook with_sample`
   Dir.chdir "mytestbook" do
     `rake callout_images`
-    `rake book.pdf` 
-    `rake book.html`
-    `rake book.epub`  
+    `rake book.pdf DEBUG=true` 
+    `rake book.html DEBUG=true`
+    `rake book.epub DEBUG=true`  
   end 
   FileUtils.rm_rf "mytestbook/" rescue nil
   `#{File.expand_path(".")}/generate article mytestbook with_sample`
