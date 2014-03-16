@@ -117,6 +117,11 @@ Michiel Hendriks <elmuerte at users.sourceforge.net>
     <keyword>has_one</keyword>
     <keyword>before_filter</keyword>
     <keyword>after_filter</keyword>
+    <keyword>before_action</keyword>
+    <keyword>after_action</keyword>
+    <keyword>except</keyword>
+    <keyword>only</keyword>
+    
     <keyword>link_to</keyword>
     <keyword>attr_accessor</keyword>
     <keyword>attr_reader</keyword>

@@ -33,6 +33,8 @@ Michiel Hendriks <elmuerte at users.sourceforge.net>
 	<highlighter id="ini" file="./ini-hl.xml" />
 	<highlighter id="php" file="./php-hl.xml" />
 	<highlighter id="myxml" file="./myxml-hl.xml" />
+	<highlighter id="rhtml" file="./rhtml-hl.xml" />
+	
 	<highlighter id="m2" file="./m2-hl.xml" />
 	<highlighter id="tcl" file="./tcl-hl.xml" />
 	<highlighter id="c" file="./c-hl.xml" />
