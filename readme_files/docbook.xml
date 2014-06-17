@@ -20,7 +20,7 @@
             <email>info@napcs.com</email>
         </author>
         <copyright>
-            <year>2011</year>
+            <year>2013</year>
             <holder>Brian P. Hogan</holder>
         </copyright>
     </info>
@@ -64,7 +64,7 @@
                   <sidebar>
                       <title>Manual installation on Windows</title>
                       <para>The easiest way to use this package is to use the application installer, but if
-                          you need to do a manual install, you can download the docbook zip file from
+                          you need to do a manual install, you can download the zip file from
                               <uri>http://www.napcsweb.com/files/docbook/docbook.zip</uri> and extract it to
                               <filename>c:\docbook</filename>. Next, you'll want to add this folder to your
                           PATH. To do that, press <keycombo>
@@ -72,7 +72,7 @@
                               <keycap>Pause</keycap>
                           </keycombo> to bring up the <application>System Properties</application> window.
                           Select the <guibutton>Advanced</guibutton> tab and then select the
-                              <guibutton>Environmen Variables</guibutton> button. In the <guilabel>User
+                              <guibutton>Environment Variables</guibutton> button. In the <guilabel>User
                               variables</guilabel> section, locate the Path variable and edit its contents.
                           Append <code><![CDATA[;c:\docbook]]></code> to the end of the value. If there
                           currently is no Path variable, create a new one called <emphasis>PATH</emphasis> and
@@ -87,7 +87,7 @@
                       <title>Installing a Java Runtime Environment</title>
                       <para>Download the Java Runtime Environment from Sun <footnote>
                               <para>Java Runtime:
-                                  <uri>http://java.sun.com/javase/downloads/index.jsp</uri></para>
+                                  <uri>http://www.oracle.com/technetwork/java/javase/downloads/index.html</uri></para>
                           </footnote> and get it installed on your system if you don't already have it. Once
                           installed, open a new command prompt and type </para>
                       <para><command>java -version</command></para>

@@ -105,6 +105,13 @@
     <element>UL</element>
     <element>VAR</element>
     <element>XMP</element>
+    <element>NAV</element>
+    <element>HEADER</element>
+    <element>FOOTER</element>
+    <element>SECTION</element>
+    <element>ASIDE</element>
+    <element>ARTICLE</element>
+    
     <ignoreCase/>
   </elementSet>
   <elementPrefix>
@@ -112,5 +119,4 @@
     <prefix>xsl:</prefix>
   </elementPrefix>
 </wholehighlighter>
-
 </highlighters>

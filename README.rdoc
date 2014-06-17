@@ -11,7 +11,7 @@ Contained in this package are the Docbook XSLT stylesheets,
 === Prerequisites
 In order to use this, you'll need a Java Runtime Environment. JRE 1.6 is fine.
 
-You also need Ruby 1.8.6, 1.8.7, or 1.9.2 with RubyGems and Rake.  Most standard installations of Ruby will include these dependencies.
+You also need Ruby 1.8.7 or higher with RubyGems and Rake.  Most standard installations of Ruby will include these dependencies.
 
 === Basic installation for (Potential) Authors and Writers
 
@@ -115,6 +115,14 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2014-03-14 -v1.6.2.1
+  * When rendering fails, book.tmp.xml is no longer deleted, making error discovery easier.
+  * Added .rhtml (erb) highlighting file
+  * Modified the Ruby highlighting file to add new tokens for Rails
+  * Modified the HTML highlighting file to recognize some HTML5 elements
+2013-04-30 -v1.6.2
+  * Updated FOP to 1.1
+  * Minor changes to the default PDF stylesheet
 2012-07-20 - v1.6.1
   * Added highlighting for CoffeeScript
   * fixed incorrect xpath which was always using article instead of book. Closes #11

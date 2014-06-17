@@ -12,7 +12,7 @@ include Helpers
 
 def header
   puts DocbookVersion.to_s
-  puts "(c) 2011 Brian P. Hogan"
+  puts "(c) 2006-2014 Brian P. Hogan"
   puts "Using #{DocbookVersion.xslt_to_s}"
   
   puts "-" * 40
@@ -109,11 +109,11 @@ rule /\.pdf$|\.html$|\.mobi$|\.txt$|\.rtf$|\.epub$|\.xhtml$|\.chm$/ => FileList[
     Rake::Task["postprocess"].invoke
     OUTPUT.say "Renaming #{ ENV["TEMP_FILE"]} to #{t.name} if necessary"
     FileUtils.mv ENV["TEMP_FILE"] + ".#{target}", t.name rescue nil
+    OUTPUT.say "Cleaning up temporary file #{ENV["TEMP_FILENAME"] }"
+    FileUtils.rm ENV["TEMP_FILENAME"] if File.exist?(ENV["TEMP_FILENAME"])
   else
     OUTPUT.error  "#{t.name} not rendered."
   end
-  OUTPUT.say "Cleaning up temporary file #{ENV["TEMP_FILENAME"] }"
-  FileUtils.rm ENV["TEMP_FILENAME"] if File.exist?(ENV["TEMP_FILENAME"])
 end
 
 task :preprocess do
