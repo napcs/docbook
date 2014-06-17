@@ -7,7 +7,7 @@
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: param.xweb 8552 2009-12-07 17:45:26Z bobstayton $
+     $Id: param.xweb 9658 2012-10-29 22:28:34Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -17,6 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
      ******************************************************************** -->
 
 <xsl:param name="abstract.notitle.enabled" select="0"/>
+<xsl:param name="activate.external.olinks" select="1"/>
 <xsl:param name="admon.graphics.extension">.png</xsl:param>
 <xsl:param name="admon.graphics" select="0"/>
 <xsl:param name="admon.graphics.path">images/</xsl:param>
@@ -109,6 +110,7 @@ http://docbook.sourceforge.net/release/images/annot-close.png</xsl:param>
 <xsl:param name="chunk.toc"/>
 <xsl:param name="chunk.tocs.and.lots" select="0"/>
 <xsl:param name="chunk.tocs.and.lots.has.title" select="1"/>
+<xsl:param name="chunked.filename.prefix"/>
 <xsl:param name="citerefentry.link" select="0"/>
 <xsl:param name="collect.xref.targets">no</xsl:param>
 <xsl:param name="component.label.includes.part.label" select="0"/>
@@ -167,6 +169,7 @@ task before
 <xsl:param name="funcsynopsis.decoration" select="1"/>
 <xsl:param name="funcsynopsis.style">kr</xsl:param>
 <xsl:param name="function.parens" select="0"/>
+<xsl:param name="generate.consistent.ids" select="0"/>
 <xsl:param name="generate.css.header" select="0"/>
 <xsl:param name="generate.id.attributes" select="0"/>
 <xsl:param name="generate.index" select="1"/>
@@ -217,6 +220,8 @@ set       toc,title
 <xsl:param name="html.head.legalnotice.link.types">copyright</xsl:param>
 <xsl:param name="html.longdesc" select="1"/>
 <xsl:param name="html.longdesc.link" select="$html.longdesc"/>
+<xsl:param name="html.script"/>
+<xsl:param name="html.script.type">text/javascript</xsl:param>
 <xsl:param name="html.stylesheet"/>
 <xsl:param name="html.stylesheet.type">text/css</xsl:param>
 <xsl:param name="htmlhelp.alias.file">alias.h</xsl:param>
@@ -317,15 +322,10 @@ set       toc,title
 <xsl:param name="olink.base.uri"/>
 <xsl:param name="olink.debug" select="0"/>
 <xsl:param name="olink.doctitle">no</xsl:param> 
-<xsl:param name="olink.fragid">fragid=</xsl:param>
 <xsl:param name="olink.lang.fallback.sequence"/>
-<xsl:param name="olink.outline.ext">.olink</xsl:param>
 <xsl:attribute-set name="olink.properties">
   <xsl:attribute name="show-destination">replace</xsl:attribute>
 </xsl:attribute-set>
-<xsl:param name="olink.pubid">pubid</xsl:param>
-  <xsl:param name="olink.resolver">/cgi-bin/olink</xsl:param>
-<xsl:param name="olink.sysid">sysid</xsl:param>
 <xsl:param name="othercredit.like.author.enabled">0</xsl:param>
 <xsl:param name="para.propagates.style" select="1"/>
 <xsl:param name="part.autolabel">I</xsl:param>
@@ -420,6 +420,14 @@ set       toc,title
 <xsl:param name="variablelist.as.table" select="0"/>
 <xsl:param name="variablelist.term.break.after">0</xsl:param>
 <xsl:param name="variablelist.term.separator">, </xsl:param>
+<xsl:param name="webhelp.autolabel">0</xsl:param>
+<xsl:param name="webhelp.base.dir">docs</xsl:param>
+<xsl:param name="webhelp.common.dir">../common/</xsl:param>
+<xsl:param name="webhelp.default.topic">index.html</xsl:param>
+<xsl:param name="webhelp.include.search.tab">1</xsl:param>
+<xsl:param name="webhelp.indexer.language">en</xsl:param>
+<xsl:param name="webhelp.start.filename">index.html</xsl:param>
+<xsl:param name="webhelp.tree.cookie.id" select="concat( 'treeview-', count(//node()) )"/>
 <xsl:param name="writing.mode">
   <xsl:call-template name="gentext">
     <xsl:with-param name="key">writing-mode</xsl:with-param>

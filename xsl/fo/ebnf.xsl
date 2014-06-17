@@ -7,7 +7,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: ebnf.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+     $Id: ebnf.xsl 9664 2012-11-07 20:02:17Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -19,7 +19,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 <doc:reference xmlns="">
 <referenceinfo>
 <releaseinfo role="meta">
-$Id: ebnf.xsl 6910 2007-06-28 23:23:30Z xmldoc $
+$Id: ebnf.xsl 9664 2012-11-07 20:02:17Z bobstayton $
 </releaseinfo>
 <author><surname>Walsh</surname>
 <firstname>Norman</firstname></author>
@@ -100,7 +100,7 @@ to be incomplete. Don't forget to read the source, too :-)</para>
     <fo:table-cell>
       <fo:block text-align="start">
         <xsl:text>[</xsl:text>
-        <xsl:number count="d:production" level="any"/>
+        <xsl:apply-templates select="." mode="label.markup"/>
         <xsl:text>]</xsl:text>
       </fo:block>
     </fo:table-cell>

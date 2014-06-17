@@ -9,7 +9,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   version='1.0'>
 
 <!-- ********************************************************************
-     $Id: pi.xsl 8487 2009-07-14 21:43:36Z bobstayton $
+     $Id: pi.xsl 9267 2012-04-03 20:23:45Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -20,7 +20,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
 <doc:reference xmlns=""><info><title>FO Processing Instruction Reference</title>
     <releaseinfo role="meta">
-      $Id: pi.xsl 8487 2009-07-14 21:43:36Z bobstayton $
+      $Id: pi.xsl 9267 2012-04-03 20:23:45Z bobstayton $
     </releaseinfo>
   </info>
 
@@ -1015,7 +1015,9 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       following-sibling::d:step">
       <fo:list-item space-after="0pt" 
         xsl:use-attribute-sets="informal.object.properties">
-        <fo:list-item-label/>
+        <fo:list-item-label>
+          <fo:block line-height="0pt"/>
+        </fo:list-item-label>
         <fo:list-item-body start-indent="0pt" end-indent="0pt">
           <xsl:copy-of select="$spacer"/>
         </fo:list-item-body>
@@ -1052,8 +1054,12 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
         space-before="-{$height}"
         space-after="0pt"
         space-after.precedence="force">
-        <fo:list-item-label/>
-        <fo:list-item-body start-indent="0pt" end-indent="0pt"/>
+        <fo:list-item-label>
+          <fo:block line-height="0pt"/>
+        </fo:list-item-label>
+        <fo:list-item-body start-indent="0pt" end-indent="0pt">
+          <fo:block line-height="0pt"/>
+        </fo:list-item-body>
       </fo:list-item>
     </xsl:when>
     <xsl:otherwise>

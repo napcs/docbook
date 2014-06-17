@@ -7,7 +7,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: titles.xsl 8599 2010-03-20 10:47:36Z mzjn $
+     $Id: titles.xsl 9715 2013-01-24 00:16:57Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -62,6 +62,15 @@ title of the element. This does not include the label.
               <xsl:value-of select="@xml:id"/>
               <xsl:text>")</xsl:text>
             </xsl:when>
+            <xsl:otherwise>
+              <xsl:text> (contained in </xsl:text>
+              <xsl:value-of select="local-name(..)"/>
+              <xsl:if test="../@id or ../@xml:id">
+                <xsl:text> with id </xsl:text>
+                <xsl:value-of select="../@id | ../@xml:id"/>
+              </xsl:if>
+              <xsl:text>)</xsl:text>
+            </xsl:otherwise>
           </xsl:choose>
         </xsl:message>
       </xsl:if>
@@ -252,6 +261,7 @@ title of the element. This does not include the label.
 <xsl:template match="d:section
                      |d:sect1|d:sect2|d:sect3|d:sect4|d:sect5
                      |d:refsect1|d:refsect2|d:refsect3|d:refsection
+                     |d:topic
                      |d:simplesect"
               mode="title.markup">
   <xsl:param name="allow-anchors" select="0"/>
@@ -274,7 +284,7 @@ title of the element. This does not include the label.
 </xsl:template>
 
 <xsl:template match="d:bridgehead" mode="title.markup">
-  <xsl:apply-templates mode="title.markup"/>
+  <xsl:apply-templates/> 
 </xsl:template>
 
 <xsl:template match="d:refsynopsisdiv" mode="title.markup">
@@ -525,6 +535,9 @@ title of the element. This does not include the label.
 
 <!-- ============================================================ -->
 
+<!-- titleabbrev is always processed in a mode -->
+<xsl:template match="d:titleabbrev"/>
+
 <xsl:template match="*" mode="titleabbrev.markup">
   <xsl:param name="allow-anchors" select="0"/>
   <xsl:param name="verbose" select="1"/>
@@ -549,7 +562,7 @@ title of the element. This does not include the label.
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="d:book|d:preface|d:chapter|d:appendix" mode="titleabbrev.markup">
+<xsl:template match="d:book|d:part|d:set|d:preface|d:chapter|d:appendix" mode="titleabbrev.markup">
   <xsl:param name="allow-anchors" select="0"/>
   <xsl:param name="verbose" select="1"/>
 
@@ -557,6 +570,8 @@ title of the element. This does not include the label.
                                            |d:bookinfo/d:titleabbrev
                                            |d:info/d:titleabbrev
                                            |d:prefaceinfo/d:titleabbrev
+                                           |d:setinfo/d:titleabbrev
+                                           |d:partinfo/d:titleabbrev
                                            |d:chapterinfo/d:titleabbrev
                                            |d:appendixinfo/d:titleabbrev
                                            |d:titleabbrev)[1]"/>
@@ -603,6 +618,7 @@ title of the element. This does not include the label.
 <xsl:template match="d:section
                      |d:sect1|d:sect2|d:sect3|d:sect4|d:sect5
                      |d:refsect1|d:refsect2|d:refsect3
+                     |d:topic
                      |d:simplesect"
               mode="titleabbrev.markup">
   <xsl:param name="allow-anchors" select="0"/>

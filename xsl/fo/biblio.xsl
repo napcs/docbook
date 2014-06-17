@@ -6,7 +6,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: biblio.xsl 7467 2007-09-27 16:10:31Z bobstayton $
+     $Id: biblio.xsl 9330 2012-05-05 22:48:55Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -346,8 +346,15 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 
 <xsl:template match="d:author" mode="bibliography.mode">
   <fo:inline>
-    <xsl:call-template name="person.name"/>
-    <xsl:value-of select="$biblioentry.item.separator"/>
+    <xsl:choose>
+      <xsl:when test="d:orgname">
+        <xsl:apply-templates select="d:orgname" mode="bibliography.mode"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="person.name"/>
+        <xsl:value-of select="$biblioentry.item.separator"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </fo:inline>
 </xsl:template>
 
@@ -413,13 +420,6 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 </xsl:template>
 
 <!-- ================================================== -->
-
-<xsl:template match="d:bookbiblio" mode="bibliography.mode">
-  <fo:inline>
-    <xsl:apply-templates mode="bibliography.mode"/>
-    <xsl:value-of select="$biblioentry.item.separator"/>
-  </fo:inline>
-</xsl:template>
 
 <xsl:template match="d:citetitle" mode="bibliography.mode">
   <fo:inline>
@@ -851,7 +851,14 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 
 <xsl:template match="d:author" mode="bibliomixed.mode">
   <fo:inline>
-    <xsl:call-template name="person.name"/>
+    <xsl:choose>
+      <xsl:when test="d:orgname">
+        <xsl:apply-templates select="d:orgname" mode="bibliomixed.mode"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="person.name"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </fo:inline>
 </xsl:template>
 

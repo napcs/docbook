@@ -5,7 +5,7 @@
 version="1.0">
 
 <!-- ********************************************************************
-     $Id: htmltbl.xsl 8477 2009-07-13 11:38:55Z nwalsh $
+     $Id: htmltbl.xsl 9501 2012-07-16 00:14:50Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -15,6 +15,13 @@ version="1.0">
      ******************************************************************** -->
 
 <!-- ==================================================================== -->
+
+<xsl:template match="d:table" mode="htmlTable">
+  <xsl:element name="table" namespace="">
+    <xsl:apply-templates select="@*" mode="htmlTableAtt"/>
+    <xsl:call-template name="htmlTable"/>
+  </xsl:element>
+</xsl:template>
 
 <xsl:template match="d:colgroup" mode="htmlTable">
   <xsl:element name="{local-name()}" namespace="">
@@ -29,17 +36,8 @@ version="1.0">
   </xsl:element>
 </xsl:template>
 
-<xsl:template match="d:caption" mode="htmlTable">
-  <!-- do not use xsl:copy because of XHTML's needs -->
-  <caption>  
-    <xsl:apply-templates select="@*" mode="htmlTableAtt"/>
-
-    <xsl:apply-templates select=".." mode="object.title.markup">
-      <xsl:with-param name="allow-anchors" select="1"/>
-    </xsl:apply-templates>
-
-  </caption>
-</xsl:template>
+<!-- Handled by formal.object.title template -->
+<xsl:template match="d:caption" mode="htmlTable"/>
 
 <xsl:template match="d:tbody|d:thead|d:tfoot|d:tr" mode="htmlTable">
   <xsl:element name="{local-name(.)}">

@@ -5,7 +5,7 @@
 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: lists.xsl 8530 2009-11-02 02:38:47Z dleidert $
+     $Id: lists.xsl 9684 2012-12-12 17:05:54Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -54,6 +54,7 @@ version='1.0'>
 </xsl:template>
 
 <xsl:template match="d:variablelist|d:glosslist">
+  <xsl:text>&#10;</xsl:text>
   <xsl:if test="d:title">
     <xsl:text>.PP&#10;</xsl:text>
     <xsl:call-template name="bold">
@@ -177,6 +178,16 @@ version='1.0'>
   <xsl:call-template name="roff-if-end"/>
   <xsl:apply-templates/>
   <xsl:text>.RE&#10;</xsl:text>
+</xsl:template>
+
+<xsl:template match="d:orderedlist/d:listitem/d:title|
+                     d:procedure/d:step/d:title">
+  <xsl:call-template name="bold">
+    <xsl:with-param name="node" select="."/>
+    <xsl:with-param name="context" select=".."/>
+  </xsl:call-template>
+  <xsl:text>&#10;</xsl:text>
+  <xsl:text>.PP&#10;</xsl:text>
 </xsl:template>
 
 <xsl:template match="d:orderedlist/d:listitem|d:procedure/d:step">

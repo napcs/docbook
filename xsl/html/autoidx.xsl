@@ -11,7 +11,7 @@ xmlns:exslt="http://exslt.org/common"
                 version="1.0">
 
 <!-- ********************************************************************
-     $Id: autoidx.xsl 8516 2009-08-12 02:54:56Z abdelazer $
+     $Id: autoidx.xsl 9707 2013-01-21 17:18:44Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -302,13 +302,22 @@ xmlns:exslt="http://exslt.org/common"
   <dt>
     <xsl:for-each select="$refs/d:primary">
       <xsl:if test="@id or @xml:id">
-        <a name="{(@id|@xml:id)[1]}"/>
+        <xsl:choose>
+          <xsl:when test="$generate.id.attributes = 0">
+            <a name="{(@id|@xml:id)[1]}"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <span>
+              <xsl:call-template name="id.attribute"/>
+            </span>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:if>
     </xsl:for-each>
     <xsl:value-of select="d:primary"/>
     <xsl:choose>
       <xsl:when test="$index.links.to.section = 1">
-        <xsl:for-each select="$refs[generate-id() = generate-id(key('primary-section', concat($key, &sep;, &section.id;))[&scope;][1])]">
+        <xsl:for-each select="$refs[@zone != '' or generate-id() = generate-id(key('primary-section', concat($key, &sep;, &section.id;))[&scope;][1])]">
           <xsl:apply-templates select="." mode="reference">
             <xsl:with-param name="position" select="position()"/>
             <xsl:with-param name="scope" select="$scope"/>
@@ -318,7 +327,8 @@ xmlns:exslt="http://exslt.org/common"
         </xsl:for-each>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:for-each select="$refs[&scope;]">
+        <xsl:for-each select="$refs[not(d:see) 
+                              and not(d:secondary)][&scope;]">
           <xsl:apply-templates select="." mode="reference">
             <xsl:with-param name="position" select="position()"/>
             <xsl:with-param name="scope" select="$scope"/>
@@ -340,28 +350,34 @@ xmlns:exslt="http://exslt.org/common"
       </xsl:apply-templates>
     </xsl:if>
   </dt>
-  <xsl:if test="$refs/d:secondary or $refs[not(d:secondary)]/*[self::d:seealso]">
-    <dd>
-      <dl>
-        <xsl:apply-templates select="$refs[generate-id() = generate-id(key('see-also', concat(&primary;, &sep;, &sep;, &sep;, d:seealso))[&scope;][1])]"
-                             mode="index-seealso">
-          <xsl:with-param name="position" select="position()"/>
-          <xsl:with-param name="scope" select="$scope"/>
-          <xsl:with-param name="role" select="$role"/>
-          <xsl:with-param name="type" select="$type"/>
-          <xsl:sort select="translate(d:seealso, &lowercase;, &uppercase;)"/>
-        </xsl:apply-templates>
-        <xsl:apply-templates select="$refs[d:secondary and count(.|key('secondary', concat($key, &sep;, &secondary;))[&scope;][1]) = 1]" 
-                             mode="index-secondary">
-          <xsl:with-param name="position" select="position()"/>
-          <xsl:with-param name="scope" select="$scope"/>
-          <xsl:with-param name="role" select="$role"/>
-          <xsl:with-param name="type" select="$type"/>
-          <xsl:sort select="translate(&secondary;, &lowercase;, &uppercase;)"/>
-        </xsl:apply-templates>
-      </dl>
-    </dd>
-  </xsl:if>
+  <xsl:choose>
+    <xsl:when test="$refs/d:secondary or $refs[not(d:secondary)]/*[self::d:seealso]">
+      <dd>
+        <dl>
+          <xsl:apply-templates select="$refs[generate-id() = generate-id(key('see-also', concat(&primary;, &sep;, &sep;, &sep;, d:seealso))[&scope;][1])]"
+                               mode="index-seealso">
+            <xsl:with-param name="position" select="position()"/>
+            <xsl:with-param name="scope" select="$scope"/>
+            <xsl:with-param name="role" select="$role"/>
+            <xsl:with-param name="type" select="$type"/>
+            <xsl:sort select="translate(d:seealso, &lowercase;, &uppercase;)"/>
+          </xsl:apply-templates>
+          <xsl:apply-templates select="$refs[d:secondary and count(.|key('secondary', concat($key, &sep;, &secondary;))[&scope;][1]) = 1]" 
+                               mode="index-secondary">
+            <xsl:with-param name="position" select="position()"/>
+            <xsl:with-param name="scope" select="$scope"/>
+            <xsl:with-param name="role" select="$role"/>
+            <xsl:with-param name="type" select="$type"/>
+            <xsl:sort select="translate(&secondary;, &lowercase;, &uppercase;)"/>
+          </xsl:apply-templates>
+        </dl>
+      </dd>
+    </xsl:when>
+    <!-- HTML5 requires dd for each dt -->
+    <xsl:when test="$div.element = 'section'">
+      <dd></dd>
+    </xsl:when>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="d:indexterm" mode="index-secondary">
@@ -374,13 +390,22 @@ xmlns:exslt="http://exslt.org/common"
   <dt>
     <xsl:for-each select="$refs/d:secondary">
       <xsl:if test="@id or @xml:id">
-        <a name="{(@id|@xml:id)[1]}"/>
+        <xsl:choose>
+          <xsl:when test="$generate.id.attributes = 0">
+            <a name="{(@id|@xml:id)[1]}"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <span>
+              <xsl:call-template name="id.attribute"/>
+            </span>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:if>
     </xsl:for-each>
     <xsl:value-of select="d:secondary"/>
     <xsl:choose>
       <xsl:when test="$index.links.to.section = 1">
-        <xsl:for-each select="$refs[generate-id() = generate-id(key('secondary-section', concat($key, &sep;, &section.id;))[&scope;][1])]">
+        <xsl:for-each select="$refs[@zone != '' or generate-id() = generate-id(key('secondary-section', concat($key, &sep;, &section.id;))[&scope;][1])]">
           <xsl:apply-templates select="." mode="reference">
             <xsl:with-param name="position" select="position()"/>
             <xsl:with-param name="scope" select="$scope"/>
@@ -390,7 +415,8 @@ xmlns:exslt="http://exslt.org/common"
         </xsl:for-each>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:for-each select="$refs[&scope;]">
+        <xsl:for-each select="$refs[not(d:see) 
+                                and not(d:tertiary)][&scope;]">
           <xsl:apply-templates select="." mode="reference">
             <xsl:with-param name="position" select="position()"/>
             <xsl:with-param name="scope" select="$scope"/>
@@ -412,28 +438,34 @@ xmlns:exslt="http://exslt.org/common"
       </xsl:apply-templates>
     </xsl:if>
   </dt>
-  <xsl:if test="$refs/d:tertiary or $refs[not(d:tertiary)]/*[self::d:seealso]">
-    <dd>
-      <dl>
-        <xsl:apply-templates select="$refs[generate-id() = generate-id(key('see-also', concat(&primary;, &sep;, &secondary;, &sep;, &sep;, d:seealso))[&scope;][1])]"
-                             mode="index-seealso">
-          <xsl:with-param name="position" select="position()"/>
-          <xsl:with-param name="scope" select="$scope"/>
-          <xsl:with-param name="role" select="$role"/>
-          <xsl:with-param name="type" select="$type"/>
-          <xsl:sort select="translate(d:seealso, &lowercase;, &uppercase;)"/>
-        </xsl:apply-templates>
-        <xsl:apply-templates select="$refs[d:tertiary and count(.|key('tertiary', concat($key, &sep;, &tertiary;))[&scope;][1]) = 1]" 
-                             mode="index-tertiary">
-          <xsl:with-param name="position" select="position()"/>
-          <xsl:with-param name="scope" select="$scope"/>
-          <xsl:with-param name="role" select="$role"/>
-          <xsl:with-param name="type" select="$type"/>
-          <xsl:sort select="translate(&tertiary;, &lowercase;, &uppercase;)"/>
-        </xsl:apply-templates>
-      </dl>
-    </dd>
-  </xsl:if>
+  <xsl:choose>
+    <xsl:when test="$refs/d:tertiary or $refs[not(d:tertiary)]/*[self::d:seealso]">
+      <dd>
+        <dl>
+          <xsl:apply-templates select="$refs[generate-id() = generate-id(key('see-also', concat(&primary;, &sep;, &secondary;, &sep;, &sep;, d:seealso))[&scope;][1])]"
+                               mode="index-seealso">
+            <xsl:with-param name="position" select="position()"/>
+            <xsl:with-param name="scope" select="$scope"/>
+            <xsl:with-param name="role" select="$role"/>
+            <xsl:with-param name="type" select="$type"/>
+            <xsl:sort select="translate(d:seealso, &lowercase;, &uppercase;)"/>
+          </xsl:apply-templates>
+          <xsl:apply-templates select="$refs[d:tertiary and count(.|key('tertiary', concat($key, &sep;, &tertiary;))[&scope;][1]) = 1]" 
+                               mode="index-tertiary">
+            <xsl:with-param name="position" select="position()"/>
+            <xsl:with-param name="scope" select="$scope"/>
+            <xsl:with-param name="role" select="$role"/>
+            <xsl:with-param name="type" select="$type"/>
+            <xsl:sort select="translate(&tertiary;, &lowercase;, &uppercase;)"/>
+          </xsl:apply-templates>
+        </dl>
+      </dd>
+    </xsl:when>
+    <!-- HTML5 requires dd for each dt -->
+    <xsl:when test="$div.element = 'section'">
+      <dd></dd>
+    </xsl:when>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="d:indexterm" mode="index-tertiary">
@@ -446,13 +478,22 @@ xmlns:exslt="http://exslt.org/common"
   <dt>
     <xsl:for-each select="$refs/d:tertiary">
       <xsl:if test="@id or @xml:id">
-        <a name="{(@id|@xml:id)[1]}"/>
+        <xsl:choose>
+          <xsl:when test="$generate.id.attributes = 0">
+            <a name="{(@id|@xml:id)[1]}"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <span>
+              <xsl:call-template name="id.attribute"/>
+            </span>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:if>
     </xsl:for-each>
     <xsl:value-of select="d:tertiary"/>
     <xsl:choose>
       <xsl:when test="$index.links.to.section = 1">
-        <xsl:for-each select="$refs[generate-id() = generate-id(key('tertiary-section', concat($key, &sep;, &section.id;))[&scope;][1])]">
+        <xsl:for-each select="$refs[@zone != '' or generate-id() = generate-id(key('tertiary-section', concat($key, &sep;, &section.id;))[&scope;][1])]">
           <xsl:apply-templates select="." mode="reference">
             <xsl:with-param name="position" select="position()"/>
             <xsl:with-param name="scope" select="$scope"/>
@@ -462,7 +503,7 @@ xmlns:exslt="http://exslt.org/common"
         </xsl:for-each>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:for-each select="$refs[&scope;]">
+        <xsl:for-each select="$refs[not(d:see)][&scope;]">
           <xsl:apply-templates select="." mode="reference">
             <xsl:with-param name="position" select="position()"/>
             <xsl:with-param name="scope" select="$scope"/>
@@ -484,20 +525,26 @@ xmlns:exslt="http://exslt.org/common"
       </xsl:apply-templates>
     </xsl:if>
   </dt>
-  <xsl:if test="$refs/d:seealso">
-    <dd>
-      <dl>
-        <xsl:apply-templates select="$refs[generate-id() = generate-id(key('see-also', concat(&primary;, &sep;, &secondary;, &sep;, &tertiary;, &sep;, d:seealso))[&scope;][1])]"
-                             mode="index-seealso">
-          <xsl:with-param name="position" select="position()"/>
-          <xsl:with-param name="scope" select="$scope"/>
-          <xsl:with-param name="role" select="$role"/>
-          <xsl:with-param name="type" select="$type"/>
-          <xsl:sort select="translate(d:seealso, &lowercase;, &uppercase;)"/>
-        </xsl:apply-templates>
-      </dl>
-    </dd>
-  </xsl:if>
+  <xsl:choose>
+    <xsl:when test="$refs/d:seealso">
+      <dd>
+        <dl>
+          <xsl:apply-templates select="$refs[generate-id() = generate-id(key('see-also', concat(&primary;, &sep;, &secondary;, &sep;, &tertiary;, &sep;, d:seealso))[&scope;][1])]"
+                               mode="index-seealso">
+            <xsl:with-param name="position" select="position()"/>
+            <xsl:with-param name="scope" select="$scope"/>
+            <xsl:with-param name="role" select="$role"/>
+            <xsl:with-param name="type" select="$type"/>
+            <xsl:sort select="translate(d:seealso, &lowercase;, &uppercase;)"/>
+          </xsl:apply-templates>
+        </dl>
+      </dd>
+    </xsl:when>
+    <!-- HTML5 requires dd for each dt -->
+    <xsl:when test="$div.element = 'section'">
+      <dd></dd>
+    </xsl:when>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="d:indexterm" mode="reference">
@@ -505,6 +552,7 @@ xmlns:exslt="http://exslt.org/common"
   <xsl:param name="role" select="''"/>
   <xsl:param name="type" select="''"/>
   <xsl:param name="position"/>
+  <xsl:param name="separator" select="''"/>
   
   <xsl:variable name="term.separator">
     <xsl:call-template name="index.separator">
@@ -525,6 +573,9 @@ xmlns:exslt="http://exslt.org/common"
   </xsl:variable>
 
   <xsl:choose>
+    <xsl:when test="$separator != ''">
+      <xsl:value-of select="$separator"/>
+    </xsl:when>
     <xsl:when test="$position = 1">
       <xsl:value-of select="$term.separator"/>
     </xsl:when>
@@ -548,7 +599,7 @@ xmlns:exslt="http://exslt.org/common"
         <xsl:apply-templates select="." mode="class.attribute"/>
         <xsl:variable name="title">
           <xsl:choose>
-            <xsl:when test="&section;/d:titleabbrev and $index.prefer.titleabbrev != 0">
+            <xsl:when test="$index.prefer.titleabbrev != 0">
               <xsl:apply-templates select="&section;" mode="titleabbrev.markup"/>
             </xsl:when>
             <xsl:otherwise>
@@ -562,13 +613,15 @@ xmlns:exslt="http://exslt.org/common"
             <xsl:when test="$index.links.to.section = 1">
               <xsl:call-template name="href.target">
                 <xsl:with-param name="object" select="&section;"/>
-                <xsl:with-param name="context" select="//d:index[&scope;][1]"/>
+                <xsl:with-param name="context" 
+                                select="(//d:index[&scope;] | //d:setindex[&scope;])[1]"/>
               </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
               <xsl:call-template name="href.target">
                 <xsl:with-param name="object" select="."/>
-                <xsl:with-param name="context" select="//d:index[&scope;][1]"/>
+                <xsl:with-param name="context" 
+                                select="(//d:index[&scope;] | //d:setindex[&scope;])[1]"/>
               </xsl:call-template>
             </xsl:otherwise>
           </xsl:choose>
@@ -606,6 +659,7 @@ xmlns:exslt="http://exslt.org/common"
 
       <a>
         <xsl:apply-templates select="." mode="class.attribute"/>
+        <xsl:call-template name="id.attribute"/>
         <xsl:attribute name="href">
           <xsl:call-template name="href.target">
             <xsl:with-param name="object" select="$target[1]"/>
@@ -629,6 +683,7 @@ xmlns:exslt="http://exslt.org/common"
 
       <a>
         <xsl:apply-templates select="." mode="class.attribute"/>
+        <xsl:call-template name="id.attribute"/>
         <xsl:attribute name="href">
           <xsl:call-template name="href.target">
             <xsl:with-param name="object" select="$target[1]"/>
@@ -671,6 +726,9 @@ xmlns:exslt="http://exslt.org/common"
     <xsl:value-of select="."/>
     <xsl:text>)</xsl:text>
     </dt>
+    <xsl:if test="$div.element = 'section'">
+      <dd></dd>
+    </xsl:if>
   </xsl:for-each>
 </xsl:template>
 

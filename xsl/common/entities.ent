@@ -1,5 +1,5 @@
 <!-- ********************************************************************
-     $Id: entities.ent 8725 2010-07-15 08:08:04Z kosek $
+     $Id: entities.ent 9286 2012-04-19 10:10:58Z bobstayton $
      ********************************************************************
      
      This file contains common entity declarations used for
@@ -28,7 +28,7 @@
 <!ENTITY secondary 'normalize-space(concat(d:secondary/@sortas, " ", d:secondary))'>
 <!ENTITY tertiary  'normalize-space(concat(d:tertiary/@sortas, " ", d:tertiary))'>
 
-<!ENTITY section   '(ancestor-or-self::d:set|ancestor-or-self::d:book|ancestor-or-self::d:part|ancestor-or-self::d:reference|ancestor-or-self::d:partintro|ancestor-or-self::d:chapter|ancestor-or-self::d:appendix|ancestor-or-self::d:preface|ancestor-or-self::d:article|ancestor-or-self::d:section|ancestor-or-self::d:sect1|ancestor-or-self::d:sect2|ancestor-or-self::d:sect3|ancestor-or-self::d:sect4|ancestor-or-self::d:sect5|ancestor-or-self::d:refentry|ancestor-or-self::d:refsect1|ancestor-or-self::d:refsect2|ancestor-or-self::d:refsect3|ancestor-or-self::d:simplesect|ancestor-or-self::d:bibliography|ancestor-or-self::d:glossary|ancestor-or-self::d:index|ancestor-or-self::d:webpage)[last()]'>
+<!ENTITY section   '(ancestor-or-self::d:set|ancestor-or-self::d:book|ancestor-or-self::d:part|ancestor-or-self::d:reference|ancestor-or-self::d:partintro|ancestor-or-self::d:chapter|ancestor-or-self::d:appendix|ancestor-or-self::d:preface|ancestor-or-self::d:article|ancestor-or-self::d:section|ancestor-or-self::d:sect1|ancestor-or-self::d:sect2|ancestor-or-self::d:sect3|ancestor-or-self::d:sect4|ancestor-or-self::d:sect5|ancestor-or-self::d:refentry|ancestor-or-self::d:refsect1|ancestor-or-self::d:refsect2|ancestor-or-self::d:refsect3|ancestor-or-self::d:simplesect|ancestor-or-self::d:bibliography|ancestor-or-self::d:glossary|ancestor-or-self::d:index|ancestor-or-self::d:webpage|ancestor-or-self::d:topic)[last()]'>
 
 <!ENTITY section.id 'generate-id(&section;)'>
 <!ENTITY sep '" "'>
@@ -64,4 +64,4 @@
                                 parent::d:refsynopsisdiv|parent::d:sect1|parent::d:sect2|parent::d:sect3|parent::d:sect4|
                                 parent::d:sect5|parent::d:section|parent::d:setindex|parent::d:sidebar|
                                 parent::d:simplesect|parent::d:taskprerequisites|parent::d:taskrelated|
-                                parent::d:tasksummary|parent::d:warning">
+                                parent::d:tasksummary|parent::d:warning|parent::d:topic">

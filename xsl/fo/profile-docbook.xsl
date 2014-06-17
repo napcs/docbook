@@ -10,7 +10,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:fo="http://www.w3.org/1999/XSL/Format
 <xsl:output method="xml" indent="no"/>
 
 <!-- ********************************************************************
-     $Id: docbook.xsl 8913 2010-10-01 04:44:57Z bobstayton $
+     $Id: docbook.xsl 9647 2012-10-26 17:42:03Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -21,7 +21,7 @@ xmlns:exsl="http://exslt.org/common" xmlns:fo="http://www.w3.org/1999/XSL/Format
 
 <!-- ==================================================================== -->
 
-<xsl:include href="../VERSION"/>
+<xsl:include href="../VERSION.xsl"/>
 <xsl:include href="param.xsl"/>
 <xsl:include href="../lib/lib.xsl"/>
 <xsl:include href="../common/l10n.xsl"/>
@@ -77,7 +77,6 @@ xmlns:exsl="http://exslt.org/common" xmlns:fo="http://www.w3.org/1999/XSL/Format
 
 <xsl:include href="fop.xsl"/>
 <xsl:include href="fop1.xsl"/>
-<xsl:include href="passivetex.xsl"/>
 <xsl:include href="xep.xsl"/>
 <xsl:include href="axf.xsl"/>
 <xsl:include href="ptc.xsl"/>

@@ -4,7 +4,7 @@
 version="1.0">
 
 <!-- ********************************************************************
-     $Id: synop.xsl 8421 2009-05-04 07:49:49Z bobstayton $
+     $Id: synop.xsl 9357 2012-05-12 23:36:14Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -23,6 +23,9 @@ version="1.0">
   <div>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
     <p>
+      <xsl:call-template name="id.attribute">
+        <xsl:with-param name="conditional" select="0"/>
+      </xsl:call-template>
       <xsl:if test="..//processing-instruction('dbcmdlist')">
         <!-- * Placing a dbcmdlist PI as a child of a particular element -->
         <!-- * creates a hyperlinked list of all cmdsynopsis instances -->
@@ -176,6 +179,11 @@ version="1.0">
     <!-- * a descendant of an element containing a dbfunclist PI, we need -->
     <!-- * to output an a@id instance so that we will have something to -->
     <!-- * link to -->
+    <span>
+      <xsl:call-template name="id.attribute">
+        <xsl:with-param name="conditional" select="0"/>
+      </xsl:call-template>
+    </span>
     <xsl:call-template name="anchor">
       <xsl:with-param name="conditional" select="0"/>
     </xsl:call-template>
@@ -188,6 +196,7 @@ version="1.0">
 </xsl:text><xsl:text>.nf
 </xsl:text><pre>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates/>
   </pre><xsl:text/><xsl:text>.fi
 </xsl:text>
@@ -269,6 +278,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:funcdef" mode="kr-nontabular">
   <code>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="kr-nontabular"/>
     <xsl:text>(</xsl:text>
   </code>
@@ -359,7 +369,13 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <!-- funcprototype: kr, tabular -->
 
 <xsl:template match="d:funcprototype" mode="kr-tabular">
-  <table border="0" summary="Function synopsis" cellspacing="0" cellpadding="0" class="funcprototype-table">
+  <table border="{$table.border.off}" class="funcprototype-table">
+    <xsl:if test="$div.element != 'section'">
+      <xsl:attribute name="summary">Function synopsis</xsl:attribute>
+    </xsl:if>
+    <xsl:if test="$css.decoration != 0">
+      <xsl:attribute name="style">cellspacing: 0; cellpadding: 0;</xsl:attribute>
+    </xsl:if>
     <tr>
       <td>
         <xsl:apply-templates select="d:funcdef" mode="kr-tabular"/>
@@ -384,6 +400,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:funcdef" mode="kr-tabular">
   <code>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="kr-tabular"/>
     <xsl:text>(</xsl:text>
   </code>
@@ -544,6 +561,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:funcdef" mode="ansi-nontabular">
   <code>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="ansi-nontabular"/>
     <xsl:text>(</xsl:text>
   </code>
@@ -609,7 +627,13 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <!-- funcprototype: ansi, tabular -->
 
 <xsl:template match="d:funcprototype" mode="ansi-tabular">
-  <table border="0" summary="Function synopsis" cellspacing="0" cellpadding="0" class="funcprototype-table">
+  <table border="{$table.border.off}" class="funcprototype-table">
+    <xsl:if test="$div.element != 'section'">
+      <xsl:attribute name="summary">Function synopsis</xsl:attribute>
+    </xsl:if>
+    <xsl:if test="$css.decoration != 0">
+      <xsl:attribute name="style">cellspacing: 0; cellpadding: 0;</xsl:attribute>
+    </xsl:if>
     <tr>
       <td>
         <xsl:apply-templates select="d:funcdef" mode="ansi-tabular"/>
@@ -629,6 +653,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:funcdef" mode="ansi-tabular">
   <code>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="ansi-tabular"/>
     <xsl:text>(</xsl:text>
   </code>
@@ -757,6 +782,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 </xsl:text><xsl:text>.nf
 </xsl:text><pre>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates select="d:ooclass[1]" mode="java"/>
     <xsl:if test="d:ooclass[preceding-sibling::*]">
       <xsl:text> extends</xsl:text>
@@ -807,6 +833,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:choose>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
@@ -814,6 +841,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:modifier|d:package" mode="java">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="java"/>
     <xsl:if test="following-sibling::*">
       <xsl:text> </xsl:text>
@@ -827,6 +855,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
@@ -837,6 +866,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
@@ -847,6 +877,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
@@ -854,6 +885,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:fieldsynopsis" mode="java">
   <code>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:if test="parent::d:classsynopsis">
       <xsl:text>  </xsl:text>
     </xsl:if>
@@ -866,6 +898,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:type" mode="java">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="java"/>
     <xsl:text> </xsl:text>
   </span>
@@ -874,6 +907,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:varname" mode="java">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="java"/>
     <xsl:text> </xsl:text>
   </span>
@@ -882,6 +916,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:initializer" mode="java">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:text>= </xsl:text>
     <xsl:apply-templates mode="java"/>
   </span>
@@ -890,6 +925,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:void" mode="java">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:text>void </xsl:text>
   </span>
 </xsl:template>
@@ -897,6 +933,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:methodname" mode="java">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
@@ -917,6 +954,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
@@ -924,6 +962,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:parameter" mode="java">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
@@ -948,6 +987,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 
   <code>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:copy-of select="$decl"/>
     <xsl:text>(</xsl:text>
     <xsl:apply-templates select="d:methodparam" mode="java">
@@ -977,6 +1017,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 </xsl:text><xsl:text>.nf
 </xsl:text><pre>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates select="d:ooclass[1]" mode="cpp"/>
     <xsl:if test="d:ooclass[preceding-sibling::*]">
       <xsl:text>: </xsl:text>
@@ -1022,6 +1063,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
@@ -1029,6 +1071,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:modifier|d:package" mode="cpp">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="cpp"/>
     <xsl:if test="following-sibling::*">
       <xsl:text> </xsl:text>
@@ -1042,6 +1085,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
@@ -1052,6 +1096,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
@@ -1062,6 +1107,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
@@ -1069,6 +1115,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:fieldsynopsis" mode="cpp">
   <code>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:if test="parent::d:classsynopsis">
       <xsl:text>  </xsl:text>
     </xsl:if>
@@ -1081,6 +1128,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:type" mode="cpp">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="cpp"/>
     <xsl:text> </xsl:text>
   </span>
@@ -1089,6 +1137,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:varname" mode="cpp">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="cpp"/>
     <xsl:text> </xsl:text>
   </span>
@@ -1097,6 +1146,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:initializer" mode="cpp">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:text>= </xsl:text>
     <xsl:apply-templates mode="cpp"/>
   </span>
@@ -1105,6 +1155,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:void" mode="cpp">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:text>void </xsl:text>
   </span>
 </xsl:template>
@@ -1112,6 +1163,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:methodname" mode="cpp">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
@@ -1122,6 +1174,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
@@ -1129,6 +1182,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:parameter" mode="cpp">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
@@ -1140,6 +1194,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 
   <code>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:if test="parent::d:classsynopsis">
       <xsl:text>  </xsl:text>
     </xsl:if>
@@ -1177,6 +1232,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 </xsl:text><xsl:text>.nf
 </xsl:text><pre>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:text>interface </xsl:text>
     <xsl:apply-templates select="d:ooclass[1]" mode="idl"/>
     <xsl:if test="d:ooclass[preceding-sibling::*]">
@@ -1223,6 +1279,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
@@ -1230,6 +1287,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:modifier|d:package" mode="idl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="idl"/>
     <xsl:if test="following-sibling::*">
       <xsl:text> </xsl:text>
@@ -1243,6 +1301,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
@@ -1253,6 +1312,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
@@ -1263,6 +1323,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
@@ -1270,6 +1331,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:fieldsynopsis" mode="idl">
   <code>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:if test="parent::d:classsynopsis">
       <xsl:text>  </xsl:text>
     </xsl:if>
@@ -1282,6 +1344,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:type" mode="idl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="idl"/>
     <xsl:text> </xsl:text>
   </span>
@@ -1290,6 +1353,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:varname" mode="idl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="idl"/>
     <xsl:text> </xsl:text>
   </span>
@@ -1298,6 +1362,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:initializer" mode="idl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:text>= </xsl:text>
     <xsl:apply-templates mode="idl"/>
   </span>
@@ -1306,6 +1371,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:void" mode="idl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:text>void </xsl:text>
   </span>
 </xsl:template>
@@ -1313,6 +1379,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:methodname" mode="idl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
@@ -1323,6 +1390,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
@@ -1330,6 +1398,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:parameter" mode="idl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
@@ -1340,6 +1409,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   <xsl:variable name="end-modifiers" select="d:modifier[preceding-sibling::*[local-name(.) != 'modifier']]"/>
   <code>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:if test="parent::d:classsynopsis">
       <xsl:text>  </xsl:text>
     </xsl:if>
@@ -1378,6 +1448,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 </xsl:text><xsl:text>.nf
 </xsl:text><pre>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:text>package </xsl:text>
     <xsl:apply-templates select="d:ooclass[1]" mode="perl"/>
     <xsl:text>;</xsl:text>
@@ -1409,6 +1480,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
@@ -1416,6 +1488,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:modifier|d:package" mode="perl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="perl"/>
     <xsl:if test="following-sibling::*">
       <xsl:text> </xsl:text>
@@ -1429,6 +1502,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
@@ -1439,6 +1513,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
@@ -1449,6 +1524,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
@@ -1456,6 +1532,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:fieldsynopsis" mode="perl">
   <code>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:if test="parent::d:classsynopsis">
       <xsl:text>  </xsl:text>
     </xsl:if>
@@ -1468,6 +1545,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:type" mode="perl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="perl"/>
     <xsl:text> </xsl:text>
   </span>
@@ -1476,6 +1554,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:varname" mode="perl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="perl"/>
     <xsl:text> </xsl:text>
   </span>
@@ -1484,6 +1563,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:initializer" mode="perl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:text>= </xsl:text>
     <xsl:apply-templates mode="perl"/>
   </span>
@@ -1492,6 +1572,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:void" mode="perl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:text>void </xsl:text>
   </span>
 </xsl:template>
@@ -1499,6 +1580,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:methodname" mode="perl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
@@ -1509,6 +1591,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </xsl:if>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
@@ -1516,6 +1599,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <xsl:template match="d:parameter" mode="perl">
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
@@ -1527,6 +1611,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 
   <code>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:text>sub </xsl:text>
 
     <xsl:apply-templates select="d:methodname" mode="perl"/>
@@ -1562,6 +1647,22 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 </xsl:template>
 
 <xsl:template match="d:link|d:olink|d:xref" mode="perl">
+  <xsl:apply-templates select="."/>
+</xsl:template>
+
+<xsl:template match="d:link|d:olink|d:xref" mode="ansi-nontabular">
+  <xsl:apply-templates select="."/>
+</xsl:template>
+
+<xsl:template match="d:link|d:olink|d:xref" mode="ansi-tabular">
+  <xsl:apply-templates select="."/>
+</xsl:template>
+
+<xsl:template match="d:link|d:olink|d:xref" mode="kr-nontabular">
+  <xsl:apply-templates select="."/>
+</xsl:template>
+
+<xsl:template match="d:link|d:olink|d:xref" mode="kr-tabular">
   <xsl:apply-templates select="."/>
 </xsl:template>
 

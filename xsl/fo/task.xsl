@@ -6,7 +6,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version="1.0">
 
 <!-- ********************************************************************
-     $Id: task.xsl 8011 2008-05-23 15:14:57Z mzjn $
+     $Id: task.xsl 9122 2011-10-09 07:21:49Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -47,7 +47,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </xsl:variable>
 
   <fo:block id="{$id}"
-            xsl:use-attribute-sets="formal.object.properties">
+            xsl:use-attribute-sets="task.properties">
 
     <xsl:if test="$keep.together != ''">
       <xsl:attribute name="keep-together.within-column"><xsl:value-of

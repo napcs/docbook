@@ -5,7 +5,7 @@
 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: toc.xsl 8421 2009-05-04 07:49:49Z bobstayton $
+     $Id: toc.xsl 9297 2012-04-22 03:56:16Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -85,6 +85,7 @@ version='1.0'>
       <xsl:when test="* and $process.source.toc != 0">
         <div>
           <xsl:apply-templates select="." mode="common.html.attributes"/>
+          <xsl:call-template name="id.attribute"/>
           <xsl:apply-templates select="d:title"/> 
           <dl>
             <xsl:apply-templates select="." mode="common.html.attributes"/>
@@ -130,6 +131,7 @@ version='1.0'>
       <xsl:when test="* and $process.source.toc != 0">
         <div>
           <xsl:apply-templates select="." mode="common.html.attributes"/>
+          <xsl:call-template name="id.attribute"/>
           <xsl:apply-templates select="d:title"/> 
           <dl>
             <xsl:apply-templates select="." mode="common.html.attributes"/>

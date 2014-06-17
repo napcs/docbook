@@ -17,7 +17,7 @@ xmlns:w='http://schemas.microsoft.com/office/word/2003/wordml'
   <xsl:output method="xml" indent='yes' standalone='yes' encoding='UTF-8'/>
 
   <!-- ********************************************************************
-       $Id: dbk2wordml.xsl 7701 2008-02-22 06:07:31Z balls $
+       $Id: dbk2wordml.xsl 9651 2012-10-26 20:44:10Z bobstayton $
        ********************************************************************
 
        This file is part of the XSL DocBook Stylesheet distribution.
@@ -26,7 +26,7 @@ xmlns:w='http://schemas.microsoft.com/office/word/2003/wordml'
 
        ******************************************************************** -->
 
-  <xsl:include href='../VERSION'/>
+  <xsl:include href='../VERSION.xsl'/>
   <xsl:include href='param.xsl'/>
 
   <xsl:strip-space elements='*'/>
@@ -62,21 +62,27 @@ xmlns:w='http://schemas.microsoft.com/office/word/2003/wordml'
         <o:Author>
           <xsl:choose>
             <xsl:when test='$authors'>
-              <xsl:apply-templates select='$authors[1]' mode='doc:docprop.author'/>
+              <xsl:variable name="content">
+                <xsl:apply-templates select='$authors[1]' mode='doc:docprop.author'/>
+              </xsl:variable>
+              <xsl:value-of select="$content"/>
             </xsl:when>
             <xsl:otherwise>Unknown</xsl:otherwise>
           </xsl:choose>
         </o:Author>
         <o:LastAuthor>
-          <xsl:choose>
-            <xsl:when test='$info/d:revhistory/d:revision[1]/*[self::d:author|self::d:authorinitials]'>
-              <xsl:apply-templates select='$info/d:revhistory/d:revision[1]/*[self::d:author|self::d:authorinitials]' mode='doc:docprop.author'/>
-            </xsl:when>
-            <xsl:when test='$authors'>
-              <xsl:apply-templates select='$authors[1]' mode='doc:docprop.author'/>
-            </xsl:when>
-            <xsl:otherwise>Unknown</xsl:otherwise>
-          </xsl:choose>
+          <xsl:variable name="content">
+            <xsl:choose>
+              <xsl:when test='$info/d:revhistory/d:revision[1]/*[self::d:author|self::d:authorinitials]'>
+                <xsl:apply-templates select='$info/d:revhistory/d:revision[1]/*[self::d:author|self::d:authorinitials]' mode='doc:docprop.author'/>
+              </xsl:when>
+              <xsl:when test='$authors'>
+                <xsl:apply-templates select='$authors[1]' mode='doc:docprop.author'/>
+              </xsl:when>
+              <xsl:otherwise>Unknown</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:value-of select="$content"/>
         </o:LastAuthor>
         <o:Revision>1</o:Revision>
         <o:TotalTime></o:TotalTime>

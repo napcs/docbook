@@ -8,7 +8,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: xref.xsl 8913 2010-10-01 04:44:57Z bobstayton $
+     $Id: xref.xsl 9723 2013-02-06 13:08:06Z kosek $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -27,7 +27,16 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
   </xsl:variable>
-  <fo:inline id="{$id}"/>
+
+  <xsl:variable name="wrapper.name">
+    <xsl:call-template name="inline.or.block"/>
+  </xsl:variable>
+
+  <xsl:element name="{$wrapper.name}">
+    <xsl:attribute name="id">
+      <xsl:value-of select="$id"/>
+    </xsl:attribute>
+  </xsl:element>
 </xsl:template>
 
 <!-- ==================================================================== -->
@@ -310,7 +319,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                      |d:constraintdef|d:formalpara|d:glossdiv|d:important|d:indexdiv
                      |d:itemizedlist|d:legalnotice|d:lot|d:msg|d:msgexplan|d:msgmain
                      |d:msgrel|d:msgset|d:msgsub|d:note|d:orderedlist|d:partintro
-                     |d:productionset|d:qandadiv|d:refsynopsisdiv|d:segmentedlist
+                     |d:productionset|d:qandadiv|d:refsynopsisdiv|d:screenshot|d:segmentedlist
                      |d:set|d:setindex|d:sidebar|d:tip|d:toc|d:variablelist|d:warning"
               mode="xref-to">
   <xsl:param name="referrer"/>
@@ -563,6 +572,19 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   <!-- What about "in Chapter X"? -->
 </xsl:template>
 
+<xsl:template match="d:topic" mode="xref-to">
+  <xsl:param name="referrer"/>
+  <xsl:param name="xrefstyle"/>
+  <xsl:param name="verbose" select="1"/>
+
+  <xsl:apply-templates select="." mode="object.xref.markup">
+    <xsl:with-param name="purpose" select="'xref'"/>
+    <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
+    <xsl:with-param name="referrer" select="$referrer"/>
+    <xsl:with-param name="verbose" select="$verbose"/>
+  </xsl:apply-templates>
+</xsl:template>
+
 <xsl:template match="d:bridgehead" mode="xref-to">
   <xsl:param name="referrer"/>
   <xsl:param name="xrefstyle"/>
@@ -765,6 +787,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                                        |ancestor::d:sect3
                                        |ancestor::d:sect4
                                        |ancestor::d:sect5
+                                       |ancestor::d:topic
                                        |ancestor::d:refsection
                                        |ancestor::d:refsect1
                                        |ancestor::d:refsect2
@@ -864,9 +887,11 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
         </xsl:when>
         <!-- Use the xlink:href if no other text -->
         <xsl:when test="@xlink:href">
-	  <xsl:call-template name="hyphenate-url">
-	    <xsl:with-param name="url" select="@xlink:href"/>
-	  </xsl:call-template>
+	  <fo:inline hyphenate="false">
+	    <xsl:call-template name="hyphenate-url">
+	      <xsl:with-param name="url" select="@xlink:href"/>
+	    </xsl:call-template>
+	  </fo:inline>
         </xsl:when>
         <xsl:otherwise>
           <xsl:message>
@@ -923,9 +948,11 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                  external-destination="{$ulink.url}">
     <xsl:choose>
       <xsl:when test="count(child::node())=0 or (string(.) = $url)">
-        <xsl:call-template name="hyphenate-url">
-          <xsl:with-param name="url" select="$url"/>
-        </xsl:call-template>
+	<fo:inline hyphenate="false">
+	  <xsl:call-template name="hyphenate-url">
+	    <xsl:with-param name="url" select="$url"/>
+	  </xsl:call-template>
+	</fo:inline>
       </xsl:when>
       <xsl:otherwise>
         <xsl:apply-templates/>
@@ -961,7 +988,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
     <!-- * and the value of its content is not a URL that is the same as -->
     <!-- * URL it links to, and if ulink.show is non-zero. -->
     <xsl:choose>
-      <xsl:when test="$ulink.footnotes != 0 and not(ancestor::d:footnote)">
+      <xsl:when test="$ulink.footnotes != 0 and not(ancestor::d:footnote) and not(ancestor::*[@floatstyle='before'])">
         <!-- * ulink.show and ulink.footnote are both non-zero; that -->
         <!-- * means we display the URL as a footnote (instead of inline) -->
         <fo:footnote>
@@ -1071,8 +1098,6 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 <xsl:template match="d:olink" name="olink">
   <!-- olink content may be passed in from xlink olink -->
   <xsl:param name="content" select="NOTANELEMENT"/>
-
-  <xsl:variable name="localinfo" select="@localinfo"/>
 
   <xsl:choose>
     <!-- olinks resolved by stylesheet and target database -->
@@ -1316,14 +1341,6 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 </xsl:template>
 
 
-<xsl:template name="olink.outline">
-  <xsl:param name="outline.base.uri"/>
-  <xsl:param name="localinfo"/>
-  <xsl:param name="return" select="d:href"/>
-
-  <xsl:message terminate="yes">Fatal error: olink.outline template: what is this supposed to do?</xsl:message>
-</xsl:template>
-
 <!-- ==================================================================== -->
 
 <xsl:template name="title.xref">
@@ -1415,9 +1432,8 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   <xsl:param name="title"/>
 
   <xsl:choose>
-    <!-- FIXME: what about the case where titleabbrev is inside the info? -->
-    <xsl:when test="$purpose = 'xref' and d:titleabbrev">
-      <xsl:apply-templates select="." mode="titleabbrev.markup"/>
+    <xsl:when test="$purpose = 'xref'">
+      <xsl:copy-of select="$title"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:copy-of select="$title"/>

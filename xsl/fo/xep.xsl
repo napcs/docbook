@@ -7,7 +7,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: xep.xsl 7531 2007-10-17 18:06:49Z dcramer $
+     $Id: xep.xsl 9293 2012-04-19 18:42:11Z bobstayton $
      ********************************************************************
      (c) Stephane Bline Peregrine Systems 2001
      Implementation of xep extensions:
@@ -34,6 +34,9 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
           </xsl:when>
           <xsl:when test="$authors[self::d:corpauthor]">
             <xsl:value-of select="$authors"/>
+          </xsl:when>
+          <xsl:when test="$authors[d:orgname]">
+            <xsl:value-of select="$authors/d:orgname"/>
           </xsl:when>
           <xsl:otherwise>
             <xsl:call-template name="person.name">
@@ -111,7 +114,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 </xsl:template>
 
 <xsl:template match="d:set|d:book|d:part|d:reference|d:preface|d:chapter|d:appendix|d:article
-                     |d:glossary|d:bibliography|d:index|d:setindex
+                     |d:glossary|d:bibliography|d:index|d:setindex|d:topic
                      |d:refentry|d:refsynopsisdiv
                      |d:refsect1|d:refsect2|d:refsect3|d:refsection
                      |d:sect1|d:sect2|d:sect3|d:sect4|d:sect5|d:section"
@@ -151,7 +154,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
       </xsl:variable>
       <xsl:if test="contains($toc.params, 'toc')
                     and d:set|d:book|d:part|d:reference|d:section|d:sect1|d:refentry
-                        |d:article|d:bibliography|d:glossary|d:chapter
+                        |d:article|d:topic|d:bibliography|d:glossary|d:chapter
                         |d:appendix">
         <rx:bookmark internal-destination="toc...{$id}">
           <rx:bookmark-label>

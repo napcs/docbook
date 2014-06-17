@@ -6,7 +6,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: ebnf.xsl 8178 2008-12-15 22:26:38Z bobstayton $
+     $Id: ebnf.xsl 9664 2012-11-07 20:02:17Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -18,7 +18,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 <doc:reference xmlns="">
 <referenceinfo>
 <releaseinfo role="meta">
-$Id: ebnf.xsl 8178 2008-12-15 22:26:38Z bobstayton $
+$Id: ebnf.xsl 9664 2012-11-07 20:02:17Z bobstayton $
 </releaseinfo>
 <author><surname>Walsh</surname>
 <firstname>Norman</firstname></author>
@@ -66,17 +66,17 @@ to be incomplete. Don't forget to read the source, too :-)</para>
     </xsl:attribute>
     <xsl:attribute name="summary">
       <xsl:text>EBNF</xsl:text>
-      <xsl:if test="d:title">
+      <xsl:if test="d:title|d:info/d:title">
         <xsl:text> for </xsl:text>
-        <xsl:value-of select="d:title"/>
+        <xsl:value-of select="d:title|d:info/d:title[1]"/>
       </xsl:if>
     </xsl:attribute>
 
-    <xsl:if test="d:title">
+    <xsl:if test="d:title|d:info/d:title">
       <tr>
         <th align="{$direction.align.start}" valign="top">
           <xsl:apply-templates select="." mode="class.attribute"/>
-          <xsl:apply-templates select="d:title"/>
+          <xsl:apply-templates select="d:title|d:info/d:title[1]"/>
         </th>
       </tr>
     </xsl:if>
@@ -108,7 +108,7 @@ to be incomplete. Don't forget to read the source, too :-)</para>
   <tr>
     <td align="{$direction.align.start}" valign="top" width="3%">
       <xsl:text>[</xsl:text>
-      <xsl:number count="d:production" level="any"/>
+      <xsl:apply-templates select="." mode="label.markup"/>
       <xsl:text>]</xsl:text>
     </td>
     <td align="{$direction.align.end}" valign="top" width="10%">
@@ -124,6 +124,7 @@ to be incomplete. Don't forget to read the source, too :-)</para>
           </a>
         </xsl:when>
         <xsl:otherwise>
+          <xsl:call-template name="id.attribute"/>
           <xsl:call-template name="anchor"/>
           <xsl:apply-templates select="d:lhs"/>
         </xsl:otherwise>
@@ -316,6 +317,7 @@ to be incomplete. Don't forget to read the source, too :-)</para>
 <xsl:template match="d:constraintdef">
   <div>
     <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:call-template name="anchor"/>
     <xsl:apply-templates/>
   </div>

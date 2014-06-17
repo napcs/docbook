@@ -10,7 +10,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: verbatim.xsl 8344 2009-03-16 06:35:43Z bobstayton $
+     $Id: verbatim.xsl 9590 2012-09-02 20:53:23Z tom_schr $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -64,11 +64,19 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
     </xsl:choose>
   </xsl:variable>
 
+  <xsl:variable name="keep.together">
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+  </xsl:variable>
+
   <xsl:variable name="block.content">
     <xsl:choose>
       <xsl:when test="$shade.verbatim != 0">
         <fo:block id="{$id}"
              xsl:use-attribute-sets="monospace.verbatim.properties shade.verbatim.style">
+	  <xsl:if test="$keep.together != ''">
+	    <xsl:attribute name="keep-together.within-column"><xsl:value-of
+	    select="$keep.together"/></xsl:attribute>
+	  </xsl:if>
           <xsl:choose>
             <xsl:when test="$hyphenate.verbatim != 0 and 
                             $exsl.node.set.available != 0">
@@ -84,6 +92,10 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
       <xsl:otherwise>
         <fo:block id="{$id}"
                   xsl:use-attribute-sets="monospace.verbatim.properties">
+	  <xsl:if test="$keep.together != ''">
+	    <xsl:attribute name="keep-together.within-column"><xsl:value-of
+	    select="$keep.together"/></xsl:attribute>
+	  </xsl:if>
           <xsl:choose>
             <xsl:when test="$hyphenate.verbatim != 0 and 
                             $exsl.node.set.available != 0">
@@ -130,6 +142,10 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 
   <xsl:variable name="id"><xsl:call-template name="object.id"/></xsl:variable>
 
+  <xsl:variable name="keep.together">
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+  </xsl:variable>
+
   <xsl:variable name="content">
     <xsl:choose>
       <xsl:when test="$suppress-numbers = '0'
@@ -154,13 +170,20 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
         <xsl:when test="$shade.verbatim != 0">
           <fo:block id="{$id}"
                     xsl:use-attribute-sets="monospace.verbatim.properties shade.verbatim.style">
-
+	    <xsl:if test="$keep.together != ''">
+	      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+	      select="$keep.together"/></xsl:attribute>
+	    </xsl:if>
             <xsl:copy-of select="$content"/>
           </fo:block>
         </xsl:when>
         <xsl:otherwise>
           <fo:block id="{$id}"
                     xsl:use-attribute-sets="monospace.verbatim.properties">
+	    <xsl:if test="$keep.together != ''">
+	      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+	      select="$keep.together"/></xsl:attribute>
+	    </xsl:if>
             <xsl:copy-of select="$content"/>
           </fo:block>
         </xsl:otherwise>
@@ -171,12 +194,20 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
         <xsl:when test="$shade.verbatim != 0">
           <fo:block id="{$id}"
                     xsl:use-attribute-sets="verbatim.properties shade.verbatim.style">
+	    <xsl:if test="$keep.together != ''">
+	      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+	      select="$keep.together"/></xsl:attribute>
+	    </xsl:if>
             <xsl:copy-of select="$content"/>
           </fo:block>
         </xsl:when>
         <xsl:otherwise>
           <fo:block id="{$id}"
                     xsl:use-attribute-sets="verbatim.properties">
+	    <xsl:if test="$keep.together != ''">
+	      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+	      select="$keep.together"/></xsl:attribute>
+	    </xsl:if>
             <xsl:copy-of select="$content"/>
           </fo:block>
         </xsl:otherwise>
@@ -368,7 +399,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
     </xsl:when>
     <xsl:when test="$listings[1]/@continuation='continues'">
       <xsl:call-template name="lastLineNumber">
-        <xsl:with-param name="listings" select="d:listings[position() &gt; 1]"/>
+        <xsl:with-param name="listings" select="$listings[position() &gt; 1]"/>
         <xsl:with-param name="number" select="$number + $lines"/>
       </xsl:call-template>
     </xsl:when>

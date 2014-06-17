@@ -7,7 +7,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:stbl="http://nwalsh.co
 <xsl:include href="../common/table.xsl"/>
 
 <!-- ********************************************************************
-     $Id: table.xsl 8813 2010-08-09 21:18:23Z bobstayton $
+     $Id: table.xsl 9297 2012-04-22 03:56:16Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -593,6 +593,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:stbl="http://nwalsh.co
   </xsl:variable>
 
   <tr>
+    <xsl:call-template name="id.attribute"/>
     <xsl:call-template name="tr.attributes">
       <xsl:with-param name="rownum">
         <xsl:number from="d:tgroup" count="d:row"/>
@@ -817,6 +818,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:stbl="http://nwalsh.co
       </xsl:variable>
 
       <xsl:element name="{$cellgi}" namespace="http://www.w3.org/1999/xhtml">
+        <xsl:call-template name="id.attribute"/>
         <xsl:if test="$bgcolor != ''">
           <xsl:attribute name="bgcolor">
             <xsl:value-of select="$bgcolor"/>
@@ -824,11 +826,18 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns:stbl="http://nwalsh.co
         </xsl:if>
 
         <xsl:call-template name="locale.html.attributes"/>
-        <xsl:if test="$entry.propagates.style != 0 and @role">
-          <xsl:apply-templates select="." mode="class.attribute">
-            <xsl:with-param name="class" select="@role"/>
-          </xsl:apply-templates>
-        </xsl:if>
+        <xsl:choose>
+          <xsl:when test="$entry.propagates.style != 0 and @role">
+            <xsl:apply-templates select="." mode="class.attribute">
+              <xsl:with-param name="class" select="@role"/>
+            </xsl:apply-templates>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates select="." mode="class.attribute">
+              <xsl:with-param name="class" select="''"/>
+            </xsl:apply-templates>
+          </xsl:otherwise>
+        </xsl:choose>
 
         <xsl:if test="$show.revisionflag and @revisionflag">
           <xsl:attribute name="class">

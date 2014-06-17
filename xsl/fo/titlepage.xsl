@@ -6,7 +6,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: titlepage.xsl 8804 2010-08-09 16:41:43Z bobstayton $
+     $Id: titlepage.xsl 9286 2012-04-19 10:10:58Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -132,6 +132,9 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 <xsl:attribute-set name="simplesect.titlepage.verso.style"
                    use-attribute-sets="section.titlepage.verso.style"/>
 
+<xsl:attribute-set name="topic.titlepage.recto.style"/>
+<xsl:attribute-set name="topic.titlepage.verso.style"/>
+
 <xsl:attribute-set name="refnamediv.titlepage.recto.style"
                    use-attribute-sets="section.titlepage.recto.style"/>
 <xsl:attribute-set name="refnamediv.titlepage.verso.style"
@@ -182,6 +185,24 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 
 <xsl:attribute-set name="list.of.unknowns.titlepage.recto.style"/>
 <xsl:attribute-set name="list.of.unknowns.contents.titlepage.verso.style"/>
+
+<xsl:attribute-set name="component.list.of.tables.titlepage.recto.style"/>
+<xsl:attribute-set name="component.list.of.tables.contents.titlepage.verso.style"/>
+
+<xsl:attribute-set name="component.list.of.figures.titlepage.recto.style"/>
+<xsl:attribute-set name="component.list.of.figures.contents.titlepage.verso.style"/>
+
+<xsl:attribute-set name="component.list.of.equations.titlepage.recto.style"/>
+<xsl:attribute-set name="component.list.of.equations.contents.titlepage.verso.style"/>
+
+<xsl:attribute-set name="component.list.of.examples.titlepage.recto.style"/>
+<xsl:attribute-set name="component.list.of.examples.contents.titlepage.verso.style"/>
+
+<xsl:attribute-set name="component.list.of.procedures.titlepage.recto.style"/>
+<xsl:attribute-set name="component.list.of.procedures.contents.titlepage.verso.style"/>
+
+<xsl:attribute-set name="component.list.of.unknowns.titlepage.recto.style"/>
+<xsl:attribute-set name="component.list.of.unknowns.contents.titlepage.verso.style"/>
 
 <!-- ==================================================================== -->
 
@@ -279,6 +300,10 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 </xsl:template>
 
 <xsl:template match="d:collab" mode="titlepage.mode">
+  <xsl:apply-templates mode="titlepage.mode"/>
+</xsl:template>
+
+<xsl:template match="d:collabname" mode="titlepage.mode">
   <xsl:apply-templates mode="titlepage.mode"/>
 </xsl:template>
 
@@ -409,7 +434,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
 </xsl:template>
 
 <xsl:template match="d:itermset" mode="titlepage.mode">
-  <!-- discard -->
+  <xsl:apply-templates select="d:indexterm"/>
 </xsl:template>
 
 <xsl:template match="d:invpartnumber" mode="titlepage.mode">

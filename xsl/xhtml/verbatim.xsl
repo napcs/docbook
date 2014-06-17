@@ -5,7 +5,7 @@
 xmlns:sverb="http://nwalsh.com/xslt/ext/com.nwalsh.saxon.Verbatim" xmlns:xverb="xalan://com.nwalsh.xalan.Verbatim" xmlns:lxslt="http://xml.apache.org/xslt" xmlns:exsl="http://exslt.org/common" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="sverb xverb lxslt exsl d" version="1.0">
 
 <!-- ********************************************************************
-     $Id: verbatim.xsl 8807 2010-08-09 18:57:41Z bobstayton $
+     $Id: verbatim.xsl 9589 2012-09-02 20:52:15Z tom_schr $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -24,18 +24,10 @@ xmlns:sverb="http://nwalsh.com/xslt/ext/com.nwalsh.saxon.Verbatim" xmlns:xverb="
 
 <xsl:template match="d:programlisting|d:screen|d:synopsis">
   <xsl:param name="suppress-numbers" select="'0'"/>
-  <xsl:variable name="id">
-    <xsl:call-template name="object.id"/>
-  </xsl:variable>
 
   <xsl:call-template name="anchor"/>
 
-  <xsl:variable name="div.element">
-    <xsl:choose>
-      <xsl:when test="$make.clean.html != 0">div</xsl:when>
-      <xsl:otherwise>pre</xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
+  <xsl:variable name="div.element">pre</xsl:variable>
 
   <xsl:if test="$shade.verbatim != 0">
     <xsl:message>
@@ -63,6 +55,7 @@ xmlns:sverb="http://nwalsh.com/xslt/ext/com.nwalsh.saxon.Verbatim" xmlns:xverb="
       </xsl:variable>
       <xsl:element name="{$div.element}" namespace="http://www.w3.org/1999/xhtml">
         <xsl:apply-templates select="." mode="common.html.attributes"/>
+        <xsl:call-template name="id.attribute"/>
         <xsl:if test="@width != ''">
           <xsl:attribute name="width">
             <xsl:value-of select="@width"/>
@@ -76,6 +69,7 @@ xmlns:sverb="http://nwalsh.com/xslt/ext/com.nwalsh.saxon.Verbatim" xmlns:xverb="
     <xsl:otherwise>
       <xsl:element name="{$div.element}" namespace="http://www.w3.org/1999/xhtml">
         <xsl:apply-templates select="." mode="common.html.attributes"/>
+        <xsl:call-template name="id.attribute"/>
         <xsl:if test="@width != ''">
           <xsl:attribute name="width">
             <xsl:value-of select="@width"/>
@@ -119,6 +113,7 @@ xmlns:sverb="http://nwalsh.com/xslt/ext/com.nwalsh.saxon.Verbatim" xmlns:xverb="
         <xsl:when test="@class='monospaced'">
           <pre>
             <xsl:apply-templates select="." mode="common.html.attributes"/>
+            <xsl:call-template name="id.attribute"/>
             <xsl:call-template name="number.rtf.lines">
               <xsl:with-param name="rtf" select="$rtf"/>
             </xsl:call-template>
@@ -127,6 +122,7 @@ xmlns:sverb="http://nwalsh.com/xslt/ext/com.nwalsh.saxon.Verbatim" xmlns:xverb="
         <xsl:otherwise>
           <div>
             <xsl:apply-templates select="." mode="common.html.attributes"/>
+            <xsl:call-template name="id.attribute"/>
             <p>
               <xsl:call-template name="number.rtf.lines">
                 <xsl:with-param name="rtf" select="$rtf"/>
@@ -141,12 +137,14 @@ xmlns:sverb="http://nwalsh.com/xslt/ext/com.nwalsh.saxon.Verbatim" xmlns:xverb="
         <xsl:when test="@class='monospaced'">
           <pre>
             <xsl:apply-templates select="." mode="common.html.attributes"/>
+            <xsl:call-template name="id.attribute"/>
             <xsl:copy-of select="$rtf"/>
           </pre>
         </xsl:when>
         <xsl:otherwise>
           <div>
             <xsl:apply-templates select="." mode="common.html.attributes"/>
+            <xsl:call-template name="id.attribute"/>
             <p>
               <xsl:call-template name="make-verbatim">
                 <xsl:with-param name="rtf" select="$rtf"/>
@@ -170,6 +168,7 @@ xmlns:sverb="http://nwalsh.com/xslt/ext/com.nwalsh.saxon.Verbatim" xmlns:xverb="
     <xsl:when test="$suppress-numbers = '0'                     and @linenumbering = 'numbered'                     and $use.extensions != '0'                     and $linenumbering.extension != '0'">
       <div>
         <xsl:apply-templates select="." mode="common.html.attributes"/>
+        <xsl:call-template name="id.attribute"/>
         <p>
           <xsl:call-template name="number.rtf.lines">
             <xsl:with-param name="rtf" select="$rtf"/>
@@ -181,6 +180,7 @@ xmlns:sverb="http://nwalsh.com/xslt/ext/com.nwalsh.saxon.Verbatim" xmlns:xverb="
     <xsl:otherwise>
       <div>
         <xsl:apply-templates select="." mode="common.html.attributes"/>
+        <xsl:call-template name="id.attribute"/>
         <p>
           <xsl:call-template name="make-verbatim">
             <xsl:with-param name="rtf" select="$rtf"/>
@@ -359,7 +359,7 @@ xmlns:sverb="http://nwalsh.com/xslt/ext/com.nwalsh.saxon.Verbatim" xmlns:xverb="
     </xsl:when>
     <xsl:when test="$listings[1]/@continuation='continues'">
       <xsl:call-template name="lastLineNumber">
-        <xsl:with-param name="listings" select="d:listings[position() &gt; 1]"/>
+        <xsl:with-param name="listings" select="$listings[position() &gt; 1]"/>
         <xsl:with-param name="number" select="$number + $lines"/>
       </xsl:call-template>
     </xsl:when>

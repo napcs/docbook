@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ASCII"?>
+<?xml version="1.0"?>
 <xsl:stylesheet exclude-result-prefixes="d"
                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:d="http://docbook.org/ns/docbook"
 version="1.0">
@@ -6,7 +6,7 @@ version="1.0">
 <!-- This file is generated from param.xweb -->
 
 <!-- ********************************************************************
-     $Id: param.xweb 7042 2007-07-17 04:28:48Z xmldoc $
+     $Id: param.xweb 9130 2011-10-11 08:05:37Z dpawson $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -18,3 +18,4 @@ version="1.0">
 <xsl:param name="wordml.template"/>
 <xsl:param name="pages.template"/>
 </xsl:stylesheet>
+

@@ -10,7 +10,7 @@ xmlns:ng="http://docbook.org/docbook-ng"
 <xsl:import href="../html/chunk.xsl"/>
 
 <!-- ********************************************************************
-     $Id: eclipse.xsl 8400 2009-04-08 07:44:54Z bobstayton $
+     $Id: eclipse.xsl 9149 2011-11-12 00:12:07Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -31,7 +31,7 @@ xmlns:ng="http://docbook.org/docbook-ng"
     <xsl:when test="namespace-uri(*[1]) != 'http://docbook.org/ns/docbook'">
  <xsl:call-template name="log.message">
  <xsl:with-param name="level">Note</xsl:with-param>
- <xsl:with-param name="source" select="$doc.title"/>
+ <xsl:with-param name="source"><xsl:call-template name="get.doc.title"/></xsl:with-param>
  <xsl:with-param name="context-desc">
  <xsl:text>namesp. add</xsl:text>
  </xsl:with-param>
@@ -94,7 +94,7 @@ xmlns:ng="http://docbook.org/docbook-ng"
   <xsl:call-template name="write.chunk">
     <xsl:with-param name="filename">
       <xsl:if test="$manifest.in.base.dir != 0">
-        <xsl:value-of select="$base.dir"/>
+        <xsl:value-of select="$chunk.base.dir"/>
       </xsl:if>
       <xsl:value-of select="'toc.xml'"/>
     </xsl:with-param>
@@ -187,7 +187,7 @@ xmlns:ng="http://docbook.org/docbook-ng"
   <xsl:call-template name="write.chunk">
     <xsl:with-param name="filename">
       <xsl:if test="$manifest.in.base.dir != 0">
-        <xsl:value-of select="$base.dir"/>
+        <xsl:value-of select="$chunk.base.dir"/>
       </xsl:if>
       <xsl:value-of select="'plugin.xml'"/>
     </xsl:with-param>
@@ -217,7 +217,7 @@ xmlns:ng="http://docbook.org/docbook-ng"
 
 <xsl:template name="helpidx">
   <xsl:call-template name="write.chunk.with.doctype">
-    <xsl:with-param name="filename" select="concat($base.dir, 'index.xml')"/>
+    <xsl:with-param name="filename" select="concat($chunk.base.dir, 'index.xml')"/>
     <xsl:with-param name="method" select="'xml'"/>
     <xsl:with-param name="indent" select="'yes'"/>
     <xsl:with-param name="doctype-public" select="''"/>

@@ -14,7 +14,7 @@ xmlns:exsl="http://exslt.org/common"
 <xsl:output method="xml" indent="no"/>
 
 <!-- ********************************************************************
-     $Id: docbook.xsl 8913 2010-10-01 04:44:57Z bobstayton $
+     $Id: docbook.xsl 9647 2012-10-26 17:42:03Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -25,7 +25,7 @@ xmlns:exsl="http://exslt.org/common"
 
 <!-- ==================================================================== -->
 
-<xsl:include href="../VERSION"/>
+<xsl:include href="../VERSION.xsl"/>
 <xsl:include href="param.xsl"/>
 <xsl:include href="../lib/lib.xsl"/>
 <xsl:include href="../common/l10n.xsl"/>
@@ -81,7 +81,6 @@ xmlns:exsl="http://exslt.org/common"
 
 <xsl:include href="fop.xsl"/>
 <xsl:include href="fop1.xsl"/>
-<xsl:include href="passivetex.xsl"/>
 <xsl:include href="xep.xsl"/>
 <xsl:include href="axf.xsl"/>
 <xsl:include href="ptc.xsl"/>
@@ -133,7 +132,7 @@ xmlns:exsl="http://exslt.org/common"
     <xsl:when test="namespace-uri(*[1]) != 'http://docbook.org/ns/docbook'">
  <xsl:call-template name="log.message">
  <xsl:with-param name="level">Note</xsl:with-param>
- <xsl:with-param name="source" select="$doc.title"/>
+ <xsl:with-param name="source"><xsl:call-template name="get.doc.title"/></xsl:with-param>
  <xsl:with-param name="context-desc">
  <xsl:text>namesp. add</xsl:text>
  </xsl:with-param>
@@ -150,7 +149,7 @@ xmlns:exsl="http://exslt.org/common"
     <xsl:when test="namespace-uri(*[1]) != 'http://docbook.org/ns/docbook'">
  <xsl:call-template name="log.message">
  <xsl:with-param name="level">Note</xsl:with-param>
- <xsl:with-param name="source" select="$doc.title"/>
+ <xsl:with-param name="source"><xsl:call-template name="get.doc.title"/></xsl:with-param>
  <xsl:with-param name="context-desc">
  <xsl:text>namesp. add</xsl:text>
  </xsl:with-param>

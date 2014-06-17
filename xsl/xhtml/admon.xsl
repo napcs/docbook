@@ -6,7 +6,7 @@
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: admon.xsl 8421 2009-05-04 07:49:49Z bobstayton $
+     $Id: admon.xsl 9728 2013-03-08 00:16:41Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -65,20 +65,24 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
   <div>
     <xsl:call-template name="common.html.attributes"/>
-    <xsl:if test="$admon.style != ''">
+    <xsl:call-template name="id.attribute"/>
+    <xsl:if test="$admon.style != '' and $make.clean.html = 0">
       <xsl:attribute name="style">
         <xsl:value-of select="$admon.style"/>
       </xsl:attribute>
     </xsl:if>
 
-    <table border="0">
-      <xsl:attribute name="summary">
-        <xsl:value-of select="$admon.type"/>
-        <xsl:if test="d:title|d:info/d:title">
-          <xsl:text>: </xsl:text>
-          <xsl:value-of select="(d:title|d:info/d:title)[1]"/>
-        </xsl:if>
-      </xsl:attribute>
+    <table border="{$table.border.off}">
+      <!-- omit summary attribute in html5 output -->
+      <xsl:if test="$div.element != 'section'">
+        <xsl:attribute name="summary">
+          <xsl:value-of select="$admon.type"/>
+          <xsl:if test="d:title|d:info/d:title">
+            <xsl:text>: </xsl:text>
+            <xsl:value-of select="(d:title|d:info/d:title)[1]"/>
+          </xsl:if>
+        </xsl:attribute>
+      </xsl:if>
       <tr>
         <td rowspan="2" align="center" valign="top">
           <xsl:attribute name="width">
@@ -111,7 +115,8 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
     </xsl:call-template>
-    <xsl:if test="$admon.style">
+    <xsl:call-template name="id.attribute"/>
+    <xsl:if test="$admon.style != '' and $make.clean.html = 0">
       <xsl:attribute name="style">
         <xsl:value-of select="$admon.style"/>
       </xsl:attribute>

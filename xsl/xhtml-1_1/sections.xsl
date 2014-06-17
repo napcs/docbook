@@ -6,7 +6,7 @@
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: sections.xsl 8421 2009-05-04 07:49:49Z bobstayton $
+     $Id: sections.xsl 9392 2012-06-02 20:10:58Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -22,9 +22,12 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
   <xsl:call-template name="id.warning"/>
 
-  <div>
+  <xsl:element name="{$div.element}" namespace="http://www.w3.org/1999/xhtml">
     <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
+    </xsl:call-template>
+    <xsl:call-template name="id.attribute">
+      <xsl:with-param name="conditional" select="0"/>
     </xsl:call-template>
     <xsl:call-template name="section.titlepage"/>
 
@@ -42,7 +45,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     </xsl:if>
     <xsl:apply-templates/>
     <xsl:call-template name="process.chunk.footnotes"/>
-  </div>
+  </xsl:element>
 </xsl:template>
 
 <xsl:template name="section.title">
@@ -91,9 +94,12 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:sect1">
   <xsl:call-template name="id.warning"/>
 
-  <div>
+  <xsl:element name="{$div.element}" namespace="http://www.w3.org/1999/xhtml">
     <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
+    </xsl:call-template>
+    <xsl:call-template name="id.attribute">
+      <xsl:with-param name="conditional" select="0"/>
     </xsl:call-template>
 
     <xsl:choose>
@@ -128,7 +134,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     </xsl:if>
     <xsl:apply-templates/>
     <xsl:call-template name="process.chunk.footnotes"/>
-  </div>
+  </xsl:element>
 </xsl:template>
 
 <xsl:template match="d:sect1/d:title                     |d:sect1/d:info/d:title                     |d:sect1info/d:title" mode="titlepage.mode" priority="2">
@@ -138,9 +144,12 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:sect2">
   <xsl:call-template name="id.warning"/>
 
-  <div>
+  <xsl:element name="{$div.element}" namespace="http://www.w3.org/1999/xhtml">
     <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
+    </xsl:call-template>
+    <xsl:call-template name="id.attribute">
+      <xsl:with-param name="conditional" select="0"/>
     </xsl:call-template>
 
     <xsl:choose>
@@ -175,7 +184,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     </xsl:if>
     <xsl:apply-templates/>
     <xsl:call-template name="process.chunk.footnotes"/>
-  </div>
+  </xsl:element>
 </xsl:template>
 
 <xsl:template match="d:sect2/d:title                     |d:sect2/d:info/d:title                     |d:sect2info/d:title" mode="titlepage.mode" priority="2">
@@ -185,9 +194,12 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:sect3">
   <xsl:call-template name="id.warning"/>
 
-  <div>
+  <xsl:element name="{$div.element}" namespace="http://www.w3.org/1999/xhtml">
     <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
+    </xsl:call-template>
+    <xsl:call-template name="id.attribute">
+      <xsl:with-param name="conditional" select="0"/>
     </xsl:call-template>
 
     <xsl:choose>
@@ -222,7 +234,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     </xsl:if>
     <xsl:apply-templates/>
     <xsl:call-template name="process.chunk.footnotes"/>
-  </div>
+  </xsl:element>
 </xsl:template>
 
 <xsl:template match="d:sect3/d:title                     |d:sect3/d:info/d:title                     |d:sect3info/d:title" mode="titlepage.mode" priority="2">
@@ -232,9 +244,12 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:sect4">
   <xsl:call-template name="id.warning"/>
 
-  <div>
+  <xsl:element name="{$div.element}" namespace="http://www.w3.org/1999/xhtml">
     <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
+    </xsl:call-template>
+    <xsl:call-template name="id.attribute">
+      <xsl:with-param name="conditional" select="0"/>
     </xsl:call-template>
 
     <xsl:choose>
@@ -269,7 +284,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     </xsl:if>
     <xsl:apply-templates/>
     <xsl:call-template name="process.chunk.footnotes"/>
-  </div>
+  </xsl:element>
 </xsl:template>
 
 <xsl:template match="d:sect4/d:title                     |d:sect4/d:info/d:title                     |d:sect4info/d:title" mode="titlepage.mode" priority="2">
@@ -279,9 +294,12 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:sect5">
   <xsl:call-template name="id.warning"/>
 
-  <div>
+  <xsl:element name="{$div.element}" namespace="http://www.w3.org/1999/xhtml">
     <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
+    </xsl:call-template>
+    <xsl:call-template name="id.attribute">
+      <xsl:with-param name="conditional" select="0"/>
     </xsl:call-template>
 
     <xsl:choose>
@@ -316,7 +334,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     </xsl:if>
     <xsl:apply-templates/>
     <xsl:call-template name="process.chunk.footnotes"/>
-  </div>
+  </xsl:element>
 </xsl:template>
 
 <xsl:template match="d:sect5/d:title                     |d:sect5/d:info/d:title                     |d:sect5info/d:title" mode="titlepage.mode" priority="2">
@@ -326,14 +344,17 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:simplesect">
   <xsl:call-template name="id.warning"/>
 
-  <div>
+  <xsl:element name="{$div.element}" namespace="http://www.w3.org/1999/xhtml">
     <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
+    </xsl:call-template>
+    <xsl:call-template name="id.attribute">
+      <xsl:with-param name="conditional" select="0"/>
     </xsl:call-template>
 
     <xsl:call-template name="simplesect.titlepage"/>
     <xsl:apply-templates/>
-  </div>
+  </xsl:element>
 </xsl:template>
 
 <xsl:template match="d:simplesect/d:title|d:simplesect/d:info/d:title" mode="titlepage.mode" priority="2">
@@ -430,14 +451,11 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
         <xsl:attribute name="style">clear: both</xsl:attribute>
       </xsl:if>
     </xsl:if>
-    <xsl:if test="$allow-anchors != 0 and $generate.id.attributes = 0">
+    <xsl:if test="$allow-anchors != 0">
       <xsl:call-template name="anchor">
         <xsl:with-param name="node" select="$section"/>
         <xsl:with-param name="conditional" select="0"/>
       </xsl:call-template>
-    </xsl:if>
-    <xsl:if test="$generate.id.attributes != 0 and not(local-name(.) = 'appendix')">
-      <xsl:attribute name="id"><xsl:value-of select="$id"/></xsl:attribute>
     </xsl:if>
     <xsl:copy-of select="$title"/>
   </xsl:element>
@@ -481,6 +499,9 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   </xsl:variable>
 
   <xsl:element name="h{$hlevel}" namespace="http://www.w3.org/1999/xhtml">
+    <xsl:call-template name="id.attribute">
+      <xsl:with-param name="conditional" select="0"/>
+    </xsl:call-template>
     <xsl:call-template name="anchor">
       <xsl:with-param name="conditional" select="0"/>
     </xsl:call-template>
