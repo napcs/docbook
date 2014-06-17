@@ -115,6 +115,11 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2014-03-14 -v1.6.2.1
+  * When rendering fails, book.tmp.xml is no longer deleted, making error discovery easier.
+  * Added .rhtml (erb) highlighting file
+  * Modified the Ruby highlighting file to add new tokens for Rails
+  * Modified the HTML highlighting file to recognize some HTML5 elements
 2013-04-30 -v1.6.2
   * Updated FOP to 1.1
   * Minor changes to the default PDF stylesheet
