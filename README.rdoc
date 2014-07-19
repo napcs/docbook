@@ -3,8 +3,8 @@
 This package gives you all the tools you need to author books and articles with the open-source Docbook toolchain. 
  
 Contained in this package are the Docbook XSLT stylesheets,
- a validation package, XML-FO to PDF translation, and a project 
- generator with build scripts. This uses the dookbook-xsl-ns stylesheets.
+a validation package, XML-FO to PDF translation, and a project 
+generator with build scripts. This uses the dookbook-xsl-ns stylesheets.
 
 == Installation and Usage
 
