@@ -45,9 +45,9 @@ module Docbook
     # Builds the classpath for the XML parser.
     def xml_parser_java_paths
       saxon_cp = "#{self.root}/jars/xercesImpl-2.7.1.jar;"
-      saxon_cp <<"#{self.root}/xsl/extensions/saxon65.jar;"
-      saxon_cp <<"#{self.root}/jars/saxon.jar;"
-      saxon_cp <<"#{self.root}/jars/xslthl-2.0.1.jar"
+      saxon_cp << "#{self.root}/xsl/extensions/saxon65.jar;"
+      saxon_cp << "#{self.root}/jars/saxon.jar;"
+      saxon_cp << "#{self.root}/jars/xslthl-2.1.0.jar"
       saxon_cp
     end
 

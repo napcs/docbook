@@ -1,4 +1,18 @@
 module Docbook
+  # Create MOBI files
+  # This class is resposible for converting
+  # the book to the MOBI format for use
+  # on Kindle devices. 
+  #
+  # Under the hood, this class uses the 
+  # EPUB stylesheets to build epubs
+  # and then relies on the `kindlegen` program
+  #
+  # This seems to work just fine for technical books
+  # and non-technical books alike.
+  #
+  # A mobi.css and mobi.xsl sheet are
+  # still required, however.
   class Mobi < Docbook::Base
    
     include Docbook::Adapters::Epub::Epubber
@@ -9,6 +23,8 @@ module Docbook
       @xsl_stylesheet = "xsl/mobi.xsl"
     end
 
+    # Uses the environment variable KINDLEGEN_PATH 
+    # to locate the `kindlegen` program.
     def convert_to_mobi
       @kindlegen_path  = ENV["KINDLEGEN_PATH"] || "kindlegen"
       run_command "#{@kindlegen_path} #{self.output_path}.epub -o #{self.output_path}"

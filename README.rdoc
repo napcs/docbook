@@ -115,6 +115,8 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2014-07-19 -v1.7
+  * Updates Docbook XSLT to 1.78.1
 2014-03-14 -v1.6.2.1
   * When rendering fails, book.tmp.xml is no longer deleted, making error discovery easier.
   * Added .rhtml (erb) highlighting file

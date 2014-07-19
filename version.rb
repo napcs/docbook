@@ -1,5 +1,5 @@
 class DocbookVersion
-  @@version = "1.6.2.1"
+  @@version = "1.7"
   @@xsl_version = "1.78.1"
   def self.version
     @@version
