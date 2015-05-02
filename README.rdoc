@@ -3,8 +3,8 @@
 This package gives you all the tools you need to author books and articles with the open-source Docbook toolchain. 
  
 Contained in this package are the Docbook XSLT stylesheets,
- a validation package, XML-FO to PDF translation, and a project 
- generator with build scripts. This uses the dookbook-xsl-ns stylesheets.
+a validation package, XML-FO to PDF translation, and a project 
+generator with build scripts. This uses the dookbook-xsl-ns stylesheets.
 
 == Installation and Usage
 
@@ -115,6 +115,8 @@ Please fork and pull. Don't update the changelog. Make small patches I can pull 
 
 
 == Changes
+2014-07-19 -v1.7
+  * Updates Docbook XSLT to 1.78.1
 2014-03-14 -v1.6.2.1
   * When rendering fails, book.tmp.xml is no longer deleted, making error discovery easier.
   * Added .rhtml (erb) highlighting file

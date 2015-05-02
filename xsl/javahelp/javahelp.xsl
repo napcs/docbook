@@ -13,7 +13,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 <xsl:output method="html"/>
 
 <!-- ********************************************************************
-     $Id: javahelp.xsl 8400 2009-04-08 07:44:54Z bobstayton $
+     $Id: javahelp.xsl 9152 2011-11-12 00:17:33Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -35,7 +35,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     <xsl:when test="namespace-uri(*[1]) != 'http://docbook.org/ns/docbook'">
  <xsl:call-template name="log.message">
  <xsl:with-param name="level">Note</xsl:with-param>
- <xsl:with-param name="source" select="$doc.title"/>
+ <xsl:with-param name="source"><xsl:call-template name="get.doc.title"/></xsl:with-param>
  <xsl:with-param name="context-desc">
  <xsl:text>namesp. add</xsl:text>
  </xsl:with-param>
@@ -79,17 +79,13 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 </xsl:choose>
 </xsl:template>
 
-<xsl:template name="header.navigation">
-</xsl:template>
-
-<xsl:template name="footer.navigation">
-</xsl:template>
+<xsl:param name="suppress.navigation" select="1"/>
 
 <!-- ==================================================================== -->
 
 <xsl:template name="helpset">
   <xsl:call-template name="write.chunk.with.doctype">
-    <xsl:with-param name="filename" select="concat($base.dir,'jhelpset.hs')"/>
+    <xsl:with-param name="filename" select="concat($chunk.base.dir,'jhelpset.hs')"/>
     <xsl:with-param name="method" select="'xml'"/>
     <xsl:with-param name="indent" select="'yes'"/>
     <xsl:with-param name="doctype-public" select="'-//Sun Microsystems Inc.//DTD JavaHelp HelpSet Version 1.0//EN'"/>
@@ -145,7 +141,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
 <xsl:template name="helptoc">
   <xsl:call-template name="write.chunk.with.doctype">
-    <xsl:with-param name="filename" select="concat($base.dir,'jhelptoc.xml')"/>
+    <xsl:with-param name="filename" select="concat($chunk.base.dir,'jhelptoc.xml')"/>
     <xsl:with-param name="method" select="'xml'"/>
     <xsl:with-param name="indent" select="'yes'"/>
     <xsl:with-param name="doctype-public" select="'-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 1.0//EN'"/>
@@ -363,7 +359,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
 <xsl:template name="helpmap">
   <xsl:call-template name="write.chunk.with.doctype">
-    <xsl:with-param name="filename" select="concat($base.dir, 'jhelpmap.jhm')"/>
+    <xsl:with-param name="filename" select="concat($chunk.base.dir, 'jhelpmap.jhm')"/>
     <xsl:with-param name="method" select="'xml'"/>
     <xsl:with-param name="indent" select="'yes'"/>
     <xsl:with-param name="doctype-public" select="'-//Sun Microsystems Inc.//DTD JavaHelp Map Version 1.0//EN'"/>
@@ -510,7 +506,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 
 <xsl:template name="helpidx">
   <xsl:call-template name="write.chunk.with.doctype">
-    <xsl:with-param name="filename" select="concat($base.dir, 'jhelpidx.xml')"/>
+    <xsl:with-param name="filename" select="concat($chunk.base.dir, 'jhelpidx.xml')"/>
     <xsl:with-param name="method" select="'xml'"/>
     <xsl:with-param name="indent" select="'yes'"/>
     <xsl:with-param name="doctype-public" select="'-//Sun Microsystems Inc.//DTD JavaHelp Index Version 1.0//EN'"/>

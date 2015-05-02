@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="ASCII"?>
-<!--This file was created automatically by html2xhtml-->
-<!--from the HTML stylesheets.-->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:d="http://docbook.org/ns/docbook"
+<?xml version="1.0" encoding="ASCII"?><!--This file was created automatically by html2xhtml--><!--from the HTML stylesheets.--><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:d="http://docbook.org/ns/docbook"
 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ext/com.nwalsh.saxon.UnwrapLinks" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xlink suwl d" version="1.0">
 
 <!-- ********************************************************************
-     $Id: inline.xsl 8811 2010-08-09 20:24:45Z mzjn $
+     $Id: inline.xsl 9663 2012-11-06 19:09:16Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -92,6 +89,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
               <xsl:otherwise>
                 <a>
                   <xsl:apply-templates select="." mode="common.html.attributes"/>
+                  <xsl:call-template name="id.attribute"/>
 
                   <xsl:attribute name="href">
                     <xsl:call-template name="href.target">
@@ -127,6 +125,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
           <xsl:otherwise>
             <a>
               <xsl:apply-templates select="." mode="common.html.attributes"/>
+              <xsl:call-template name="id.attribute"/>
               <xsl:attribute name="href">
                 <xsl:value-of select="$xhref"/>
               </xsl:attribute>
@@ -166,6 +165,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
         <a>
           <xsl:apply-templates select="." mode="common.html.attributes"/>
+          <xsl:call-template name="id.attribute"/>
           <xsl:attribute name="href">
             <xsl:call-template name="href.target">
               <xsl:with-param name="object" select="$target"/>
@@ -211,6 +211,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
     <xsl:attribute name="class">
       <xsl:value-of select="local-name(.)"/>
     </xsl:attribute>
+    <xsl:call-template name="id.attribute"/>
     <xsl:call-template name="dir"/>
     <xsl:call-template name="generate.html.title"/>
     <xsl:copy-of select="$content"/>
@@ -229,6 +230,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
   </xsl:param>
   <code>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:copy-of select="$content"/>
     <xsl:call-template name="apply-annotations"/>
   </code>
@@ -246,6 +248,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
 
     <!-- don't put <strong> inside figure, example, or table titles -->
     <xsl:choose>
@@ -273,6 +276,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
   </xsl:param>
   <em>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:copy-of select="$content"/>
     <xsl:call-template name="apply-annotations"/>
   </em>
@@ -293,6 +297,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
     <xsl:when test="local-name(..) = 'title'                     and (local-name(../..) = 'figure'                          or local-name(../..) = 'example'                          or local-name(../..) = 'table'                          or local-name(../..) = 'formalpara')">
       <code>
         <xsl:call-template name="common.html.attributes"/>
+        <xsl:call-template name="id.attribute"/>
         <xsl:copy-of select="$content"/>
         <xsl:call-template name="apply-annotations"/>
       </code>
@@ -300,6 +305,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
     <xsl:otherwise>
       <strong>
         <xsl:call-template name="common.html.attributes"/>
+        <xsl:call-template name="id.attribute"/>
         <code>
           <xsl:call-template name="generate.html.title"/>
           <xsl:call-template name="dir"/>
@@ -322,6 +328,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
   </xsl:param>
   <em>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <code>
       <xsl:call-template name="generate.html.title"/>
       <xsl:call-template name="dir"/>
@@ -342,6 +349,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
   </xsl:param>
   <sup>
     <xsl:call-template name="generate.html.title"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:call-template name="dir"/>
     <xsl:copy-of select="$content"/>
     <xsl:call-template name="apply-annotations"/>
@@ -359,6 +367,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
   </xsl:param>
   <sub>
     <xsl:call-template name="generate.html.title"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:call-template name="dir"/>
     <xsl:copy-of select="$content"/>
     <xsl:call-template name="apply-annotations"/>
@@ -381,6 +390,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:copy-of select="$content"/>
   </span>
 </xsl:template>
@@ -398,6 +408,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:copy-of select="$content"/>
   </span>
 </xsl:template>
@@ -415,6 +426,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:copy-of select="$content"/>
   </span>
 </xsl:template>
@@ -523,14 +535,14 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
 <xsl:template match="d:function/d:parameter" priority="2">
   <xsl:call-template name="inline.italicmonoseq"/>
-  <xsl:if test="following-sibling::*">
+  <xsl:if test="$function.parens != 0 and following-sibling::*">
     <xsl:text>, </xsl:text>
   </xsl:if>
 </xsl:template>
 
 <xsl:template match="d:function/d:replaceable" priority="2">
   <xsl:call-template name="inline.italicmonoseq"/>
-  <xsl:if test="following-sibling::*">
+  <xsl:if test="$function.parens != 0 and following-sibling::*">
     <xsl:text>, </xsl:text>
   </xsl:if>
 </xsl:template>
@@ -572,7 +584,21 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 </xsl:template>
 
 <xsl:template match="d:keycap">
-  <xsl:call-template name="inline.boldseq"/>
+  <xsl:choose>
+    <xsl:when test="@function and normalize-space(.) = ''">
+      <xsl:call-template name="inline.boldseq">
+        <xsl:with-param name="content">
+          <xsl:call-template name="gentext.template">
+            <xsl:with-param name="context" select="'keycap'"/>
+            <xsl:with-param name="name" select="@function"/>
+          </xsl:call-template>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:call-template name="inline.boldseq"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="d:keycode">
@@ -715,6 +741,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
 <xsl:template match="d:emphasis">
   <span>
+    <xsl:call-template name="id.attribute"/>
     <xsl:choose>
       <!-- We don't want empty @class values, so do not propagate empty @roles -->
       <xsl:when test="@role  and                       normalize-space(@role) != '' and                       $emphasis.propagates.style != 0">
@@ -768,13 +795,19 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
 <xsl:template match="d:phrase">
   <span>
+    <xsl:call-template name="id.attribute"/>
     <xsl:call-template name="locale.html.attributes"/>
     <!-- We don't want empty @class values, so do not propagate empty @roles -->
-    <xsl:if test="@role and                    normalize-space(@role) != '' and                   $phrase.propagates.style != 0">
-      <xsl:apply-templates select="." mode="class.attribute">
-        <xsl:with-param name="class" select="@role"/>
-      </xsl:apply-templates>
-    </xsl:if>
+    <xsl:choose>
+      <xsl:when test="@role and                       normalize-space(@role) != '' and                      $phrase.propagates.style != 0">
+        <xsl:apply-templates select="." mode="class.attribute">
+          <xsl:with-param name="class" select="@role"/>
+        </xsl:apply-templates>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="." mode="class.attribute"/>
+      </xsl:otherwise>
+    </xsl:choose>
     <xsl:call-template name="dir"/>
     <xsl:call-template name="anchor"/>
     <xsl:call-template name="simple.xlink">
@@ -796,7 +829,6 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
   </xsl:variable>
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
-    <xsl:call-template name="anchor"/>
     <xsl:choose>
       <xsl:when test="$depth mod 2 = 0">
         <xsl:call-template name="gentext.startquote"/>
@@ -1133,6 +1165,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
       </xsl:if>
       <a>
         <xsl:apply-templates select="." mode="common.html.attributes"/>
+        <xsl:call-template name="id.attribute"/>
         <xsl:attribute name="href">
           <xsl:text>mailto:</xsl:text>
           <xsl:value-of select="."/>
@@ -1241,6 +1274,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
         <xsl:choose>
           <xsl:when test="$bibliography.numbered != 0">
+            <xsl:call-template name="id.attribute"/>
             <xsl:apply-templates select="$target" mode="citation"/>
           </xsl:when>
           <xsl:otherwise>
@@ -1295,7 +1329,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
 <!-- ==================================================================== -->
 
-<xsl:template match="d:comment[parent::d:answer|parent::d:appendix|parent::d:article|parent::d:bibliodiv|&#10;                                parent::d:bibliography|parent::d:blockquote|parent::d:caution|parent::d:chapter|&#10;                                parent::d:glossary|parent::d:glossdiv|parent::d:important|parent::d:index|&#10;                                parent::d:indexdiv|parent::d:listitem|parent::d:note|parent::d:orderedlist|&#10;                                parent::d:partintro|parent::d:preface|parent::d:procedure|parent::d:qandadiv|&#10;                                parent::d:qandaset|parent::d:question|parent::d:refentry|parent::d:refnamediv|&#10;                                parent::d:refsect1|parent::d:refsect2|parent::d:refsect3|parent::d:refsection|&#10;                                parent::d:refsynopsisdiv|parent::d:sect1|parent::d:sect2|parent::d:sect3|parent::d:sect4|&#10;                                parent::d:sect5|parent::d:section|parent::d:setindex|parent::d:sidebar|&#10;                                parent::d:simplesect|parent::d:taskprerequisites|parent::d:taskrelated|&#10;                                parent::d:tasksummary|parent::d:warning]|d:remark[parent::d:answer|parent::d:appendix|parent::d:article|parent::d:bibliodiv|&#10;                                parent::d:bibliography|parent::d:blockquote|parent::d:caution|parent::d:chapter|&#10;                                parent::d:glossary|parent::d:glossdiv|parent::d:important|parent::d:index|&#10;                                parent::d:indexdiv|parent::d:listitem|parent::d:note|parent::d:orderedlist|&#10;                                parent::d:partintro|parent::d:preface|parent::d:procedure|parent::d:qandadiv|&#10;                                parent::d:qandaset|parent::d:question|parent::d:refentry|parent::d:refnamediv|&#10;                                parent::d:refsect1|parent::d:refsect2|parent::d:refsect3|parent::d:refsection|&#10;                                parent::d:refsynopsisdiv|parent::d:sect1|parent::d:sect2|parent::d:sect3|parent::d:sect4|&#10;                                parent::d:sect5|parent::d:section|parent::d:setindex|parent::d:sidebar|&#10;                                parent::d:simplesect|parent::d:taskprerequisites|parent::d:taskrelated|&#10;                                parent::d:tasksummary|parent::d:warning]">
+<xsl:template match="d:comment[parent::d:answer|parent::d:appendix|parent::d:article|parent::d:bibliodiv|                                 parent::d:bibliography|parent::d:blockquote|parent::d:caution|parent::d:chapter|                                 parent::d:glossary|parent::d:glossdiv|parent::d:important|parent::d:index|                                 parent::d:indexdiv|parent::d:listitem|parent::d:note|parent::d:orderedlist|                                 parent::d:partintro|parent::d:preface|parent::d:procedure|parent::d:qandadiv|                                 parent::d:qandaset|parent::d:question|parent::d:refentry|parent::d:refnamediv|                                 parent::d:refsect1|parent::d:refsect2|parent::d:refsect3|parent::d:refsection|                                 parent::d:refsynopsisdiv|parent::d:sect1|parent::d:sect2|parent::d:sect3|parent::d:sect4|                                 parent::d:sect5|parent::d:section|parent::d:setindex|parent::d:sidebar|                                 parent::d:simplesect|parent::d:taskprerequisites|parent::d:taskrelated|                                 parent::d:tasksummary|parent::d:warning|parent::d:topic]|d:remark[parent::d:answer|parent::d:appendix|parent::d:article|parent::d:bibliodiv|                                 parent::d:bibliography|parent::d:blockquote|parent::d:caution|parent::d:chapter|                                 parent::d:glossary|parent::d:glossdiv|parent::d:important|parent::d:index|                                 parent::d:indexdiv|parent::d:listitem|parent::d:note|parent::d:orderedlist|                                 parent::d:partintro|parent::d:preface|parent::d:procedure|parent::d:qandadiv|                                 parent::d:qandaset|parent::d:question|parent::d:refentry|parent::d:refnamediv|                                 parent::d:refsect1|parent::d:refsect2|parent::d:refsect3|parent::d:refsection|                                 parent::d:refsynopsisdiv|parent::d:sect1|parent::d:sect2|parent::d:sect3|parent::d:sect4|                                 parent::d:sect5|parent::d:section|parent::d:setindex|parent::d:sidebar|                                 parent::d:simplesect|parent::d:taskprerequisites|parent::d:taskrelated|                                 parent::d:tasksummary|parent::d:warning|parent::d:topic]">
   <xsl:if test="$show.comments != 0">
     <p class="remark"><em><xsl:call-template name="inline.charseq"/></em></p>
   </xsl:if>
@@ -1352,6 +1386,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:copy-of select="$content"/>
   </span>
 </xsl:template>
@@ -1369,6 +1404,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:copy-of select="$content"/>
   </span>
 </xsl:template>
@@ -1388,6 +1424,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:copy-of select="$content"/>
   </span>
 </xsl:template>
@@ -1405,6 +1442,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:copy-of select="$content"/>
   </span>
 </xsl:template>
@@ -1439,6 +1477,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:suwl="http://nwalsh.com/xslt/ex
 
   <span>
     <xsl:apply-templates select="." mode="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:copy-of select="$content"/>
   </span>
 </xsl:template>

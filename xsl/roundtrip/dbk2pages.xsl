@@ -15,7 +15,7 @@ xmlns:sfa="http://developer.apple.com/namespaces/sfa"
   <xsl:output method="xml" indent='yes' encoding='ascii'/>
 
   <!-- ********************************************************************
-       $Id: dbk2pages.xsl 7701 2008-02-22 06:07:31Z balls $
+       $Id: dbk2pages.xsl 9396 2012-06-02 21:56:19Z bobstayton $
        ********************************************************************
 
        This file is part of the XSL DocBook Stylesheet distribution.
@@ -24,7 +24,7 @@ xmlns:sfa="http://developer.apple.com/namespaces/sfa"
 
        ******************************************************************** -->
 
-  <xsl:include href='../VERSION'/>
+  <xsl:include href='../VERSION.xsl'/>
   <xsl:include href='param.xsl'/>
 
   <xsl:variable name='templatedoc' select='document($pages.template)'/>

@@ -1,4 +1,8 @@
 <?xml version='1.0'?>
+<!DOCTYPE xsl:stylesheet [
+<!ENTITY lowercase "'abcdefghijklmnopqrstuvwxyz'">
+<!ENTITY uppercase "'ABCDEFGHIJKLMNOPQRSTUVWXYZ'">
+ ]>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:d="http://docbook.org/ns/docbook"
 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
@@ -8,7 +12,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: common.xsl 8784 2010-07-28 12:32:54Z mzjn $
+     $Id: common.xsl 9347 2012-05-11 03:49:49Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -21,7 +25,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   <info>
     <title>Common » Base Template Reference</title>
     <releaseinfo role="meta">
-      $Id: common.xsl 8784 2010-07-28 12:32:54Z mzjn $
+      $Id: common.xsl 9347 2012-05-11 03:49:49Z bobstayton $
     </releaseinfo>
   </info>
   <!-- * yes, partintro is a valid child of a reference... -->
@@ -44,7 +48,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 d:abstract d:affiliation d:anchor d:answer d:appendix d:area d:areaset d:areaspec
 d:artheader d:article d:audiodata d:audioobject d:author d:authorblurb d:authorgroup
 d:beginpage d:bibliodiv d:biblioentry d:bibliography d:biblioset d:blockquote d:book
-d:bookbiblio d:bookinfo d:callout d:calloutlist d:caption d:caution d:chapter
+d:bookinfo d:callout d:calloutlist d:caption d:caution d:chapter
 d:citerefentry d:cmdsynopsis d:co d:collab d:colophon d:colspec d:confgroup
 d:copyright d:dedication d:docinfo d:editor d:entrytbl d:epigraph d:equation
 d:example d:figure d:footnote d:footnoteref d:formalpara d:funcprototype
@@ -65,7 +69,7 @@ d:sectioninfo d:seglistitem d:segmentedlist d:seriesinfo d:set d:setindex d:seti
 d:shortcut d:sidebar d:simplelist d:simplesect d:spanspec d:step d:subject
 d:subjectset d:substeps d:synopfragment d:table d:tbody d:textobject d:tfoot d:tgroup
 d:thead d:tip d:toc d:tocchap d:toclevel1 d:toclevel2 d:toclevel3 d:toclevel4
-d:toclevel5 d:tocpart d:varargs d:variablelist d:varlistentry d:videodata
+d:toclevel5 d:tocpart d:topic d:varargs d:variablelist d:varlistentry d:videodata
 d:videoobject d:void d:warning d:subjectset
 
 d:classsynopsis
@@ -459,6 +463,13 @@ Defaults to the context node.</para>
     <xsl:when test="$object/@xml:id">
       <xsl:value-of select="$object/@xml:id"/>
     </xsl:when>
+    <xsl:when test="$generate.consistent.ids != 0">
+      <!-- Make $object the current node -->
+      <xsl:for-each select="$object">
+        <xsl:text>id-</xsl:text>
+        <xsl:number level="multiple" count="*"/>
+      </xsl:for-each>
+    </xsl:when>
     <xsl:otherwise>
       <xsl:value-of select="generate-id($object)"/>
     </xsl:otherwise>
@@ -647,19 +658,19 @@ Defaults to the context node.</para>
      documentation for DocBook V3.0
 -->
 
-<xsl:variable name="arg.choice.opt.open.str">[</xsl:variable>
-<xsl:variable name="arg.choice.opt.close.str">]</xsl:variable>
-<xsl:variable name="arg.choice.req.open.str">{</xsl:variable>
-<xsl:variable name="arg.choice.req.close.str">}</xsl:variable>
-<xsl:variable name="arg.choice.plain.open.str"><xsl:text> </xsl:text></xsl:variable>
-<xsl:variable name="arg.choice.plain.close.str"><xsl:text> </xsl:text></xsl:variable>
-<xsl:variable name="arg.choice.def.open.str">[</xsl:variable>
-<xsl:variable name="arg.choice.def.close.str">]</xsl:variable>
-<xsl:variable name="arg.rep.repeat.str">...</xsl:variable>
-<xsl:variable name="arg.rep.norepeat.str"></xsl:variable>
-<xsl:variable name="arg.rep.def.str"></xsl:variable>
-<xsl:variable name="arg.or.sep"> | </xsl:variable>
-<xsl:variable name="cmdsynopsis.hanging.indent">4pi</xsl:variable>
+<xsl:param name="arg.choice.opt.open.str">[</xsl:param>
+<xsl:param name="arg.choice.opt.close.str">]</xsl:param>
+<xsl:param name="arg.choice.req.open.str">{</xsl:param>
+<xsl:param name="arg.choice.req.close.str">}</xsl:param>
+<xsl:param name="arg.choice.plain.open.str"><xsl:text> </xsl:text></xsl:param>
+<xsl:param name="arg.choice.plain.close.str"><xsl:text> </xsl:text></xsl:param>
+<xsl:param name="arg.choice.def.open.str">[</xsl:param>
+<xsl:param name="arg.choice.def.close.str">]</xsl:param>
+<xsl:param name="arg.rep.repeat.str">...</xsl:param>
+<xsl:param name="arg.rep.norepeat.str"></xsl:param>
+<xsl:param name="arg.rep.def.str"></xsl:param>
+<xsl:param name="arg.or.sep"> | </xsl:param>
+<xsl:param name="cmdsynopsis.hanging.indent">4pi</xsl:param>
 
 <!-- ====================================================================== -->
 
@@ -963,6 +974,20 @@ recursive process.</para>
     
         <xsl:variable name="useobject">
           <xsl:choose>
+            <!-- select videoobject or audioobject before textobject -->
+            <xsl:when test="local-name($object) = 'videoobject'">
+              <xsl:text>1</xsl:text> 
+            </xsl:when>
+            <xsl:when test="local-name($object) = 'audioobject'">
+              <xsl:text>1</xsl:text> 
+            </xsl:when>
+            <!-- skip textobject if also video, audio, or image out of order -->
+            <xsl:when test="local-name($object) = 'textobject' and
+                            ../d:imageobject or
+                            ../d:audioobject or
+                            ../d:videoobject">
+              <xsl:text>0</xsl:text> 
+            </xsl:when>
             <!-- The phrase is used only when contains TeX Math and output is FO -->
             <xsl:when test="local-name($object)='textobject' and $object/d:phrase
                             and $object/@role='tex' and $stylesheet.result.type = 'fo'
@@ -1327,8 +1352,10 @@ pointed to by the link is one of the elements listed in
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:variable name="prevlist"
-        select="$list/preceding::d:orderedlist[1]"/>
+      <!-- match on previous list at same nesting level -->
+      <xsl:variable name="prevlist" 
+       select="$list/preceding::d:orderedlist
+                [count($list/ancestor::d:orderedlist) = count(ancestor::d:orderedlist)][1]"/>
       <xsl:choose>
         <xsl:when test="count($prevlist) = 0">2</xsl:when>
         <xsl:otherwise>
@@ -2037,4 +2064,48 @@ engine does not support it.
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+
+
+<doc:template name="graphic.format.content-type" xmlns="">
+  <refpurpose>Returns mimetype for media format</refpurpose>
+  <refdescription id="graphic.format.content-type-desc">
+    <para>This takes as input a 'format' param and returns
+    a mimetype string.  It uses an xsl:choose after first
+    converting the input to all uppercase.</para>
+  </refdescription>
+</doc:template>
+<xsl:template name="graphic.format.content-type">
+  <xsl:param name="format"/>
+  <xsl:variable name="upperformat" select="translate($format,&lowercase;,&uppercase;)"/>
+  <xsl:choose>
+    <xsl:when test="$upperformat = ''"></xsl:when>
+    <xsl:when test="$upperformat = 'linespecific'"></xsl:when>
+    <xsl:when test="$upperformat = 'PS'">application/postscript</xsl:when>
+    <xsl:when test="$upperformat = 'PDF'">application/pdf</xsl:when>
+    <xsl:when test="$upperformat = 'PNG'">image/png</xsl:when>
+    <xsl:when test="$upperformat = 'SVG'">image/svg+xml</xsl:when>
+    <xsl:when test="$upperformat = 'JPG'">image/jpeg</xsl:when>
+    <xsl:when test="$upperformat = 'JPEG'">image/jpeg</xsl:when>
+    <xsl:when test="$upperformat = 'GIF'">image/gif</xsl:when>
+    <xsl:when test="$upperformat = 'GIF87A'">image/gif</xsl:when>
+    <xsl:when test="$upperformat = 'GIF89A'">image/gif</xsl:when>
+    <xsl:when test="$upperformat = 'ACC'">audio/acc</xsl:when>
+    <xsl:when test="$upperformat = 'MPG'">audio/mpeg</xsl:when>
+    <xsl:when test="$upperformat = 'MP1'">audio/mpeg</xsl:when>
+    <xsl:when test="$upperformat = 'MP2'">audio/mpeg</xsl:when>
+    <xsl:when test="$upperformat = 'MP3'">audio/mpeg</xsl:when>
+    <xsl:when test="$upperformat = 'M4A'">audio/mp4</xsl:when>
+    <xsl:when test="$upperformat = 'MPEG'">audio/mpeg</xsl:when>
+    <xsl:when test="$upperformat = 'WAV'">audio/wav</xsl:when>
+    <xsl:when test="$upperformat = 'MP4'">video/mp4</xsl:when>
+    <xsl:when test="$upperformat = 'M4V'">video/mp4</xsl:when>
+    <xsl:when test="$upperformat = 'OGV'">video/ogg</xsl:when>
+    <xsl:when test="$upperformat = 'OGG'">video/ogg</xsl:when>
+    <xsl:when test="$upperformat = 'WEBM'">video/webm</xsl:when>
+    <xsl:otherwise>
+        <xsl:value-of select="concat('image/', $upperformat)"/> 
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 </xsl:stylesheet>

@@ -6,7 +6,7 @@
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: biblio.xsl 8421 2009-05-04 07:49:49Z bobstayton $
+     $Id: biblio.xsl 9297 2012-04-22 03:56:16Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -24,11 +24,9 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="1"/>
     </xsl:call-template>
-    <xsl:if test="$generate.id.attributes != 0">
-      <xsl:attribute name="id">
-        <xsl:call-template name="object.id"/>
-      </xsl:attribute>
-    </xsl:if>
+    <xsl:call-template name="id.attribute">
+      <xsl:with-param name="conditional" select="0"/>
+    </xsl:call-template>
 
     <xsl:call-template name="bibliography.titlepage"/>
 
@@ -55,6 +53,9 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="0"/>
     </xsl:call-template>
+    <xsl:call-template name="id.attribute">
+      <xsl:with-param name="conditional" select="0"/>
+    </xsl:call-template>
     <xsl:apply-templates/>
   </div>
 </xsl:template>
@@ -77,6 +78,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     <xsl:call-template name="common.html.attributes">
       <xsl:with-param name="inherit" select="0"/>
     </xsl:call-template>
+    <xsl:call-template name="id.attribute"/>
     <xsl:call-template name="anchor"/>
     <xsl:if test="d:blockinfo/d:title|d:info/d:title|d:title">
       <xsl:call-template name="formal.object.heading"/>
@@ -123,6 +125,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
           </xsl:message>
           <div>
             <xsl:call-template name="common.html.attributes"/>
+            <xsl:call-template name="id.attribute"/>
             <xsl:call-template name="anchor"/>
             <p>
               <xsl:copy-of select="$label"/>
@@ -138,6 +141,9 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     <xsl:otherwise>
       <div>
         <xsl:call-template name="common.html.attributes"/>
+        <xsl:call-template name="id.attribute">
+          <xsl:with-param name="conditional" select="0"/>
+        </xsl:call-template>
         <xsl:call-template name="anchor">
           <xsl:with-param name="conditional" select="0"/>
         </xsl:call-template>
@@ -192,6 +198,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
           </xsl:message>
           <div>
             <xsl:call-template name="common.html.attributes"/>
+            <xsl:call-template name="id.attribute"/>
             <xsl:call-template name="anchor"/>
             <p>
               <xsl:copy-of select="$label"/>
@@ -207,6 +214,9 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     <xsl:otherwise>
       <div>
         <xsl:call-template name="common.html.attributes"/>
+        <xsl:call-template name="id.attribute">
+          <xsl:with-param name="conditional" select="0"/>
+        </xsl:call-template>
         <xsl:call-template name="anchor">
           <xsl:with-param name="conditional" select="0"/>
         </xsl:call-template>
@@ -272,6 +282,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:address" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -280,6 +291,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:affiliation" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -288,6 +300,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:shortaffil" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -296,6 +309,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:jobtitle" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -304,6 +318,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:artheader|d:articleinfo|d:info" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -312,6 +327,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:artpagenums" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -320,8 +336,16 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:author" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
-    <xsl:call-template name="person.name"/>
-    <xsl:copy-of select="$biblioentry.item.separator"/>
+    <xsl:call-template name="id.attribute"/>
+    <xsl:choose>
+      <xsl:when test="d:orgname">
+        <xsl:apply-templates select="d:orgname" mode="bibliography.mode"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="person.name"/>
+        <xsl:copy-of select="$biblioentry.item.separator"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </span>
 </xsl:template>
 
@@ -332,6 +356,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:authorgroup" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:call-template name="person.name.list"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -340,6 +365,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:authorinitials" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -348,6 +374,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:bibliomisc" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -356,6 +383,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:bibliomset" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -366,6 +394,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:biblioset" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
   </span>
 </xsl:template>
@@ -387,17 +416,10 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ================================================== -->
 
-<xsl:template match="d:bookbiblio" mode="bibliography.mode">
-  <span>
-    <xsl:call-template name="common.html.attributes"/>
-    <xsl:apply-templates mode="bibliography.mode"/>
-    <xsl:copy-of select="$biblioentry.item.separator"/>
-  </span>
-</xsl:template>
-
 <xsl:template match="d:citetitle" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:choose>
       <xsl:when test="@pubwork = 'article'">
         <xsl:call-template name="gentext.startquote"/>
@@ -415,6 +437,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:collab" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -423,6 +446,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:collabname" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -431,6 +455,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:confgroup" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -439,6 +464,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:confdates" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -447,6 +473,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:conftitle" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -455,6 +482,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:confnum" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -463,6 +491,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:confsponsor" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -471,6 +500,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:contractnum" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -479,6 +509,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:contractsponsor" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -487,6 +518,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:contrib" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -497,6 +529,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:copyright" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:call-template name="gentext">
       <xsl:with-param name="key" select="'Copyright'"/>
     </xsl:call-template>
@@ -531,6 +564,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:corpauthor" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -539,6 +573,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:corpcredit" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -547,6 +582,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:corpname" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -555,6 +591,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:date" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -563,6 +600,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:edition" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -571,6 +609,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:editor" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:call-template name="person.name"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -579,6 +618,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:firstname" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -587,6 +627,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:honorific" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -595,6 +636,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:indexterm" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -603,6 +645,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:invpartnumber" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -611,6 +654,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:isbn" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -619,6 +663,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:issn" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -627,6 +672,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:issuenum" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -635,6 +681,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:lineage" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -643,6 +690,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:orgname" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -651,6 +699,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:orgdiv" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -659,6 +708,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:othercredit" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -667,6 +717,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:othername" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -675,6 +726,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:pagenums" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -687,6 +739,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:productname" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -695,6 +748,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:productnumber" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -703,6 +757,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:pubdate" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -711,6 +766,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:publisher" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
   </span>
 </xsl:template>
@@ -718,6 +774,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:publishername" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -726,6 +783,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:pubsnumber" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -734,6 +792,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:releaseinfo" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -746,6 +805,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:seriesinfo" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
   </span>
 </xsl:template>
@@ -753,6 +813,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:seriesvolnums" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -761,6 +822,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:subtitle" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -769,6 +831,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:surname" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -777,6 +840,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:title" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <em xmlns:xslo="http://www.w3.org/1999/XSL/Transform"><xsl:apply-templates mode="bibliography.mode"/></em>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -785,6 +849,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:titleabbrev" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -793,6 +858,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:volumenum" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -801,6 +867,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:bibliocoverage|d:biblioid|d:bibliorelation|d:bibliosource" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:copy-of select="$biblioentry.item.separator"/>
   </span>
@@ -810,6 +877,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:biblioid[@class='doi']" mode="bibliography.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <a href="{concat('http://dx.doi.org/', .)}">doi:<xsl:value-of select="."/></a>
   </span>
 </xsl:template>
@@ -829,6 +897,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:abstract" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -836,6 +905,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:address" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -843,6 +913,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:affiliation" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -850,6 +921,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:shortaffil" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -857,6 +929,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:jobtitle" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -864,6 +937,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:artpagenums" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -871,13 +945,22 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:author" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
-    <xsl:apply-templates mode="bibliomixed.mode"/>
+    <xsl:call-template name="id.attribute"/>
+    <xsl:choose>
+      <xsl:when test="d:orgname">
+        <xsl:apply-templates select="d:orgname" mode="bibliomixed.mode"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="person.name"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </span>
 </xsl:template>
 
 <xsl:template match="d:authorblurb|d:personblurb" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -885,6 +968,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:authorgroup" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -892,6 +976,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:authorinitials" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -899,6 +984,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:bibliomisc" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -908,6 +994,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:bibliomset" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -931,6 +1018,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:biblioset" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -938,6 +1026,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:citetitle" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:choose>
       <xsl:when test="@pubwork = 'article'">
         <xsl:call-template name="gentext.startquote"/>
@@ -955,6 +1044,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:collab" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -962,6 +1052,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:confgroup" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -969,6 +1060,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:contractnum" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -976,6 +1068,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:contractsponsor" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -983,6 +1076,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:contrib" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -990,6 +1084,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:copyright" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -997,6 +1092,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:corpauthor" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1004,6 +1100,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:corpcredit" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1011,6 +1108,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:corpname" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1018,6 +1116,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:date" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1025,6 +1124,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:edition" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1032,6 +1132,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:editor" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1039,6 +1140,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:firstname" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1046,6 +1148,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:honorific" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1053,6 +1156,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:indexterm" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1060,6 +1164,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:invpartnumber" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1067,6 +1172,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:isbn" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1074,6 +1180,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:issn" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1081,6 +1188,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:issuenum" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1088,6 +1196,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:lineage" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1095,6 +1204,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:orgname" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1102,6 +1212,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:othercredit" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1109,6 +1220,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:othername" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1116,6 +1228,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:pagenums" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1123,6 +1236,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:printhistory" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1130,6 +1244,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:productname" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1137,6 +1252,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:productnumber" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1144,6 +1260,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:pubdate" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1151,6 +1268,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:publisher" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1158,6 +1276,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:publishername" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1165,6 +1284,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:pubsnumber" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1172,6 +1292,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:releaseinfo" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1183,6 +1304,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:seriesvolnums" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1190,6 +1312,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:subtitle" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1197,6 +1320,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:surname" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1204,6 +1328,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:title" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1211,6 +1336,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:titleabbrev" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1218,6 +1344,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:volumenum" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1225,6 +1352,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:bibliocoverage|d:biblioid|d:bibliorelation|d:bibliosource" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
 </xsl:template>
@@ -1233,6 +1361,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template match="d:biblioid[@class='doi']" mode="bibliomixed.mode">
   <span>
     <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="id.attribute"/>
     <a href="{concat('http://dx.doi.org/', .)}">doi:<xsl:value-of select="."/></a>
   </span>
 </xsl:template>

@@ -6,7 +6,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: block.xsl 8597 2010-03-20 04:56:04Z bobstayton $
+     $Id: block.xsl 9389 2012-06-02 19:02:39Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -16,7 +16,6 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
      ******************************************************************** -->
 
 <!-- ==================================================================== -->
-<!-- What should we do about styling blockinfo? -->
 
 <xsl:template match="d:blockinfo|d:info">
   <!-- suppress -->
@@ -44,7 +43,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   <xsl:variable name="keep.together">
     <xsl:call-template name="pi.dbfo_keep-together"/>
   </xsl:variable>
-  <fo:block xsl:use-attribute-sets="normal.para.spacing">
+  <fo:block xsl:use-attribute-sets="para.properties">
     <xsl:if test="$keep.together != ''">
       <xsl:attribute name="keep-together.within-column"><xsl:value-of
                       select="$keep.together"/></xsl:attribute>
@@ -363,6 +362,25 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   <fo:block xsl:use-attribute-sets="sidebar.title.properties">
     <xsl:apply-templates/>
   </fo:block>
+</xsl:template>
+
+<!-- Turn off para space-before if sidebar starts with a para, not title -->
+<xsl:template match="d:sidebar/*[1][self::d:para]">
+  <xsl:variable name="keep.together">
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+  </xsl:variable>
+  <fo:block xsl:use-attribute-sets="para.properties">
+    <xsl:attribute name="space-before.maximum">0pt</xsl:attribute>
+    <xsl:attribute name="space-before.minimum">0pt</xsl:attribute>
+    <xsl:attribute name="space-before.optimum">0pt</xsl:attribute>
+    <xsl:if test="$keep.together != ''">
+      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+                      select="$keep.together"/></xsl:attribute>
+    </xsl:if>
+    <xsl:call-template name="anchor"/>
+    <xsl:apply-templates/>
+  </fo:block>
+
 </xsl:template>
 
 <xsl:template name="margin.note">

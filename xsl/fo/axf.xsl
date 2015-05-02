@@ -7,7 +7,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: axf.xsl 6483 2007-01-08 18:00:22Z bobstayton $
+     $Id: axf.xsl 8983 2011-03-27 07:41:25Z mzjn $
      ******************************************************************** -->
 
 <xsl:template name="axf-document-information">
@@ -26,6 +26,9 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
           </xsl:when>
           <xsl:when test="$authors[self::d:corpauthor]">
             <xsl:value-of select="$authors"/>
+          </xsl:when>
+           <xsl:when test="$authors[d:orgname]">
+            <xsl:value-of select="$authors/d:orgname"/>
           </xsl:when>
           <xsl:otherwise>
             <xsl:call-template name="person.name">

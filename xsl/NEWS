@@ -1,6 +1,6 @@
-Changes since the 1.76.0 release
+Changes since the 1.78.0 release
 
-Note: This document lists changes only since the 1.76.0 release. If you instead
+Note: This document lists changes only since the 1.78.0 release. If you instead
 want a record of the complete list of changes for the codebase over its entire
 history, you can obtain one by running the following commands:
 
@@ -11,129 +11,166 @@ history, you can obtain one by running the following commands:
 
 Table of Contents
 
-Release Notes: 1.76.1
+Release Notes: 1.78.1
 
     Common
     FO
     HTML
-    Epub
+    Manpages
     Webhelp
     Params
-    Extensions
+    Highlighting
 
-Release Notes: 1.76.1
+Release Notes: 1.78.1
 
-The following is a list of changes that have been made since the 1.76.0
+The following is a list of changes that have been made since the 1.78.0
 release.
 
 Common
 
-The following changes have been made to the common code since the 1.76.0
+The following changes have been made to the common code since the 1.78.0
 release.
 
-  ● Mauritz Jeanson: Makefile
+  • Robert Stayton: titles.xsl
 
-    Added eu.xml and gl.xml to SOURCES.
+    Make sure part and set titleabbrev are used in mode="titleabbrev.markup"
 
-  ● Jirka Kosek: l10n.xsl
+  • Robert Stayton: titles.xsl
 
-    Fixed bug when context was lost due to usage of xsl:key
+    Add empty default template for titleabbrev since it is always processed in a mode.
+
+  • Robert Stayton: gentext.xsl
+
+    Make consistent handling of titleabbrev in xrefs.
+
+  • Robert Stayton: titles.xsl
+
+    for missing title in xref, provide parent information of target to help locate problem element.
+    Process bridgehead in mode="title.markup", not normal mode.
+
+  • Jirka Kosek: l10n.xsl
+
+    Fixed bug #3598963
+
+  • Robert Stayton: gentext.xsl; labels.xsl
+
+    Make sure bridgeheads are not numbered in all contexts, including html title attributes.
 
 FO
 
-The following changes have been made to the fo code since the 1.76.0 release.
+The following changes have been made to the fo code since the 1.78.0 release.
 
-  ● Robert Stayton: docbook.xsl; xref.xsl; fop1.xsl
+  • Robert Stayton: division.xsl
 
-    Apply patch to support named destination in fop1.xsl, per Sourceforge
-    bug report #3029845.
+    Fix bug where part TOC not generated when partintro is present.
 
-  ● dleidert: pagesetup.xsl
+  • Jirka Kosek: xref.xsl
 
-    Remove the namespace mistakingly added with the last upload.
+    Footnotes can't be placed into fo:float
+
+  • Robert Stayton: titlepage.templates.xml
+
+    Remove margin-left when start-indent is used because they interfere
+    with each other.
+
+  • Robert Stayton: fo.xsl; pagesetup.xsl
+
+    Use dingbat.fontset rather than dingbat.font.family so it falls
+    back to symbol font if glyph not found, like other font properties.
+
+  • Robert Stayton: inline.xsl
+
+    Change last instance of inline.charseq in inline glossterm to
+    inline.italicseq so it is consistent with the others.
+
+  • Robert Stayton: xref.xsl
+
+    Make consistent handling of titleabbrev in xrefs.
 
 HTML
 
-The following changes have been made to the html code since the 1.76.0 release.
+The following changes have been made to the html code since the 1.78.0 release.
 
-  ● Keith Fahlgren: highlight.xsl
+  • Robert Stayton: admon.xsl
 
-    Implementing handling for <b> and <i>: transform to <strong> and <em> for XHTML outputs and do not use in the highliting output (per Mauritz Jeanson)
+    Turn off $admon.style if $make.clean.html is set to non-zero.
 
-Epub
+  • Jirka Kosek: highlight.xsl
 
-The following changes have been made to the epub code since the 1.76.0 release.
+    Added new definitions for syntax highlighting
 
-  ● Keith Fahlgren: docbook.xsl
+  • Robert Stayton: chunk-common.xsl
 
-    Bugfix for [#3071521] to ensure that NCX navPoints are generated for d:book root nodes with the -NS version of the stylesheets
+    Make active.olink.hrefs param work for chunked output too.
 
-  ● Keith Fahlgren: docbook.xsl
+  • Robert Stayton: xref.xsl
 
-    Remove unused NCX metadata elements
+    Make consistent handling of titleabbrev in xrefs.
 
-  ● Keith Fahlgren: bin/spec/epub_regressions_spec.rb; docbook.xsl; bin/spec/
-    files/test_cust.x⋯
+  • Robert Stayton: graphics.xsl
 
-    Normalizing identifier lookup between NCX and OPF
+    Add round() function when pixel counts are used for image width and height.
 
-  ● Keith Fahlgren: bin/dbtoepub
+  • Robert Stayton: glossary.xsl
 
-    Reduce logging verbosity
+    fix missing class and id attributes on glossterm and glossdef.
 
-  ● Keith Fahlgren: bin/dbtoepub; bin/lib/docbook.rb
+  • Robert Stayton: autoidx.xsl
 
-    Only copy images once for the DocBook to EPUB tool to correct Windows bug reported in [#3065489]
+    Fix bug where prefer.index.titleabbrev ignored info/titleabbrev.
+
+Manpages
+
+The following changes have been made to the manpages code since the 1.78.0
+release.
+
+  • Robert Stayton: utility.xsl
+
+    Fix bug 3599520: spurious newline in para when starts with
+    whitespace and inline element.
 
 Webhelp
 
-The following changes have been made to the webhelp code since the 1.76.0
+The following changes have been made to the webhelp code since the 1.78.0
 release.
 
-  ● David Cramer: indexer
+  • David Cramer: xsl/webhelp-common.xsl
 
-    More webhelp indexer refactoring
+    Webhelp: Fix test for webhelp.include.search.tab param
 
-  ● David Cramer: build.xml
+  • David Cramer: Makefile.sample
 
-    Removed cruft from before webhelp indexer refactoring
+    Webhelp: Fix order of args to xsltproc
 
-  ● David Cramer: indexer/src
+  • David Cramer: docsrc/readme.xml
 
-    Refactoring webhelp to separate more cleanly the xsl and java code.
+    Webhelp: Turn on xinclude-test.xml in readme to demo xinclude functionality
 
-  ● David Cramer: indexer/lib
+  • David Cramer: Makefile; Makefile.sample
 
-    Refactoring webhelp to separate more cleanly the xsl and java code.
-
-  ● David Cramer: Makefile; build.xml
-
-    Refactoring webhelp to separate more cleanly the xsl and java code.
-
-  ● David Cramer: indexer/src/com/nexwave/nquindexer/IndexerTask.java;
-    build.xml; indexer/src/⋯
-
-    Merged in changes from webhelp branch to address issue #3058244 regarding the xx.html temp file that was being created
+    Webhelp: In Makefiles, do xinclude in first pass at document
 
 Params
 
-The following changes have been made to the params code since the 1.76.0
+The following changes have been made to the params code since the 1.78.0
 release.
 
-  ● Robert Stayton: draft.mode.xml
+  • David Cramer: webhelp.include.search.tab.xml
 
-    Change default for draft.mode to 'no'.
+    Webhelp: Fix test for webhelp.include.search.tab param
 
-Extensions
+  • Robert Stayton: article.appendix.title.properties.xml
 
-The following changes have been made to the extensions code since the 1.76.0
+    Remove unneeded margin-left property from article appendix title.
+    It interferes with the start-indent property.
+
+Highlighting
+
+The following changes have been made to the highlighting code since the 1.78.0
 release.
 
-  ● David Cramer: Makefile
+  • Jirka Kosek: c-hl.xml; cpp-hl.xml; sql2003-hl.xml; php-hl.xml; upc-hl.xml;
+    bourne-hl.xml; ⋯
 
-    More webhelp refactoring
-
-  ● David Cramer: Makefile
-
-    Refactoring webhelp to separate more cleanly the xsl and java code.
+    Added new definitions for syntax highlighting
 

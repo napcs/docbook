@@ -5,7 +5,7 @@ xmlns:doc='http://docbook.org/ns/docbook'
   exclude-result-prefixes='doc'>
 
   <!-- ********************************************************************
-       $Id: dbk2wp.xsl 8047 2008-06-10 12:46:53Z balls $
+       $Id: dbk2wp.xsl 9396 2012-06-02 21:56:19Z bobstayton $
        ********************************************************************
 
        This file is part of the XSL DocBook Stylesheet distribution.
@@ -21,7 +21,7 @@ xmlns:doc='http://docbook.org/ns/docbook'
 
     -->
 
-  <xsl:include href='../VERSION'/>
+  <xsl:include href='../VERSION.xsl'/>
 
   <!-- doc:docprop.author mode is for creating document metadata -->
 

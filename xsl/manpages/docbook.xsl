@@ -63,7 +63,7 @@ xmlns:exsl="http://exslt.org/common"
       <xsl:when test="namespace-uri(*[1]) != 'http://docbook.org/ns/docbook'">
  <xsl:call-template name="log.message">
  <xsl:with-param name="level">Note</xsl:with-param>
- <xsl:with-param name="source" select="$doc.title"/>
+ <xsl:with-param name="source"><xsl:call-template name="get.doc.title"/></xsl:with-param>
  <xsl:with-param name="context-desc">
  <xsl:text>namesp. add</xsl:text>
  </xsl:with-param>

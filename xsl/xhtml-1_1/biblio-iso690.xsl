@@ -521,9 +521,9 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     <xsl:call-template name="gentext.template"><xsl:with-param name="context" select="'iso690'"/><xsl:with-param name="name" select="'submaintitle.sep'"/></xsl:call-template>
   </xsl:param>
   <xsl:apply-templates mode="iso690.mode"/>
-  <xsl:if test="../d:subtitle">
+  <xsl:if test="../d:subtitle|../d:info/d:subtitle">
     <xsl:value-of select="$submaintitle.sep"/>
-    <xsl:apply-templates mode="iso690.mode" select="../d:subtitle"/>
+    <xsl:apply-templates mode="iso690.mode" select="../d:subtitle|../d:info/d:subtitle"/>
   </xsl:if>
 </xsl:template>
 

@@ -6,7 +6,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: fo.xsl 8287 2009-03-06 23:53:33Z bobstayton $
+     $Id: fo.xsl 9720 2013-01-31 18:24:47Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -95,11 +95,11 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format"
   </xsl:variable>
 
   <xsl:choose>
-    <xsl:when test="$dingbat.font.family = ''">
+    <xsl:when test="$dingbat.fontset = ''">
       <xsl:copy-of select="$symbol"/>
     </xsl:when>
     <xsl:otherwise>
-      <fo:inline font-family="{$dingbat.font.family}">
+      <fo:inline font-family="{$dingbat.fontset}">
         <xsl:copy-of select="$symbol"/>
       </fo:inline>
     </xsl:otherwise>

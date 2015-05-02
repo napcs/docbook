@@ -1,12 +1,9 @@
-<?xml version="1.0" encoding="ASCII"?>
-<!--This file was created automatically by html2xhtml-->
-<!--from the HTML stylesheets.-->
-<xsl:stylesheet exclude-result-prefixes="d"
+<?xml version="1.0" encoding="ASCII"?><!--This file was created automatically by html2xhtml--><!--from the HTML stylesheets.--><xsl:stylesheet exclude-result-prefixes="d"
                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:d="http://docbook.org/ns/docbook"
 xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
 <!-- ********************************************************************
-     $Id: autotoc.xsl 8558 2009-12-11 00:33:17Z bobstayton $
+     $Id: autotoc.xsl 9692 2012-12-16 02:31:34Z dcramer $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -49,7 +46,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
         </xsl:when>
         <xsl:otherwise>
           <p>
-            <strong xmlns:xslo="http://www.w3.org/1999/XSL/Transform">
+            <strong>
               <xsl:call-template name="gentext">
                 <xsl:with-param name="key">TableofContents</xsl:with-param>
               </xsl:call-template>
@@ -71,6 +68,11 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
         <div class="toc">
           <xsl:copy-of select="$toc.title"/>
           <xsl:element name="{$toc.list.type}" namespace="http://www.w3.org/1999/xhtml">
+            <xsl:call-template name="toc.list.attributes">
+              <xsl:with-param name="toc-context" select="$toc-context"/>
+              <xsl:with-param name="toc.title.p" select="$toc.title.p"/>
+              <xsl:with-param name="nodes" select="$nodes"/>
+            </xsl:call-template>
             <xsl:call-template name="manual-toc">
               <xsl:with-param name="tocentry" select="$tocentry/*[1]"/>
             </xsl:call-template>
@@ -85,6 +87,11 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
             <div class="toc">
               <xsl:copy-of select="$toc.title"/>
               <xsl:element name="{$toc.list.type}" namespace="http://www.w3.org/1999/xhtml">
+                <xsl:call-template name="toc.list.attributes">
+                  <xsl:with-param name="toc-context" select="$toc-context"/>
+                  <xsl:with-param name="toc.title.p" select="$toc.title.p"/>
+                  <xsl:with-param name="nodes" select="$nodes"/>
+                </xsl:call-template>
                 <xsl:apply-templates select="$nodes.plus" mode="toc">
                   <xsl:with-param name="toc-context" select="$toc-context"/>
                 </xsl:apply-templates>
@@ -97,6 +104,11 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
             <div class="toc">
               <xsl:copy-of select="$toc.title"/>
               <xsl:element name="{$toc.list.type}" namespace="http://www.w3.org/1999/xhtml">
+                <xsl:call-template name="toc.list.attributes">
+                  <xsl:with-param name="toc-context" select="$toc-context"/>
+                  <xsl:with-param name="toc.title.p" select="$toc.title.p"/>
+                  <xsl:with-param name="nodes" select="$nodes"/>
+                </xsl:call-template>
                 <xsl:apply-templates select="$nodes" mode="toc">
                   <xsl:with-param name="toc-context" select="$toc-context"/>
                 </xsl:apply-templates>
@@ -108,6 +120,14 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
     </xsl:otherwise>
   </xsl:choose>
+</xsl:template>
+
+<xsl:template name="toc.list.attributes">
+  <xsl:param name="toc-context" select="."/>
+  <xsl:param name="toc.title.p" select="true()"/>
+  <xsl:param name="nodes" select="/NOT-AN-ELEMENT"/>
+
+  <xsl:attribute name="class">toc</xsl:attribute>
 </xsl:template>
 
 <xsl:template name="make.lots">
@@ -128,7 +148,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <xsl:if test="contains($toc.params, 'table')">
     <xsl:call-template name="list.of.titles">
       <xsl:with-param name="titles" select="'table'"/>
-      <xsl:with-param name="nodes" select=".//d:table"/>
+      <xsl:with-param name="nodes" select=".//d:table[not(@tocentry = 0)]"/>
     </xsl:call-template>
   </xsl:if>
 
@@ -163,7 +183,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <xsl:call-template name="make.toc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="toc.title.p" select="$toc.title.p"/>
-    <xsl:with-param name="nodes" select="d:book|d:setindex"/>
+    <xsl:with-param name="nodes" select="d:book|d:setindex|d:set"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -174,7 +194,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <xsl:call-template name="make.toc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="toc.title.p" select="$toc.title.p"/>
-    <xsl:with-param name="nodes" select="d:part|d:reference                                          |d:preface|d:chapter|d:appendix                                          |d:article                                          |d:bibliography|d:glossary|d:index                                          |d:refentry                                          |d:bridgehead[$bridgehead.in.toc != 0]"/>
+    <xsl:with-param name="nodes" select="d:part|d:reference                                          |d:preface|d:chapter|d:appendix                                          |d:article                                          |d:topic                                          |d:bibliography|d:glossary|d:index                                          |d:refentry                                          |d:bridgehead[$bridgehead.in.toc != 0]"/>
 
   </xsl:call-template>
 </xsl:template>
@@ -186,7 +206,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <xsl:call-template name="make.toc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="toc.title.p" select="$toc.title.p"/>
-    <xsl:with-param name="nodes" select="d:section|d:sect1                                          |d:simplesect[$simplesect.in.toc != 0]                                          |d:refentry                                          |d:article|d:bibliography|d:glossary                                          |d:appendix|d:index                                          |d:bridgehead[not(@renderas)                                                      and $bridgehead.in.toc != 0]                                          |.//d:bridgehead[@renderas='sect1'                                                         and $bridgehead.in.toc != 0]"/>
+    <xsl:with-param name="nodes" select="d:section|d:sect1                                          |d:simplesect[$simplesect.in.toc != 0]                                          |d:topic                                          |d:refentry                                          |d:article|d:bibliography|d:glossary                                          |d:appendix|d:index                                          |d:bridgehead[not(@renderas)                                                      and $bridgehead.in.toc != 0]                                          |.//d:bridgehead[@renderas='sect1'                                                         and $bridgehead.in.toc != 0]"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -249,6 +269,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
       <xsl:when test="local-name(.) = 'refsect1'">1</xsl:when>
       <xsl:when test="local-name(.) = 'refsect2'">2</xsl:when>
       <xsl:when test="local-name(.) = 'refsect3'">3</xsl:when>
+      <xsl:when test="local-name(.) = 'topic'">1</xsl:when>
       <xsl:when test="local-name(.) = 'simplesect'">
         <!-- sigh... -->
         <xsl:choose>
@@ -260,6 +281,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
           <xsl:when test="local-name(..) = 'sect3'">4</xsl:when>
           <xsl:when test="local-name(..) = 'sect4'">5</xsl:when>
           <xsl:when test="local-name(..) = 'sect5'">6</xsl:when>
+          <xsl:when test="local-name(..) = 'topic'">2</xsl:when>
           <xsl:when test="local-name(..) = 'refsect1'">2</xsl:when>
           <xsl:when test="local-name(..) = 'refsect2'">3</xsl:when>
           <xsl:when test="local-name(..) = 'refsect3'">4</xsl:when>
@@ -289,11 +311,11 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
     <xsl:call-template name="toc.line">
       <xsl:with-param name="toc-context" select="$toc-context"/>
     </xsl:call-template>
-    <xsl:if test="$toc.listitem.type = 'li'                   and $toc.section.depth &gt; $depth and                    ( ($qanda.in.toc = 0 and count($nodes)&gt;0) or                     ($qanda.in.toc != 0 and count($nodes.plus)&gt;0) )                   and $toc.max.depth &gt; $depth.from.context">
+    <xsl:if test="$toc.listitem.type = 'li' and                   ( (self::d:set or self::d:book or self::d:part) or                          $toc.section.depth &gt; $depth) and                    ( ($qanda.in.toc = 0 and count($nodes)&gt;0) or                     ($qanda.in.toc != 0 and count($nodes.plus)&gt;0) )                   and $toc.max.depth &gt; $depth.from.context">
       <xsl:copy-of select="$subtoc.list"/>
     </xsl:if>
   </xsl:element>
-  <xsl:if test="$toc.listitem.type != 'li'                 and $toc.section.depth &gt; $depth and                  ( ($qanda.in.toc = 0 and count($nodes)&gt;0) or                   ($qanda.in.toc != 0 and count($nodes.plus)&gt;0) )                 and $toc.max.depth &gt; $depth.from.context">
+  <xsl:if test="$toc.listitem.type != 'li' and                   ( (self::d:set or self::d:book or self::d:part) or                          $toc.section.depth &gt; $depth) and                  ( ($qanda.in.toc = 0 and count($nodes)&gt;0) or                   ($qanda.in.toc != 0 and count($nodes.plus)&gt;0) )                 and $toc.max.depth &gt; $depth.from.context">
     <xsl:copy-of select="$subtoc.list"/>
   </xsl:if>
 </xsl:template>
@@ -348,7 +370,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
   <xsl:call-template name="subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
-    <xsl:with-param name="nodes" select="d:part|d:reference                                          |d:preface|d:chapter|d:appendix                                          |d:article                                          |d:bibliography|d:glossary|d:index                                          |d:refentry                                          |d:bridgehead[$bridgehead.in.toc != 0]"/>
+    <xsl:with-param name="nodes" select="d:part|d:reference                                          |d:preface|d:chapter|d:appendix                                          |d:article                                          |d:topic                                          |d:bibliography|d:glossary|d:index                                          |d:refentry                                          |d:bridgehead[$bridgehead.in.toc != 0]"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -368,16 +390,16 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
   <xsl:call-template name="subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
-    <xsl:with-param name="nodes" select="d:appendix|d:chapter|d:article                                          |d:index|d:glossary|d:bibliography                                          |d:preface|d:reference|d:refentry                                          |d:bridgehead[$bridgehead.in.toc != 0]"/>
+    <xsl:with-param name="nodes" select="d:appendix|d:chapter|d:article|d:topic                                          |d:index|d:glossary|d:bibliography                                          |d:preface|d:reference|d:refentry                                          |d:bridgehead[$bridgehead.in.toc != 0]"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="d:preface|d:chapter|d:appendix|d:article" mode="toc">
+<xsl:template match="d:preface|d:chapter|d:appendix|d:article|d:topic" mode="toc">
   <xsl:param name="toc-context" select="."/>
 
   <xsl:call-template name="subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
-    <xsl:with-param name="nodes" select="d:section|d:sect1                                          |d:simplesect[$simplesect.in.toc != 0]                                          |d:refentry                                          |d:glossary|d:bibliography|d:index                                          |d:bridgehead[$bridgehead.in.toc != 0]"/>
+    <xsl:with-param name="nodes" select="d:section|d:sect1                                          |d:simplesect[$simplesect.in.toc != 0]                                          |d:topic                                          |d:refentry                                          |d:glossary|d:bibliography|d:index                                          |d:bridgehead[$bridgehead.in.toc != 0]"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -433,6 +455,15 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 </xsl:template>
 
 <xsl:template match="d:section" mode="toc">
+  <xsl:param name="toc-context" select="."/>
+
+  <xsl:call-template name="subtoc">
+    <xsl:with-param name="toc-context" select="$toc-context"/>
+    <xsl:with-param name="nodes" select="d:section|d:refentry                                          |d:simplesect[$simplesect.in.toc != 0]                                          |d:bridgehead[$bridgehead.in.toc != 0]"/>
+  </xsl:call-template>
+</xsl:template>
+
+<xsl:template match="d:topic" mode="toc">
   <xsl:param name="toc-context" select="."/>
 
   <xsl:call-template name="subtoc">
@@ -508,7 +539,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
         <!-- * DocBook 5 says inlinemediaobject (among other things) -->
         <!-- * is allowed in refpurpose; so we need to run -->
         <!-- * apply-templates on refpurpose here, instead of value-of  -->
-        <xsl:apply-templates select="d:refnamediv/d:refpurpose"/>
+        <xsl:apply-templates select="d:refnamediv/d:refpurpose" mode="no.anchor.mode"/>
       </xsl:if>
     </span>
   </xsl:element>
@@ -531,6 +562,8 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 <xsl:template name="manual-toc">
   <xsl:param name="toc-context" select="."/>
   <xsl:param name="tocentry"/>
+  <xsl:param name="toc.title.p" select="true()"/>
+  <xsl:param name="nodes" select="/NOT-AN-ELEMENT"/>
 
   <!-- be careful, we don't want to change the current document to the other tree! -->
 
@@ -558,6 +591,11 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
 
     <xsl:if test="$tocentry/*">
       <xsl:element name="{$toc.list.type}" namespace="http://www.w3.org/1999/xhtml">
+        <xsl:call-template name="toc.list.attributes">
+          <xsl:with-param name="toc-context" select="$toc-context"/>
+          <xsl:with-param name="toc.title.p" select="$toc.title.p"/>
+          <xsl:with-param name="nodes" select="$nodes"/>
+        </xsl:call-template>
         <xsl:call-template name="manual-toc">
           <xsl:with-param name="tocentry" select="$tocentry/*[1]"/>
         </xsl:call-template>
@@ -600,7 +638,7 @@ xmlns="http://www.w3.org/1999/xhtml" version="1.0">
         </xsl:when>
         <xsl:otherwise>
           <p>
-            <strong xmlns:xslo="http://www.w3.org/1999/XSL/Transform">
+            <strong>
               <xsl:call-template name="gentext">
                 <xsl:with-param name="key">
                   <xsl:choose>

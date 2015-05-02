@@ -9,7 +9,7 @@ xmlns:exsl="http://exslt.org/common"
                 version="1.0">
 
 <!-- ********************************************************************
-     $Id: chunk-code.xsl 8596 2010-03-20 04:36:45Z bobstayton $
+     $Id: chunk-code.xsl 9328 2012-05-03 16:28:23Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -54,6 +54,8 @@ xmlns:exsl="http://exslt.org/common"
   <xsl:if test="$fn != ''">
     <xsl:call-template name="dbhtml-dir"/>
   </xsl:if>
+
+  <xsl:value-of select="$chunked.filename.prefix"/>
 
   <xsl:value-of select="$fn"/>
   <!-- You can't add the html.ext here because dbhtml filename= may already -->
@@ -370,6 +372,25 @@ xmlns:exsl="http://exslt.org/common"
       </xsl:if>
     </xsl:when>
 
+    <xsl:when test="self::d:topic">
+      <xsl:choose>
+        <xsl:when test="/d:set">
+          <!-- in a set, make sure we inherit the right book info... -->
+          <xsl:apply-templates mode="recursive-chunk-filename" select="parent::*">
+            <xsl:with-param name="recursive" select="true()"/>
+          </xsl:apply-templates>
+        </xsl:when>
+        <xsl:otherwise>
+        </xsl:otherwise>
+      </xsl:choose>
+
+      <xsl:text>to</xsl:text>
+      <xsl:number level="any" format="01" from="d:book"/>
+      <xsl:if test="not($recursive)">
+        <xsl:value-of select="$html.ext"/>
+      </xsl:if>
+    </xsl:when>
+
     <xsl:otherwise>
       <xsl:text>chunk-filename-error-</xsl:text>
       <xsl:value-of select="name(.)"/>
@@ -410,6 +431,9 @@ xmlns:exsl="http://exslt.org/common"
   </xsl:choose>
 </xsl:template>
 
+<!-- Leave legalnotice chunk out of the list for Next and Prev -->
+<xsl:template match="d:legalnotice" mode="find.chunks"/>
+
 <xsl:template match="/">
   <!-- * Get a title for current doc so that we let the user -->
   <!-- * know what document we are processing at this point. -->
@@ -421,7 +445,7 @@ xmlns:exsl="http://exslt.org/common"
     <xsl:when test="namespace-uri(*[1]) != 'http://docbook.org/ns/docbook'">
  <xsl:call-template name="log.message">
  <xsl:with-param name="level">Note</xsl:with-param>
- <xsl:with-param name="source" select="$doc.title"/>
+ <xsl:with-param name="source"><xsl:call-template name="get.doc.title"/></xsl:with-param>
  <xsl:with-param name="context-desc">
  <xsl:text>namesp. add</xsl:text>
  </xsl:with-param>
@@ -438,7 +462,7 @@ xmlns:exsl="http://exslt.org/common"
     <xsl:when test="namespace-uri(*[1]) != 'http://docbook.org/ns/docbook'">
  <xsl:call-template name="log.message">
  <xsl:with-param name="level">Note</xsl:with-param>
- <xsl:with-param name="source" select="$doc.title"/>
+ <xsl:with-param name="source"><xsl:call-template name="get.doc.title"/></xsl:with-param>
  <xsl:with-param name="context-desc">
  <xsl:text>namesp. add</xsl:text>
  </xsl:with-param>
@@ -508,13 +532,14 @@ xmlns:exsl="http://exslt.org/common"
 
 <xsl:template match="*" mode="process.root">
   <xsl:apply-templates select="."/>
-  <xsl:call-template name="generate.css"/>
+  <xsl:call-template name="generate.css.files"/>
 </xsl:template>
 
 <!-- ====================================================================== -->
 
 <xsl:template match="d:set|d:book|d:part|d:preface|d:chapter|d:appendix
                      |d:article
+                     |d:topic
                      |d:reference|d:refentry
                      |d:book/d:glossary|d:article/d:glossary|d:part/d:glossary
                      |d:book/d:bibliography|d:article/d:bibliography|d:part/d:bibliography
@@ -587,6 +612,7 @@ xmlns:exsl="http://exslt.org/common"
 <!-- ==================================================================== -->
 <xsl:template match="d:set|d:book|d:part|d:preface|d:chapter|d:appendix
                      |d:article
+                     |d:topic
                      |d:reference|d:refentry
                      |d:sect1|d:sect2|d:sect3|d:sect4|d:sect5
                      |d:section
@@ -599,7 +625,7 @@ xmlns:exsl="http://exslt.org/common"
     <xsl:call-template name="make-relative-filename">
       <xsl:with-param name="base.dir">
         <xsl:if test="$manifest.in.base.dir = 0">
-          <xsl:value-of select="$base.dir"/>
+          <xsl:value-of select="$chunk.base.dir"/>
         </xsl:if>
       </xsl:with-param>
       <xsl:with-param name="base.name">
@@ -619,7 +645,7 @@ xmlns:exsl="http://exslt.org/common"
       <xsl:call-template name="make-relative-filename">
         <xsl:with-param name="base.dir">
           <xsl:if test="$manifest.in.base.dir = 0">
-            <xsl:value-of select="$base.dir"/>
+            <xsl:value-of select="$chunk.base.dir"/>
           </xsl:if>
         </xsl:with-param>
         <xsl:with-param name="base.name">
@@ -638,7 +664,7 @@ xmlns:exsl="http://exslt.org/common"
     <xsl:call-template name="make-relative-filename">
       <xsl:with-param name="base.dir">
         <xsl:if test="$manifest.in.base.dir = 0">
-          <xsl:value-of select="$base.dir"/>
+          <xsl:value-of select="$chunk.base.dir"/>
         </xsl:if>
       </xsl:with-param>
       <xsl:with-param name="base.name">

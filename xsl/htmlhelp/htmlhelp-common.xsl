@@ -14,7 +14,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   exclude-result-prefixes="doc exsl set h db ng d">
 
 <!-- ********************************************************************
-     $Id: htmlhelp-common.xsl 8400 2009-04-08 07:44:54Z bobstayton $
+     $Id: htmlhelp-common.xsl 9151 2011-11-12 00:16:19Z bobstayton $
      ******************************************************************** -->
 
 <!-- ==================================================================== -->
@@ -47,7 +47,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
     <xsl:when test="namespace-uri(*[1]) != 'http://docbook.org/ns/docbook'">
  <xsl:call-template name="log.message">
  <xsl:with-param name="level">Note</xsl:with-param>
- <xsl:with-param name="source" select="$doc.title"/>
+ <xsl:with-param name="source"><xsl:call-template name="get.doc.title"/></xsl:with-param>
  <xsl:with-param name="context-desc">
  <xsl:text>namesp. add</xsl:text>
  </xsl:with-param>
@@ -113,7 +113,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
   <xsl:call-template name="write.text.chunk">
     <xsl:with-param name="filename">
       <xsl:if test="$manifest.in.base.dir != 0">
-        <xsl:value-of select="$base.dir"/>
+        <xsl:value-of select="$chunk.base.dir"/>
       </xsl:if>
       <xsl:value-of select="$htmlhelp.hhp"/>
     </xsl:with-param>
@@ -158,7 +158,7 @@ xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
       <xsl:call-template name="make-relative-filename">
         <xsl:with-param name="base.dir">
           <xsl:if test="$manifest.in.base.dir = 0">
-            <xsl:value-of select="$base.dir"/>
+            <xsl:value-of select="$chunk.base.dir"/>
           </xsl:if>
         </xsl:with-param>
         <xsl:with-param name="base.name">
@@ -521,7 +521,7 @@ Enhanced decompilation=</xsl:text>
   <xsl:call-template name="write.chunk">
     <xsl:with-param name="filename">
       <xsl:if test="$manifest.in.base.dir != 0">
-        <xsl:value-of select="$base.dir"/>
+        <xsl:value-of select="$chunk.base.dir"/>
       </xsl:if>
       <xsl:value-of select="$htmlhelp.hhc"/>
     </xsl:with-param>
@@ -837,7 +837,7 @@ Enhanced decompilation=</xsl:text>
   <xsl:call-template name="write.chunk">
     <xsl:with-param name="filename">
       <xsl:if test="$manifest.in.base.dir != 0">
-        <xsl:value-of select="$base.dir"/>
+        <xsl:value-of select="$chunk.base.dir"/>
       </xsl:if>
       <xsl:value-of select="$htmlhelp.hhk"/>
     </xsl:with-param>
@@ -964,7 +964,7 @@ Enhanced decompilation=</xsl:text>
   <xsl:call-template name="write.text.chunk">
     <xsl:with-param name="filename">
       <xsl:if test="$manifest.in.base.dir != 0">
-        <xsl:value-of select="$base.dir"/>
+        <xsl:value-of select="$chunk.base.dir"/>
       </xsl:if>
       <xsl:value-of select="$htmlhelp.map.file"/>
     </xsl:with-param>
@@ -1014,7 +1014,7 @@ Enhanced decompilation=</xsl:text>
   <xsl:call-template name="write.text.chunk">
     <xsl:with-param name="filename">
       <xsl:if test="$manifest.in.base.dir != 0">
-        <xsl:value-of select="$base.dir"/>
+        <xsl:value-of select="$chunk.base.dir"/>
       </xsl:if>
       <xsl:value-of select="$htmlhelp.alias.file"/>
     </xsl:with-param>

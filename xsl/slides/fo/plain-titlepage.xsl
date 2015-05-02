@@ -7,31 +7,31 @@
 <xsl:template name="slides.titlepage.recto">
   <xsl:choose>
     <xsl:when test="slidesinfo/title">
-      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="slidesinfo/title[1]"/>
+      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="slidesinfo/title"/>
     </xsl:when>
     <xsl:when test="docinfo/title">
-      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="docinfo/title[1]"/>
+      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="docinfo/title"/>
     </xsl:when>
     <xsl:when test="info/title">
-      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="info/title[1]"/>
+      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="info/title"/>
     </xsl:when>
     <xsl:when test="title">
-      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="title[1]"/>
+      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="title"/>
     </xsl:when>
   </xsl:choose>
 
   <xsl:choose>
     <xsl:when test="slidesinfo/subtitle">
-      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="slidesinfo/subtitle[1]"/>
+      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="slidesinfo/subtitle"/>
     </xsl:when>
     <xsl:when test="docinfo/subtitle">
-      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="docinfo/subtitle[1]"/>
+      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="docinfo/subtitle"/>
     </xsl:when>
     <xsl:when test="info/subtitle">
-      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="info/subtitle[1]"/>
+      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="info/subtitle"/>
     </xsl:when>
     <xsl:when test="subtitle">
-      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="subtitle[1]"/>
+      <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="subtitle"/>
     </xsl:when>
   </xsl:choose>
 
@@ -47,18 +47,6 @@
   <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="slidesinfo/pubdate"/>
   <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="docinfo/pubdate"/>
   <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="info/pubdate"/>
-  <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="slidesinfo/confgroup"/>
-  <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="docinfo/confgroup"/>
-  <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="info/confgroup"/>
-  <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="slidesinfo/releaseinfo"/>
-  <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="docinfo/releaseinfo"/>
-  <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="info/releaseinfo"/>
-  <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="slidesinfo/copyright"/>
-  <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="docinfo/copyright"/>
-  <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="info/copyright"/>
-  <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="slidesinfo/revision"/>
-  <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="docinfo/revision"/>
-  <xsl:apply-templates mode="slides.titlepage.recto.auto.mode" select="info/revision"/>
 </xsl:template>
 
 <xsl:template name="slides.titlepage.verso">
@@ -74,7 +62,7 @@
 </xsl:template>
 
 <xsl:template name="slides.titlepage">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <block>
     <xsl:variable name="recto.content">
       <xsl:call-template name="slides.titlepage.before.recto"/>
       <xsl:call-template name="slides.titlepage.recto"/>
@@ -88,7 +76,7 @@
       </xsl:choose>
     </xsl:variable>
     <xsl:if test="(normalize-space($recto.content) != '') or ($recto.elements.count &gt; 0)">
-      <fo:block><xsl:copy-of select="$recto.content"/></fo:block>
+      <block><xsl:copy-of select="$recto.content"/></block>
     </xsl:if>
     <xsl:variable name="verso.content">
       <xsl:call-template name="slides.titlepage.before.verso"/>
@@ -103,10 +91,10 @@
       </xsl:choose>
     </xsl:variable>
     <xsl:if test="(normalize-space($verso.content) != '') or ($verso.elements.count &gt; 0)">
-      <fo:block><xsl:copy-of select="$verso.content"/></fo:block>
+      <block><xsl:copy-of select="$verso.content"/></block>
     </xsl:if>
     <xsl:call-template name="slides.titlepage.separator"/>
-  </fo:block>
+  </block>
 </xsl:template>
 
 <xsl:template match="*" mode="slides.titlepage.recto.mode">
@@ -122,65 +110,40 @@
 </xsl:template>
 
 <xsl:template match="title" mode="slides.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="slides.titlepage.recto.style" text-align="center" space-after="1em" padding-top="1.5in" keep-with-next="always" font-size="{$foil.title.size}" font-weight="bold" font-family="{$slide.title.font.family}">
-<xsl:call-template name="component.title">
-<xsl:with-param name="node" select="ancestor-or-self::slides[1]"/>
+<block xsl:use-attribute-sets="slides.titlepage.title.properties">
+<xsl:call-template name="presentation.title">
 </xsl:call-template>
-</fo:block>
+</block>
 </xsl:template>
 
 <xsl:template match="subtitle" mode="slides.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="slides.titlepage.recto.style" text-align="center" space-after="1em" font-family="{$slide.title.font.family}">
+<block xsl:use-attribute-sets="slides.titlepage.subtitle.properties">
 <xsl:apply-templates select="." mode="slides.titlepage.recto.mode"/>
-</fo:block>
+</block>
 </xsl:template>
 
 <xsl:template match="corpauthor" mode="slides.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="slides.titlepage.recto.style" font-size="20.736pt" text-align="center" space-after="1em">
+<block xsl:use-attribute-sets="slides.titlepage.corpauthor.properties">
 <xsl:apply-templates select="." mode="slides.titlepage.recto.mode"/>
-</fo:block>
+</block>
 </xsl:template>
 
 <xsl:template match="authorgroup" mode="slides.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="slides.titlepage.recto.style">
+<block xsl:use-attribute-sets="slides.titlepage.authorgroup.properties">
 <xsl:apply-templates select="." mode="slides.titlepage.recto.mode"/>
-</fo:block>
+</block>
 </xsl:template>
 
 <xsl:template match="author" mode="slides.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="slides.titlepage.recto.style" font-size="20.736pt" text-align="center" space-after="1em">
+<block xsl:use-attribute-sets="slides.titlepage.author.properties">
 <xsl:apply-templates select="." mode="slides.titlepage.recto.mode"/>
-</fo:block>
+</block>
 </xsl:template>
 
 <xsl:template match="pubdate" mode="slides.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="slides.titlepage.recto.style" font-size="17.28pt" text-align="center" space-after="1em">
+<block xsl:use-attribute-sets="slides.titlepage.pubdate.properties">
 <xsl:apply-templates select="." mode="slides.titlepage.recto.mode"/>
-</fo:block>
-</xsl:template>
-
-<xsl:template match="confgroup" mode="slides.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="slides.titlepage.recto.style" font-size="17.28pt" text-align="center" space-after="1em">
-<xsl:apply-templates select="." mode="slides.titlepage.recto.mode"/>
-</fo:block>
-</xsl:template>
-
-<xsl:template match="releaseinfo" mode="slides.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="slides.titlepage.recto.style" font-size="17.28pt" text-align="center" space-after="1em">
-<xsl:apply-templates select="." mode="slides.titlepage.recto.mode"/>
-</fo:block>
-</xsl:template>
-
-<xsl:template match="copyright" mode="slides.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="slides.titlepage.recto.style" font-size="17.28pt" text-align="center">
-<xsl:apply-templates select="." mode="slides.titlepage.recto.mode"/>
-</fo:block>
-</xsl:template>
-
-<xsl:template match="revision" mode="slides.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="slides.titlepage.recto.style" text-align="center">
-<xsl:apply-templates select="." mode="slides.titlepage.recto.mode"/>
-</fo:block>
+</block>
 </xsl:template>
 
 </xsl:stylesheet>

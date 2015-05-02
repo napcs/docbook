@@ -5,7 +5,7 @@
 xmlns:saxon="http://icl.com/saxon" xmlns:lxslt="http://xml.apache.org/xslt" xmlns:redirect="http://xml.apache.org/xalan/redirect" xmlns:exsl="http://exslt.org/common" xmlns:doc="http://nwalsh.com/xsl/documentation/1.0" xmlns="http://www.w3.org/1999/xhtml" version="1.0" exclude-result-prefixes="saxon lxslt redirect exsl doc d" extension-element-prefixes="saxon redirect lxslt exsl">
 
 <!-- ********************************************************************
-     $Id: chunker.xsl 8526 2009-10-14 18:59:40Z bobstayton $
+     $Id: chunker.xsl 9656 2012-10-29 18:09:53Z bobstayton $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -29,7 +29,20 @@ xmlns:saxon="http://icl.com/saxon" xmlns:lxslt="http://xml.apache.org/xslt" xmln
 <xsl:param name="chunker.output.doctype-system" select="'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'"/>
 <xsl:param name="chunker.output.media-type" select="''"/>
 <xsl:param name="chunker.output.cdata-section-elements" select="''"/>
-<xsl:param name="chunker.output.quiet" select="0"/>
+
+<!-- Make sure base.dir has a trailing slash now -->
+<xsl:param name="chunk.base.dir">
+  <xsl:choose>
+    <xsl:when test="string-length($base.dir) = 0"/>
+    <!-- make sure to add trailing slash if omitted by user -->
+    <xsl:when test="substring($base.dir, string-length($base.dir), 1) = '/'">
+      <xsl:value-of select="$base.dir"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="concat($base.dir, '/')"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:param>
 
 <xsl:param name="saxon.character.representation" select="'entity;decimal'"/>
 
@@ -71,7 +84,7 @@ xmlns:saxon="http://icl.com/saxon" xmlns:lxslt="http://xml.apache.org/xslt" xmln
 
 <xsl:template name="write.chunk">
   <xsl:param name="filename" select="''"/>
-  <xsl:param name="quiet" select="$chunker.output.quiet"/>
+  <xsl:param name="quiet" select="$chunk.quietly"/>
   <xsl:param name="suppress-context-node-name" select="0"/>
   <xsl:param name="message-prolog"/>
   <xsl:param name="message-epilog"/>
@@ -239,7 +252,7 @@ xmlns:saxon="http://icl.com/saxon" xmlns:lxslt="http://xml.apache.org/xslt" xmln
 
 <xsl:template name="write.chunk.with.doctype">
   <xsl:param name="filename" select="''"/>
-  <xsl:param name="quiet" select="$chunker.output.quiet"/>
+  <xsl:param name="quiet" select="$chunk.quietly"/>
 
   <xsl:param name="method" select="$chunker.output.method"/>
   <xsl:param name="encoding" select="$chunker.output.encoding"/>
@@ -271,7 +284,7 @@ xmlns:saxon="http://icl.com/saxon" xmlns:lxslt="http://xml.apache.org/xslt" xmln
 
 <xsl:template name="write.text.chunk">
   <xsl:param name="filename" select="''"/>
-  <xsl:param name="quiet" select="$chunker.output.quiet"/>
+  <xsl:param name="quiet" select="$chunk.quietly"/>
   <xsl:param name="suppress-context-node-name" select="0"/>
   <xsl:param name="message-prolog"/>
   <xsl:param name="message-epilog"/>
@@ -289,7 +302,7 @@ xmlns:saxon="http://icl.com/saxon" xmlns:lxslt="http://xml.apache.org/xslt" xmln
     <xsl:with-param name="method" select="$method"/>
     <xsl:with-param name="encoding" select="$encoding"/>
     <xsl:with-param name="indent" select="'no'"/>
-    <xsl:with-param name="omit-xml-declaration" select="'no'"/>
+    <xsl:with-param name="omit-xml-declaration" select="'yes'"/>
     <xsl:with-param name="standalone" select="'no'"/>
     <xsl:with-param name="doctype-public"/>
     <xsl:with-param name="doctype-system"/>
